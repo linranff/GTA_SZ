@@ -1,10 +1,12 @@
 import {
- BackgroundMaterial, Color3, HDRCubeTexture, ImageProcessingConfiguration,
+ BackgroundMaterial, Color3, HDRCubeTexture, ImageProcessingConfiguration, Texture,
  Vector3, type BaseTexture, type Scene, type DirectionalLight, type HemisphericLight,
  type DefaultRenderingPipeline, type PointLight, type Material,
 } from '@babylonjs/core';
 import {ShenzhenSunsetEnvironment} from './city-sunset-environment.ts';
 import {createCityNightSky,CITY_MOON_DIRECTION} from './city-night-sky.ts';
+import {CITY_DAYLIGHT_SOURCE,CITY_DAYLIGHT_SUN_DIRECTION,type CinematicLightingMode} from './city-daylight.ts';
+export type {CinematicLightingMode} from './city-daylight.ts';
 
 type CinematicScene={
  scene:Scene;sun:DirectionalLight;hemi:HemisphericLight;
@@ -31,9 +33,39 @@ export async function createCinematicLook(world:CinematicScene){
  let failure:string|null=null;
  let skyMaterial:BackgroundMaterial|null=null;
  let skyTexture:BaseTexture|null=null;
- let night=false,disposed=false;
+ let night=false,mode:CinematicLightingMode='sunset',disposed=false;
  const sceneDisposal=scene.onDisposeObservable.addOnce(()=>{disposed=true;});
  const nightSky=createCityNightSky(scene);
+ let daylightEnvironment:HDRCubeTexture|null=null,daylightSkyTexture:HDRCubeTexture|null=null,daylightMaterial:BackgroundMaterial|null=null;
+ let daylightStatus:'loading'|'ready'|'failed'='loading',daylightFailure:string|null=null;
+ let daylightTimeout:number|undefined;
+ // Real clouds remain linear HDR. The unblurred level supplies the sky while
+ // roughness-prefiltered levels supply glazing, wet roads and car paint.
+ // Both use the same cube and rotation: no painted blue ambient substitute.
+ const daylightLoaded=new Promise<void>(resolve=>{
+  daylightTimeout=window.setTimeout(()=>{daylightStatus='failed';daylightFailure='Daylight HDR load timed out';resolve();},45000);
+  daylightEnvironment=new HDRCubeTexture(CITY_DAYLIGHT_SOURCE.file,scene,CITY_DAYLIGHT_SOURCE.cubeSize,false,true,false,true,()=>{
+   window.clearTimeout(daylightTimeout);
+   if(!disposed&&!scene.isDisposed){
+    // A lightweight clone shares the loaded GPU cube, while keeping skybox
+    // lookup coordinates separate from the PBR surface reflection lookup.
+    daylightSkyTexture=daylightEnvironment!.clone();
+    daylightSkyTexture.name='daylight-visible-sky-shared-radiance';
+    daylightSkyTexture.coordinatesMode=Texture.SKYBOX_MODE;
+    daylightSkyTexture.rotationY=CITY_DAYLIGHT_SOURCE.rotationY;
+    daylightMaterial!.reflectionTexture=daylightSkyTexture;
+    daylightStatus='ready';
+    if(mode==='day')setMode('day');
+   }
+   resolve();
+  },message=>{window.clearTimeout(daylightTimeout);daylightStatus='failed';daylightFailure=message??'Daylight HDR could not load';resolve();});
+ });
+ (daylightEnvironment as HDRCubeTexture|null)!.rotationY=CITY_DAYLIGHT_SOURCE.rotationY;
+ daylightMaterial=new BackgroundMaterial('cinematic-blue-sky-white-clouds',scene);
+ daylightMaterial.backFaceCulling=false;daylightMaterial.disableDepthWrite=true;
+ daylightMaterial.useRGBColor=false;daylightMaterial.enableNoise=true;
+ daylightMaterial.reflectionBlur=0;daylightMaterial.maxSimultaneousLights=0;
+ daylightMaterial.primaryColor.copyFromFloats(.92,.92,.92);
  let nightEnvironment:HDRCubeTexture|null=null,nightEnvironmentReady=false;
  // A real CC0 urban HDR retains small city-light reflections. The visible
  // night sky remains our stars/moon. Decode and prefilter only once at load.
@@ -79,7 +111,11 @@ export async function createCinematicLook(world:CinematicScene){
  let nightTimeout:number|undefined;
  await Promise.race([nightLoaded,new Promise<void>(resolve=>{nightTimeout=window.setTimeout(resolve,15000);})]);
  window.clearTimeout(nightTimeout);
- if(disposed||scene.isDisposed){environment.dispose();skyMaterial?.dispose(false,false);skyTexture?.dispose();nightSky.dispose();(nightEnvironment as HDRCubeTexture|null)?.dispose();throw Error('Scene disposed');}
+ // This controller is not ready until the third environment has completed
+ // decode and PBR prefiltering (or a reported bounded failure).
+ await daylightLoaded;
+ window.clearTimeout(daylightTimeout);
+ if(disposed||scene.isDisposed){environment.dispose();skyMaterial?.dispose(false,false);skyTexture?.dispose();nightSky.dispose();(nightEnvironment as HDRCubeTexture|null)?.dispose();daylightMaterial?.dispose(false,false);(daylightSkyTexture as HDRCubeTexture|null)?.dispose();(daylightEnvironment as HDRCubeTexture|null)?.dispose();throw Error('Scene disposed');}
  if(nightEnvironment) (nightEnvironment as HDRCubeTexture).rotationY=.65;
 
  const ip=scene.imageProcessingConfiguration;
@@ -94,39 +130,41 @@ export async function createCinematicLook(world:CinematicScene){
  pipeline.bloomKernel=36;
  pipeline.bloomScale=.5;
 
- function setNight(active:boolean){
+ function setMode(next:CinematicLightingMode){
   if(disposed||scene.isDisposed)return;
-  night=active;
-  pipeline.bloomThreshold=active?1.15:1.45;
-  pipeline.bloomWeight=active?.12:.14;
-  ip.exposure=active?.83:.87;
-  sun.direction.copyFrom(active?CITY_MOON_DIRECTION.scale(-1):new Vector3(.95,-.19,.31).normalize());
-  sun.diffuse.copyFrom(active?new Color3(.70,.79,1):new Color3(1,.64,.39));
-  sun.intensity=active?.24:1.12;
-  hemi.diffuse.copyFrom(active?new Color3(.65,.70,.86):new Color3(.86,.79,.86));
-  hemi.groundColor.copyFrom(new Color3(.24,.215,.19));
-  hemi.intensity=active?.32:.54;
-  scene.environmentTexture=active?(nightEnvironmentReady?nightEnvironment:nightSky.environment):status==='ready'?environment:fallbackEnvironment;
-  scene.environmentIntensity=active?.62:.53;
-  scene.fogDensity=active?.00010:.000078;
-  scene.fogColor.copyFrom(active?new Color3(.12,.095,.17):new Color3(.54,.34,.36));
+  mode=next;night=next==='night';const day=next==='day';
+  pipeline.bloomThreshold=night?1.15:day?2.5:1.45;
+  pipeline.bloomWeight=night?.12:day?.065:.14;
+  ip.exposure=night?.83:day?.91:.87;
+  ip.contrast=day?1.06:1.09;
+  sun.direction.copyFrom(night?CITY_MOON_DIRECTION.scale(-1):day?CITY_DAYLIGHT_SUN_DIRECTION.scale(-1):new Vector3(.95,-.19,.31).normalize());
+  sun.diffuse.copyFrom(night?new Color3(.70,.79,1):day?new Color3(1,.955,.865):new Color3(1,.64,.39));
+  sun.intensity=night?.24:day?1.32:1.12;
+  hemi.diffuse.copyFrom(night?new Color3(.65,.70,.86):day?new Color3(.75,.84,.94):new Color3(.86,.79,.86));
+  hemi.groundColor.copyFrom(day?new Color3(.29,.28,.245):new Color3(.24,.215,.19));
+  hemi.intensity=night?.32:day?.39:.54;
+  scene.environmentTexture=night?(nightEnvironmentReady?nightEnvironment:nightSky.environment):day&&daylightStatus==='ready'?daylightEnvironment:status==='ready'?environment:fallbackEnvironment;
+  scene.environmentIntensity=night?.62:day?.83:.53;
+  scene.fogDensity=night?.00010:day?.000043:.000078;
+  scene.fogColor.copyFrom(night?new Color3(.12,.095,.17):day?new Color3(.60,.72,.80):new Color3(.54,.34,.36));
   // The sky is independently exposed so preserving dark asphalt and bright
   // clouds never requires flattening the material response of the entire city.
   if(skyMaterial)skyMaterial.primaryColor.copyFromFloats(.16,.16,.16);
-  if(sky)sky.material=active?nightSky.material:skyMaterial??fallbackMaterial;
-  if(world.carFill){world.carFill.intensity=active?12:10;world.carFill.diffuse.copyFrom(new Color3(.77,.79,.87));}
+  if(sky)sky.material=night?nightSky.material:day&&daylightStatus==='ready'?daylightMaterial:skyMaterial??fallbackMaterial;
+  if(world.carFill){world.carFill.intensity=night?12:day?5.5:10;world.carFill.diffuse.copyFrom(day?new Color3(.88,.92,1):new Color3(.77,.79,.87));}
  }
+ function setNight(active:boolean){setMode(active?'night':'sunset');}
  setNight(false);
 
  return {
-  setNight,
-  get stats(){return {status,failure,night,source:'Poly Haven / Belfast Sunset (Pure Sky)',radianceGrade:'uncompressed HDR for PBR; display-only highlight shoulder',nightSky:'directional stars and moon with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',cubeSize:1024,sourceBytes:17420114,exposure:ip.exposure,environmentIntensity:scene.environmentIntensity};},
+  setMode,setNight,
+  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:'Poly Haven / Belfast Sunset (Pure Sky)',radianceGrade:mode==='day'?'shared linear HDR visible sky and prefiltered PBR environment':'uncompressed HDR for PBR; display-only highlight shoulder',nightSky:'directional stars and moon with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared HDR cube; raw level for sky; prefiltered levels for PBR'},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:17420114,exposure:ip.exposure,environmentIntensity:scene.environmentIntensity};},
   dispose(){
    disposed=true;scene.onDisposeObservable.remove(sceneDisposal);
-   if(scene.environmentTexture===environment||scene.environmentTexture===nightSky.environment||scene.environmentTexture===nightEnvironment)scene.environmentTexture=fallbackEnvironment;
-   if(sky&&(sky.material===skyMaterial||sky.material===nightSky.material))sky.material=fallbackMaterial as Material|null;
+   if(scene.environmentTexture===environment||scene.environmentTexture===nightSky.environment||scene.environmentTexture===nightEnvironment||scene.environmentTexture===daylightEnvironment)scene.environmentTexture=fallbackEnvironment;
+   if(sky&&(sky.material===skyMaterial||sky.material===nightSky.material||sky.material===daylightMaterial))sky.material=fallbackMaterial as Material|null;
    skyMaterial?.dispose(false,false);skyTexture?.dispose();
-   nightSky.dispose();nightEnvironment?.dispose();
+   nightSky.dispose();nightEnvironment?.dispose();daylightMaterial?.dispose(false,false);daylightSkyTexture?.dispose();daylightEnvironment?.dispose();
    if(status==='ready')environment.dispose();
   },
  };

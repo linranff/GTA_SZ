@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-06",
+  "build": "TypeScript + Vite passed",
+  "newCoreTests": {
+    "passed": 13,
+    "failed": 0
+  },
+  "actualContractAcceptance": {
+    "passed": true,
+    "checks": [
+      "new wallet starts at 180",
+      "night mode",
+      "third daylight mode",
+      "F exits parked vehicle",
+      "walking keeps car parked",
+      "F re-enters nearby car",
+      "legacy story can be cancelled",
+      "office role",
+      "worker has service mechanics",
+      "contract accepted",
+      "arrived 湾畔生活驿站 · 取餐",
+      "E pickup advances objective",
+      "arrived 海边值班点 · 送达热饭",
+      "actual drive settles cash",
+      "first work unlocks relationship choice",
+      "free dialogue builds relationship",
+      "upgrade spends shared wallet",
+      "wallet persists after reload",
+      "contract completion persists",
+      "map retains road-snapped fast travel",
+      "map retains observation camera"
+    ],
+    "errors": [],
+    "report": "output/playwright/career-chapter/report.json"
+  },
+  "finalWorldAcceptance": {
+    "passed": true,
+    "checks": [
+      "new hub searchable with photo camera",
+      "exit car at hub",
+      "walk reaches hub counter without terrain/building blockers",
+      "E opens hub services on foot"
+    ],
+    "errors": [],
+    "report": "output/playwright/life-hub-in-game/report.json"
+  },
+  "visualReview": {
+    "daylight": "Blue sky/cumulus clouds visible; car paint and wet road reflect that sky. Full street still lacks reference-level dense fine facades and vegetation.",
+    "hub": "Inspected sunset/night/day and first-person entry. Fine counters, canopy beams, menus, racks and flower boxes are present; background city remains less detailed.",
+    "screenshots": {
+      "daylight": "output/playwright/career-chapter/03-city-daylight.png",
+      "ledger": "output/playwright/career-chapter/05-life-ledger.png",
+      "hubNight": "output/playwright/life-hub-in-game/02-hub-night.png",
+      "hubFoot": "output/playwright/life-hub-in-game/04-walk-to-window.png"
+    }
+  },
+  "finalBundleSha256": {
+    "index-DikrB_Jo.js": "fb5f12923a21f2d87c034250a54025cebed42a63991a0a12ed585dc403be7c84"
+  },
+  "performance": "No FPS benchmark performed this iteration; previous measurements are not claims for this build."
+}

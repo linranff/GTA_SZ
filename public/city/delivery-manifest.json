@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-05T19:01:46.987Z",
+  "date": "2026-09-05T19:41:51.514Z",
   "assets": {
     "buildings.glb": {
       "bytes": 42262408,
@@ -28,6 +28,10 @@
     "landmarks.glb": {
       "bytes": 2266028,
       "sha256": "d3b577efe46500fbfd82b5564fbc545b0ed90f11267843e0fa6d2338da7ed7d9"
+    },
+    "life-hub.glb": {
+      "bytes": 1947576,
+      "sha256": "b42f1ffbe8a1370f4045376ba834d1f67bf4ba7861ee3035f4cc1a2582da04e8"
     },
     "opposite-shore.glb": {
       "bytes": 177408,
@@ -62,7 +66,7 @@
       "sha256": "676d3ae4c461c8f5d07736ed3b737f0b355f51055f76e756013dfdba7514ba8f"
     }
   },
-  "totalGlbBytes": 96617484,
+  "totalGlbBytes": 98565060,
   "files": {
     "LANDMARK_ATTRIBUTION.md": {
       "bytes": 1779,
@@ -111,6 +115,10 @@
     "environment/belfast-sunset-4k.hdr": {
       "bytes": 17420114,
       "sha256": "cafc52b99ce15d84bd039826a0333f5ab0259d8c1f4feb2f7faf5fafa039108a"
+    },
+    "environment/kloofendal-clouds-4k.hdr": {
+      "bytes": 20674857,
+      "sha256": "3061c00a16ecae748e84fd6c44c04804f539c118bb66325db858bad87b11bf88"
     },
     "environment/rooftop-night-2k.hdr": {
       "bytes": 6509158,
@@ -13516,6 +13524,30 @@
       "bytes": 2748439,
       "sha256": "95eeec54e78df2190a2e60f9a57a797e5790304439a423530ffa35963548dae5"
     },
+    "life-hub.glb": {
+      "bytes": 1947576,
+      "sha256": "b42f1ffbe8a1370f4045376ba834d1f67bf4ba7861ee3035f4cc1a2582da04e8"
+    },
+    "life-hub.json": {
+      "bytes": 569,
+      "sha256": "a77f386028a81cd9cce9e92de95f7ec4a0708486b600c2ec5ec89fe7b49a31bf"
+    },
+    "life-hub/artwork.json": {
+      "bytes": 594,
+      "sha256": "3aa9ab6e00b9f6f814b289a4d3f5e0779bb8a8e88ae926c11a06799060164718"
+    },
+    "life-hub/signs-emissive.png": {
+      "bytes": 113391,
+      "sha256": "08f3b5bfc0ca6f01cb2ac9bf2ccbe38094bcbbc23f65997db230da55e8ff2b47"
+    },
+    "life-hub/signs.png": {
+      "bytes": 274194,
+      "sha256": "8ff20e22c7165a7cd1e9d3d3e015a75b4839257d0a0275d1f73bae2294ed3065"
+    },
+    "life-sites.json": {
+      "bytes": 2163,
+      "sha256": "15a2decb0c49596fc6299baff8b2e5ba6936cdd19a573400cbe5242ebae293f6"
+    },
     "meshopt_decoder.js": {
       "bytes": 29400,
       "sha256": "fedf06f101ff2ba59d66335578230b7e8f5fac5057dee084be64c67444ac6c12"
@@ -13745,7 +13777,7 @@
       "sha256": "4f704aeb8baae349e4e99f4f57be309a06b7687e38b2efd50f3a43d71199dd2d"
     }
   },
-  "totalRuntimeFileBytes": 264788856,
+  "totalRuntimeFileBytes": 287802200,
   "streamingFacades": {
     "totalTiles": 150,
     "totalBytes": 32166308,

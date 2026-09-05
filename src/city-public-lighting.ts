@@ -34,6 +34,7 @@ export function createPublicLighting(scene:Scene,lamps:number[][],parks:ParkLigh
  const fields=lamps.map(l=>({x:l[0]-l[2]*2.5,z:l[1]-l[3]*2.5,radius:20,color:[1,.65,.34],power:.72})).concat(parks.map(p=>({x:p.x,z:p.z,radius:p.radius,color:p.color,power:p.power})));
  function attach(){for(const mesh of scene.meshes){if(!/^(?:roads_|terrain_(?:land|park|pavement)|ground_relief_|detail_lianhua_|rain-|rain_|coastal_bridge_|city_meadow_)/.test(mesh.name))continue;const m=mesh.material;if(m instanceof PBRMaterial&&!materials.has(m)){materials.add(m);new PublicLightField(m,state);}}}
  function setNight(night:boolean){state.night=night?1:.17;for(const mesh of poles){const m=mesh.material;if(m instanceof PBRMaterial&&/^lamp/.test(m.name)){m.emissiveColor.copyFrom(new Color3(.76,.84,1).scale(night?2.1:.45));m.emissiveIntensity=1;}}}
+ function setMode(mode:'sunset'|'night'|'day'){setNight(mode==='night');if(mode==='day'){state.night=0;for(const mesh of poles){const m=mesh.material;if(m instanceof PBRMaterial&&/^lamp/.test(m.name))m.emissiveIntensity=0;}}}
  function update(x:number,z:number,force=false){
   if(performance.now()-lastScan>2500){lastScan=performance.now();attach();}
   const cx=Math.round(x/256)*256,cz=Math.round(z/256)*256;if(!force&&cx===state.x&&cz===state.z)return;
@@ -45,5 +46,5 @@ export function createPublicLighting(scene:Scene,lamps:number[][],parks:ParkLigh
  }
  function dispose(){texture.dispose();for(const m of poles)m.dispose(false,false);}
  attach();setNight(false);scene.onDisposeObservable.addOnce(dispose);
- return {update,setNight,meshes:poles,stats:()=>({publicLamps:lamps.length,parkHighLights:parks.length,visiblePoles,groundMaterials:materials.size,clipmapUploads:uploads,clipmapWorldSize:2048,texelMetres:2,night:state.night===1,staticFootprints:true})};
+ return {update,setNight,setMode,meshes:poles,stats:()=>({publicLamps:lamps.length,parkHighLights:parks.length,visiblePoles,groundMaterials:materials.size,clipmapUploads:uploads,clipmapWorldSize:2048,texelMetres:2,night:state.night===1,staticFootprints:true})};
 }

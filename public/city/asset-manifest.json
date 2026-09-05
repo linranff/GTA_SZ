@@ -65,6 +65,15 @@
       "sha256": "d3b577efe46500fbfd82b5564fbc545b0ed90f11267843e0fa6d2338da7ed7d9"
     },
     {
+      "file": "life-hub.glb",
+      "triangles": 23222,
+      "meshes": 27,
+      "primitives": 27,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 1947576,
+      "sha256": "b42f1ffbe8a1370f4045376ba834d1f67bf4ba7861ee3035f4cc1a2582da04e8"
+    },
+    {
       "file": "opposite-shore.glb",
       "triangles": 48868,
       "meshes": 1,
@@ -285,6 +294,6 @@
   ],
   "treeInstances": 7933,
   "chunkSize": 640,
-  "totalBytes": 96617484,
+  "totalBytes": 98565060,
   "geometrySource": "Actual GLB JSON accessors; not stale authoring reports"
 }

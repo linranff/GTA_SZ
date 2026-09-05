@@ -1,0 +1,31 @@
+{
+  "file": "life-hub.glb",
+  "bytes": 1947576,
+  "triangles": 23222,
+  "meshes": 27,
+  "schemaVersion": 1,
+  "design": "Original fictional Shenzhen everyday-life stop",
+  "entrance": "local south / runtime negative Z",
+  "bounds": [
+    -6.525,
+    -5.05,
+    7.01324,
+    4.79
+  ],
+  "height": 4.335,
+  "interactions": {
+    "entry": [
+      0,
+      -4.35
+    ],
+    "delivery": [
+      3.95,
+      -4.45
+    ],
+    "rest": [
+      -3.65,
+      -3.3
+    ]
+  },
+  "sources": "Original model and original sign artwork; system font rasterized, no font redistributed."
+}
