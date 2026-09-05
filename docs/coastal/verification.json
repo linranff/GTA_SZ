@@ -1,0 +1,173 @@
+{
+  "date": "2026-09-06",
+  "result": "passed",
+  "tests": {
+    "unit": {
+      "passed": 58,
+      "failed": 0
+    },
+    "build": "TypeScript and Vite passed",
+    "visualScenarios": [
+      "01-bay-driving-dusk",
+      "02-bay-opposite-shore",
+      "03-after-fast-orbit",
+      "04-houhai-bridge-deck",
+      "05-houhai-bridge-overview",
+      "06-bridge-night",
+      "07-park-night-lighting",
+      "07b-park-sea-night",
+      "08-bay-night-road",
+      "09-driving-perspective-map"
+    ],
+    "reflectionMotionSamples": 30,
+    "synchronizedSamples": 30,
+    "minimapTiltDegrees": [
+      "22.3",
+      "27.1"
+    ],
+    "errors": []
+  },
+  "drive": {
+    "browser": "Chrome / Metal, headless",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "metrics": {
+      "seconds": 440.06580000005187,
+      "frames": 26387,
+      "meanFps": 59.96148757753247,
+      "p95": 16.70000000001164,
+      "p99": 16.80000000000291,
+      "over50ms": 1,
+      "peakSpeedKph": 86.39999999999996,
+      "distance": 6172.297811826524
+    },
+    "arrivals": 2,
+    "errors": [],
+    "scripts": [
+      {
+        "url": "http://127.0.0.1:4173/assets/index-DLruOMuD.js",
+        "sha256": "f1067452c9911da0bc82ad6f7c34810824242d19f51ffebd974739fc461c533d"
+      },
+      {
+        "url": "http://127.0.0.1:4173/assets/pbrMaterialLoadingAdapter-DiPr5rpr.js",
+        "sha256": "1a33f6fc84c4cdbcf0b9745ee69623444299454df23c6e30105ad478c7933e5b"
+      },
+      {
+        "url": "http://127.0.0.1:4173/city/meshopt_decoder.js",
+        "sha256": "fedf06f101ff2ba59d66335578230b7e8f5fac5057dee084be64c67444ac6c12"
+      }
+    ]
+  },
+  "grassMaterial": {
+    "mode": "layered-pbr",
+    "ready": true,
+    "materials": 4,
+    "textures": 6,
+    "errors": [],
+    "extraPasses": 0
+  },
+  "meadow": {
+    "instances": 189,
+    "drawCalls": 1,
+    "triangles": 6615,
+    "patches": 16,
+    "rejectedHeight": 0,
+    "rebuilds": 1998,
+    "lastRebuildMs": 0.10000002384185791,
+    "mode": "driving",
+    "clamped": false,
+    "status": "ready",
+    "error": null,
+    "ready": true,
+    "loadedTiles": 12,
+    "pendingTiles": 0,
+    "failedTiles": 0,
+    "sourceTiles": 3162,
+    "sourceSHA": {
+      "public/city/city.json": "f0fe3f715887e4c8e2d642ddc32006d267398e80187df99cbb797793394152bc",
+      "public/city/terrain-detail.json": "41feabf8ed35fde255a14e94bd15b08324cca4088f42a2d2caccf58a8156b4c0",
+      "public/city/landmark-detail.json": "fa37faf0924519b6eda01734b2387c7f86cafaae38c6f505f53e40dd9bd24766",
+      "public/city/ground-surfaces.json": "cb4ff20cd2cd23518d65369e029f6e97a18eb697a8e95cd89d920c0b1c06221d",
+      "public/city/street-surfaces.json": "78301e33a51735d385a4d05f7c3861b870e22c1cc50395d182d2a7fb021f070e"
+    },
+    "instanceBudget": 2304,
+    "drawCallBudget": 8,
+    "radius": 28,
+    "lighting": "PBR metallic-roughness; no emission",
+    "castsShadows": false,
+    "receivesShadows": true,
+    "reflections": false,
+    "collisions": false,
+    "alphaMode": "opaque",
+    "textures": 0
+  },
+  "coastal": {
+    "crossings": 164,
+    "bridgeClearance": 3.05,
+    "roadAligned": true
+  },
+  "publicLighting": {
+    "publicLamps": 20189,
+    "parkHighLights": 220,
+    "visiblePoles": 1,
+    "groundMaterials": 19,
+    "clipmapUploads": 24,
+    "clipmapWorldSize": 2048,
+    "texelMetres": 2,
+    "night": true,
+    "staticFootprints": true
+  },
+  "assetManifestSha256": "cbf348beb82c145d854de7acac09fe1cfa12397d1dfe0c51872c136997998ced",
+  "runtimeSourceSha256": {
+    "src/city-architecture-materials.ts": "ed7d05edbe8490d79b45514e84763ecf1cee6d005401e28318a47931913d0655",
+    "src/city-audio.css": "07d2227ce93495aa66af269aa2baed82e9bab82a6e4094b2f732dde9c02d557b",
+    "src/city-audio.ts": "e418e6debfd727188e7d23efb1de1921036825374f4bb15f90e60e56ed0c3c07",
+    "src/city-autopilot.ts": "9adb7f248f4699713ebecd750cc3a0a6e1d914daceb02868b32926bb3af3783a",
+    "src/city-bay-water.ts": "497d36906ff6103af252b618dfb3ee89da058022b5f3ada7200fdc554a062b63",
+    "src/city-building-signs.ts": "b2e29f2daa2683fa99865484b353c76d1af7e82310d75d1b4b4dc269efe8f613",
+    "src/city-cinematic.ts": "c1d2ef6a328769f1e37f7400ec35219fd5867772f30e3ba6506536bf64dba455",
+    "src/city-coastal-infrastructure.ts": "430d969b0aac630558522fb570601fbd32777d52b87b8a70a5f4bb5b7b79d72f",
+    "src/city-cockpit.ts": "cb6dba027b02df697fdd6428fdf6060da500e88714a777a2a27a8bd2477359ac",
+    "src/city-experience.css": "ebb45b3a6fd247fa6f0b4c9b9bc103e30f79f34509a25b4744b55881486a8fcc",
+    "src/city-facade-diversity.ts": "9f93af844c3449f5d740f2818d78072fed76959d4796f48b4e896fb2f438cc88",
+    "src/city-facade-stream.ts": "07142211dd9a0da56350670bcdb1484ae821d665b7582287e0316acef510b9be",
+    "src/city-grass-material.ts": "0db480c8b3c67ff694124f87d7d64bbf69b7764e57cb1c5cfa9b28814627247f",
+    "src/city-ground-relief.ts": "99f992c4157d287e754a749505ea29c261a2fd69a7edf5cc5d885edad4cb8e80",
+    "src/city-hud.css": "54063bcfdbeebc5f67d90dbad5ac12de0b2716f9c812aa0ab30a245ecd297ee1",
+    "src/city-hud.ts": "67a4047a0889cc71e2ad839c1be9a4ad81a365e58e442cb9ae52323746c6686e",
+    "src/city-landscape.ts": "cf3eb0fab9f265792994afb3ca8ea599a69f87f9c362fdee7b279fe1ba23b36c",
+    "src/city-life.ts": "633039ce7d9286a75320140f190c315c1bc2fec7cae98f4a9d8738d18a7ece5e",
+    "src/city-map-geometry.ts": "4faaf305f8b99273d131bfd5bfa4810ede7103c5b293e06cd2fcc431945e4d45",
+    "src/city-map-view.ts": "dee9f96349378ea3061ef76b712249c400fc2895fc8dfe37389921294dfbd3a6",
+    "src/city-map.css": "c9f8b2543194db4a1bc04e4cf7dcfb5aac5e6fd10020016efeca741baa1f5419",
+    "src/city-map.ts": "2e83c76bae4827599dff95203be57af96777a9fd688cbfa39fdd5ad6464ccab4",
+    "src/city-meadow.ts": "5a4eb0d7bc519add31002965b56a9ddd87999d82505cb007ea4f68341d6c7aea",
+    "src/city-night-sky.ts": "e144bb62c3a9bad1871a14c0c8025e1d9542fdaf095b25348eaf2b3f0d5d0d00",
+    "src/city-observer.ts": "0e42ed6fab52782c3591625ffa55551e752125ccdd9e7b443f2b9a7b9f5fc7f5",
+    "src/city-public-lighting.ts": "9948d8860a53709600bebf5c1e15a0d491648aec4274f9d0263f565e175a212a",
+    "src/city-rain-puddles.ts": "f06e9322832746de359bd496a2cd623a0b2e4a22bacb045cf99a1bf12b7d5d00",
+    "src/city-road-surface.ts": "85c502f95d1254f407ae15f69f9fded6b1ce9a732d888427ff4c6d2f40ff6f29",
+    "src/city-street-furniture.ts": "6d075438c5278bfe1a37647ec01a51e1ff2e44bf5fe398753a228368a2cdbf70",
+    "src/city-sunset-environment.ts": "e6b887b07094d86e23e6684b9f9d3b25aa9c0ca04add4ea25e77ae51ff4a089e",
+    "src/city-tail-lights.ts": "e004aa164759d12549f3d641a52d2c6d01c6577537824b9b9f088d53ee89654a",
+    "src/city-types.ts": "144f26485350e0ff7e909b817e5699f4605a074983d578c3fb2bf445ed03c2fc",
+    "src/city-vehicle-finish.ts": "d932dbf7f44eb492caa5e7a9afcf66d1c58951deb3c0431439ec67e7ebbf7005",
+    "src/city-vehicle-materials.ts": "f2e63388cef8ee5eb0c34b1981b20eb854bad957f5f9d351df634625a9a95ed0",
+    "src/city-world.ts": "d8aaa9aa92d1300dc11388e6bf086cf49115e7085cfc7fbfa608b01bb4aedc0e",
+    "src/driving.ts": "ac7f000e24f25986de837069dfbb5cf20d904e635703d78fba8b2937a6302da0",
+    "src/dynamic-instances.ts": "499e8c6e231c5071a3b54c68cc2a9af849c634c3838d1f476b389936c74b0c20",
+    "src/landmark-details.ts": "f5d299955b4d5ecde64615be168f0fa751e102d3f5030491b73150d00aafdf08",
+    "src/landmark-signage.ts": "e734fdfcce17c153d08aec87ee75721dabbee9bcd35dfbec1f8c502a92f321fa",
+    "src/main.ts": "7658b29c25067fe667dd9080a34b0759bdf7f591d472984adc3f42fe9c120b54",
+    "src/navigation.ts": "c766c87080f107650484ac4143c8c93a3440943cb580dcfa7d398fb1762ab30e",
+    "src/pedestrians.ts": "2391db27d6634389cd49dfdfd7f69285b8892178e15109b4d663b17c039d9cdf",
+    "src/save.ts": "986dade061f56e03d0da9363b450ed9547ca8b7e7a5c854067a529b50d3a73ff",
+    "src/state.ts": "f80cad7a0bd46bbeca5710c2a0d4373ac59681537c5bdcd3a60e662056fe954b",
+    "src/style.css": "5260316e6f24b82d7a0564613b7a8748cfd8202fca3c96c36915de7f530fe8e1",
+    "src/traffic.ts": "8095968b80f251fd2b311e6bc007d8cce547c75cbfb91d8b3fb4d2c227c008c5",
+    "src/world.ts": "a113f0fe87b766122389039745cb3c21cd8f9dd5e72ce66e2d96c401359dfac4"
+  },
+  "scope": "Observed result for this build, route, resolution and machine; not a guarantee of locked 60 fps throughout the entire city or in every browser. Raw screenshots/telemetry are generated locally by the checked-in scripts."
+}

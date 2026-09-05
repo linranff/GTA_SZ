@@ -20,6 +20,24 @@
       "sha256": "3afa89657aa2af08cebe471b86c3ffb36f0e397d8d842ff5ba48142679a36826"
     },
     {
+      "file": "coastal-bridges.glb",
+      "triangles": 47872,
+      "meshes": 2,
+      "primitives": 2,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 272616,
+      "sha256": "b515577b23f214cf56754af6f436621cd5fb2ade9dc15386ec26a0567413018c"
+    },
+    {
+      "file": "coastal-shoreline.glb",
+      "triangles": 52112,
+      "meshes": 3,
+      "primitives": 3,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 374704,
+      "sha256": "d8c6f1b0a13b4b7c31761d74d550ba87ff93ef64d7011275c3c4ca5129dfea3c"
+    },
+    {
       "file": "facades.glb",
       "triangles": 3651432,
       "meshes": 443,
@@ -47,6 +65,15 @@
       "sha256": "d3b577efe46500fbfd82b5564fbc545b0ed90f11267843e0fa6d2338da7ed7d9"
     },
     {
+      "file": "opposite-shore.glb",
+      "triangles": 48868,
+      "meshes": 1,
+      "primitives": 1,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 177408,
+      "sha256": "fcc20285b0e77966234cc9c0fdf0fa7df0eee6558d3405fddb57695094f2abd0"
+    },
+    {
       "file": "palm.glb",
       "triangles": 2356,
       "meshes": 3,
@@ -54,6 +81,15 @@
       "facadeMetadataPrimitives": 0,
       "bytes": 69484,
       "sha256": "223ac8c4d617f38fd0523f92d20b71df3a68962213fbe1069680cb98bf73a4d0"
+    },
+    {
+      "file": "park-floodlight.glb",
+      "triangles": 188,
+      "meshes": 3,
+      "primitives": 3,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 6736,
+      "sha256": "9fb654f0e492ba673bbf6e2289d8b92ec549207973e4f7c7a91636923d597feb"
     },
     {
       "file": "pedestrian.glb",
@@ -66,12 +102,12 @@
     },
     {
       "file": "roads.glb",
-      "triangles": 1915741,
+      "triangles": 2018043,
       "meshes": 765,
       "primitives": 765,
       "facadeMetadataPrimitives": 0,
-      "bytes": 15117948,
-      "sha256": "06d00b19e825f99a088fe12f1f71aad635d18823418480c8df1f44985d561934"
+      "bytes": 16827100,
+      "sha256": "1e8a53838c1b4b682fdcbf28c26db69c12ead7fa0807ba216061b42e3e832de7"
     },
     {
       "file": "terrain.glb",
@@ -249,6 +285,6 @@
   ],
   "treeInstances": 7933,
   "chunkSize": 640,
-  "totalBytes": 94076868,
+  "totalBytes": 96617484,
   "geometrySource": "Actual GLB JSON accessors; not stale authoring reports"
 }

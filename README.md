@@ -2,7 +2,7 @@
 
 当代深圳的浏览器城市驾驶与生活原型。Blender 制作外景资产，Babylon.js / TypeScript / Vite 运行；先做城市与人物的日常，后续再拓展职业、住房与关系系统。
 
-当前 v0.3 进入后直接驾驶：深圳湾、南山、福田、罗湖的压缩城市走廊，红霞黄昏、靛蓝概念 GT、环境车流和行人。原 v0.1 单街日结玩法保存在 `archive/v0.1/`，不再是当前入口。
+当前 v0.3 进入后直接驾驶：深圳湾、南山、福田、罗湖的压缩城市走廊，红霞黄昏、靛蓝概念 GT、环境车流和行人。本机旧 v0.1 单街日结原型保存在 `archive/v0.1/`，不随当前运行版本分发。
 
 ## 运行
 
@@ -34,13 +34,14 @@ npm run dev
 
 ## 本轮改进与边界
 
+- 海湾镜像随相机移动逐帧更新；加入受太阳/月光照明的水波、近岸堤岸与对岸地形。跨水道路有桥面/坡道，路灯提供连续地面照明，公园有高灯与缓坡；手动转向更柔和，小地图随车速透视倾斜。[实现与验证入口](docs/coastal/implementation.md)。
 - 修复道路重叠、远景海面覆盖陆地、路牌强眩光、车灯照亮海面、车流父节点及导航错误吸附。
 - 具有真实叶纹的 CC0 阔叶树、棕榈及近远 LOD；草束、花灌木、观赏草、长椅及路面井盖/格栅。新树位经过路网、冠幅、水体和建筑离线过滤；地图选点后可规划路线或使用常驻的瞬移／俯瞰按钮。
 - 采用 Khronos CarConcept 的 CC BY 4.0 派生车辆，Blender 整理靛蓝车漆、轮胎/轮毂、灯组及正确轮轴和转向刹车。它是双门概念 GT，并非 SU7。
 - 普通建筑八类手绘窗格/墙面图集、稳定楼栋相位、逐窗亮灯、玻璃/墙面粗糙度区分；保留原 OSM 轮廓和实体立面。具名地标仍使用各自材质。
 - 重点地标增量包括腾讯、莲花山地形、七街公馆、财富广场与万象天地部分塔楼；另有春笋、平安、市民中心等基础地标。
 
-普通建筑立面、高度缺失部分与城市比例包含艺术化估计；除莲花山地形增量外，高架/隧道仍压平。交通、碰撞和人物动画仍简化。画面与玩法仍需打磨，不是完整 GTA 规模产品或全深圳精确复刻。
+普通建筑立面、高度缺失部分与城市比例包含艺术化估计；跨水道路已有抬高桥面及平顺坡道，其高度为游戏设计；其他立交与隧道仍简化。交通、碰撞和人物动画仍简化。画面与玩法仍需打磨，不是完整 GTA 规模产品或全深圳精确复刻。
 
 [驾驶体验与画质升级](docs/驾驶体验与画质升级-2026-09-05.md) · [质量审查与优先级](docs/质量审查与改进-v0.3.md) · [重点地标精度与来源](docs/landmarks/delivery.md)
 
@@ -55,6 +56,19 @@ npm run benchmark:city
 ```
 
 浏览器测试脚本默认使用本机 Chrome；`GAME_URL` 可指定预览地址。性能报告必须匹配当前构建、分辨率和硬件，不能沿用 v0.1 五分钟报告。本轮资产与无人机短测见 `artifacts/city/asset-upgrade-final-check.json`、`artifacts/city/observer-check.json`；短截图测试不能证明全城稳定 60fps。
+
+仓库为 [linranff/ShenChengJi（私有）](https://github.com/linranff/ShenChengJi)。模型、HDR 和图像使用 Git LFS：克隆前安装 Git LFS，克隆后运行 `git lfs pull`。下载原始数据、临时 `.blend`、截图和 `dist` 不提交；可运行资产与 Blender 构建脚本提交到仓库。
+
+海湾增量重建（依赖本机 Blender 与 Python 的 numpy、shapely、Pillow、rasterio；缓存下载校验后复用）：
+
+```sh
+python3 scripts/fetch_coastal_dsm.py
+.venv/bin/python scripts/prepare_coastal_infrastructure.py
+/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/build_coastal_infrastructure.py
+node scripts/optimize_city.mjs roads coastal-bridges coastal-shoreline park-floodlight opposite-shore
+```
+
+以上命令会替换对应的 `public/city` 资产。实际运行游戏无需 Blender 或原始 DSM 下载。仅变更材质与交互代码时运行 `npm run build` 即可。[海湾地形来源与署名](public/licenses/coastal-terrain.md)。
 
 精细立面保留 Blender 几何，拆成 150 个 640 米分区：附近 1,050 米预取、700 米显示、1,500 米外卸载；原 `facades.glb` 是构建输入，不再整包载入。基础楼体与道路仍整包加载。页面隐藏或城市尚未初始化时不渲染。
 
