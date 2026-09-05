@@ -1,4 +1,6 @@
-import {ImportMeshAsync,Mesh,Matrix,Quaternion,Vector3,Texture,PBRMaterial,Color3,type Scene,type AbstractMesh} from '@babylonjs/core';
+import {ImportMeshAsync,Mesh,Matrix,Quaternion,Vector3,Texture,PBRMaterial,Color3,type Scene,type AbstractMesh,type Observer} from '@babylonjs/core';
+import {CityMeadow} from './city-meadow.ts';
+import {grassBaseline} from './city-grass-material.ts';
 
 type Plant=[number,number,number,number,number];
 type Planting={trees:Plant[];details:Plant[];roadDetails?:Plant[]};
@@ -19,6 +21,7 @@ export class CityLandscape {
  private spatial=new Map<string,{trees:Plant[];details:Plant[]}>();
  private materials=new Map<string,PBRMaterial>();
  private atlas:Texture|null=null;private openKinds=new WeakMap<Plant,string>();private openEligible=0;private openVisible=0;private openNear=0;private qualificationMatched=false;
+ private meadow:CityMeadow|null=null;private meadowObserver:Observer<Scene>|null=null;
  private lastX=Infinity;private lastZ=Infinity;private lastAerial=false;
  private current={nearTrees:0,farTrees:0,lawnTufts:0,shrubs:0,ornamentalGrass:0,roadDetails:0,detailTriangles:0,treeTriangles:0,drawCalls:0};
  ready=false;
@@ -60,6 +63,12 @@ export class CityLandscape {
    for(const material of retired)material.dispose(false,true);
    result.meshes[0]?.dispose(false,false);this.prototypes.set(model.id,{model,meshes});
   }
+  if(!grassBaseline()){
+   this.meadow=new CityMeadow(this.scene,this.heightAt);await this.meadow.init();
+   // Trees rebuild after 22m. Ground-level grass has its own cheap 3m gate,
+   // follows the actual camera, and disables itself at aerial heights.
+   this.meadowObserver=this.scene.onBeforeRenderObservable.add(()=>{const camera=this.scene.activeCamera;if(camera)this.meadow?.update(camera.globalPosition.x,camera.globalPosition.z);});
+  }
   this.ready=true;
  }
  update(x:number,z:number,aerial=false,force=false){
@@ -77,7 +86,7 @@ export class CityLandscape {
    const name=(open?qualified:TREE_NAMES[p[2]])+(near?'':'-lod');add(name,p);if(near)this.current.nearTrees++;else this.current.farTrees++;if(open){this.openVisible++;if(near&&qualified==='open-island-tree')this.openNear++;}
   }
   const counts=[0,0,0],caps=[520,110,120];
-  if(!aerial)for(const p of nearby.details){const name=DETAIL_NAMES[p[2]],tris=this.prototypes.get(name)?.model.triangles??0;if(counts[p[2]]>=caps[p[2]]||this.current.detailTriangles+tris>150000)continue;add(name,p);counts[p[2]]++;this.current.detailTriangles+=tris;}
+  if(!aerial)for(const p of nearby.details){if(p[2]===0&&this.meadow?.ready)continue;const name=DETAIL_NAMES[p[2]],tris=this.prototypes.get(name)?.model.triangles??0;if(counts[p[2]]>=caps[p[2]]||this.current.detailTriangles+tris>150000)continue;add(name,p);counts[p[2]]++;this.current.detailTriangles+=tris;}
   [this.current.lawnTufts,this.current.shrubs,this.current.ornamentalGrass]=counts;
   if(!aerial)for(const p of (this.planting.roadDetails??[]).filter(p=>dist(p)<70*70).sort((a,b)=>dist(a)-dist(b)).slice(0,28)){add(ROAD_NAMES[p[2]],p);this.current.roadDetails++;}
   for(const [name,prototype] of this.prototypes){const plants=groups.get(name)??[];if(!plants.length){for(const mesh of prototype.meshes)mesh.setEnabled(false);continue;}
@@ -90,10 +99,10 @@ export class CityLandscape {
  /** Driving casts near-tree shadows only. Aerial mode exposes the coarse tree
   * group for the integrator's larger, throttled shadow map; grass never casts. */
  get casters():AbstractMesh[]{return [...TREE_NAMES,...OPEN_TREE_NAMES].flatMap(name=>this.prototypes.get(name+(this.lastAerial?'-lod':''))?.meshes.filter(m=>m.isEnabled())??[]);}
- get meshes():AbstractMesh[]{return [...this.prototypes.values()].flatMap(p=>p.meshes);}
- get stats(){return {...this.current,openAssets:{qualified:this.openEligible,visible:this.openVisible,nearBroadleaf:this.openNear,nearBroadleafLimit:24,qualificationMatched:this.qualificationMatched,license:'CC0-1.0'},sourceTreeCount:this.planting.trees.length,sourceDetailCount:this.planting.details.length,aerial:this.lastAerial,treeRadius:this.lastAerial?1200:440,treeBudget:this.lastAerial?1200:268,ready:this.ready};}
- setTerrainHeight(heightAt:(x:number,z:number)=>number){this.heightAt=heightAt;this.lastX=Infinity;this.lastZ=Infinity;}
- dispose(){for(const p of this.prototypes.values())for(const m of p.meshes)m.dispose(false,false);for(const m of this.materials.values())m.dispose(false,false);this.atlas?.dispose();this.prototypes.clear();this.materials.clear();this.ready=false;}
+ get meshes():AbstractMesh[]{return [...this.prototypes.values()].flatMap(p=>p.meshes).concat(this.meadow?.meshes as Mesh[]??[]);}
+ get stats(){return {...this.current,meadow:this.meadow?.stats??{mode:'baseline'},openAssets:{qualified:this.openEligible,visible:this.openVisible,nearBroadleaf:this.openNear,nearBroadleafLimit:24,qualificationMatched:this.qualificationMatched,license:'CC0-1.0'},sourceTreeCount:this.planting.trees.length,sourceDetailCount:this.planting.details.length,aerial:this.lastAerial,treeRadius:this.lastAerial?1200:440,treeBudget:this.lastAerial?1200:268,ready:this.ready};}
+ setTerrainHeight(heightAt:(x:number,z:number)=>number){this.heightAt=heightAt;this.meadow?.setTerrainHeight(heightAt);this.lastX=Infinity;this.lastZ=Infinity;}
+ dispose(){if(this.meadowObserver)this.scene.onBeforeRenderObservable.remove(this.meadowObserver);this.meadow?.dispose();for(const p of this.prototypes.values())for(const m of p.meshes)m.dispose(false,false);for(const m of this.materials.values())m.dispose(false,false);this.atlas?.dispose();this.prototypes.clear();this.materials.clear();this.ready=false;}
 }
 
 /** Independent surface calibration, retaining the existing road mirror and UVs.

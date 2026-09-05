@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "license": "CC0-1.0",
+  "layers": [
+    {
+      "id": "lawn",
+      "width": 1024,
+      "gamePeriod": 0.84,
+      "sourceNormal": "OpenGL",
+      "normalRoughnessChannels": "R: tangent X, G: tangent Y, B: perceptual roughness",
+      "files": [
+        "lawn-color.jpg",
+        "lawn-normal-roughness.png"
+      ]
+    },
+    {
+      "id": "soil",
+      "width": 512,
+      "gamePeriod": 1.2,
+      "sourceNormal": "OpenGL",
+      "normalRoughnessChannels": "R: tangent X, G: tangent Y, B: perceptual roughness",
+      "files": [
+        "soil-color.jpg",
+        "soil-normal-roughness.png"
+      ]
+    },
+    {
+      "id": "litter",
+      "width": 512,
+      "gamePeriod": 1.2,
+      "sourceNormal": "OpenGL",
+      "normalRoughnessChannels": "R: tangent X, G: tangent Y, B: perceptual roughness",
+      "files": [
+        "litter-color.jpg",
+        "litter-normal-roughness.png"
+      ]
+    }
+  ],
+  "files": {
+    "lawn-color.jpg": {
+      "bytes": 532321,
+      "sha256": "14182c64817b45b0690997588c940a3e58f4bcc03ae2e8a89b3953e91cb83bc8"
+    },
+    "lawn-normal-roughness.png": {
+      "bytes": 2533058,
+      "sha256": "0d2d6b21d38659b2da52138dc4d5233de45184e7be6a42b3ac5ef478657e0696"
+    },
+    "soil-color.jpg": {
+      "bytes": 112782,
+      "sha256": "bd1469bef7f507c8023542156fd165f3d515aac20a78d7ee7e73833e42d77f4e"
+    },
+    "soil-normal-roughness.png": {
+      "bytes": 559407,
+      "sha256": "2b165038e22a3a0ae5ab61ed117a4dca13d2a33079130fe6cc0947a491ac5c6f"
+    },
+    "litter-color.jpg": {
+      "bytes": 168230,
+      "sha256": "1aaeaf3cecfb288a1eb03826d92379165f0c147a4ca0b57bec61a5c9bf007abd"
+    },
+    "litter-normal-roughness.png": {
+      "bytes": 570549,
+      "sha256": "fc75b3c08330e08437558a9547c8f4480a48f423af565e836d6bebc8b5f7efd9"
+    }
+  },
+  "sources": [
+    {
+      "id": "Grass001",
+      "url": "https://ambientcg.com/view?id=Grass001",
+      "author": "ambientCG / Lennart Demes",
+      "technique": "procedural"
+    },
+    {
+      "id": "sparse_grass",
+      "url": "https://polyhaven.com/a/sparse_grass",
+      "author": "Amal Kumar",
+      "technique": "photographic surface"
+    },
+    {
+      "id": "leafy_grass",
+      "url": "https://polyhaven.com/a/leafy_grass",
+      "author": "Charlotte Baglioni",
+      "technique": "photographic surface"
+    }
+  ],
+  "sourceChecks": [
+    {
+      "file": "Grass001_1K-JPG.zip",
+      "url": "https://ambientcg.com/get?file=Grass001_1K-JPG.zip",
+      "sha256": "902f447a64171c8099589642d5bf2d1d6e52c40e94d957eb78eae722084b0cfb",
+      "bytes": 10710313
+    },
+    {
+      "file": "sparse_grass_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sparse_grass/sparse_grass_diff_1k.jpg",
+      "sha256": "ae94f2b34597b9108eefd88217f55eccaec6d6b382e858a478ee92df90e66617",
+      "bytes": 955945
+    },
+    {
+      "file": "sparse_grass_nor_gl_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sparse_grass/sparse_grass_nor_gl_1k.jpg",
+      "sha256": "1c840a24807346ddaaf94a5057aee4078fcec3a4cd84bfe45da7d3b480ef460b",
+      "bytes": 1440314
+    },
+    {
+      "file": "sparse_grass_arm_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sparse_grass/sparse_grass_arm_1k.jpg",
+      "sha256": "209f6793060a176272ace42cabab21fdf21fe963f79267988320614b374414a8",
+      "bytes": 978007
+    },
+    {
+      "file": "leafy_grass_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/leafy_grass/leafy_grass_diff_1k.jpg",
+      "sha256": "cfa40bc9d9417d1852db8753a8d5917f110c40101179f63543c382e39bc05e4a",
+      "bytes": 1195394
+    },
+    {
+      "file": "leafy_grass_nor_gl_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/leafy_grass/leafy_grass_nor_gl_1k.jpg",
+      "sha256": "832328216adc0a7e1f70a31d5ee48c9ab7f2152d83816122736cf42ac4b2ebd6",
+      "bytes": 1466049
+    },
+    {
+      "file": "leafy_grass_arm_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/leafy_grass/leafy_grass_arm_1k.jpg",
+      "sha256": "95432451cb2693794459fe7ea339ea9ffdb5959c40373740f80a4aa1703f089d",
+      "bytes": 1010081
+    }
+  ],
+  "downloadBytes": 4476347,
+  "conservativeRGBABytesWithMipmaps": 16777214,
+  "notes": [
+    "World-space texture scale respects 0.60 city scale.",
+    "Static opaque PBR surface; no additional render targets.",
+    "Texture bytes are network sizes, not GPU memory."
+  ]
+}

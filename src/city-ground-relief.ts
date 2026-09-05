@@ -1,4 +1,5 @@
 import {MaterialPluginBase,PBRMaterial,Mesh,VertexData,Texture,Color3,ShaderLanguage,type Scene,type AbstractMesh,type MaterialDefines,type BaseTexture,type UniformBuffer,type AbstractEngine,type SubMesh} from '@babylonjs/core';
+import {applyGrassMaterial,grassMaterialStats} from './city-grass-material.ts';
 
 type Span={offset:number;bytes:number};
 export type ReliefTile={id:string;x:number;z:number;vertexCount:number;triangleCount:number;bounds:number[];positions:Span;normals:Span;indices:Span};
@@ -49,8 +50,13 @@ class GroundCoverPlugin extends MaterialPluginBase{
    #ifdef CITY_GROUND_COVER
    vec2 groundUV=(vPositionW.xz-cityGroundExtent.xy)/cityGroundExtent.zw;
    vec4 groundCover=texture2D(cityGroundCover,groundUV);
+   #ifdef CITY_GRASS_PBR
+   cityGrassTint=groundCover.rgb*2.05;
+   cityGrassSoil=groundCover.a;
+   #else
    surfaceAlbedo*=groundCover.rgb*2.05;
    surfaceAlbedo=mix(surfaceAlbedo,vec3(.185,.145,.090),groundCover.a*.48);
+   #endif
    #endif
   `};
  }
@@ -77,7 +83,7 @@ export async function loadCityGroundRelief(baseHeightAt:HeightAt,baseURL='/city/
   if(!cover)return;
   for(const mesh of scene.meshes){const m=mesh.material;if(!(m instanceof PBRMaterial)||enhanced.has(m))continue;
    const isGround=/^(?:terrain_(?:land|park)|detail_lianhua_park|ground_relief_)/.test(mesh.name);
-   if(!isGround)continue;enhanced.add(m);plugins.push(new GroundCoverPlugin(m,cover));
+   if(!isGround)continue;enhanced.add(m);plugins.push(new GroundCoverPlugin(m,cover));applyGrassMaterial(scene,m,!mesh.name.startsWith('terrain_land'));
   }
  }
  function attachVisuals(scene:Scene){
@@ -98,8 +104,8 @@ export async function loadCityGroundRelief(baseHeightAt:HeightAt,baseURL='/city/
   }
   enhanceGroundMaterials(scene);scene.onDisposeObservable.addOnce(dispose);return meshes;
  }
- function shadowMeshes(x:number,z:number,radius=850):AbstractMesh[]{return meshes.filter((_,i)=>Math.hypot(geometry[i].tile.x-x,geometry[i].tile.z-z)<radius+455);}
+ function shadowMeshes(x:number,z:number,radius=850):AbstractMesh[]{return meshes.filter((_,i)=>{const b=geometry[i].tile.bounds;return Math.hypot(Math.max(b[0]-x,0,x-b[2]),Math.max(b[1]-z,0,z-b[3]))<radius;});}
  function dispose(){if(disposed)return;disposed=true;for(const mesh of meshes)mesh.dispose(false,false);material?.dispose(false,false);cover?.texture.dispose();sampler.dispose();}
  return {heightAt:sampler.heightAt,deltaAt:sampler.deltaAt,attachVisuals,enhanceGroundMaterials,shadowMeshes,meshes,manifest,dispose,
-  get stats(){return {ready:!disposed,attached,textureReady:cover?.ready??false,textureError,groundMaterials:enhanced.size,lookupCells:sampler.cellCount,extraDrawCalls:meshes.length,...manifest.budgets,preservedTerrainBounds:manifest.preservedTerrainBounds};}};
+  get stats(){return {ready:!disposed,attached,textureReady:cover?.ready??false,textureError,groundMaterials:enhanced.size,grassMaterial:material?grassMaterialStats(material.getScene()):null,lookupCells:sampler.cellCount,extraDrawCalls:meshes.length,...manifest.budgets,preservedTerrainBounds:manifest.preservedTerrainBounds};}};
 }
