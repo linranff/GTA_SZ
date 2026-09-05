@@ -1,6 +1,8 @@
 import type {CityData,V2,Road} from './city-types.ts';
 export type CarState={x:number;z:number;yaw:number;speed:number;steer:number;distance:number};
 export const clamp=(n:number,a:number,b:number)=>Math.max(a,Math.min(b,n));
+/** Keyboard driving gets a gentler speed-dependent wheel command; autopilot keeps its calibrated controls. */
+export function manualSteeringInput(direction:number,speed:number){return clamp(direction,-1,1)*(.76-.22*Math.min(1,Math.abs(speed)/26));}
 export function stepCar(s:CarState,input:{throttle:number;steer:number;handbrake:boolean},dt:number,grip=1){
  dt=clamp(dt,0,.05);const v=s.speed,desired=input.steer*.48/(1+Math.abs(v)*.026);s.steer+=(desired-s.steer)*Math.min(1,dt*7);
  let force=input.throttle>=0?input.throttle*9: v>1?input.throttle*18:input.throttle*5;

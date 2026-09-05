@@ -19,6 +19,8 @@ export type CinematicMinimapState = {
   z: number;
   yaw: number;
   route: readonly V2[];
+  speed?:number;
+  observer?:boolean;
 };
 
 type HudElements = {
@@ -194,7 +196,7 @@ const TILE_SCALE = TILE_PIXELS / TILE_WORLD;
 const MAP_SIZE = 320;
 const MAP_BACKING_SIZE = 512;
 const MAP_SCALE = .38;
-const MAX_CACHED_TILES = 64;
+const MAX_CACHED_TILES = 96;
 type Bounds = [number, number, number, number];
 type Segment = {a: V2; b: V2; width: number; major: boolean};
 type MapPolygon = {rings: V2[][]; bounds: Bounds};
@@ -296,55 +298,30 @@ function getMapTile(cache: MapCache, tx: number, tz: number): HTMLCanvasElement 
   return tile;
 }
 
-/** Cached 2D road tiles; call at the existing low-frequency map update cadence. */
-export function drawCinematicMinimap(canvas: HTMLCanvasElement, city: CityData, state: CinematicMinimapState): void {
-  if (canvas.width !== MAP_BACKING_SIZE || canvas.height !== MAP_BACKING_SIZE) {
-    canvas.width = canvas.height = MAP_BACKING_SIZE;
-  }
-  const ctx = canvas.getContext('2d')!;
-  const backingScale = MAP_BACKING_SIZE / MAP_SIZE;
-  ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
-  ctx.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
-  ctx.save();
-  ctx.beginPath(); ctx.arc(160, 160, 159, 0, Math.PI * 2); ctx.clip();
-  ctx.fillStyle = 'rgba(12, 17, 21, 0.4)';
-  ctx.fillRect(0, 0, MAP_SIZE, MAP_SIZE);
-  ctx.translate(160, 208);
-  ctx.rotate(-state.yaw);
-  const cache = getMapCache(city);
-  const reach = 212 / MAP_SCALE;
-  const xmin = Math.floor((state.x - reach) / TILE_WORLD), xmax = Math.floor((state.x + reach) / TILE_WORLD);
-  const zmin = Math.floor((state.z - reach) / TILE_WORLD), zmax = Math.floor((state.z + reach) / TILE_WORLD);
-  for (let x = xmin; x <= xmax; x++) for (let z = zmin; z <= zmax; z++) {
-    const px = (x * TILE_WORLD - state.x) * MAP_SCALE;
-    const py = -((z + 1) * TILE_WORLD - state.z) * MAP_SCALE;
-    ctx.drawImage(getMapTile(cache, x, z), px, py, TILE_WORLD * MAP_SCALE, TILE_WORLD * MAP_SCALE);
-  }
-  if (state.route.length) {
-    ctx.beginPath();
-    for (let i = 0; i < state.route.length; i++) {
-      const p = state.route[i], x = (p[0] - state.x) * MAP_SCALE, y = -(p[1] - state.z) * MAP_SCALE;
-      if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
-    }
-    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-    ctx.strokeStyle = 'rgba(22, 32, 23, 0.8)'; ctx.lineWidth = 6.6; ctx.stroke();
-    ctx.strokeStyle = '#b2c584'; ctx.lineWidth = 4.2; ctx.stroke();
-  }
-  ctx.restore();
-  // The map rotates under the vehicle; this marker always faces forward.
-  ctx.save();
-  ctx.translate(160, 208);
-  ctx.beginPath(); ctx.moveTo(0, -13); ctx.lineTo(9, 10); ctx.lineTo(0, 6); ctx.lineTo(-9, 10); ctx.closePath();
-  ctx.fillStyle = '#7ee0c9'; ctx.strokeStyle = 'rgba(14, 31, 32, .95)'; ctx.lineWidth = 2.5;
-  ctx.stroke(); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(0, -9); ctx.lineTo(0, 4); ctx.lineTo(-5, 6); ctx.closePath();
-  ctx.fillStyle = '#c2f5e5'; ctx.fill();
-  ctx.restore();
-  const compass = hud?.compass;
-  if (compass) {
-    const x = `${(50 - Math.sin(state.yaw) * 45).toFixed(2)}%`;
-    const y = `${(50 - Math.cos(state.yaw) * 45).toFixed(2)}%`;
-    if (compass.style.left !== x) compass.style.left = x;
-    if (compass.style.top !== y) compass.style.top = y;
-  }
+const mapPlanes=new WeakMap<HTMLCanvasElement,{canvas:HTMLCanvasElement;tilt:number}>();
+/** A perspective map plane with a stable vehicle marker; no second WebGL scene. */
+export function minimapTilt(speed=0,observer=false){return observer?.12:.40+Math.min(1,Math.abs(speed)/28)*.25;}
+export function drawCinematicMinimap(canvas:HTMLCanvasElement,city:CityData,state:CinematicMinimapState):void{
+ if(canvas.width!==MAP_BACKING_SIZE||canvas.height!==MAP_BACKING_SIZE)canvas.width=canvas.height=MAP_BACKING_SIZE;
+ let plane=mapPlanes.get(canvas);if(!plane){const image=document.createElement('canvas');image.width=image.height=768;plane={canvas:image,tilt:minimapTilt()};mapPlanes.set(canvas,plane);}
+ plane.tilt+=(minimapTilt(state.speed,state.observer)-plane.tilt)*.22;
+ canvas.dataset.perspectiveTilt=(plane.tilt*180/Math.PI).toFixed(1);
+ const source=plane.canvas.getContext('2d')!,cache=getMapCache(city),reach=920/MAP_SCALE;
+ source.setTransform(.75,0,0,.75,0,0);source.fillStyle='#1b3037';source.fillRect(0,0,1024,1024);source.save();source.translate(512,740);source.rotate(-state.yaw);
+ const xmin=Math.floor((state.x-reach)/TILE_WORLD),xmax=Math.floor((state.x+reach)/TILE_WORLD),zmin=Math.floor((state.z-reach)/TILE_WORLD),zmax=Math.floor((state.z+reach)/TILE_WORLD);
+ for(let x=xmin;x<=xmax;x++)for(let z=zmin;z<=zmax;z++){
+  const px=(x*TILE_WORLD-state.x)*MAP_SCALE,py=-((z+1)*TILE_WORLD-state.z)*MAP_SCALE;
+  // Rotated tile bounds against the 1024px source plane avoid filling unused tiles.
+  const dx=px+TILE_WORLD*MAP_SCALE/2,dy=py+TILE_WORLD*MAP_SCALE/2,rx=dx*Math.cos(state.yaw)+dy*Math.sin(state.yaw),ry=-dx*Math.sin(state.yaw)+dy*Math.cos(state.yaw);
+  if(rx< -650||rx>650||ry< -900||ry>420)continue;
+  source.drawImage(getMapTile(cache,x,z),px,py,TILE_WORLD*MAP_SCALE,TILE_WORLD*MAP_SCALE);
+ }
+ if(state.route.length){source.beginPath();state.route.forEach((p,i)=>{const x=(p[0]-state.x)*MAP_SCALE,y=-(p[1]-state.z)*MAP_SCALE;if(i)source.lineTo(x,y);else source.moveTo(x,y);});source.lineJoin='round';source.lineCap='round';source.strokeStyle='#243e39';source.lineWidth=7;source.stroke();source.strokeStyle='#99e0be';source.lineWidth=4;source.stroke();}
+ source.restore();
+ const ctx=canvas.getContext('2d')!,backing=MAP_BACKING_SIZE/MAP_SIZE;ctx.setTransform(backing,0,0,backing,0,0);ctx.clearRect(0,0,320,320);ctx.save();ctx.beginPath();ctx.arc(160,160,159,0,Math.PI*2);ctx.clip();ctx.fillStyle='#19343e';ctx.fillRect(0,0,320,320);
+ const c=Math.cos(plane.tilt),s=Math.sin(plane.tilt),project=(y:number)=>{const q=(y-208)/(c+(y-208)*s/480);return {y:q,stretch:1-q*s/480};};
+ for(let y=0;y<320;y+=2){const a=project(y),b=project(y+2);ctx.drawImage(plane.canvas,(512-160*a.stretch)*.75,(740+a.y)*.75,320*a.stretch*.75,Math.max(.2,(b.y-a.y)*.75),0,y,320,2.1);}
+ const haze=ctx.createLinearGradient(0,0,0,245);haze.addColorStop(0,'rgba(48,83,99,.30)');haze.addColorStop(1,'rgba(13,31,38,0)');ctx.fillStyle=haze;ctx.fillRect(0,0,320,320);ctx.restore();
+ ctx.save();ctx.translate(160,208);ctx.shadowColor='#071f29';ctx.shadowBlur=7;ctx.shadowOffsetY=3;ctx.beginPath();ctx.moveTo(0,-13);ctx.lineTo(9,10);ctx.lineTo(0,6);ctx.lineTo(-9,10);ctx.closePath();ctx.fillStyle='#7ee0c9';ctx.strokeStyle='#123037';ctx.lineWidth=2.5;ctx.stroke();ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.beginPath();ctx.moveTo(0,-9);ctx.lineTo(0,4);ctx.lineTo(-5,6);ctx.closePath();ctx.fillStyle='#d6fff0';ctx.fill();ctx.restore();
+ if(hud?.compass){hud.compass.style.left=`${50-Math.sin(state.yaw)*45}%`;hud.compass.style.top=`${50-Math.cos(state.yaw)*45}%`;}
 }

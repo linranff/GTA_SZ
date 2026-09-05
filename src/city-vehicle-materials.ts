@@ -11,7 +11,10 @@ export function refineHeroVehicleMaterials(scene:Scene,meshes:readonly AbstractM
  for(const material of new Set(meshes.map(m=>m.material))){if(!(material instanceof PBRMaterial))continue;
   const name=material.name.replace(/\.\d+$/,'');
   if(name==='carpaint'){material.albedoColor=new Color3(.070,.092,.24);material.metallic=.42;material.roughness=.23;material.environmentIntensity=.92;material.specularIntensity=1;material.clearCoat.isEnabled=true;material.clearCoat.intensity=1;material.clearCoat.roughness=.13;material.bumpTexture=paintGrain;}
-  else if(name==='car_glass'){material.albedoColor=new Color3(.014,.026,.033);material.alpha=.66;material.transparencyMode=PBRMaterial.PBRMATERIAL_ALPHABLEND;material.needDepthPrePass=true;material.metallic=0;material.roughness=.12;material.environmentIntensity=1.05;material.specularIntensity=.88;material.indexOfRefraction=1.5;}
+  else if(name==='car_glass'){
+   // Its depth-only and MRT colour passes have different fragment outputs.
+   // Never reuse the previous pass's effect while this variant is compiling.
+   material.allowShaderHotSwapping=false;material.albedoColor=new Color3(.014,.026,.033);material.alpha=.66;material.transparencyMode=PBRMaterial.PBRMATERIAL_ALPHABLEND;material.needDepthPrePass=true;material.metallic=0;material.roughness=.12;material.environmentIntensity=1.05;material.specularIntensity=.88;material.indexOfRefraction=1.5;}
   else if(name==='car_chrome'){material.albedoColor=new Color3(.58,.62,.65);material.metallic=1;material.roughness=.2;}
   else if(name==='wheel_alloy'){material.albedoColor=new Color3(.38,.43,.47);material.metallic=.92;material.roughness=.27;}
   else if(name==='wheel_rubber'){material.albedoColor=new Color3(.021,.024,.027);material.roughness=.84;material.bumpTexture=rubberGrain;}
