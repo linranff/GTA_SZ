@@ -1,0 +1,29 @@
+{
+  "name": "shenchengji-open-roads",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --experimental-transform-types --test tests/*.test.ts",
+    "assets": "node scripts/rebuild_city_assets.mjs",
+    "test:city": "node scripts/city-tour.mjs",
+    "test:city-life": "node --experimental-transform-types scripts/city-life-check.mjs",
+    "benchmark:city": "node --experimental-transform-types scripts/city-benchmark.mjs"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^8.0.0",
+    "@babylonjs/loaders": "^8.0.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
+    "meshoptimizer": "^1.2.0",
+    "playwright": "^1.55.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0"
+  }
+}

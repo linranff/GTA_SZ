@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "sourceEvidenceSha256": "dd5409b18b5cd6430eea94da9c9ec5367a58ad348a3ca569e58dedf28012f9f8",
+  "artwork": [
+    {
+      "id": "tencent-south-roof",
+      "exactText": "Tencent",
+      "url": "/city/textures/signage/tencent-south-roof.png",
+      "width": 512,
+      "height": 96,
+      "bytes": 11620,
+      "sha256": "09392bf54e613a400b3bad7a0604a4ea2231bbee0f8fe5423a3b6849197a0282",
+      "sourceIds": [
+        "tencent-roof-overall",
+        "tencent-roof-close"
+      ],
+      "method": "Manual layout from referenced Tencent brand artwork; no image generation.",
+      "typographyStatus": "2017 Tencent mark contours from the referenced brand artwork, recolored to the observed building sign.",
+      "artworkSource": "data/materials/tencent-logo-source.json",
+      "renderReady": true,
+      "placementStatus": "photo_interpretation_estimated"
+    },
+    {
+      "id": "tencent-low-link-bilingual",
+      "exactText": "Tencent 腾讯",
+      "url": "/city/textures/signage/tencent-low-link-bilingual.png",
+      "width": 512,
+      "height": 128,
+      "bytes": 15120,
+      "sha256": "1ba34f4503157550363d85b2b45e31740759c998f5e188382157abbe01daa01d",
+      "sourceIds": [
+        "tencent-low-link"
+      ],
+      "method": "Manual layout from referenced Tencent brand artwork; no image generation.",
+      "typographyStatus": "2017 Tencent mark contours from the referenced brand artwork, recolored to the observed building sign.",
+      "artworkSource": "data/materials/tencent-logo-source.json",
+      "renderReady": false,
+      "placementStatus": "pending_georeferenced_surface"
+    },
+    {
+      "id": "qijie-entry-bilingual",
+      "exactText": "七街公館\nSEVENTH AVENUE RESIDENCE",
+      "url": "/city/textures/signage/qijie-entry-bilingual.png",
+      "width": 512,
+      "height": 128,
+      "bytes": 8501,
+      "sha256": "372feac14f1586ca450c20c5a72dc5c1ec37dd845949b7470785cfa18d3ff36d",
+      "sourceIds": [
+        "qijie-entry",
+        "qijie-focus-west-entry"
+      ],
+      "method": "Manually composed text and local font outlines, no image generation.",
+      "typographyStatus": "Readable lettering and composition follow references; font contours remain approximations, including Qijie calligraphy.",
+      "artworkSource": null,
+      "renderReady": true,
+      "placementStatus": "photo_interpretation_estimated"
+    },
+    {
+      "id": "mixc-street-link-entry",
+      "exactText": "the miXc 万象天地",
+      "url": "/city/textures/signage/mixc-street-link-entry.png",
+      "width": 512,
+      "height": 128,
+      "bytes": 9693,
+      "sha256": "dcfa13b09c8639d8bd945200be9278a9fd79cb8ede37361aa2ad79dbc96dfb60",
+      "sourceIds": [
+        "mixc-sign-photo-2"
+      ],
+      "method": "Manually composed text and local font outlines, no image generation.",
+      "typographyStatus": "Readable lettering and composition follow references; font contours remain approximations, including Qijie calligraphy.",
+      "artworkSource": null,
+      "renderReady": false,
+      "placementStatus": "pending_georeferenced_surface"
+    }
+  ],
+  "placements": [
+    {
+      "id": "tencent-south-roof",
+      "placeId": "tencent",
+      "text": "Tencent",
+      "textureUrl": "/city/textures/signage/tencent-south-roof.png",
+      "position": [
+        -5838.31421675542,
+        142.84799999999998,
+        -713.9827456588987
+      ],
+      "width": 20.042043,
+      "height": 3.8687999999999994,
+      "rotationY": -0.20942415134190198,
+      "surfaceNormal": [
+        0.20789666752457828,
+        0,
+        -0.9781507939127663
+      ],
+      "placementStatus": "photo_interpretation_estimated",
+      "sourceIds": [
+        "tencent-roof-overall",
+        "tencent-roof-close"
+      ],
+      "illuminationVerified": false,
+      "emissiveAtDusk": 0,
+      "emissiveAtNight": 0,
+      "note": "Observed white lettering. Cardinal face and metric pose estimated from the locked tower footprint; night emission has not been verified."
+    },
+    {
+      "id": "qijie-entry-bilingual",
+      "placeId": "qijie-gongguan",
+      "text": "七街公館\nSEVENTH AVENUE RESIDENCE",
+      "textureUrl": "/city/textures/signage/qijie-entry-bilingual.png",
+      "position": [
+        146.90674013928395,
+        3.84,
+        1633.7079134098383
+      ],
+      "width": 5.1,
+      "height": 1.08,
+      "rotationY": 1.3646910010998798,
+      "surfaceNormal": [
+        -0.9788353785,
+        0,
+        -0.2046492166
+      ],
+      "placementStatus": "photo_interpretation_estimated",
+      "sourceIds": [
+        "qijie-entry",
+        "qijie-focus-west-entry"
+      ],
+      "illuminationVerified": false,
+      "emissiveAtDusk": 0,
+      "emissiveAtNight": 0,
+      "canopy": {
+        "position": [
+          147.78769195866394,
+          3.225,
+          1633.892097704898
+        ],
+        "size": [
+          5.3999999999999995,
+          0.15,
+          1.7999999999999998
+        ],
+        "rotationY": 1.3646910010998798,
+        "albedoSrgb": "#C9CECE",
+        "roughness": 0.6,
+        "status": "photo_interpretation_estimated"
+      },
+      "note": "West-recess entrance matched by the reported west entrance and reference photograph. Metric offset, height, canopy and font contours remain approximations; no unverified LED text or night emission."
+    }
+  ],
+  "textureBytes": 44934,
+  "activeTextureCount": 2,
+  "additionalTriangles": 16,
+  "noNewLights": true,
+  "pending": [
+    "tencent-low-link-bilingual",
+    "mixc-street-link-entry"
+  ]
+}

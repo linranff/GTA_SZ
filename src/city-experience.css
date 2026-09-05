@@ -1,0 +1,3 @@
+#route-hud #cancel-autodrive{display:block;margin:12px 0 0 auto;padding:7px 12px;color:#e4eee6;background:#0c191b88;border:1px solid #c0d7c044;border-radius:4px;font:12px/1.4 system-ui,sans-serif;letter-spacing:.08em;pointer-events:auto;cursor:pointer}
+#route-hud #cancel-autodrive[hidden]{display:none}
+#route-hud small{line-height:1.55}

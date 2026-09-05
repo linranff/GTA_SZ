@@ -1,0 +1,29 @@
+{
+  "assets": [
+    {
+      "file": "car.glb",
+      "bytes": 701976,
+      "triangles": 34286,
+      "meshes": 23
+    },
+    {
+      "file": "pedestrian.glb",
+      "bytes": 47820,
+      "triangles": 1180,
+      "meshes": 12
+    },
+    {
+      "file": "roads.glb",
+      "bytes": 140075756,
+      "triangles": 1915741,
+      "meshes": 765
+    },
+    {
+      "file": "landmarks.glb",
+      "bytes": 12221032,
+      "triangles": 276596,
+      "meshes": 38
+    }
+  ],
+  "source": "artifacts/city/shenzhen-detail-art.blend"
+}

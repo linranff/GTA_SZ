@@ -1,0 +1,1268 @@
+{
+  "schemaVersion": 1,
+  "asset": "/city/landmark-detail.glb",
+  "assetStats": {
+    "file": "landmark-detail.glb",
+    "bytes": 1375748,
+    "triangles": 103564,
+    "meshes": 27,
+    "sha256": "04643a8c21dc74c30c2e80745b76e8ab69830d75d70b9db54c2d2d54aa548d00"
+  },
+  "replacedMeshPrefixes": [
+    "landmark_tencent_",
+    "landmark_lianhua_"
+  ],
+  "baseBuildingIds": [
+    "way/364716846",
+    "way/533679838",
+    "way/533679840",
+    "way/533679841",
+    "way/668050779",
+    "way/668050780",
+    "way/694152192",
+    "way/694152193"
+  ],
+  "landmarks": [
+    {
+      "id": "tencent",
+      "name": "腾讯滨海大厦",
+      "lon": 113.9303974748015,
+      "lat": 22.52580080024554,
+      "x": -5837.92183,
+      "z": -681.2249499999999,
+      "height": 148.79999999999998,
+      "area": "南山 · 科技园",
+      "excludeRadius": 60,
+      "arrival": [
+        -5468.4,
+        -684.4
+      ],
+      "yaw": -1.5516014768614803,
+      "arrivalRoad": "海天二路",
+      "detailCollision": true,
+      "photoDistance": 270,
+      "photoTargetHeight": 67,
+      "photoElevation": 0.2,
+      "photoAngle": 1.7,
+      "sourceStatus": "source_grounded_exterior_v1"
+    },
+    {
+      "id": "lianhua",
+      "name": "莲花山公园",
+      "lon": 114.05322070977152,
+      "lat": 22.556683614804168,
+      "x": 1741.5,
+      "z": 1381.5,
+      "height": 0,
+      "area": "福田 · 莲花山",
+      "excludeRadius": 0,
+      "arrival": [
+        1498.74,
+        1013.1
+      ],
+      "yaw": 1.4774978042799622,
+      "arrivalRoad": "红荔路",
+      "photoDistance": 1430,
+      "photoTargetHeight": 18,
+      "photoElevation": 0.35,
+      "sourceStatus": "30m DSM; local datum and flat-city edges adapted"
+    },
+    {
+      "id": "qijie-gongguan",
+      "name": "七街公馆 / 哈尔滨大厦",
+      "x": 155.43391379928394,
+      "z": 1635.0514619998382,
+      "lon": 114.02751878,
+      "lat": 22.56047975,
+      "height": 61.559999999999995,
+      "area": "福田 · 香蜜湖",
+      "excludeRadius": 0,
+      "detailCollision": true,
+      "sourceStatus": "photo_guided_model_estimated_height",
+      "arrival": [
+        139.7,
+        1614.9
+      ],
+      "yaw": 2.6451699001849134,
+      "arrivalRoad": "周边连通道路",
+      "photoDistance": 165,
+      "photoTargetHeight": 24.48,
+      "photoElevation": 0.22,
+      "sourceIds": [
+        "osm-local",
+        "qijie-amap",
+        "qijie-floorplans",
+        "qijie-photo-entry",
+        "qijie-photo-overall",
+        "qijie-photos",
+        "qijie-aerial-720yun"
+      ],
+      "limitations": [
+        "无竣工测绘高度；当前102m为建模估计",
+        "照片无相机位姿，不能做测量级照片重建",
+        "OSM只有单一轮廓，A/B分区不能硬分成两栋"
+      ]
+    },
+    {
+      "id": "fortune-plaza",
+      "name": "财富广场",
+      "x": -218.0973332999777,
+      "z": 291.4382090400059,
+      "lon": 114.02146577,
+      "lat": 22.54036337,
+      "height": 56.879999999999995,
+      "area": "福田 · 竹子林",
+      "excludeRadius": 0,
+      "detailCollision": true,
+      "sourceStatus": "photo_guided_model_estimated_height",
+      "arrival": [
+        -252.6,
+        310.2
+      ],
+      "yaw": -0.3470616035394945,
+      "arrivalRoad": "周边连通道路",
+      "photoDistance": 150,
+      "photoTargetHeight": 22.08,
+      "photoElevation": 0.22,
+      "photoAngle": 0,
+      "sourceIds": [
+        "fortune-amap",
+        "fortune-owner",
+        "fortune-photo-entry",
+        "fortune-photo-overall",
+        "fortune-photos",
+        "osm-local"
+      ],
+      "limitations": [
+        "总高度与分栋层数未可靠核实，A92m/B84m为建模估计",
+        "OSM A轮廓为少量折线，曲率不能宣称实测",
+        "入口位置未配准，当前不精细重建入口",
+        "A座内外弧面为照片引导的拟合解释，与原OSM折线最大相差约2.49m；两端4.5m白墙宽度与位置为估计，入口圆柱和悬挑尚未配准。"
+      ]
+    },
+    {
+      "id": "mixc-world",
+      "name": "万象天地",
+      "x": -4581.520102500645,
+      "z": 588.5797869599352,
+      "lon": 113.95075725,
+      "lat": 22.54481213,
+      "height": 134.928,
+      "area": "南山 · 华润城",
+      "excludeRadius": 0,
+      "detailCollision": true,
+      "sourceStatus": "stepped_tower_massing_only",
+      "arrival": [
+        -4568.3,
+        526
+      ],
+      "yaw": 3.119666343490993,
+      "arrivalRoad": "周边连通道路",
+      "photoDistance": 430,
+      "photoTargetHeight": 53.760000000000005,
+      "photoElevation": 0.22,
+      "sourceIds": [
+        "capol-mixc",
+        "capol-streets",
+        "cr-mixc-remodel",
+        "osm-local"
+      ],
+      "limitations": [
+        "OSM高度有标签但未被设计方尺寸复核",
+        "三栋楼塔改善不等于万象天地整体高精模",
+        "缺少近期四面照片/商场平面定位，暂不自动制作店招、装置或街区精细外观"
+      ]
+    }
+  ],
+  "baseBuildingExclusionsRequired": true,
+  "collisionFootprints": [
+    {
+      "id": "detail-tencent-south",
+      "rings": [
+        [
+          [
+            -5844.9799,
+            -694.5299
+          ],
+          [
+            -5822.3076,
+            -689.7142
+          ],
+          [
+            -5817.1055,
+            -688.6055
+          ],
+          [
+            -5815.8528,
+            -688.3383
+          ],
+          [
+            -5801.9248,
+            -686.8956
+          ],
+          [
+            -5798.1605,
+            -704.5888
+          ],
+          [
+            -5814.8161,
+            -708.1288
+          ],
+          [
+            -5824.5539,
+            -710.1993
+          ],
+          [
+            -5831.632,
+            -711.7022
+          ],
+          [
+            -5854.1685,
+            -716.4911
+          ],
+          [
+            -5857.9575,
+            -698.6844
+          ],
+          [
+            -5844.9799,
+            -694.5299
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-tencent-north",
+      "rings": [
+        [
+          [
+            -5856.4826,
+            -655.8173
+          ],
+          [
+            -5851.5212,
+            -653.0521
+          ],
+          [
+            -5844.2949,
+            -649.0513
+          ],
+          [
+            -5831.3296,
+            -641.8845
+          ],
+          [
+            -5822.9247,
+            -657.0062
+          ],
+          [
+            -5831.2741,
+            -662.9707
+          ],
+          [
+            -5834.2177,
+            -664.5938
+          ],
+          [
+            -5854.6499,
+            -675.8816
+          ],
+          [
+            -5855.1374,
+            -676.1488
+          ],
+          [
+            -5864.4062,
+            -680.2632
+          ],
+          [
+            -5872.9037,
+            -664.9812
+          ],
+          [
+            -5856.4826,
+            -655.8173
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-tencent-connector",
+      "rings": [
+        [
+          [
+            -5820.1236,
+            -696.9972
+          ],
+          [
+            -5839.5717,
+            -657.5011
+          ],
+          [
+            -5855.7201,
+            -665.4527
+          ],
+          [
+            -5836.272,
+            -704.9488
+          ],
+          [
+            -5820.1236,
+            -696.9972
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-qijie-gongguan-way/364716846",
+      "rings": [
+        [
+          [
+            165.136,
+            1651.0314
+          ],
+          [
+            167.123,
+            1641.9344
+          ],
+          [
+            160.1745,
+            1640.6119
+          ],
+          [
+            161.9949,
+            1633.4919
+          ],
+          [
+            168.7769,
+            1634.654
+          ],
+          [
+            171.0971,
+            1624.3948
+          ],
+          [
+            145.7714,
+            1619.2652
+          ],
+          [
+            143.4572,
+            1629.1905
+          ],
+          [
+            149.4123,
+            1630.5196
+          ],
+          [
+            147.925,
+            1637.633
+          ],
+          [
+            142.2971,
+            1636.6378
+          ],
+          [
+            139.9768,
+            1646.0688
+          ],
+          [
+            165.136,
+            1651.0314
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-fortune-plaza-way/668050780",
+      "rings": [
+        [
+          [
+            -241.1997,
+            255.987
+          ],
+          [
+            -241.7397,
+            257.3664
+          ],
+          [
+            -242.2268,
+            258.7654
+          ],
+          [
+            -242.6603,
+            260.1822
+          ],
+          [
+            -243.0396,
+            261.6147
+          ],
+          [
+            -243.3641,
+            263.0608
+          ],
+          [
+            -243.6335,
+            264.5184
+          ],
+          [
+            -243.8471,
+            265.9855
+          ],
+          [
+            -244.0048,
+            267.4598
+          ],
+          [
+            -244.1063,
+            268.9393
+          ],
+          [
+            -244.1514,
+            270.4218
+          ],
+          [
+            -244.1402,
+            271.9051
+          ],
+          [
+            -244.0724,
+            273.3872
+          ],
+          [
+            -243.9484,
+            274.8659
+          ],
+          [
+            -243.7682,
+            276.3389
+          ],
+          [
+            -243.5321,
+            277.8043
+          ],
+          [
+            -243.2405,
+            279.2598
+          ],
+          [
+            -242.8936,
+            280.7034
+          ],
+          [
+            -242.4921,
+            282.133
+          ],
+          [
+            -242.0366,
+            283.5465
+          ],
+          [
+            -241.5275,
+            284.942
+          ],
+          [
+            -240.9658,
+            286.3171
+          ],
+          [
+            -240.3521,
+            287.6703
+          ],
+          [
+            -239.6874,
+            288.9993
+          ],
+          [
+            -238.9727,
+            290.3022
+          ],
+          [
+            -238.2089,
+            291.5772
+          ],
+          [
+            -237.3972,
+            292.8225
+          ],
+          [
+            -236.5386,
+            294.0363
+          ],
+          [
+            -235.6346,
+            295.2167
+          ],
+          [
+            -234.6862,
+            296.3621
+          ],
+          [
+            -233.695,
+            297.4708
+          ],
+          [
+            -232.6623,
+            298.5413
+          ],
+          [
+            -231.5897,
+            299.5718
+          ],
+          [
+            -230.4786,
+            300.5611
+          ],
+          [
+            -229.3307,
+            301.5076
+          ],
+          [
+            -228.1476,
+            302.41
+          ],
+          [
+            -226.9311,
+            303.2669
+          ],
+          [
+            -225.6828,
+            304.0772
+          ],
+          [
+            -224.4047,
+            304.8396
+          ],
+          [
+            -223.0984,
+            305.553
+          ],
+          [
+            -221.7659,
+            306.2165
+          ],
+          [
+            -220.4092,
+            306.829
+          ],
+          [
+            -219.0302,
+            307.3897
+          ],
+          [
+            -217.6308,
+            307.8978
+          ],
+          [
+            -216.213,
+            308.3524
+          ],
+          [
+            -214.7791,
+            308.7531
+          ],
+          [
+            -213.3309,
+            309.0991
+          ],
+          [
+            -211.8706,
+            309.39
+          ],
+          [
+            -210.4003,
+            309.6254
+          ],
+          [
+            -208.9221,
+            309.8049
+          ],
+          [
+            -207.4382,
+            309.9282
+          ],
+          [
+            -205.4511,
+            298.6738
+          ],
+          [
+            -206.9211,
+            298.4868
+          ],
+          [
+            -208.3796,
+            298.2242
+          ],
+          [
+            -209.8224,
+            297.8867
+          ],
+          [
+            -211.2458,
+            297.4752
+          ],
+          [
+            -212.6459,
+            296.9907
+          ],
+          [
+            -214.019,
+            296.4347
+          ],
+          [
+            -215.3615,
+            295.8085
+          ],
+          [
+            -216.6698,
+            295.1139
+          ],
+          [
+            -217.9403,
+            294.3527
+          ],
+          [
+            -219.1697,
+            293.527
+          ],
+          [
+            -220.3546,
+            292.6389
+          ],
+          [
+            -221.492,
+            291.691
+          ],
+          [
+            -222.5787,
+            290.6857
+          ],
+          [
+            -223.612,
+            289.6256
+          ],
+          [
+            -224.5889,
+            288.5137
+          ],
+          [
+            -225.507,
+            287.353
+          ],
+          [
+            -226.3637,
+            286.1464
+          ],
+          [
+            -227.1568,
+            284.8974
+          ],
+          [
+            -227.8842,
+            283.6092
+          ],
+          [
+            -228.5439,
+            282.2853
+          ],
+          [
+            -229.1341,
+            280.9292
+          ],
+          [
+            -229.6533,
+            279.5447
+          ],
+          [
+            -230.1002,
+            278.1352
+          ],
+          [
+            -230.4735,
+            276.7047
+          ],
+          [
+            -230.7722,
+            275.2571
+          ],
+          [
+            -230.9955,
+            273.7961
+          ],
+          [
+            -231.143,
+            272.3257
+          ],
+          [
+            -231.2141,
+            270.8498
+          ],
+          [
+            -231.2086,
+            269.3724
+          ],
+          [
+            -231.1267,
+            267.8976
+          ],
+          [
+            -230.9685,
+            266.4291
+          ],
+          [
+            -230.7345,
+            264.9709
+          ],
+          [
+            -230.4254,
+            263.527
+          ],
+          [
+            -230.0418,
+            262.1013
+          ],
+          [
+            -229.585,
+            260.6975
+          ],
+          [
+            -229.0561,
+            259.3194
+          ],
+          [
+            -228.4566,
+            257.9707
+          ],
+          [
+            -241.1997,
+            255.987
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-fortune-plaza-way/668050779",
+      "rings": [
+        [
+          [
+            -178.4715,
+            314.223
+          ],
+          [
+            -177.1447,
+            303.3025
+          ],
+          [
+            -205.4511,
+            298.6738
+          ],
+          [
+            -207.4382,
+            309.9282
+          ],
+          [
+            -178.4715,
+            314.223
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947072",
+      "rings": [
+        [
+          [
+            -4457.8132,
+            596.3657
+          ],
+          [
+            -4457.7391,
+            585.6857
+          ],
+          [
+            -4458.8807,
+            585.679
+          ],
+          [
+            -4488.0572,
+            585.4786
+          ],
+          [
+            -4488.1374,
+            596.152
+          ],
+          [
+            -4457.8132,
+            596.3657
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947073",
+      "rings": [
+        [
+          [
+            -4488.0572,
+            585.4786
+          ],
+          [
+            -4458.8807,
+            585.679
+          ],
+          [
+            -4458.8252,
+            577.5371
+          ],
+          [
+            -4459.5842,
+            577.5304
+          ],
+          [
+            -4489.2729,
+            577.3367
+          ],
+          [
+            -4489.3284,
+            585.4653
+          ],
+          [
+            -4488.0572,
+            585.4786
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947074",
+      "rings": [
+        [
+          [
+            -4489.2729,
+            577.3367
+          ],
+          [
+            -4459.5842,
+            577.5304
+          ],
+          [
+            -4459.5472,
+            571.8531
+          ],
+          [
+            -4465.8848,
+            571.813
+          ],
+          [
+            -4490.2911,
+            571.6527
+          ],
+          [
+            -4490.3035,
+            574.0438
+          ],
+          [
+            -4490.3282,
+            577.33
+          ],
+          [
+            -4489.2729,
+            577.3367
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947078",
+      "rings": [
+        [
+          [
+            -4606.7996,
+            560.799
+          ],
+          [
+            -4605.3864,
+            560.819
+          ],
+          [
+            -4601.7641,
+            560.8725
+          ],
+          [
+            -4598.7403,
+            560.9125
+          ],
+          [
+            -4598.6909,
+            557.2056
+          ],
+          [
+            -4598.586,
+            550.2859
+          ],
+          [
+            -4599.8449,
+            550.2659
+          ],
+          [
+            -4628.5154,
+            549.8585
+          ],
+          [
+            -4628.6696,
+            560.4851
+          ],
+          [
+            -4606.7996,
+            560.799
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947079",
+      "rings": [
+        [
+          [
+            -4628.5154,
+            549.8585
+          ],
+          [
+            -4599.8449,
+            550.2659
+          ],
+          [
+            -4599.7276,
+            542.0772
+          ],
+          [
+            -4600.8014,
+            542.0638
+          ],
+          [
+            -4630.0149,
+            541.643
+          ],
+          [
+            -4630.1322,
+            549.8384
+          ],
+          [
+            -4628.5154,
+            549.8585
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947080",
+      "rings": [
+        [
+          [
+            -4630.0149,
+            541.643
+          ],
+          [
+            -4600.8014,
+            542.0638
+          ],
+          [
+            -4600.715,
+            536.2596
+          ],
+          [
+            -4631.2491,
+            535.8255
+          ],
+          [
+            -4631.3293,
+            541.6297
+          ],
+          [
+            -4630.0149,
+            541.643
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947107",
+      "rings": [
+        [
+          [
+            -4633.7422,
+            641.831
+          ],
+          [
+            -4633.6805,
+            634.7912
+          ],
+          [
+            -4661.8264,
+            634.5507
+          ],
+          [
+            -4663.2087,
+            634.5374
+          ],
+          [
+            -4663.2643,
+            641.5706
+          ],
+          [
+            -4633.7422,
+            641.831
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947108",
+      "rings": [
+        [
+          [
+            -4633.6805,
+            634.7912
+          ],
+          [
+            -4631.354,
+            634.8112
+          ],
+          [
+            -4631.2861,
+            626.7895
+          ],
+          [
+            -4631.2738,
+            625.7742
+          ],
+          [
+            -4660.08,
+            625.5204
+          ],
+          [
+            -4661.7524,
+            625.5071
+          ],
+          [
+            -4661.8264,
+            634.5507
+          ],
+          [
+            -4633.6805,
+            634.7912
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-mixc-world-way/1268947109",
+      "rings": [
+        [
+          [
+            -4631.2738,
+            625.7742
+          ],
+          [
+            -4630.089,
+            625.7809
+          ],
+          [
+            -4629.9717,
+            613.2174
+          ],
+          [
+            -4644.2205,
+            613.0971
+          ],
+          [
+            -4659.9689,
+            612.9569
+          ],
+          [
+            -4660.08,
+            625.5204
+          ],
+          [
+            -4631.2738,
+            625.7742
+          ]
+        ]
+      ]
+    }
+  ],
+  "terrain": {
+    "url": "/city/terrain-detail.json"
+  },
+  "modelReports": [
+    {
+      "id": "detail_tencent",
+      "triangles": 28738,
+      "meshes": 8,
+      "report": {
+        "id": "tencent",
+        "scale": 0.6,
+        "tower_count": 2,
+        "bridge_count": 3,
+        "max_height": 148.79999999999998,
+        "source_spec": "data/landmarks/tencent.json"
+      }
+    },
+    {
+      "id": "detail_lianhua",
+      "triangles": 43736,
+      "meshes": 5,
+      "report": {
+        "nativeResolutionMeters": 30,
+        "estimatedCanopy": true
+      }
+    },
+    {
+      "id": "detail_qijie-gongguan",
+      "triangles": 6472,
+      "meshes": 5,
+      "report": {
+        "id": "qijie-gongguan",
+        "name": "七街公馆 / 哈尔滨大厦",
+        "x": 155.43391379928394,
+        "z": 1635.0514619998382,
+        "lon": 114.02751878,
+        "lat": 22.56047975,
+        "height": 61.559999999999995,
+        "baseBuildingIds": [
+          "way/364716846"
+        ],
+        "sourceIds": [
+          "osm-local",
+          "qijie-amap",
+          "qijie-floorplans",
+          "qijie-photo-entry",
+          "qijie-photo-overall",
+          "qijie-photos",
+          "qijie-aerial-720yun"
+        ],
+        "modelStatus": "photo_guided_model_estimated_height",
+        "heightStatus": [
+          "estimated_from_unverified_floor_count"
+        ],
+        "limitations": [
+          "无竣工测绘高度；当前102m为建模估计",
+          "照片无相机位姿，不能做测量级照片重建",
+          "OSM只有单一轮廓，A/B分区不能硬分成两栋"
+        ],
+        "renderGeometryStatus": [
+          "osm_unverified"
+        ],
+        "referenceDataset": "data/landmarks/priority-places.json",
+        "parameterDataset": "data/landmarks/priority-models.json"
+      }
+    },
+    {
+      "id": "detail_fortune-plaza",
+      "triangles": 16931,
+      "meshes": 5,
+      "report": {
+        "id": "fortune-plaza",
+        "name": "财富广场",
+        "x": -218.0973332999777,
+        "z": 291.4382090400059,
+        "lon": 114.02146577,
+        "lat": 22.54036337,
+        "height": 56.879999999999995,
+        "baseBuildingIds": [
+          "way/668050780",
+          "way/668050779"
+        ],
+        "sourceIds": [
+          "fortune-amap",
+          "fortune-owner",
+          "fortune-photo-entry",
+          "fortune-photo-overall",
+          "fortune-photos",
+          "osm-local"
+        ],
+        "modelStatus": "photo_guided_model_estimated_height",
+        "heightStatus": [
+          "estimated_from_unverified_floor_count"
+        ],
+        "limitations": [
+          "总高度与分栋层数未可靠核实，A92m/B84m为建模估计",
+          "OSM A轮廓为少量折线，曲率不能宣称实测",
+          "入口位置未配准，当前不精细重建入口",
+          "A座内外弧面为照片引导的拟合解释，与原OSM折线最大相差约2.49m；两端4.5m白墙宽度与位置为估计，入口圆柱和悬挑尚未配准。"
+        ],
+        "renderGeometryStatus": [
+          "osm_unverified",
+          "photo_interpretation_estimated"
+        ],
+        "referenceDataset": "data/landmarks/priority-places.json",
+        "parameterDataset": "data/landmarks/priority-models.json"
+      }
+    },
+    {
+      "id": "detail_mixc-world",
+      "triangles": 7687,
+      "meshes": 4,
+      "report": {
+        "id": "mixc-world",
+        "name": "万象天地",
+        "x": -4581.520102500645,
+        "z": 588.5797869599352,
+        "lon": 113.95075725,
+        "lat": 22.54481213,
+        "height": 134.928,
+        "baseBuildingIds": [
+          "way/533679838",
+          "way/533679840",
+          "way/533679841"
+        ],
+        "sourceIds": [
+          "capol-mixc",
+          "capol-streets",
+          "cr-mixc-remodel",
+          "osm-local"
+        ],
+        "modelStatus": "stepped_tower_massing_only",
+        "heightStatus": [
+          "osm_tagged_unverified"
+        ],
+        "limitations": [
+          "OSM高度有标签但未被设计方尺寸复核",
+          "三栋楼塔改善不等于万象天地整体高精模",
+          "缺少近期四面照片/商场平面定位，暂不自动制作店招、装置或街区精细外观"
+        ],
+        "renderGeometryStatus": [
+          "osm_unverified"
+        ],
+        "referenceDataset": "data/landmarks/priority-places.json",
+        "parameterDataset": "data/landmarks/priority-models.json"
+      }
+    }
+  ],
+  "sourceSha256": {
+    "data/landmarks/tencent.json": "db1e511dd6ec747c66cd41df1afa23e805aacd8cc0cce344008b5505beeaa672",
+    "data/landmarks/priority-models.json": "aa8135be346ecd26f861d8b7b60a85ad7976b007dc52a6a7cfdf8753df516995",
+    "public/city/terrain-detail.json": "41feabf8ed35fde255a14e94bd15b08324cca4088f42a2d2caccf58a8156b4c0",
+    "scripts/landmarks/tencent.py": "364d03b9b15f1d6ff6a1bb4857477cb6959543e1644d7d2f1fa2f464ea0f2362",
+    "scripts/landmarks/priority.py": "3a48f3c30a149d56591c50eb7233753185ded80c3b566fd9c2d183dc6747d6c7",
+    "scripts/landmarks/lianhua.py": "dd2573d64ef5c9101df49866573e569dd9161a1f0537c6e558b7d390997fe43a",
+    "scripts/build_landmark_details.py": "f02fef2d5ab0be7319d6ba8ecf6cb0196dd84e85e729496b231627354093312f",
+    "scripts/city_mesh.py": "bcc9eb59c5e2d6ca39f61e0b9e39433aa89c85833e72bd3630f3c328ad3cd42a"
+  },
+  "coordinateSystem": "Blender east,north,up; GLB y-up; runtime preserves root Z reflection",
+  "horizontalScale": 0.6,
+  "verticalScale": 0.6,
+  "generator": {
+    "blender": "5.2.0 LTS"
+  },
+  "limitations": [
+    "DSM resolution 30m; canopy and flat-city edge adaptation are not surveyed bare earth",
+    "Facade detail and Fortune/Qijie heights include explicitly labelled photo/typology estimates",
+    "MixC only restores mapped tower parts; shopping-street and mall exterior remain pending"
+  ],
+  "compression": {
+    "before": 6337480,
+    "after": 1375748,
+    "algorithm": "EXT_meshopt_compression",
+    "positionBits": 16
+  }
+}

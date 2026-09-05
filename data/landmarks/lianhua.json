@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "lianhua",
+  "name": "莲花山公园",
+  "sourceManifest": "data/raw/landmarks/Copernicus_DSM_COG_10_N22_00_E114_00_DEM.manifest.json",
+  "sourceSha256": "b950ab75642d6684fe08c82b6aa3bb087c1d35acd229ef0e6e6586e1b0868fa3",
+  "boundarySource": {
+    "id": "way/41281446",
+    "url": "https://www.openstreetmap.org/way/41281446",
+    "fileSha256": "dd85c2ae0941f023f64cca76b49f6a493d4069b7130b994a546db256cef679bc"
+  },
+  "sources": [
+    {
+      "url": "https://www.sz.gov.cn/szzt2010/gysz/csgy/content/post_10776567.html",
+      "facts": {
+        "parkAreaHectares": 181,
+        "peakElevationMeters": 100
+      },
+      "notes": "官方为约100m，OSM峰点ele=106；不以此强制归一化DSM。"
+    },
+    {
+      "url": "https://registry.opendata.aws/copernicus-dem/",
+      "role": "DSM specification"
+    }
+  ],
+  "coordinateSystem": "local east,north,up; game metres",
+  "horizontalScale": 0.6,
+  "verticalScale": 0.6,
+  "nativeResolutionMeters": 30,
+  "meshSpacingMeters": 15,
+  "verticalDatumMetersRemoved": 17.749,
+  "processing": [
+    "Bilinear interpolation of native 1 arc-second DSM",
+    "Subtract lower quartile of park border DSM as local flat-city datum",
+    "55m park-edge, 30m road-corridor and 20m lake-edge smooth blends to existing flat city",
+    "No vertical exaggeration; source includes canopy; not a measured DTM"
+  ],
+  "confidence": "source-grounded regional relief; ground surface and border transitions estimated",
+  "derivativeNotice": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved",
+  "stats": {
+    "sourceRangeMeters": [
+      3.567,
+      110.951
+    ],
+    "gameReliefMeters": 55.921,
+    "realReliefMeters": 93.202,
+    "parkWidthMeters": 1864.54,
+    "parkDepthMeters": 1269.32,
+    "parkAreaSquareMeters": 1880515.36,
+    "peakHeightGame": 55.481,
+    "paths": 98
+  }
+}

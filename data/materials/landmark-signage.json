@@ -1,0 +1,988 @@
+{
+  "schemaVersion": 1,
+  "researchedAt": "2026-09-05",
+  "scope": "公开建筑外部永久招牌；不记录用户与地点的私人关系。",
+  "coordinateConvention": {
+    "bearing": "degrees clockwise from geographic north, outward face normal",
+    "physicalUnits": "unscaled metres",
+    "gameScale": 0.6,
+    "applyScaleOnce": true,
+    "unknownBearing": null
+  },
+  "authoringPolicy": {
+    "textMethod": "manual_vector_or_manually_authored_alpha_texture",
+    "imageGenerationForText": false,
+    "copyReferencePhotosIntoTextures": false,
+    "textVerificationIsNotPoseVerification": true,
+    "requireMatchedSurfaceForPlacement": true,
+    "noNavigationNamesAsObservedSigns": true,
+    "unknownAction": "leave facade unlabelled until evidence or placement is available",
+    "nightLighting": "Only record visible emission; daylight lettering does not establish neon. Intensity must be an artistic, separately validated parameter."
+  },
+  "statusDefinitions": {
+    "verified_in_reference_photo": "文字、色系与安装对象在本次目视参考中可识读；不等于当前在地复核，也不等于精确定位。",
+    "photo_interpretation_estimated": "由照片与现有模型比例/朝向推断，非实测。",
+    "pending_georeferenced_surface": "可先画文字；必须先把照片中的承载面对应到模型，才能安装。",
+    "unknown": "没有足够证据填写或渲染文字。"
+  },
+  "sources": [
+    {
+      "id": "tencent-roof-overall",
+      "title": "腾讯官方：滨海双塔实景",
+      "pageUrl": "https://www.tencent.com/newsroom/media-resources/",
+      "imageUrl": "https://www.tencent.com/wp-content/uploads/2022/12/4f34106479e212354f188666b8eb421b.jpeg",
+      "publisherOrAuthor": "Tencent",
+      "sourceType": "owner_media",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "98063a0b5c2cae831a327dbce7aa27fcbdf7fb2568b542b454b1bd9ca40ca2fe",
+      "notes": [
+        "页面只标 Tencent headquarters；本图按双塔和连桥形体匹配滨海大厦。",
+        "官网注明媒体素材仅供 editorial use；此处只保存引用和观察。"
+      ]
+    },
+    {
+      "id": "tencent-roof-close",
+      "title": "腾讯官方：屋顶 Tencent 立体字近景",
+      "pageUrl": "https://www.tencent.com/newsroom/media-resources/",
+      "imageUrl": "https://www.tencent.com/wp-content/uploads/2022/12/80b906c3d4ff047e42a7320c84e47161.jpeg",
+      "publisherOrAuthor": "Tencent",
+      "sourceType": "owner_media",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "7945617b3d4eb625008af6a8424a811fb4bb8767165fbde5c2e0dc1c280a4522",
+      "notes": []
+    },
+    {
+      "id": "tencent-low-link",
+      "title": "腾讯官方：低层铜棕色连接体双语标识",
+      "pageUrl": "https://www.tencent.com/newsroom/media-resources/",
+      "imageUrl": "https://www.tencent.com/wp-content/uploads/2022/12/25a8bceda571cbb43a6775a035930efd.jpeg",
+      "publisherOrAuthor": "Tencent",
+      "sourceType": "owner_media",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "fe87ef40db2f45716513bc4a3d3b5c1df5ae16669b3496df3638b1302b86a93d",
+      "notes": []
+    },
+    {
+      "id": "tencent-old-headquarters-excluded",
+      "title": "腾讯官方：另一座旧总部单塔，排除",
+      "pageUrl": "https://www.tencent.com/newsroom/media-resources/",
+      "imageUrl": "https://www.tencent.com/wp-content/uploads/2022/12/7b43130e3794612132dbac1da10ec23d.jpeg",
+      "publisherOrAuthor": "Tencent",
+      "sourceType": "owner_media",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "d8f65066f89bdfede00834524abcec15f43ebacd797571bfb2445bd5a6801953",
+      "notes": [
+        "单塔曲冠与蓝色水平夜光，不是本轮滨海双塔；不得复制其牌与灯光。"
+      ]
+    },
+    {
+      "id": "qijie-entry",
+      "title": "七街公馆公共入口实景",
+      "pageUrl": "https://shenzhen.leyoujia.com/xq/detail/1091.html",
+      "imageUrl": "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/b6c701f6-debf-42df-a05d-1ef107f87a6d.jpg",
+      "publisherOrAuthor": "乐有家原小区相册",
+      "sourceType": "original_listing_photo",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "URL path: 2018-07/17; capture date unverified",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "c6a39ded2d866afaec45e66422784f4ebc1e3fc302e5c492fcb889a60d4481d9",
+      "notes": []
+    },
+    {
+      "id": "qijie-roof-distant",
+      "title": "七街公馆与青海大厦远景",
+      "pageUrl": "https://shenzhen.leyoujia.com/xq/detail/1091.html",
+      "imageUrl": "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/35346e99-628d-4242-8ac9-a64f6adf9e5d.jpg",
+      "publisherOrAuthor": "乐有家原小区相册",
+      "sourceType": "original_listing_photo",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "URL path: 2018-07/17; capture date unverified",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "9ebda889ad8a19aeddb8f3d218130af005ad8ca1d31465e74cee7a2963195b1a",
+      "notes": [
+        "七街为左侧银灰楼，右侧棕色楼为青海大厦；屋顶招牌像素不足以逐字确认。"
+      ]
+    },
+    {
+      "id": "mixc-sign-photo-1",
+      "title": "深圳万象天地标识与导视系统：塔楼夜景与北京银行屋顶标识",
+      "pageUrl": "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+      "imageUrl": "https://img.zcool.cn/community/01qjv5yrtlqf2rjsydkgbb3832.jpg",
+      "publisherOrAuthor": "黄钎乘 / Arcadius",
+      "sourceType": "original_photographer_portfolio",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "page reports photography 2023; image watermark copyright 2024",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "4ed5b2fe34946c4394d4c9d761faa31b84a0d1424e71bfef8f233e70d21ea4ec",
+      "notes": [
+        "摄影师项目页标注业主华润置地、设计 graphia|BRANDS 革思亚、项目完成2017。",
+        "CDN 图片需要原页面提供的时效签名；imageUrl 为固定文件标识，失效时从来源页重新访问。",
+        "不把照片版权水印或邻铺招牌复制为游戏贴图。"
+      ]
+    },
+    {
+      "id": "mixc-sign-photo-2",
+      "title": "深圳万象天地标识与导视系统：低层步行街入口横梁",
+      "pageUrl": "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+      "imageUrl": "https://img.zcool.cn/community/01piws33ghndfoh8lzpjb03938.jpg",
+      "publisherOrAuthor": "黄钎乘 / Arcadius",
+      "sourceType": "original_photographer_portfolio",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "page reports photography 2023; image watermark copyright 2024",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "a96db136a6a432ee63206159bcb9bac2259b3c815c75c66c64166ef3722dade8",
+      "notes": [
+        "摄影师项目页标注业主华润置地、设计 graphia|BRANDS 革思亚、项目完成2017。",
+        "CDN 图片需要原页面提供的时效签名；imageUrl 为固定文件标识，失效时从来源页重新访问。",
+        "不把照片版权水印或邻铺招牌复制为游戏贴图。"
+      ]
+    },
+    {
+      "id": "mixc-sign-photo-3",
+      "title": "深圳万象天地标识与导视系统：下沉广场入口",
+      "pageUrl": "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+      "imageUrl": "https://img.zcool.cn/community/01gufhhecfjahcufftlt8t3132.jpg",
+      "publisherOrAuthor": "黄钎乘 / Arcadius",
+      "sourceType": "original_photographer_portfolio",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "page reports photography 2023; image watermark copyright 2024",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "52d12f779314e67ef07b39af6052cd25a623407e084428ba392370c5f7d7c777",
+      "notes": [
+        "摄影师项目页标注业主华润置地、设计 graphia|BRANDS 革思亚、项目完成2017。",
+        "CDN 图片需要原页面提供的时效签名；imageUrl 为固定文件标识，失效时从来源页重新访问。",
+        "不把照片版权水印或邻铺招牌复制为游戏贴图。"
+      ]
+    },
+    {
+      "id": "mixc-sign-photo-4",
+      "title": "深圳万象天地标识与导视系统：多层玻璃门厅入口",
+      "pageUrl": "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+      "imageUrl": "https://img.zcool.cn/community/01d0dpigudpruxgwomx32c3438.jpg",
+      "publisherOrAuthor": "黄钎乘 / Arcadius",
+      "sourceType": "original_photographer_portfolio",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "page reports photography 2023; image watermark copyright 2024",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "1bef9f7745ccf79a6670e33c57115dd5504fc487beb2734c804c3fb573bdaf66",
+      "notes": [
+        "摄影师项目页标注业主华润置地、设计 graphia|BRANDS 革思亚、项目完成2017。",
+        "CDN 图片需要原页面提供的时效签名；imageUrl 为固定文件标识，失效时从来源页重新访问。",
+        "不把照片版权水印或邻铺招牌复制为游戏贴图。"
+      ]
+    },
+    {
+      "id": "kk100-farrells",
+      "title": "KK100 设计方建成实景",
+      "pageUrl": "https://farrells.com/project/kk100/",
+      "imageUrl": "https://farrells.com/wp-content/uploads/2017/07/KK100-Development-01.jpg",
+      "publisherOrAuthor": "Farrells",
+      "sourceType": "architect_project",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "07353a1dc1f75a13544af707d3da074bcc5d49997c4a4a1a1258076477237e15",
+      "notes": [
+        "本视角曲冠及上部立面没有可识读大字；不能由单视角推出所有立面都无招牌。"
+      ]
+    },
+    {
+      "id": "pingan-owner",
+      "title": "平安金融中心官方图片库实景",
+      "pageUrl": "https://group.pingan.com/media/media_gallery.html",
+      "imageUrl": "https://group.pingan.com/dam/jcr:65e7686b-0beb-4ebe-b709-4fc35b41da79/pingan-financial-center-2101.jpg",
+      "publisherOrAuthor": "Ping An",
+      "sourceType": "owner_media",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "ef052e7e5f29ca2d89582631ed9a204fd1c4b21ae5036a8a4390ce2ad0a43402",
+      "notes": [
+        "周边可见施工，拍摄时间未知；上部立面与冠部未见可识读楼顶文字。",
+        "图片库的单独公司 Logo 文件不能证明安装在楼顶。"
+      ]
+    },
+    {
+      "id": "fortune-overall",
+      "title": "财富广场曲面楼整体实景",
+      "pageUrl": "https://shenzhen.leyoujia.com/xq/detail/8645",
+      "imageUrl": "https://fang-community.leyoujia.com//community/album/2019-06/10/10/0bf01030-5f46-4f65-90b7-2864d64e6156.jpg",
+      "publisherOrAuthor": "乐有家原小区相册",
+      "sourceType": "original_listing_photo",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": "URL path: 2019-06/10; capture date unverified",
+      "photoDateStatus": "source_reported_or_path_only",
+      "referenceOnly": true,
+      "imageSha256": "8d70364723aae0c83ba82ca1acf4524153916d0af1eef82aed2c9e2bda927f6b",
+      "notes": [
+        "对象为深南大道7002号财富广场 A/B，不能混用福华三路时代财富大厦的屋顶文字。"
+      ]
+    },
+    {
+      "id": "bamboo-kpf",
+      "title": "中国华润大厦设计方建成实景",
+      "pageUrl": "https://www.kpf.com/project/china-resources-tower",
+      "imageUrl": "https://e1.nmcdn.io/assets/kpf2024/wp-content/uploads/imported-files/1_China-Resources-HQ-Hero-2160x1165.webp",
+      "publisherOrAuthor": "KPF",
+      "sourceType": "architect_project",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-05",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "1a5fbbc470937c3cb9ad93f5efc57bcef52c921bce70cb170b248c6a4127f2bd",
+      "notes": [
+        "本海湾视角可见银色收尖冠部，没有可辨大招牌；春笋是形体昵称，不能作真实招牌。"
+      ]
+    },
+    {
+      "id": "qijie-focus-west-entry",
+      "title": "七街公馆公开楼盘资料：小区入口西面",
+      "pageUrl": "https://www.focus.cn/xf/sz-51785/",
+      "imageUrl": null,
+      "publisherOrAuthor": "搜狐焦点",
+      "sourceType": "public_property_project_listing",
+      "accessedAt": "2026-09-05",
+      "visuallyInspected": false,
+      "textInspected": true,
+      "statement": "小区入口:西面",
+      "statementStatus": "reported_not_surveyed",
+      "dateStatus": "旧楼盘文案，当前入口状态未现场核验",
+      "referenceOnly": true,
+      "notes": [
+        "与乐有家入口凹口实景及 OSM 西侧景田北七街关系共同支持西侧中部入口估计。",
+        "页面包含规划中地铁等旧文字，不把网页当前更新时间当作实景日期。"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "tencent",
+      "name": "腾讯滨海大厦",
+      "status": "verified_text_and_estimated_roof_pose",
+      "signs": [
+        {
+          "id": "tencent-south-roof",
+          "exactText": "Tencent",
+          "letterCase": {
+            "Latin": "T uppercase; encent lowercase"
+          },
+          "script": [
+            "Latn"
+          ],
+          "colors": {
+            "observed": "日光下白色至银白色立体字；没有同排中文。",
+            "suggestedSrgbHex": {
+              "letters": "#E8E9E5"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "本轮参考为日光；夜间是否通体发光未核实。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "较高南塔的宽立面，上缘以下约一至两个可见幕墙层区间，字组位于该立面的偏左侧；照片中的字悬于玻璃幕墙前。",
+          "placementEstimate": {
+            "status": "photo_interpretation_estimated",
+            "towerId": "south",
+            "referenceHeightMeters": 248,
+            "referenceHeightSource": "data/landmarks/tencent.json",
+            "faceNormalBearingDegreesClockwiseFromNorth": 168,
+            "faceBearingUncertaintyDegrees": 20,
+            "faceLocal": "south tower negative local Y broad face, rotation about 12 degrees from east",
+            "heightCenterFraction": 0.96,
+            "heightCenterFractionRange": [
+              0.94,
+              0.98
+            ],
+            "signHeightFraction": 0.026,
+            "signHeightFractionRange": [
+              0.018,
+              0.035
+            ],
+            "signWidthFacadeFraction": 0.35,
+            "signWidthFacadeFractionRange": [
+              0.3,
+              0.5
+            ],
+            "horizontalCenterFacadeFraction": 0.28,
+            "horizontalAxis": "west endpoint to east endpoint on selected broad face",
+            "scaleApplied": false,
+            "method": "使用双塔相对位置推断较高南塔及宽面；按官方远景与近景目视比例估计，非照片姿态解算或测量。"
+          },
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": true,
+          "renderPlacementStatus": "photo_interpretation_estimated",
+          "sourceIds": [
+            "tencent-roof-overall",
+            "tencent-roof-close"
+          ],
+          "sourceUrls": [
+            "https://www.tencent.com/newsroom/media-resources/",
+            "https://www.tencent.com/wp-content/uploads/2022/12/4f34106479e212354f188666b8eb421b.jpeg",
+            "https://www.tencent.com/wp-content/uploads/2022/12/80b906c3d4ff047e42a7320c84e47161.jpeg"
+          ],
+          "limitations": [
+            "腾讯标识为斜体定制字形；普通粗斜字体仅能作为近似，需手工调字距/轮廓。",
+            "168°仅来自现有轮廓朝向加照片配对推断，先在整体双塔截图核对；不要复制到四面或北塔。"
+          ]
+        },
+        {
+          "id": "tencent-low-link-bilingual",
+          "exactText": "Tencent 腾讯",
+          "letterCase": {
+            "Latin": "T uppercase; encent lowercase"
+          },
+          "script": [
+            "Latn",
+            "Hans"
+          ],
+          "colors": {
+            "observed": "蓝色立体英文字与简体中文字，背景为铜棕色横向百叶。",
+            "suggestedSrgbHex": {
+              "letters": "#176CB4"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "日光照片；夜间发光状态未知。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "靠地面的铜棕色连接/裙房体正面，玻璃大堂上方；并非南塔顶。",
+          "placementEstimate": {
+            "status": "estimated",
+            "surfaceRole": "low copper-clad linking volume above lobby",
+            "faceNormalBearingDegreesClockwiseFromNorth": null,
+            "mountHeightMetersRange": null,
+            "scaleApplied": false
+          },
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_georeferenced_surface",
+          "sourceIds": [
+            "tencent-low-link"
+          ],
+          "sourceUrls": [
+            "https://www.tencent.com/newsroom/media-resources/",
+            "https://www.tencent.com/wp-content/uploads/2022/12/25a8bceda571cbb43a6775a035930efd.jpeg"
+          ],
+          "limitations": [
+            "具体连接体编号、立面方位及安装高度尚未和模型配准；不要直接把此双语组合移到屋顶。"
+          ]
+        }
+      ],
+      "exactText": [
+        "Tencent",
+        "Tencent 腾讯"
+      ]
+    },
+    {
+      "id": "kk100",
+      "name": "京基100",
+      "status": "unknown",
+      "signs": [
+        {
+          "id": "kk100-roof-unknown",
+          "exactText": null,
+          "letterCase": null,
+          "script": null,
+          "colors": null,
+          "placementObserved": "设计方建成照片所示曲冠与上部面没有可识读大字。",
+          "placementEstimate": null,
+          "status": "unknown",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": false,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_evidence",
+          "sourceIds": [
+            "kk100-farrells"
+          ],
+          "sourceUrls": [
+            "https://farrells.com/project/kk100/",
+            "https://farrells.com/wp-content/uploads/2017/07/KK100-Development-01.jpg"
+          ],
+          "limitations": [
+            "不是所有立面的排除证明；不以 KK100 / 京基100 导航名生成楼顶招牌。"
+          ]
+        }
+      ],
+      "exactText": []
+    },
+    {
+      "id": "ping-an",
+      "name": "平安金融中心",
+      "status": "unknown",
+      "signs": [
+        {
+          "id": "pingan-roof-unknown",
+          "exactText": null,
+          "letterCase": null,
+          "script": null,
+          "colors": null,
+          "placementObserved": "官方照片所示收尖冠部与上部立面没有可识读大字。",
+          "placementEstimate": null,
+          "status": "unknown",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": false,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_evidence",
+          "sourceIds": [
+            "pingan-owner"
+          ],
+          "sourceUrls": [
+            "https://group.pingan.com/media/media_gallery.html",
+            "https://group.pingan.com/dam/jcr:65e7686b-0beb-4ebe-b709-4fc35b41da79/pingan-financial-center-2101.jpg"
+          ],
+          "limitations": [
+            "照片时间未知且周边尚有施工；不把公司 Logo 素材当作楼顶安装证据。"
+          ]
+        }
+      ],
+      "exactText": []
+    },
+    {
+      "id": "qijie-gongguan",
+      "name": "七街公馆 / 哈尔滨大厦",
+      "status": "verified_entry_text_and_estimated_west_canopy_pose",
+      "signs": [
+        {
+          "id": "qijie-entry-bilingual",
+          "exactText": "七街公館\nSEVENTH AVENUE RESIDENCE",
+          "letterCase": {
+            "Latin": "ALL UPPERCASE"
+          },
+          "script": [
+            "Hant",
+            "Latn"
+          ],
+          "colors": {
+            "observed": "入口上缘金黄/金色立体字，中文较大，英文字较小。",
+            "suggestedSrgbHex": {
+              "letters": "#D9B84D"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "日光照片；光源类型和夜间颜色未知。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "入口实景：两楼翼间低层凹口，外挑浅银灰雨篷前上缘，中文大字上、英文小字下；公开楼盘资料另明确入口在西面。",
+          "placementEstimate": {
+            "status": "photo_interpretation_estimated",
+            "referenceHeightMeters": 102,
+            "mountHeightMetersRange": [
+              4.9,
+              7.9
+            ],
+            "heightCenterFractionRange": [
+              0.04803921568627451,
+              0.07745098039215687
+            ],
+            "faceNormalBearingDegreesClockwiseFromNorth": 258.1910347,
+            "surfaceRole": "new simplified entrance canopy front upper edge",
+            "scaleApplied": false,
+            "method": "西面入口文字 + 凹口实景 + 锁定 OSM 轮廓的照片解释；尺寸/雨篷伸出量为估计。世界坐标由模型投影回算，非实测。",
+            "confidence": "medium_for_west_recess; low_to_medium_for_exact_offset_dimensions_height",
+            "basis": [
+              "公开楼盘资料明确小区入口西面（reported，非测绘）。",
+              "原入口照片显示位于两侧楼翼间的凹口、雨篷前上缘。",
+              "现有 OSM 西侧景田北七街与 H 形中部西凹口匹配；未用北环门牌猜朝向。"
+            ],
+            "basisSourceIds": [
+              "qijie-entry",
+              "qijie-focus-west-entry"
+            ],
+            "modelSpec": "data/landmarks/priority-models.json",
+            "modelId": "qijie-gongguan",
+            "componentId": "way/364716846",
+            "modelCenterWGS84": [
+              114.02751878,
+              22.56047975
+            ],
+            "faceRingSourceIndices": [
+              8,
+              9
+            ],
+            "faceIndexConvention": "original footprintLocalMeters ring order, before any orientation reversal",
+            "faceWallMidpointLocalMeters": [
+              -11.27545,
+              -1.6253
+            ],
+            "faceWallLengthMeters": 12.1119447,
+            "outwardNormalEastNorthUp": [
+              -0.9788353785,
+              -0.2046492166,
+              0
+            ],
+            "textLeftToRightEastNorthUp": [
+              0.2046492166,
+              -0.9788353785,
+              0
+            ],
+            "signCenterLocalEastNorthUpMeters": [
+              -14.2119561,
+              -2.23924765,
+              6.4
+            ],
+            "signCenterWGS84": [
+              114.0273805986,
+              22.5604596346
+            ],
+            "signCenterSceneEastNorthUp": [
+              146.9067401,
+              1633.7079134,
+              3.84
+            ],
+            "horizontalAlongFaceUncertaintyMeters": 2,
+            "heightCenterUncertaintyMeters": 1.5,
+            "signWidthMeters": 8.5,
+            "signHeightMeters": 1.8,
+            "signWidthMetersRange": [
+              7,
+              10
+            ],
+            "signHeightMetersRange": [
+              1.3,
+              2.2
+            ],
+            "sceneCoordinateScaleAlreadyApplied": 0.6,
+            "canopyApproximation": {
+              "status": "photo_interpretation_estimated",
+              "confidence": "low_to_medium",
+              "geometry": "one thin box acceptable; omit unmeasured braces/details",
+              "widthMeters": 9,
+              "widthMetersRange": [
+                8,
+                11
+              ],
+              "outwardProjectionMeters": 3,
+              "outwardProjectionMetersRange": [
+                2,
+                5
+              ],
+              "thicknessMeters": 0.25,
+              "thicknessMetersRange": [
+                0.15,
+                0.4
+              ],
+              "topHeightMeters": 5.5,
+              "topHeightMetersRange": [
+                4.8,
+                6.5
+              ],
+              "centerLocalEastNorthUpMeters": [
+                -12.7437030677,
+                -1.9322738249,
+                5.375
+              ],
+              "longAxisEastNorthUp": [
+                0.2046492166,
+                -0.9788353785,
+                0
+              ],
+              "depthAxisEastNorthUp": [
+                -0.9788353785,
+                -0.2046492166,
+                0
+              ],
+              "materialObserved": "浅银灰包边与平板，下表面可见少量支撑；基材未核实。",
+              "suggestedSrgbHex": "#C9CECE",
+              "suggestedRoughnessRange": [
+                0.5,
+                0.7
+              ],
+              "materialParameterStatus": "artistic_estimate_not_measured",
+              "signMounting": "文字竖立在雨篷前上缘，字牌底边约等于雨篷顶；不可压贴到0.25m窄封边。"
+            }
+          },
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": true,
+          "renderPlacementStatus": "photo_interpretation_estimated",
+          "sourceIds": [
+            "qijie-entry",
+            "qijie-focus-west-entry"
+          ],
+          "sourceUrls": [
+            "https://shenzhen.leyoujia.com/xq/detail/1091.html",
+            "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/b6c701f6-debf-42df-a05d-1ef107f87a6d.jpg",
+            "https://www.focus.cn/xf/sz-51785/"
+          ],
+          "limitations": [
+            "招牌最后一字依照片按传统字形「館」记录，不能自动跟随导航名改为「馆」；中文为书法字形。",
+            "该英文属于入口双语字，不得移到屋顶。",
+            "临时滚动红色 LED 文案和相邻店铺文字不纳入永久建筑招牌。",
+            "本轮可安装状态包含新增简化雨篷前提；雨篷仍为照片解释估计，不是已有精确承载体。",
+            "西侧中部定位为中等置信；沿面位置、深度、厚度、标高均未测量，旧来源不等于当前现场复核。",
+            "世界坐标源自候选模型面计算；original source ring 的8→9不等于运行时反转后的边号。"
+          ]
+        },
+        {
+          "id": "qijie-roof-unreadable",
+          "exactText": null,
+          "letterCase": null,
+          "script": null,
+          "colors": {
+            "observed": "远景可见红/粉红字形与中央绿色元素。",
+            "suggestedSrgbHex": {},
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "日光照片，夜间状态未知。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "远景确认屋顶有红/粉红字形及中央绿色图形，但可读像素不足。",
+          "placementEstimate": null,
+          "status": "unknown",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": false,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_evidence",
+          "sourceIds": [
+            "qijie-roof-distant"
+          ],
+          "sourceUrls": [
+            "https://shenzhen.leyoujia.com/xq/detail/1091.html",
+            "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/35346e99-628d-4242-8ac9-a64f6adf9e5d.jpg"
+          ],
+          "limitations": [
+            "不能逐字核实屋顶文字，也未核实是否与入口写法一致。",
+            "保持 exactText=null；需要更近屋顶实景，不能用已知建筑名补全。"
+          ]
+        }
+      ],
+      "exactText": [
+        "七街公館\nSEVENTH AVENUE RESIDENCE"
+      ]
+    },
+    {
+      "id": "fortune-plaza",
+      "name": "财富广场 A / B 座",
+      "status": "unknown",
+      "signs": [
+        {
+          "id": "fortune-roof-unknown",
+          "exactText": null,
+          "letterCase": null,
+          "script": null,
+          "colors": null,
+          "placementObserved": "已检查曲面楼与通透顶格栅实景，未能读出永久楼名大招牌。",
+          "placementEstimate": null,
+          "status": "unknown",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": false,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_evidence",
+          "sourceIds": [
+            "fortune-overall"
+          ],
+          "sourceUrls": [
+            "https://shenzhen.leyoujia.com/xq/detail/8645",
+            "https://fang-community.leyoujia.com//community/album/2019-06/10/10/0bf01030-5f46-4f65-90b7-2864d64e6156.jpg"
+          ],
+          "limitations": [
+            "公开照片未覆盖全部立面与入口。",
+            "不得使用福华三路时代财富大厦/财富大厦的文字和位置。"
+          ]
+        }
+      ],
+      "exactText": []
+    },
+    {
+      "id": "mixc-world",
+      "name": "万象天地 / 华润置地塔楼周边",
+      "status": "verified_mall_entry_text_pose_pending",
+      "signs": [
+        {
+          "id": "mixc-street-link-entry",
+          "exactText": "the miXc 万象天地",
+          "letterCase": {
+            "Latin": "the lowercase; m and i lowercase; large X glyph; c lowercase"
+          },
+          "script": [
+            "Latn",
+            "Hans"
+          ],
+          "colors": {
+            "observed": "夜景中 m、i、大 X 和中文主体为白色发光字；小 the 与偏下的 c 为金黄；中文天附近有少量金色几何强调。",
+            "suggestedSrgbHex": {
+              "mainLetters": "#F5F4E9",
+              "goldAccent": "#DFAF4C"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "参考夜景明确发亮；未核实是 LED 或霓虹管。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "步行街尽端、低层连接横梁的正面，位于玻璃入口上方；后方更高的桥体也不能替代这个安装面。",
+          "placementEstimate": {
+            "status": "photo_interpretation_estimated",
+            "mountHeightAboveEntranceFloorMetersRange": [
+              4,
+              7
+            ],
+            "faceNormalBearingDegreesClockwiseFromNorth": null,
+            "surfaceRole": "mall entrance fascia",
+            "scaleApplied": false,
+            "method": "按门高和入口层高目视估计；未求摄影机姿态或匹配 OSM 商业裙楼。"
+          },
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_georeferenced_surface",
+          "sourceIds": [
+            "mixc-sign-photo-2"
+          ],
+          "sourceUrls": [
+            "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+            "https://img.zcool.cn/community/01piws33ghndfoh8lzpjb03938.jpg"
+          ],
+          "limitations": [
+            "必须以两层手工矢量布局保留小 the、错落 miXc 与中文字；单行普通字体只能作为占位。",
+            "3 个来源反映不同入口/构图，未确认是否为三个独立地理入口；不要凭记录条数复制三套。",
+            "当前重点 GLB 仅精修 B/C/D 塔楼，不能把商场字牌贴在三栋塔顶。"
+          ]
+        },
+        {
+          "id": "mixc-sunken-plaza-entry",
+          "exactText": "the miXc 万象天地",
+          "letterCase": {
+            "Latin": "the lowercase; m and i lowercase; large X glyph; c lowercase"
+          },
+          "script": [
+            "Latn",
+            "Hans"
+          ],
+          "colors": {
+            "observed": "夜景中 m、i、大 X 和中文主体为白色发光字；小 the 与偏下的 c 为金黄；中文天附近有少量金色几何强调。",
+            "suggestedSrgbHex": {
+              "mainLetters": "#F5F4E9",
+              "goldAccent": "#DFAF4C"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "参考夜景明确发亮；未核实是 LED 或霓虹管。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "下沉广场台阶下方入口，绿化挡墙/门头的正面，位于下层玻璃门上方。",
+          "placementEstimate": {
+            "status": "photo_interpretation_estimated",
+            "mountHeightAboveEntranceFloorMetersRange": [
+              3,
+              5
+            ],
+            "faceNormalBearingDegreesClockwiseFromNorth": null,
+            "surfaceRole": "mall entrance fascia",
+            "scaleApplied": false,
+            "method": "按门高和入口层高目视估计；未求摄影机姿态或匹配 OSM 商业裙楼。"
+          },
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_georeferenced_surface",
+          "sourceIds": [
+            "mixc-sign-photo-3"
+          ],
+          "sourceUrls": [
+            "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+            "https://img.zcool.cn/community/01gufhhecfjahcufftlt8t3132.jpg"
+          ],
+          "limitations": [
+            "必须以两层手工矢量布局保留小 the、错落 miXc 与中文字；单行普通字体只能作为占位。",
+            "3 个来源反映不同入口/构图，未确认是否为三个独立地理入口；不要凭记录条数复制三套。",
+            "当前重点 GLB 仅精修 B/C/D 塔楼，不能把商场字牌贴在三栋塔顶。"
+          ]
+        },
+        {
+          "id": "mixc-glazed-portal-entry",
+          "exactText": "the miXc 万象天地",
+          "letterCase": {
+            "Latin": "the lowercase; m and i lowercase; large X glyph; c lowercase"
+          },
+          "script": [
+            "Latn",
+            "Hans"
+          ],
+          "colors": {
+            "observed": "夜景中 m、i、大 X 和中文主体为白色发光字；小 the 与偏下的 c 为金黄；中文天附近有少量金色几何强调。",
+            "suggestedSrgbHex": {
+              "mainLetters": "#F5F4E9",
+              "goldAccent": "#DFAF4C"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "参考夜景明确发亮；未核实是 LED 或霓虹管。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "多层玻璃门厅中央，街面玻璃门上方的入口门头区域；同框两侧有独立店铺。",
+          "placementEstimate": {
+            "status": "photo_interpretation_estimated",
+            "mountHeightAboveEntranceFloorMetersRange": [
+              4,
+              7
+            ],
+            "faceNormalBearingDegreesClockwiseFromNorth": null,
+            "surfaceRole": "mall entrance fascia",
+            "scaleApplied": false,
+            "method": "按门高和入口层高目视估计；未求摄影机姿态或匹配 OSM 商业裙楼。"
+          },
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_georeferenced_surface",
+          "sourceIds": [
+            "mixc-sign-photo-4"
+          ],
+          "sourceUrls": [
+            "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+            "https://img.zcool.cn/community/01d0dpigudpruxgwomx32c3438.jpg"
+          ],
+          "limitations": [
+            "必须以两层手工矢量布局保留小 the、错落 miXc 与中文字；单行普通字体只能作为占位。",
+            "3 个来源反映不同入口/构图，未确认是否为三个独立地理入口；不要凭记录条数复制三套。",
+            "当前重点 GLB 仅精修 B/C/D 塔楼，不能把商场字牌贴在三栋塔顶。"
+          ]
+        },
+        {
+          "id": "mixc-neighbor-bank-tower",
+          "exactText": "北京银行\nBANK OF BEIJING",
+          "letterCase": {
+            "Latin": "ALL UPPERCASE"
+          },
+          "script": [
+            "Hans",
+            "Latn"
+          ],
+          "colors": {
+            "observed": "夜景红色发光中英文字，左边红色圆形 B 图形。",
+            "suggestedSrgbHex": {
+              "lettersAndEmblem": "#EC4D4D"
+            },
+            "parameterStatus": "artistic_estimate_not_colorimetric_measurement",
+            "illuminationObserved": "夜景发光已观察；灯具技术未知。",
+            "emissiveIntensity": null,
+            "neonTechnologyVerified": false
+          },
+          "placementObserved": "原摄影师塔楼构图右侧较低退台塔楼的深色顶层面板，中文上、英文下、圆形标志左；并非商场门头。",
+          "placementEstimate": null,
+          "status": "verified_in_reference_photo",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": true,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_georeferenced_surface",
+          "sourceIds": [
+            "mixc-sign-photo-1"
+          ],
+          "sourceUrls": [
+            "https://www.zcool.com.cn/work/ZNjgzMzMwMTY=.html",
+            "https://img.zcool.cn/community/01qjv5yrtlqf2rjsydkgbb3832.jpg"
+          ],
+          "limitations": [
+            "所在塔楼尚未与 B/C/D、北京银行大厦/T5 的 OSM ID 可靠对应；禁止把该标识随机放到现有 B/C/D。",
+            "同图左塔有金色非文字图形，后方塔仅露出部分白字；这些图形或残字不能猜成完整华润字牌。"
+          ]
+        }
+      ],
+      "exactText": [
+        "the miXc 万象天地",
+        "the miXc 万象天地",
+        "the miXc 万象天地",
+        "北京银行\nBANK OF BEIJING"
+      ]
+    },
+    {
+      "id": "china-resources-tower",
+      "name": "中国华润大厦 / 春笋",
+      "status": "unknown",
+      "signs": [
+        {
+          "id": "bamboo-roof-unknown",
+          "exactText": null,
+          "letterCase": null,
+          "script": null,
+          "colors": null,
+          "placementObserved": "KPF 海湾实景中收尖冠部没有可辨楼名大字。",
+          "placementEstimate": null,
+          "status": "unknown",
+          "currentInstallationStatus": "not_reverified_on_site",
+          "textAssetReady": false,
+          "renderReady": false,
+          "renderPlacementStatus": "pending_evidence",
+          "sourceIds": [
+            "bamboo-kpf"
+          ],
+          "sourceUrls": [
+            "https://www.kpf.com/project/china-resources-tower",
+            "https://e1.nmcdn.io/assets/kpf2024/wp-content/uploads/imported-files/1_China-Resources-HQ-Hero-2160x1165.webp"
+          ],
+          "limitations": [
+            "春笋为昵称，不能作为观察到的牌。",
+            "设计方描述冠部三角玻璃夜间照明，不是文字招牌证据；其它立面待查。"
+          ]
+        }
+      ],
+      "exactText": []
+    }
+  ],
+  "excludedReferences": [
+    {
+      "sourceId": "tencent-old-headquarters-excluded",
+      "reason": "另一座旧腾讯总部，非滨海双塔。"
+    },
+    {
+      "description": "搜索中出现的时代财富大厦/福华三路财富大厦屋顶金字",
+      "reason": "实体与本轮深南大道7002号财富广场不符。"
+    },
+    {
+      "description": "七街右侧棕色楼青海大厦字牌",
+      "reason": "属于邻楼，不能贴到七街公馆。"
+    }
+  ],
+  "validation": {
+    "visuallyInspectedSourceCount": 14,
+    "placeCount": 7,
+    "placesWithVerifiedText": 3,
+    "signObservationsWithVerifiedText": 7,
+    "signsReadyForEstimatedPlacement": 2,
+    "referenceImagesBundled": false,
+    "browserOrGpuStarted": false,
+    "sourceCount": 15
+  }
+}

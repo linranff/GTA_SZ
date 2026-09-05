@@ -1,0 +1,656 @@
+{
+  "schemaVersion": 1,
+  "researchedAt": "2026-09-05",
+  "coordinatePolicy": {
+    "canonical": "EPSG:4326",
+    "projectOrigin": [
+      114.025,
+      22.536
+    ],
+    "horizontalScale": 0.6,
+    "verticalScale": 0.6,
+    "note": "中心和轮廓使用本地WGS84；GCJ-02/BD-09线索必须保留其坐标系，不混入模型。"
+  },
+  "sources": [
+    {
+      "id": "osm-local",
+      "title": "本地 Geofabrik 广东 OSM 快照",
+      "url": "https://download.geofabrik.de/asia/china/guangdong.html",
+      "publisher": "OpenStreetMap contributors / Geofabrik",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "open_vector",
+      "notes": "2026-09-05 下载，WGS84；观测日期不同；建筑高度及轮廓并非测绘核实。许可证 ODbL-1.0。"
+    },
+    {
+      "id": "amap-coordinates",
+      "title": "坐标转换说明",
+      "url": "https://lbs.amap.com/api/webservice/guide/api/convert",
+      "publisher": "高德开放平台",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "coordinate_documentation",
+      "notes": "中国大陆高德为 GCJ-02；地图 POI 坐标只作核对，不直接混入本项目 WGS84。"
+    },
+    {
+      "id": "capol-mixc",
+      "title": "深圳华润城及万象天地",
+      "url": "https://www.capol.cn/projectdetail.aspx?id=100000068055563",
+      "publisher": "华阳国际",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "designer_project",
+      "notes": "69.46hm²/380万㎡为华润城整体，不是万象天地单个商场。"
+    },
+    {
+      "id": "capol-streets",
+      "title": "创作之路：万象天地 mall+街区",
+      "url": "https://www.capol.cn/newsdetail.aspx?id=100000189216119",
+      "publisher": "华阳国际",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "designer_project",
+      "notes": ""
+    },
+    {
+      "id": "cr-mixc-remodel",
+      "title": "深圳万象天地局部改造施工图设计招标",
+      "url": "https://www.crpsz.com/zbxx/006001/006001001/20250603/942f12a2-a6a8-404e-a6e0-ebf657060afe.html",
+      "publisher": "华润集团",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "owner_project",
+      "notes": "发布2025-06-03；涵盖T6一至三层、高街、影院等范围，说明2017开业照片不一定代表当前店铺。"
+    },
+    {
+      "id": "tech-park-roads",
+      "title": "科发路交通微循环调研",
+      "url": "https://www.sz.gov.cn/cn/xxgk/zfxxgj/gqdt/content/post_12377459.html",
+      "publisher": "深圳市人民政府",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "government_area",
+      "notes": ""
+    },
+    {
+      "id": "fortune-owner",
+      "title": "时代财富集团项目展示：财富广场",
+      "url": "https://www.timesfortune.com/",
+      "publisher": "深圳市时代财富集团",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "owner_project",
+      "notes": "搜索索引可读，Chrome证书失败，未绕过；仅用索引确认项目名与深南大道7002号地址。"
+    },
+    {
+      "id": "fortune-amap",
+      "title": "财富广场B座（香林路）",
+      "url": "https://www.amap.com/place/B02F37TXDU",
+      "publisher": "高德地图",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "public_poi",
+      "notes": "页面坐标按高德GCJ-02保留；香林路5号。"
+    },
+    {
+      "id": "fortune-photos",
+      "title": "浩铭财富广场实景相册",
+      "url": "https://shenzhen.leyoujia.com/xq/detail/8645",
+      "publisher": "乐有家",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "field_photo_reference",
+      "notes": "已在Chrome目视核对整栋、入口与屋顶照片；图片路径2019-06；只作几何/色彩参考，不作为贴图。楼层28/25存在分栋不明。"
+    },
+    {
+      "id": "qijie-amap",
+      "title": "哈尔滨大厦",
+      "url": "https://ditu.amap.com/place/B02F38J15R",
+      "publisher": "高德地图",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "public_poi",
+      "notes": "地址为深圳福田北环大道7045号七街公馆。"
+    },
+    {
+      "id": "qijie-record",
+      "title": "七街公馆（备案名：哈尔滨大厦）",
+      "url": "https://bol.szhome.com/house/2532.htm",
+      "publisher": "深圳房地产信息网",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "property_record_reference",
+      "notes": "2017年页面。用于别名交叉核对，不把销售材料视为竣工测绘。"
+    },
+    {
+      "id": "qijie-photos",
+      "title": "哈尔滨大厦实景相册",
+      "url": "https://shenzhen.leyoujia.com/xq/detail/1091.html",
+      "publisher": "乐有家",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "field_photo_reference",
+      "notes": "已在Chrome目视核对远景与门口；图片路径2018-07。多条房源标33层，但总高度/层高未知，33层仍标待核实。"
+    },
+    {
+      "id": "qijie-floorplans",
+      "title": "七街公馆楼盘资料",
+      "url": "https://www.focus.cn/xf/sz-51785/",
+      "publisher": "搜狐焦点",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "property_record_reference",
+      "notes": "6–32层户型资料仅作楼层线索，不采集或建模房间内部。"
+    },
+    {
+      "id": "qijie-photo-overall",
+      "title": "七街公馆远景（相册第9张）",
+      "url": "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/35346e99-628d-4242-8ac9-a64f6adf9e5d.jpg?imageView2/1/w/720/h/405",
+      "publisher": "乐有家",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "field_photo_reference",
+      "notes": "已目视：中间银灰楼体、密集横竖框线；不可将右侧棕色青海大厦当成七街公馆。"
+    },
+    {
+      "id": "qijie-photo-entry",
+      "title": "七街公馆入口与立面",
+      "url": "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/b6c701f6-debf-42df-a05d-1ef107f87a6d.jpg",
+      "publisher": "乐有家",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "field_photo_reference",
+      "notes": "已目视：灰白围护、蓝灰竖窗、凹入阳台、玻璃雨篷。尺寸未测。"
+    },
+    {
+      "id": "fortune-photo-overall",
+      "title": "财富广场整栋仰视",
+      "url": "https://fang-community.leyoujia.com//community/album/2019-06/10/10/0bf01030-5f46-4f65-90b7-2864d64e6156.jpg",
+      "publisher": "乐有家",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "field_photo_reference",
+      "notes": "已目视：弧形蓝玻璃、银白水平带、屋顶通透格栅。"
+    },
+    {
+      "id": "fortune-photo-entry",
+      "title": "财富广场入口",
+      "url": "https://fang-community.leyoujia.com//community/album/2019-06/10/10/ec6bb9e7-3492-4d8f-9e45-990a4752e671.jpg?imageView2/1/w/720/h/405",
+      "publisher": "乐有家",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "field_photo_reference",
+      "notes": "已目视：裙楼退入、圆柱、外廊。入口的精确侧向位置未地理配准。"
+    },
+    {
+      "id": "qijie-aerial-720yun",
+      "title": "深圳市七街公馆、景尚雅苑、青海大厦公开航拍全景",
+      "url": "https://www.720yun.com/t/b4vksh8m58h?scene_id=49552993",
+      "publisher": "乐有家网 / 720云",
+      "accessedAt": "2026-09-05",
+      "evidenceType": "aerial_photo_reference",
+      "notes": "从乐有家小区页直接链接，已目视公开默认全景：七街公馆在青海大厦西侧，屋顶呈两个宽翼以较窄中央部分连接，凹槽延续全高。可支持H形主体，但屋顶机房、局部围墙和精确尺寸仍未测。未保存或重用图片文件。"
+    }
+  ],
+  "places": [
+    {
+      "id": "lianhua",
+      "name": "莲花山 / 莲花山公园",
+      "aliases": [],
+      "kind": "terrain",
+      "priority": 1,
+      "status": "owned_by_terrain_workflow",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": null,
+        "bbox": null,
+        "status": "see_owner_dataset"
+      },
+      "facts": [],
+      "localData": [],
+      "referencePages": [],
+      "modeling": {
+        "components": [],
+        "nextSteps": [
+          "使用同目录地形证据与主任务DEM流程"
+        ],
+        "blockers": [
+          "此记录仅纳入重点对象总清单，具体地形参数见地形任务"
+        ]
+      }
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯滨海大厦",
+      "aliases": [],
+      "kind": "building_complex",
+      "priority": 1,
+      "status": "owned_by_tencent_workflow",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": null,
+        "bbox": null,
+        "status": "see_owner_dataset"
+      },
+      "facts": [],
+      "localData": [],
+      "referencePages": [],
+      "modeling": {
+        "components": [],
+        "nextSteps": [
+          "使用腾讯专门任务的双塔/连廊参数与来源"
+        ],
+        "blockers": [
+          "此记录仅纳入重点对象总清单，具体参数见腾讯任务"
+        ]
+      }
+    },
+    {
+      "id": "tech-park",
+      "name": "科技园",
+      "aliases": [],
+      "kind": "district",
+      "priority": 1,
+      "status": "district_scope_defined",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.9475,
+          22.5425
+        ],
+        "bbox": [
+          113.925,
+          22.52,
+          113.97,
+          22.565
+        ],
+        "provenance": "config/regions.json:tech_park",
+        "status": "project_research_bbox_not_official_boundary"
+      },
+      "facts": [
+        {
+          "key": "scope",
+          "value": "沿用项目科技园研究裁切框；科技园是片区而非单栋楼",
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "tech-park-roads"
+          ]
+        }
+      ],
+      "localData": [
+        {
+          "path": "data/processed/tech_park",
+          "featureIds": [],
+          "crs": "EPSG:4326",
+          "status": "existing_roads_buildings_green_pois"
+        }
+      ],
+      "referencePages": [],
+      "modeling": {
+        "components": [
+          "科苑路/科技南路等道路骨架",
+          "选定地标及周围一至两条街",
+          "其余楼体保持真实轮廓的中等精度"
+        ],
+        "nextSteps": [
+          "以腾讯滨海大厦、万象天地为首批锚点分别划300–500m作业块",
+          "核查道路连接、地块尺度、主要退界",
+          "每块只挑2–5个有照片和尺寸证据的建筑"
+        ],
+        "blockers": [
+          "用户未指定科技园内所有重点单体；默认先锚点周边",
+          "不能把整个科技园当成一个可由单张图重建的物体"
+        ]
+      }
+    },
+    {
+      "id": "mixc-world",
+      "name": "万象天地",
+      "aliases": [
+        "深圳万象天地",
+        "华润城万象天地",
+        "Dachong MixC World"
+      ],
+      "kind": "mixed_use_district",
+      "priority": 1,
+      "status": "stepped_tower_massing_only",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.95075725,
+          22.54481213
+        ],
+        "bbox": [
+          113.9494326,
+          22.5440223,
+          113.9527631,
+          22.5456094
+        ],
+        "provenance": "osm-local",
+        "status": "open_vector_unverified"
+      },
+      "facts": [
+        {
+          "key": "form",
+          "value": "街区+mall",
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "capol-streets"
+          ]
+        },
+        {
+          "key": "full_complex_gfa",
+          "value": 798000,
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "cr-mixc-remodel"
+          ],
+          "unit": "m²"
+        },
+        {
+          "key": "retail_area",
+          "value": 218000,
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "cr-mixc-remodel"
+          ],
+          "unit": "m²"
+        },
+        {
+          "key": "scope_note",
+          "value": "以上2025招标口径不等于整个华润城380万㎡",
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "cr-mixc-remodel",
+            "capol-mixc"
+          ]
+        }
+      ],
+      "localData": [
+        {
+          "path": "data/processed/tech_park/buildings.geojson",
+          "featureIds": [
+            "way/533679838",
+            "way/533679840",
+            "way/533679841",
+            "way/1268947072",
+            "way/1268947073",
+            "way/1268947074",
+            "way/1268947078",
+            "way/1268947079",
+            "way/1268947080",
+            "way/1268947107",
+            "way/1268947108",
+            "way/1268947109",
+            "way/533679802",
+            "way/533679842",
+            "way/533679846",
+            "way/533679847",
+            "way/533679848"
+          ],
+          "crs": "EPSG:4326",
+          "status": "open_vector_unverified"
+        }
+      ],
+      "referencePages": [
+        {
+          "sourceId": "capol-mixc",
+          "role": "complex_topology"
+        },
+        {
+          "sourceId": "capol-streets",
+          "role": "complex_topology"
+        },
+        {
+          "sourceId": "cr-mixc-remodel",
+          "role": "complex_topology"
+        }
+      ],
+      "modeling": {
+        "components": [
+          "B座3段退台188/153/133m",
+          "C座3段退台224/170/137m",
+          "D座3段退台172/141/113m",
+          "待补：mall、高街、剧场与主要连廊"
+        ],
+        "nextSteps": [
+          "先使用building:part恢复楼塔退台，避免整栋按最大高度挤出",
+          "配准商场边界和独栋零售轮廓，拆高街/mall/剧场",
+          "按近期照片核实2025局部改造范围"
+        ],
+        "blockers": [
+          "OSM高度有标签但未被设计方尺寸复核",
+          "三栋楼塔改善不等于万象天地整体高精模",
+          "缺少近期四面照片/商场平面定位，暂不自动制作店招、装置或街区精细外观"
+        ]
+      }
+    },
+    {
+      "id": "fortune-plaza",
+      "name": "财富广场",
+      "aliases": [
+        "浩铭财富广场"
+      ],
+      "kind": "building_complex",
+      "priority": 1,
+      "status": "photo_guided_model_estimated_height",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.02146577,
+          22.54036337
+        ],
+        "bbox": [
+          114.0210565,
+          22.5398326,
+          114.0221294,
+          22.5407045
+        ],
+        "provenance": "osm-local",
+        "status": "open_vector_unverified"
+      },
+      "facts": [
+        {
+          "key": "address",
+          "value": "深圳市福田区深南大道7002号",
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "fortune-owner"
+          ]
+        },
+        {
+          "key": "b_address",
+          "value": "香林路5号",
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "fortune-amap"
+          ]
+        },
+        {
+          "key": "b_poi_gcj02",
+          "value": [
+            114.026978,
+            22.537798
+          ],
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "fortune-amap"
+          ],
+          "crs": "GCJ-02"
+        },
+        {
+          "key": "levels_candidates",
+          "value": [
+            28,
+            25
+          ],
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "fortune-photos"
+          ]
+        },
+        {
+          "key": "observed_facade",
+          "value": [
+            "弧形蓝玻璃立面",
+            "银白水平带",
+            "顶部通透格栅",
+            "低层商业裙楼"
+          ],
+          "status": "visually_observed",
+          "sourceIds": [
+            "fortune-photo-overall",
+            "fortune-photo-entry"
+          ]
+        },
+        {
+          "key": "render_curve_interpretation",
+          "value": {
+            "sourceFootprintPreserved": true,
+            "maxDeviationFromSourceMeters": 2.489,
+            "wallStripWidthMeters": 4.5
+          },
+          "status": "photo_interpretation_estimated",
+          "sourceIds": [
+            "osm-local",
+            "fortune-photo-overall"
+          ]
+        }
+      ],
+      "localData": [
+        {
+          "path": "data/processed/xiangmihu/buildings.geojson",
+          "featureIds": [
+            "way/668050780",
+            "way/668050779"
+          ],
+          "crs": "EPSG:4326",
+          "status": "open_vector_unverified"
+        }
+      ],
+      "referencePages": [
+        {
+          "sourceId": "fortune-photo-overall",
+          "role": "massing_and_facade"
+        },
+        {
+          "sourceId": "fortune-photo-entry",
+          "role": "massing_and_facade"
+        }
+      ],
+      "modeling": {
+        "components": [
+          "A座弯折轮廓",
+          "B座矩形轮廓",
+          "连续水平楼层带",
+          "屋顶格栅",
+          "A座受约束圆弧拟合外观（保留原始轮廓字段和直封口），银白水平带及估计宽白墙"
+        ],
+        "nextSteps": [
+          "核实28/25层对应的A/B座",
+          "核实裙楼、架空大堂和顶层退台平面",
+          "以顶部/底部同框照片核对高度比例"
+        ],
+        "blockers": [
+          "总高度与分栋层数未可靠核实，A92m/B84m为建模估计",
+          "OSM A轮廓为少量折线，曲率不能宣称实测",
+          "入口位置未配准，当前不精细重建入口",
+          "A座内外弧面为照片引导的拟合解释，与原OSM折线最大相差约2.49m；两端4.5m白墙宽度与位置为估计，入口圆柱和悬挑尚未配准。"
+        ]
+      }
+    },
+    {
+      "id": "qijie-gongguan",
+      "name": "七街公馆 / 哈尔滨大厦",
+      "aliases": [
+        "七街公馆",
+        "哈尔滨大厦"
+      ],
+      "kind": "building_complex",
+      "priority": 1,
+      "status": "photo_guided_model_estimated_height",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.02751878,
+          22.56047975
+        ],
+        "bbox": [
+          114.0272683,
+          22.5602434,
+          114.0277726,
+          22.560719
+        ],
+        "provenance": "osm-local",
+        "status": "open_vector_unverified"
+      },
+      "facts": [
+        {
+          "key": "address",
+          "value": "深圳市福田区北环大道7045号",
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "qijie-amap"
+          ]
+        },
+        {
+          "key": "levels",
+          "value": 33,
+          "status": "source_reported_unverified",
+          "sourceIds": [
+            "qijie-photos",
+            "qijie-floorplans"
+          ]
+        },
+        {
+          "key": "building_geometry",
+          "value": "H形连续楼体；A/B分区边界未独立核实",
+          "status": "osm_and_aerial_visually_correlated",
+          "sourceIds": [
+            "osm-local",
+            "qijie-aerial-720yun"
+          ]
+        },
+        {
+          "key": "observed_facade",
+          "value": [
+            "银灰围护",
+            "蓝灰窗带",
+            "密集白色竖横分格",
+            "凹入阳台与入口玻璃雨篷"
+          ],
+          "status": "visually_observed",
+          "sourceIds": [
+            "qijie-photo-overall",
+            "qijie-photo-entry"
+          ]
+        }
+      ],
+      "localData": [
+        {
+          "path": "data/processed/xiangmihu/buildings.geojson",
+          "featureIds": [
+            "way/364716846"
+          ],
+          "crs": "EPSG:4326",
+          "status": "open_vector_unverified"
+        }
+      ],
+      "referencePages": [
+        {
+          "sourceId": "qijie-photo-overall",
+          "role": "massing_and_facade"
+        },
+        {
+          "sourceId": "qijie-photo-entry",
+          "role": "massing_and_facade"
+        },
+        {
+          "sourceId": "qijie-aerial-720yun",
+          "role": "roof_massing_and_full_height_recess_verification"
+        }
+      ],
+      "modeling": {
+        "components": [
+          "保留OSM H形轮廓的主体",
+          "按33层线索建立的估计高度与层带",
+          "照片引导的立面分格与浅阳台横杆"
+        ],
+        "nextSteps": [
+          "核实楼顶总高及A/B分区",
+          "配准近期四面外景",
+          "把屋顶机房、阳台尺寸从估计升级为尺寸证据"
+        ],
+        "blockers": [
+          "无竣工测绘高度；当前102m为建模估计",
+          "照片无相机位姿，不能做测量级照片重建",
+          "OSM只有单一轮廓，A/B分区不能硬分成两栋",
+          "入口雨篷侧向位置未配准，本轮不落几何"
+        ]
+      }
+    }
+  ]
+}

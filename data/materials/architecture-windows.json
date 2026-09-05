@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "textures": [
+    {
+      "id": "curtain-glass",
+      "url": "/city/textures/architecture/curtain-glass-windows.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 494,
+      "sha256": "6f71618480755fdfc04c9955f00d22732dc0affcec9149bb667f59b1c8d59402",
+      "albedoSha256": "2471a3cc6557e21f0a922f56ea4f0bbdbd6ec68c89214f68d9ccab2879789f81",
+      "litRegions": 5,
+      "litPixelFraction": 0.05230712890625,
+      "wallPixelsLit": 0,
+      "method": "Hand-directed sparse selection through a glazing-only color stencil; artistic occupancy, not real room data."
+    },
+    {
+      "id": "warm-residential",
+      "url": "/city/textures/architecture/warm-residential-windows.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 690,
+      "sha256": "835f61ff4211341a10975897f304d457b462e9c4119b437bec439c7d00474857",
+      "albedoSha256": "40ebedb6489c8ac9b999b86dbdb24a326a0475738645c02c387f5ce954228fce",
+      "litRegions": 6,
+      "litPixelFraction": 0.03936767578125,
+      "wallPixelsLit": 0,
+      "method": "Hand-directed sparse selection through a glazing-only color stencil; artistic occupancy, not real room data."
+    },
+    {
+      "id": "light-stone",
+      "url": "/city/textures/architecture/light-stone-windows.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 431,
+      "sha256": "e0346c8f7242c29167c9b829b721482667948aec5ab3c00a79690f6c7871d566",
+      "albedoSha256": "6f441b80b8ab615ddf0149d685331be7cd46be40525aaf8278798e9da39042bb",
+      "litRegions": 3,
+      "litPixelFraction": 0.009185791015625,
+      "wallPixelsLit": 0,
+      "method": "Hand-directed sparse selection through a glazing-only color stencil; artistic occupancy, not real room data."
+    }
+  ],
+  "totalBytes": 1615,
+  "estimatedRGBA8WithMipmapsBytes": 1048576.0,
+  "note": "Aligned to current albedo hashes. Re-run after facade art changes. Existing unrelated 1024px emission masks are not reused."
+}

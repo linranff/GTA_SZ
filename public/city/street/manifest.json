@@ -1,0 +1,583 @@
+{
+  "source": "https://polyhaven.com/a/modular_street_seating",
+  "author": "Stuart Attenborrow",
+  "license": "CC0-1.0",
+  "adaptation": "Assembled backed bench; unused kit parts removed; geometry simplified. Placements use OSM bench points; heading adapted to nearest road.",
+  "placementLicense": "ODbL-1.0",
+  "file": "urban-bench.glb",
+  "bytes": 5643192,
+  "sha256": "fa28646b4a58f59fccd52c27bc4fac7468028e84168e18c66c23b74420674e6a",
+  "triangles": 6150,
+  "primitives": 3,
+  "textures": [
+    {
+      "name": "modular_street_seating_armrests_nor_gl",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_armrests_diff",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_armrests_metal-modular_street_seating_armrests_rough",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_supports_nor_gl",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_supports_diff",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_supports_metal-modular_street_seating_supports_rough",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_timber_nor_gl",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_timber_diff",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "modular_street_seating_timber_rough",
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "placements": [
+    {
+      "id": "node/2609917807",
+      "x": 6618.533261999425,
+      "z": -2029.4014488000234,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 0.9841444653344692,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218926",
+      "x": 3346.5024449994476,
+      "z": -1710.496365600189,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218927",
+      "x": 3343.9476509994083,
+      "z": -1710.4362528001986,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218929",
+      "x": 3348.767202000043,
+      "z": -1709.567956800018,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218931",
+      "x": 3342.090180000064,
+      "z": -1708.6996608000745,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218935",
+      "x": 3350.680211999598,
+      "z": -1707.3037080001343,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218945",
+      "x": 3357.0054869994137,
+      "z": -1702.2542327999743,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218948",
+      "x": 3360.2576039992714,
+      "z": -1700.457528000097,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/2663218952",
+      "x": 3362.985185999575,
+      "z": -1698.6007103999916,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.6567595377910735,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/4382954213",
+      "x": -6343.942275000611,
+      "z": -2503.571215200192,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -0.22152055236182622,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/4382954237",
+      "x": -6342.368670000199,
+      "z": -2494.133505600006,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -0.22152055236182622,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/4382954286",
+      "x": -6339.721311000394,
+      "z": -2484.8627760001104,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -0.028633244839784133,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/4809476622",
+      "x": 1871.6025899996741,
+      "z": 1291.8173927999699,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.705018877043261,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/4809476625",
+      "x": 1890.0538799995675,
+      "z": 1290.715324799905,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.705018877043261,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/4809496721",
+      "x": 1840.4452109999395,
+      "z": 1082.5246607999322,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -0.01800750946585583,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5072288133",
+      "x": 6621.470657999551,
+      "z": -2027.6181024000648,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 0.9841444653344692,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5360287928",
+      "x": -4773.54619500078,
+      "z": -1754.5991232001782,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.7655477550537575,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5377805141",
+      "x": 6244.8298439995115,
+      "z": -2167.794472800147,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5569414864",
+      "x": -5682.016130999993,
+      "z": -62.63085840009916,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -0.45375756882461005,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5569414865",
+      "x": -5671.0070670002515,
+      "z": -63.826435200070506,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.3285550020406895,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5569414866",
+      "x": -5681.602673999984,
+      "z": -67.38644880014692,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.530421142055707,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5616286349",
+      "x": -4681.616808000313,
+      "z": -1009.5410424001061,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.6802091353257185,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5616286350",
+      "x": -4673.014434000634,
+      "z": -1039.5373296001642,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.6802091353257185,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5616286355",
+      "x": -5009.716536000484,
+      "z": -900.5298191999785,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 0.01804682102302979,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5616286356",
+      "x": -5023.909836000604,
+      "z": -900.5698944002096,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 0.01804682102302979,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5616286531",
+      "x": -4679.3829060005155,
+      "z": -1026.359268000167,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.6802091353257185,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5714343921",
+      "x": 5236.796993999635,
+      "z": 372.2251367998066,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 2.99187342615469,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714541",
+      "x": 2746.4220629998335,
+      "z": 854.2830383998499,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.1511731987797065,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714542",
+      "x": 2748.49551899951,
+      "z": 867.8484935998655,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -1.5326852925872574,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714575",
+      "x": 2697.862463999311,
+      "z": 809.8797167999079,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -0.1751935038695147,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714733",
+      "x": 2779.029626999415,
+      "z": 845.7603791999163,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.9642298788846027,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714734",
+      "x": 2778.5359469997843,
+      "z": 858.9184031999164,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.9642298788846027,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714735",
+      "x": 2778.4495529996516,
+      "z": 870.8274167997955,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.9642298788846027,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714736",
+      "x": 2777.295575999759,
+      "z": 902.9276519999993,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.040334037610883,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/5733714737",
+      "x": 2778.122489999776,
+      "z": 887.2916447999909,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 2.8246333014086287,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/6109039586",
+      "x": -6109.573866000041,
+      "z": -819.6313488002031,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": -1.329395034503822,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/6109039587",
+      "x": -6116.571780000263,
+      "z": -826.8315264001061,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.389223757857496,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7140612185",
+      "x": -5831.656710000503,
+      "z": -1263.1101912000267,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.3988542891154663,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7317057628",
+      "x": 1286.1845039995228,
+      "z": 2465.1925319999414,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.558179720306974,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7317057629",
+      "x": 1282.796624999833,
+      "z": 2465.1457775998697,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.558179720306974,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7317057630",
+      "x": 1276.1813129996976,
+      "z": 2464.9854767998945,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.5185283675818166,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7317057631",
+      "x": 1279.6617570000305,
+      "z": 2465.025551999888,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.558179720306974,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7321479876",
+      "x": 1260.9883109992948,
+      "z": 2424.736617599857,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 2.226117578960617,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7321479877",
+      "x": 1260.2539619999213,
+      "z": 2426.0123447998158,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 2.226117578960617,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7328090246",
+      "x": 5574.998648999909,
+      "z": -1551.3243503999909,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7328090247",
+      "x": 5576.69567400001,
+      "z": -1558.8518088001592,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7328090248",
+      "x": 5577.565784999216,
+      "z": -1563.280118400179,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7328090249",
+      "x": 5577.485561999593,
+      "z": -1566.1788912001214,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7328090250",
+      "x": 5562.7492139992655,
+      "z": -1553.7622584000053,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7328090251",
+      "x": 5565.692780999902,
+      "z": -1549.748059200079,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7610786490",
+      "x": -6589.029711000602,
+      "z": 138.75370079982991,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.4847208580596405,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7610786491",
+      "x": -6579.594252000395,
+      "z": 143.71634639992442,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.091743174814059,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7610786492",
+      "x": -6597.144576000283,
+      "z": 146.8555703998293,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.4847208580596405,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7640051485",
+      "x": -5145.811770000116,
+      "z": 1703.0290200000113,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.54608046763907,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7892787534",
+      "x": 5887.454891999237,
+      "z": -1331.3716152001953,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/7892787535",
+      "x": 5886.62797799922,
+      "z": -1329.1407623999903,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.315249748026289,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/8263287222",
+      "x": 1771.3423530000696,
+      "z": 2002.8783455999765,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.696200108961885,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/8604393917",
+      "x": -1626.792849000736,
+      "z": 2176.250340000012,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.0625588707311424,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/10614514241",
+      "x": 1926.5430029993458,
+      "z": 1168.9401503998736,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 1.5515896493538566,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/10614907506",
+      "x": 1878.1376789993105,
+      "z": 1302.8046767999929,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.705018877043261,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/10614907507",
+      "x": 1904.6729789998408,
+      "z": 1275.4132776000024,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 4.705018877043261,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/13157933712",
+      "x": 2987.294705999241,
+      "z": 728.2866095998455,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.4100824657900546,
+      "orientation": "game adaptation: parallel to nearest road"
+    },
+    {
+      "id": "node/14076293901",
+      "x": -4999.046877000763,
+      "z": 1097.4393143998159,
+      "source": "data/processed/shenzhen_study/pois.geojson",
+      "yaw": 3.122057934995105,
+      "orientation": "game adaptation: parallel to nearest road"
+    }
+  ]
+}

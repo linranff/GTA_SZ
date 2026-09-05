@@ -1,0 +1,30 @@
+{
+  "assets": {
+    "street": {
+      "meshes": 29,
+      "triangles": 226656
+    },
+    "room": {
+      "meshes": 14,
+      "triangles": 7724
+    },
+    "upgrade": {
+      "meshes": 8,
+      "triangles": 5800
+    },
+    "actor": {
+      "meshes": 16,
+      "triangles": 4356
+    },
+    "linxia": {
+      "meshes": 17,
+      "triangles": 5040
+    },
+    "bicycle": {
+      "meshes": 4,
+      "triangles": 1412
+    }
+  },
+  "source": "original modular Blender geometry; original procedural maps and CC0 Poly Haven plaster/wood maps; see ATTRIBUTION.md",
+  "geography": "fictional composite Longhua street; not a surveyed reconstruction"
+}

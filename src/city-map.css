@@ -1,0 +1,322 @@
+#map-panel.city-map-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 2vw, 34px);
+  background: #081923e8;
+  backdrop-filter: none;
+  pointer-events: auto;
+  color: #edf4f6;
+  font-family: 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  text-shadow: none;
+}
+
+#map-panel.city-map-panel[hidden] { display: none !important; }
+
+#map-panel.city-map-panel .atlas-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 1850px;
+  max-height: 1060px;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid #b7e0ec45;
+  border-radius: 12px;
+  background: #142b36;
+  box-shadow: 0 20px 70px #0005;
+}
+
+#map-panel.city-map-panel .atlas-heading {
+  position: static;
+  inset: auto;
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) minmax(260px, 470px) minmax(180px, 1fr);
+  align-items: center;
+  gap: 28px;
+  min-height: 104px;
+  padding: 20px 29px;
+  border-bottom: 1px solid #b9deea26;
+  background: #172f3a;
+}
+
+#map-panel.city-map-panel .atlas-brand small {
+  display: block;
+  margin-bottom: 7px;
+  font: 9px 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: .22em;
+  color: #a7c7d2;
+}
+
+#map-panel.city-map-panel .atlas-brand h2 {
+  margin: 0;
+  font-family: 'Songti SC', 'Noto Serif SC', STSong, serif;
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: .14em;
+  color: #f3f4e9;
+}
+
+#map-panel.city-map-panel button {
+  margin: 0;
+  border: 1px solid #a1ccda40;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow: none;
+  color: #deedf2;
+  font: inherit;
+  cursor: pointer;
+  transition: color .14s, border-color .14s, background .14s;
+}
+
+#map-panel.city-map-panel button:hover { border-color: #b4dfef7a; background: #95d9ed14; color: #f2fbff; }
+#map-panel.city-map-panel button:focus-visible,
+#map-panel.city-map-panel a:focus-visible,
+#map-panel.city-map-panel canvas:focus-visible { outline: 2px solid #88dbed; outline-offset: -2px; }
+#map-panel.city-map-panel button:disabled { opacity: .7; cursor: default; }
+#map-panel.city-map-panel button:disabled:hover { background: transparent; border-color: #a1ccda40; }
+
+#map-panel.city-map-panel .atlas-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid #9ec8d64d;
+  border-radius: 3px;
+  background: #0b202d8c;
+}
+
+#map-panel.city-map-panel .atlas-search:focus-within { border-color: #8ad9e6; }
+#map-panel.city-map-panel .atlas-search svg { width: 17px; height: 17px; fill: none; stroke: #a6c9d6; stroke-width: 1.4; flex: 0 0 auto; }
+#map-panel.city-map-panel .atlas-search input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #edf7fa;
+  font: 13px 'PingFang SC', system-ui, sans-serif;
+  letter-spacing: .03em;
+}
+#map-panel.city-map-panel .atlas-search input::placeholder { color: #9ebac6; }
+#map-panel.city-map-panel .atlas-search kbd { margin: 0; border: 0; color: #a2bac3; font-size: 14px; }
+#map-panel.city-map-panel #close-map { justify-self: end; padding: 9px 0 9px 14px; border: 0; font-size: 11px; letter-spacing: .05em; }
+#map-panel.city-map-panel #close-map:hover { background: none; }
+#map-panel.city-map-panel kbd { border-color: #a8d2df4d; color: #c2d9e2; font-size: 10px; }
+
+#map-panel.city-map-panel .atlas-layout { display: grid; grid-template-columns: minmax(0, 1fr) 350px; flex: 1 1 auto; min-height: 0; }
+#map-panel.city-map-panel .atlas-map-wrap { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: #245f74; }
+#map-panel.city-map-panel #city-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  outline: none;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+#map-panel.city-map-panel #city-map.is-dragging { cursor: grabbing; }
+#map-panel.city-map-panel .atlas-map-caption {
+  position: absolute;
+  left: 24px;
+  top: 21px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  pointer-events: none;
+  color: #d8eaf1;
+  text-shadow: 0 1px 4px #091015;
+}
+#map-panel.city-map-panel .atlas-map-caption > span { font-size: 12px; letter-spacing: .18em; }
+#map-panel.city-map-panel .atlas-map-caption small { font-size: 9px; letter-spacing: .05em; color: #b7d3de; }
+#map-panel.city-map-panel .atlas-map-tools { position: absolute; top: 17px; right: 17px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #afd9e84a; border-radius: 3px; background: #132e3bee; }
+#map-panel.city-map-panel .atlas-map-tools button { width: 37px; height: 36px; padding: 0; border: 0; border-radius: 0; font: 22px 'Helvetica Neue', Arial, sans-serif; color: #def1f7; }
+#map-panel.city-map-panel .atlas-map-tools button:hover { background: #9de2f027; color: #f1fcff; }
+#map-panel.city-map-panel .atlas-map-tools > span { height: 1px; margin: 2px 8px; background: #a7d4e342; }
+#map-panel.city-map-panel .atlas-map-north { position: absolute; right: 28px; bottom: 64px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #cfe8ef; font: 9px Arial, sans-serif; pointer-events: none; }
+#map-panel.city-map-panel .atlas-map-north span { font-size: 25px; line-height: 1; }
+#map-panel.city-map-panel .atlas-map-bottom {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  left: 24px;
+  display: flex;
+  align-items: flex-end;
+  gap: 27px;
+  pointer-events: none;
+  color: #d6ecf1;
+  text-shadow: 0 1px 4px #061214;
+}
+#map-panel.city-map-panel .atlas-scale { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 105px; font: 10px 'Helvetica Neue', Arial, sans-serif; }
+#map-panel.city-map-panel .atlas-scale i { display: block; height: 5px; border: 1px solid #c7e5ef; border-top: 0; }
+#map-panel.city-map-panel #map-status { padding-bottom: 1px; font-size: 10px; line-height: 1.5; color: #d0e3e9; }
+
+#map-panel.city-map-panel .atlas-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: none;
+  padding: 0;
+  border-left: 1px solid #b6dcea35;
+  overflow: hidden;
+  background: #192f3b;
+}
+#map-panel.city-map-panel .atlas-filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px 6px; padding: 18px 19px 10px; }
+#map-panel.city-map-panel .atlas-filters button { padding: 9px 4px; border-color: transparent; border-radius: 6px; font-size: 12px; color: #b4cbd5; }
+#map-panel.city-map-panel .atlas-filters button[aria-pressed='true'] { border-color: #8bdae15e; background: #78d1e321; color: #c9f4fc; }
+#map-panel.city-map-panel .atlas-list-heading { display: flex; justify-content: space-between; align-items: center; min-height: 42px; padding: 3px 23px 12px; font-size: 11px; color: #aec9d4; }
+#map-panel.city-map-panel .atlas-list-heading label { display: flex; gap: 5px; align-items: center; cursor: pointer; color: #c3d8e1; }
+#map-panel.city-map-panel .atlas-list-heading input { width: 12px; height: 12px; margin: 0; accent-color: #8ed9e4; }
+#map-panel.city-map-panel #places { display: flex; flex-direction: column; gap: 4px; min-height: 80px; flex: 1 1 auto; padding: 0 10px 13px; overflow: auto; scrollbar-width: thin; scrollbar-color: #9cd8e255 transparent; }
+#map-panel.city-map-panel #places .atlas-place {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  flex: 0 0 auto;
+  min-height: 66px;
+  padding: 12px 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #122b371f;
+  text-align: left;
+}
+#map-panel.city-map-panel #places .atlas-place:hover { background: #80cfe413; border-color: #9ed6e333; }
+#map-panel.city-map-panel #places .atlas-place.selected { background: #80d1e220; border-color: #93ddeb73; }
+#map-panel.city-map-panel .atlas-place-icon { display: grid; place-items: center; width: 32px; height: 32px; flex: 0 0 32px; border: 1px solid #8cbece35; border-radius: 8px; background: #84cee611; font: normal 21px 'Helvetica Neue', Arial, sans-serif; color: #a4ceda; }
+#map-panel.city-map-panel .atlas-place.selected .atlas-place-icon { color: #b7f0f8; }
+#map-panel.city-map-panel #places .atlas-place-copy { display: block; min-width: 0; flex: 1 1 auto; }
+#map-panel.city-map-panel #places .atlas-place-copy > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 500; line-height: 1.5; color: #edf4f6; }
+#map-panel.city-map-panel #places .atlas-place-copy small { display: block; margin-top: 5px; font-size: 11px; line-height: 1.5; color: #a6c1cd; }
+#map-panel.city-map-panel #places .atlas-place em { flex: 0 0 auto; font: normal 11px 'Helvetica Neue', Arial, sans-serif; color: #b6ced8; }
+#map-panel.city-map-panel #places .atlas-place.selected em { color: #c4ecf4; }
+#map-panel.city-map-panel .atlas-empty { margin: auto 12px; padding: 40px 15px; text-align: center; font-size: 12px; line-height: 1.9; color: #b4cdd7; }
+#map-panel.city-map-panel .atlas-more { margin: 12px 10px 5px; padding: 10px 8px; border-color: #b7d7e138; font-size: 10px; color: #c1d9e2; }
+
+#map-panel.city-map-panel #destination-actions {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 20px 23px 23px;
+  box-shadow: 0 -8px 24px #071c2726;
+  border-top: 1px solid #b1d9e644;
+  background: #1c3641;
+}
+#map-panel.city-map-panel .atlas-destination-eyebrow { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 9px; font-size: 11px; letter-spacing: .13em; color: #a1cbd7; }
+#map-panel.city-map-panel #map-selection-visited { font-size: 10px; letter-spacing: 0; color: #a4d8d6; }
+#map-panel.city-map-panel #destination-name { display: block; font-size: 21px; font-weight: 500; line-height: 1.6; letter-spacing: .04em; color: #f2f6ed; }
+#map-panel.city-map-panel #destination-status { margin: 9px 0 17px; font-size: 12px; line-height: 1.8; color: #c5dbe4; }
+#map-panel.city-map-panel #map-destination-address { margin: -7px 0 16px; font-size: 11px; line-height: 1.5; color: #abc7d3; }
+#map-panel.city-map-panel .atlas-route-actions { display: grid; gap: 8px; }
+#map-panel.city-map-panel #destination-actions .atlas-route-actions button { display: flex; justify-content: space-between; align-items: center; width: 100%; margin: 0; padding: 12px 13px; border: 1px solid #97ccd957; border-radius: 7px; background: #173442; color: #daedf3; font-size: 13px; text-align: left; }
+#map-panel.city-map-panel #destination-actions .atlas-route-actions button span { font: 16px 'Helvetica Neue', Arial, sans-serif; opacity: .8; }
+#map-panel.city-map-panel #destination-actions #auto-drive { border-color: #9bdeea; background: #9bdeea; color: #143544; }
+#map-panel.city-map-panel #destination-actions #auto-drive:hover:not(:disabled) { background: #b5ecf4; border-color: #b5ecf4; }
+#map-panel.city-map-panel #destination-actions #auto-drive:disabled { background: #8dcddd30; border-color: #a2d6e343; color: #daedf3; }
+#map-panel.city-map-panel #destination-actions #drive-route:hover:not(:disabled) { background: #8bd9eb13; border-color: #acdeeb8f; }
+#map-panel.city-map-panel .atlas-secondary-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 9px; margin-top: 14px; }
+#map-panel.city-map-panel #destination-actions .atlas-secondary-actions button,
+#map-panel.city-map-panel .atlas-secondary-actions a { display: inline-block; width: auto; margin: 0; padding: 2px 0; border: 0; border-radius: 0; background: transparent; font-size: 10px; line-height: 1.5; color: #a9cbd7; text-decoration: none; }
+#map-panel.city-map-panel #destination-actions .atlas-secondary-actions button:hover,
+#map-panel.city-map-panel .atlas-secondary-actions a:hover { color: #e6f9ff; background: transparent; }
+#map-panel.city-map-panel .atlas-travel-actions { display: grid; grid-template-columns: 1.25fr 1fr; gap: 8px; margin-top: 10px; }
+#map-panel.city-map-panel #destination-actions .atlas-travel-actions button { margin: 0; padding: 12px 8px; border: 1px solid #a1d9e779; border-radius: 7px; background: #285261; color: #ebf7f9; font-size: 12px; line-height: 1.5; white-space: nowrap; }
+#map-panel.city-map-panel #destination-actions .atlas-travel-actions button:hover:not(:disabled) { background: #35697a; border-color: #b9f0f7; }
+#map-panel.city-map-panel #destination-actions .atlas-travel-actions button:disabled { background: #213c48; color: #abc2cc; border-color: #9cbfce47; cursor: default; }
+
+#map-panel.city-map-panel .atlas-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 39px;
+  margin: 0;
+  padding: 12px 25px;
+  border-top: 1px solid #a5d1e02e;
+  background: #142c37;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #adc8d4;
+}
+#map-panel.city-map-panel .atlas-footer span { display: inline; font-size: inherit; color: inherit; }
+#map-panel.city-map-panel .atlas-footer small { font-size: 9px; color: #9ebdcb; }
+#map-panel.city-map-panel #map-discovery-count { white-space: nowrap; color: #cae0e7; }
+
+@media (max-width: 1100px) {
+  #map-panel.city-map-panel { padding: 16px; }
+  #map-panel.city-map-panel .atlas-layout { grid-template-columns: minmax(0, 1fr) 292px; }
+  #map-panel.city-map-panel .atlas-heading { min-height: 89px; grid-template-columns: minmax(140px, 1fr) minmax(220px, 1.6fr) auto; gap: 20px; padding: 17px 21px; }
+  #map-panel.city-map-panel .atlas-brand h2 { font-size: 25px; }
+  #map-panel.city-map-panel .atlas-brand small { font-size: 8px; letter-spacing: .12em; }
+  #map-panel.city-map-panel #destination-actions { padding: 16px 18px 18px; }
+  #map-panel.city-map-panel #destination-name { font-size: 17px; }
+  #map-panel.city-map-panel .atlas-filters { padding: 13px 13px 7px; }
+  #map-panel.city-map-panel .atlas-list-heading { padding: 3px 18px 10px; }
+  #map-panel.city-map-panel #places .atlas-place { min-height: 60px; gap: 7px; padding: 10px 8px; }
+  #map-panel.city-map-panel .atlas-footer { padding: 10px 18px; }
+}
+
+@media (max-width: 760px) {
+  #map-panel.city-map-panel { padding: 0; }
+  #map-panel.city-map-panel .atlas-shell { max-height: none; border: 0; border-radius: 0; }
+  #map-panel.city-map-panel .atlas-heading { grid-template-columns: 1fr auto; gap: 12px; min-height: 116px; padding: 16px; }
+  #map-panel.city-map-panel .atlas-search { grid-column: 1 / -1; grid-row: 2; height: 37px; }
+  #map-panel.city-map-panel .atlas-brand small { display: none; }
+  #map-panel.city-map-panel .atlas-brand h2 { font-size: 22px; }
+  #map-panel.city-map-panel #close-map { grid-column: 2; grid-row: 1; font-size: 10px; }
+  #map-panel.city-map-panel .atlas-layout { grid-template-columns: minmax(0, 1fr) 240px; }
+  #map-panel.city-map-panel .atlas-map-caption { left: 14px; top: 16px; }
+  #map-panel.city-map-panel .atlas-map-caption > span { font-size: 9px; letter-spacing: .05em; }
+  #map-panel.city-map-panel .atlas-map-tools { top: 64px; right: 11px; }
+  #map-panel.city-map-panel .atlas-map-tools button { width: 31px; height: 32px; font-size: 20px; }
+  #map-panel.city-map-panel .atlas-map-bottom { left: 15px; bottom: 15px; right: 12px; }
+  #map-panel.city-map-panel #map-status { display: none; }
+  #map-panel.city-map-panel .atlas-filters { gap: 1px; padding: 10px; }
+  #map-panel.city-map-panel .atlas-filters button { font-size: 10px; padding: 6px 2px; }
+  #map-panel.city-map-panel .atlas-place-icon { display: none; }
+  #map-panel.city-map-panel #places .atlas-place-copy > span { font-size: 11px; }
+  #map-panel.city-map-panel #destination-actions { padding: 14px; }
+  #map-panel.city-map-panel #destination-name { font-size: 15px; }
+  #map-panel.city-map-panel #destination-actions .atlas-route-actions button { font-size: 11px; padding: 10px 11px; }
+  #map-panel.city-map-panel .atlas-footer { padding: 9px 15px; min-height: 33px; }
+  #map-panel.city-map-panel .atlas-footer > span:first-child { display: none; }
+}
+
+@media (max-width: 540px) {
+  #map-panel.city-map-panel .atlas-layout { grid-template-columns: minmax(0, 1fr) 205px; }
+  #map-panel.city-map-panel .atlas-map-caption > span { display: none; }
+  #map-panel.city-map-panel .atlas-map-tools { top: 43px; }
+  #map-panel.city-map-panel .atlas-list-heading { font-size: 9px; padding: 3px 13px 9px; }
+  #map-panel.city-map-panel #places { padding: 0 5px 8px; }
+  #map-panel.city-map-panel #places .atlas-place { padding: 9px 7px; }
+  #map-panel.city-map-panel #places .atlas-place em { display: none; }
+  #map-panel.city-map-panel #destination-status { margin: 7px 0 12px; }
+  #map-panel.city-map-panel #destination-actions .atlas-travel-actions button { padding: 10px 5px; font-size: 10px; }
+  #map-panel.city-map-panel .atlas-secondary-actions { margin-top: 10px; }
+  #map-panel.city-map-panel .atlas-footer small { font-size: 7px; }
+}
+
+@media (max-height: 650px) and (min-width: 761px) {
+  #map-panel.city-map-panel { padding: 12px; }
+  #map-panel.city-map-panel .atlas-heading { min-height: 74px; padding-top: 12px; padding-bottom: 12px; }
+  #map-panel.city-map-panel .atlas-brand small { display: none; }
+  #map-panel.city-map-panel .atlas-filters { grid-template-columns: repeat(6, 1fr); padding: 10px 10px 5px; gap: 0; }
+  #map-panel.city-map-panel .atlas-filters button { font-size: 10px; padding: 5px 2px; }
+  #map-panel.city-map-panel #destination-actions { padding: 13px 18px; }
+  #map-panel.city-map-panel .atlas-route-actions { grid-template-columns: 1fr 1fr; gap: 6px; }
+  #map-panel.city-map-panel #destination-actions .atlas-route-actions button { padding: 10px 8px; font-size: 10px; }
+  #map-panel.city-map-panel #destination-actions .atlas-route-actions button span { display: none; }
+  #map-panel.city-map-panel #destination-status { margin: 7px 0 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #map-panel.city-map-panel button { transition: none; }
+}

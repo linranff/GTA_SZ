@@ -1,0 +1,5292 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshotUtc": "2026-09-04T20:21:21Z",
+  "license": "ODbL-1.0",
+  "coordinateSystem": "WGS84 lon/lat converted to current game east/north coordinates; origin [114.025,22.536], scales [102850,111320]*0.60",
+  "scope": "Places inside current game land and extent. OSM place points and polygon label points are not entrances or surveyed boundaries; navigation snaps to existing game roads.",
+  "places": [
+    {
+      "id": "osm:node/5172820818",
+      "name": "南山区",
+      "nameEn": "Nanshan",
+      "category": "district",
+      "kind": "city",
+      "lon": 113.9256222,
+      "lat": 22.5360142,
+      "x": -6132.60404,
+      "z": 0.94845,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/5172820818",
+        "url": "https://www.openstreetmap.org/node/5172820818",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/2643843386",
+      "name": "福田区",
+      "nameEn": "Futian",
+      "category": "district",
+      "kind": "city",
+      "lon": 114.049894,
+      "lat": 22.5243632,
+      "x": 1536.20874,
+      "z": -777.24515,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/2643843386",
+        "url": "https://www.openstreetmap.org/node/2643843386",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/244085031",
+      "name": "罗湖区",
+      "nameEn": "Luohu",
+      "category": "district",
+      "kind": "city",
+      "lon": 114.1261389,
+      "lat": 22.5506391,
+      "x": 6241.28152,
+      "z": 977.77477,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/244085031",
+        "url": "https://www.openstreetmap.org/node/244085031",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333967",
+      "name": "上林社区",
+      "nameEn": "Shanglin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0970499,
+      "lat": 22.5648498,
+      "x": 4446.19933,
+      "z": 1926.93584,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333967",
+        "url": "https://www.openstreetmap.org/node/9391333967",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13167062009",
+      "name": "上梅林新村",
+      "nameEn": "Shangmeilin New Village",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0495469,
+      "lat": 22.5684221,
+      "x": 1514.7892,
+      "z": 2165.5369,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13167062009",
+        "url": "https://www.openstreetmap.org/node/13167062009",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9383042752",
+      "name": "上梅社区",
+      "nameEn": "Shangmei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0512221,
+      "lat": 22.5687551,
+      "x": 1618.16579,
+      "z": 2187.77864,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9383042752",
+        "url": "https://www.openstreetmap.org/node/9383042752",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068616",
+      "name": "上沙社区",
+      "nameEn": "Shangsha",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0273728,
+      "lat": 22.5257647,
+      "x": 146.42549,
+      "z": -683.63616,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068616",
+        "url": "https://www.openstreetmap.org/node/3373068616",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8488370924",
+      "name": "上白石",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.965255,
+      "lat": 22.5462835,
+      "x": -3686.86395,
+      "z": 686.85553,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8488370924",
+        "url": "https://www.openstreetmap.org/node/8488370924",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9380950969",
+      "name": "下梅社区",
+      "nameEn": "Xiamei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0354952,
+      "lat": 22.5647744,
+      "x": 647.65879,
+      "z": 1921.89972,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9380950969",
+        "url": "https://www.openstreetmap.org/node/9380950969",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078181",
+      "name": "下沙村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0219978,
+      "lat": 22.5276875,
+      "x": -185.26576,
+      "z": -555.2085,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078181",
+        "url": "https://www.openstreetmap.org/node/10669078181",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078184",
+      "name": "下沙村一坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0201476,
+      "lat": 22.5301127,
+      "x": -299.4416,
+      "z": -393.22454,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078184",
+        "url": "https://www.openstreetmap.org/node/10669078184",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078188",
+      "name": "下沙村七坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0238724,
+      "lat": 22.5267811,
+      "x": -69.5842,
+      "z": -615.74877,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078188",
+        "url": "https://www.openstreetmap.org/node/10669078188",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078185",
+      "name": "下沙村三坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0218218,
+      "lat": 22.5288361,
+      "x": -196.12672,
+      "z": -478.49121,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078185",
+        "url": "https://www.openstreetmap.org/node/10669078185",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078183",
+      "name": "下沙村二坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0196058,
+      "lat": 22.5282755,
+      "x": -332.87608,
+      "z": -515.9348,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078183",
+        "url": "https://www.openstreetmap.org/node/10669078183",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078186",
+      "name": "下沙村五坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0221139,
+      "lat": 22.5274039,
+      "x": -178.10123,
+      "z": -574.15071,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078186",
+        "url": "https://www.openstreetmap.org/node/10669078186",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078189",
+      "name": "下沙村八坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0236702,
+      "lat": 22.5281719,
+      "x": -82.06196,
+      "z": -522.85446,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078189",
+        "url": "https://www.openstreetmap.org/node/10669078189",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078187",
+      "name": "下沙村六坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0229567,
+      "lat": 22.527025,
+      "x": -126.09204,
+      "z": -599.4582,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078187",
+        "url": "https://www.openstreetmap.org/node/10669078187",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078182",
+      "name": "下沙村四坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0207126,
+      "lat": 22.5273653,
+      "x": -264.57545,
+      "z": -576.72888,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078182",
+        "url": "https://www.openstreetmap.org/node/10669078182",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068615",
+      "name": "下沙社区",
+      "nameEn": "Xiasha",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0208207,
+      "lat": 22.5286763,
+      "x": -257.9046,
+      "z": -489.16457,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068615",
+        "url": "https://www.openstreetmap.org/node/3373068615",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8488370925",
+      "name": "下白石",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.9651225,
+      "lat": 22.5438976,
+      "x": -3695.04052,
+      "z": 527.4965,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8488370925",
+        "url": "https://www.openstreetmap.org/node/8488370925",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9406390235",
+      "name": "东方社区",
+      "nameEn": "Dongfang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9774001,
+      "lat": 22.5335431,
+      "x": -2937.38983,
+      "z": -164.10126,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9406390235",
+        "url": "https://www.openstreetmap.org/node/9406390235",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9349913818",
+      "name": "东海社区",
+      "nameEn": "Donghai",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0173775,
+      "lat": 22.542178,
+      "x": -470.38448,
+      "z": 412.64098,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9349913818",
+        "url": "https://www.openstreetmap.org/node/9349913818",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10118893954",
+      "name": "东门社区",
+      "nameEn": "Dongmen",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1138158,
+      "lat": 22.5474561,
+      "x": 5480.82302,
+      "z": 765.17583,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10118893954",
+        "url": "https://www.openstreetmap.org/node/10118893954",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6236481407",
+      "name": "东门街道",
+      "nameEn": "Dongmen",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1131151,
+      "lat": 22.5523859,
+      "x": 5437.58282,
+      "z": 1094.44703,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6236481407",
+        "url": "https://www.openstreetmap.org/node/6236481407",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9419780643",
+      "name": "中新街社区",
+      "nameEn": "Zhongxin Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.975954,
+      "lat": 22.5391384,
+      "x": -3026.62866,
+      "z": 209.62001,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9419780643",
+        "url": "https://www.openstreetmap.org/node/9419780643",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13174736384",
+      "name": "京光社区",
+      "nameEn": "Jingguang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9257663,
+      "lat": 22.5093094,
+      "x": -6123.71163,
+      "z": -1782.71856,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13174736384",
+        "url": "https://www.openstreetmap.org/node/13174736384",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373386572",
+      "name": "人民南",
+      "nameEn": "Renminnan",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.1135589,
+      "lat": 22.5398433,
+      "x": 5464.96972,
+      "z": 256.70169,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373386572",
+        "url": "https://www.openstreetmap.org/node/3373386572",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10108610904",
+      "name": "人民桥社区",
+      "nameEn": "Renmin Qiao",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1079981,
+      "lat": 22.5454414,
+      "x": 5121.81275,
+      "z": 630.60999,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10108610904",
+        "url": "https://www.openstreetmap.org/node/10108610904",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9354690560",
+      "name": "侨香社区",
+      "nameEn": "Qiaoxiang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0105927,
+      "lat": 22.5562671,
+      "x": -889.07448,
+      "z": 1353.68014,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9354690560",
+        "url": "https://www.openstreetmap.org/node/9354690560",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9406411076",
+      "name": "光华街社区",
+      "nameEn": "Guanghua Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9849323,
+      "lat": 22.5376272,
+      "x": -2472.57777,
+      "z": 108.68394,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9406411076",
+        "url": "https://www.openstreetmap.org/node/9406411076",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068610",
+      "name": "八卦岭",
+      "nameEn": "Bagualing",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0947309,
+      "lat": 22.5617797,
+      "x": 4303.09384,
+      "z": 1721.87772,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068610",
+        "url": "https://www.openstreetmap.org/node/3373068610",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9350220001",
+      "name": "农园社区",
+      "nameEn": "Nongyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0116461,
+      "lat": 22.5489132,
+      "x": -824.06917,
+      "z": 862.49845,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9350220001",
+        "url": "https://www.openstreetmap.org/node/9350220001",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6482359928",
+      "name": "凤凰社区",
+      "nameEn": "Fenghuang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1276576,
+      "lat": 22.5497013,
+      "x": 6335.0005,
+      "z": 915.13723,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6482359928",
+        "url": "https://www.openstreetmap.org/node/6482359928",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11039650169",
+      "name": "北站社区",
+      "nameEn": "Beizhan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1112051,
+      "lat": 22.5631237,
+      "x": 5319.71672,
+      "z": 1811.64617,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11039650169",
+        "url": "https://www.openstreetmap.org/node/11039650169",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7116275670",
+      "name": "华侨城",
+      "nameEn": "Overseas Chinese Town",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 113.9779003,
+      "lat": 22.5369227,
+      "x": -2906.52249,
+      "z": 61.62898,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7116275670",
+        "url": "https://www.openstreetmap.org/node/7116275670",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9406699075",
+      "name": "华夏街社区",
+      "nameEn": "Huaxia Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9710115,
+      "lat": 22.5433456,
+      "x": -3331.63034,
+      "z": 490.62732,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9406699075",
+        "url": "https://www.openstreetmap.org/node/9406699075",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753437",
+      "name": "华富街道",
+      "nameEn": "Huafu",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0712702,
+      "lat": 22.5574278,
+      "x": 2855.33404,
+      "z": 1431.20562,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753437",
+        "url": "https://www.openstreetmap.org/node/8440753437",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928081",
+      "name": "华山社区",
+      "nameEn": "Huashan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0771678,
+      "lat": 22.5601953,
+      "x": 3219.27494,
+      "z": 1616.05248,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928081",
+        "url": "https://www.openstreetmap.org/node/9395928081",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068621",
+      "name": "华强北",
+      "nameEn": "Huaqiangbei",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0815422,
+      "lat": 22.5448183,
+      "x": 3489.21916,
+      "z": 588.99189,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068621",
+        "url": "https://www.openstreetmap.org/node/3373068621",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753436",
+      "name": "华强北街道",
+      "nameEn": "Huaqiangbei",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0877818,
+      "lat": 22.5479159,
+      "x": 3874.26488,
+      "z": 795.88679,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753436",
+        "url": "https://www.openstreetmap.org/node/8440753436",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333968",
+      "name": "华林社区",
+      "nameEn": "Hualin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0907414,
+      "lat": 22.5644205,
+      "x": 4056.90179,
+      "z": 1898.26204,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333968",
+        "url": "https://www.openstreetmap.org/node/9391333968",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9307729712",
+      "name": "华红社区",
+      "nameEn": "Huahong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0796807,
+      "lat": 22.5537569,
+      "x": 3374.346,
+      "z": 1186.01886,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9307729712",
+        "url": "https://www.openstreetmap.org/node/9307729712",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9311433660",
+      "name": "华航社区",
+      "nameEn": "Huahang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0792765,
+      "lat": 22.5472319,
+      "x": 3349.40282,
+      "z": 750.20106,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9311433660",
+        "url": "https://www.openstreetmap.org/node/9311433660",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13172738307",
+      "name": "南光社区",
+      "nameEn": "Nanguang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9202807,
+      "lat": 22.5226455,
+      "x": -6462.228,
+      "z": -891.97376,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13172738307",
+        "url": "https://www.openstreetmap.org/node/13172738307",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9213339671",
+      "name": "南华社区",
+      "nameEn": "Nanhua",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0841442,
+      "lat": 22.5352982,
+      "x": 3649.78858,
+      "z": -46.87463,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9213339671",
+        "url": "https://www.openstreetmap.org/node/9213339671",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9303630378",
+      "name": "南园社区",
+      "nameEn": "Nanyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0885283,
+      "lat": 22.5422693,
+      "x": 3920.33139,
+      "z": 418.73909,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9303630378",
+        "url": "https://www.openstreetmap.org/node/9303630378",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753431",
+      "name": "南园街道",
+      "nameEn": "Nanyuan",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.088211,
+      "lat": 22.5393545,
+      "x": 3900.75081,
+      "z": 224.05376,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753431",
+        "url": "https://www.openstreetmap.org/node/8440753431",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333971",
+      "name": "南天社区",
+      "nameEn": "Nantian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0896184,
+      "lat": 22.5538388,
+      "x": 3987.60146,
+      "z": 1191.48913,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333971",
+        "url": "https://www.openstreetmap.org/node/9391333971",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10895307342",
+      "name": "南头城社区",
+      "nameEn": "Nantoucheng Community",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9161204,
+      "lat": 22.5464226,
+      "x": -6718.96012,
+      "z": 696.1463,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10895307342",
+        "url": "https://www.openstreetmap.org/node/10895307342",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6524977923",
+      "name": "南山街道",
+      "nameEn": "Nanshan",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 113.9162614,
+      "lat": 22.5280363,
+      "x": -6710.25901,
+      "z": -531.91145,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6524977923",
+        "url": "https://www.openstreetmap.org/node/6524977923",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068620",
+      "name": "南油社区",
+      "nameEn": "Nanyou",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9227725,
+      "lat": 22.5116181,
+      "x": -6308.45903,
+      "z": -1628.51586,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068620",
+        "url": "https://www.openstreetmap.org/node/3373068620",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6248968601",
+      "name": "南湖街道",
+      "nameEn": "Nanhu",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1212304,
+      "lat": 22.5459807,
+      "x": 5938.37798,
+      "z": 666.63091,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6248968601",
+        "url": "https://www.openstreetmap.org/node/6248968601",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9209476229",
+      "name": "口岸社区",
+      "nameEn": "Kou'an",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.07089,
+      "lat": 22.5271262,
+      "x": 2831.8719,
+      "z": -592.69885,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9209476229",
+        "url": "https://www.openstreetmap.org/node/9209476229",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13146653793",
+      "name": "吉龙一村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0549781,
+      "lat": 22.5300376,
+      "x": 1849.94855,
+      "z": -398.24062,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13146653793",
+        "url": "https://www.openstreetmap.org/node/13146653793",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13146693213",
+      "name": "吉龙二村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0528972,
+      "lat": 22.5276348,
+      "x": 1721.53621,
+      "z": -558.72844,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13146693213",
+        "url": "https://www.openstreetmap.org/node/13146693213",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10895307318",
+      "name": "同乐社区",
+      "nameEn": "Tongle",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9185182,
+      "lat": 22.5639178,
+      "x": -6570.99188,
+      "z": 1864.6857,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10895307318",
+        "url": "https://www.openstreetmap.org/node/10895307318",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3387197925",
+      "name": "后海社区",
+      "nameEn": "Houhai",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9263754,
+      "lat": 22.5131892,
+      "x": -6086.12407,
+      "z": -1523.57895,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3387197925",
+        "url": "https://www.openstreetmap.org/node/3387197925",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10594514555",
+      "name": "向南东村",
+      "nameEn": "Xiangnan East Village",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9163438,
+      "lat": 22.5264331,
+      "x": -6705.1741,
+      "z": -638.99238,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10594514555",
+        "url": "https://www.openstreetmap.org/node/10594514555",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9197010620",
+      "name": "向西社区",
+      "nameEn": "Xiangxi",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1202794,
+      "lat": 22.5447927,
+      "x": 5879.69177,
+      "z": 587.28202,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9197010620",
+        "url": "https://www.openstreetmap.org/node/9197010620",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9427336965",
+      "name": "和平社区",
+      "nameEn": "Heping",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1096405,
+      "lat": 22.5410988,
+      "x": 5223.16525,
+      "z": 340.55905,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9427336965",
+        "url": "https://www.openstreetmap.org/node/9427336965",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9421875879",
+      "name": "嘉北社区",
+      "nameEn": "Jiabei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1143483,
+      "lat": 22.5441772,
+      "x": 5513.68359,
+      "z": 546.17154,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9421875879",
+        "url": "https://www.openstreetmap.org/node/9421875879",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9421884824",
+      "name": "嘉南社区",
+      "nameEn": "Jianan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1187888,
+      "lat": 22.5405095,
+      "x": 5787.70685,
+      "z": 301.19852,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9421884824",
+        "url": "https://www.openstreetmap.org/node/9421884824",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333969",
+      "name": "园东社区",
+      "nameEn": "Yuandong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0971036,
+      "lat": 22.5554786,
+      "x": 4449.51316,
+      "z": 1301.01465,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333969",
+        "url": "https://www.openstreetmap.org/node/9391333969",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753429",
+      "name": "园岭街道",
+      "nameEn": "Yuanling",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0916812,
+      "lat": 22.5594517,
+      "x": 4114.89685,
+      "z": 1566.38595,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753429",
+        "url": "https://www.openstreetmap.org/node/8440753429",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373386571",
+      "name": "国贸",
+      "nameEn": "Guomao",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.1138863,
+      "lat": 22.5435309,
+      "x": 5485.17357,
+      "z": 503.00387,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373386571",
+        "url": "https://www.openstreetmap.org/node/3373386571",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9245412267",
+      "name": "圩镇社区",
+      "nameEn": "Weizhen",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0733343,
+      "lat": 22.5336776,
+      "x": 2982.70965,
+      "z": -155.11774,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9245412267",
+        "url": "https://www.openstreetmap.org/node/9245412267",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10120751612",
+      "name": "城东社区",
+      "nameEn": "Chengdong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1175835,
+      "lat": 22.5500441,
+      "x": 5713.32778,
+      "z": 938.03353,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10120751612",
+        "url": "https://www.openstreetmap.org/node/10120751612",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8488370926",
+      "name": "塘头",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.9660412,
+      "lat": 22.5423573,
+      "x": -3638.34755,
+      "z": 424.61678,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8488370926",
+        "url": "https://www.openstreetmap.org/node/8488370926",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078178",
+      "name": "塘妟村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.028677,
+      "lat": 22.5254894,
+      "x": 226.90767,
+      "z": -702.024,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078178",
+        "url": "https://www.openstreetmap.org/node/10669078178",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/5179092580",
+      "name": "大冲",
+      "nameEn": "Dachong",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.9492886,
+      "lat": 22.5455591,
+      "x": -4672.15049,
+      "z": 638.47141,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/5179092580",
+        "url": "https://www.openstreetmap.org/node/5179092580",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9473396828",
+      "name": "大塘龙社区",
+      "nameEn": "Datanglong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1073924,
+      "lat": 22.5565925,
+      "x": 5084.435,
+      "z": 1375.41426,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9473396828",
+        "url": "https://www.openstreetmap.org/node/9473396828",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265264089",
+      "name": "天安社区",
+      "nameEn": "Tian'an",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0264525,
+      "lat": 22.5355213,
+      "x": 89.63377,
+      "z": -31.97333,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265264089",
+        "url": "https://www.openstreetmap.org/node/7265264089",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9383042751",
+      "name": "孖岭社区",
+      "nameEn": "Maling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0599304,
+      "lat": 22.5731109,
+      "x": 2155.55498,
+      "z": 2478.71123,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9383042751",
+        "url": "https://www.openstreetmap.org/node/9383042751",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9209476228",
+      "name": "岗厦社区",
+      "nameEn": "Gangxia",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.065311,
+      "lat": 22.5401443,
+      "x": 2487.59181,
+      "z": 276.80609,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9209476228",
+        "url": "https://www.openstreetmap.org/node/9209476228",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13277111355",
+      "name": "峰景社区",
+      "nameEn": "Fengjing",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9872581,
+      "lat": 22.5623718,
+      "x": -2329.05265,
+      "z": 1761.42527,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13277111355",
+        "url": "https://www.openstreetmap.org/node/13277111355",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9247352242",
+      "name": "巴登社区",
+      "nameEn": "Badeng",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0960694,
+      "lat": 22.5411875,
+      "x": 4385.69267,
+      "z": 346.4835,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9247352242",
+        "url": "https://www.openstreetmap.org/node/9247352242",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9334064049",
+      "name": "康欣社区",
+      "nameEn": "Kangxin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0312299,
+      "lat": 22.5586771,
+      "x": 384.44713,
+      "z": 1514.64886,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9334064049",
+        "url": "https://www.openstreetmap.org/node/9334064049",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9348184986",
+      "name": "彩田社区",
+      "nameEn": "Caitian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0545631,
+      "lat": 22.5636121,
+      "x": 1824.3389,
+      "z": 1844.26738,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9348184986",
+        "url": "https://www.openstreetmap.org/node/9348184986",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9329365127",
+      "name": "彩虹社区",
+      "nameEn": "Caihong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0611166,
+      "lat": 22.5634909,
+      "x": 2228.75539,
+      "z": 1836.17219,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9329365127",
+        "url": "https://www.openstreetmap.org/node/9329365127",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6482359929",
+      "name": "怡景社区",
+      "nameEn": "Yijing",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1346992,
+      "lat": 22.5575949,
+      "x": 6769.53763,
+      "z": 1442.36656,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6482359929",
+        "url": "https://www.openstreetmap.org/node/6482359929",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11059547747",
+      "name": "愉天社区",
+      "nameEn": "Yutian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1217297,
+      "lat": 22.5682872,
+      "x": 5969.18979,
+      "z": 2156.52666,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11059547747",
+        "url": "https://www.openstreetmap.org/node/11059547747",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6524977926",
+      "name": "招商街道",
+      "nameEn": "Zhaoshang",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 113.9269726,
+      "lat": 22.5007438,
+      "x": -6049.27085,
+      "z": -2354.83211,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6524977926",
+        "url": "https://www.openstreetmap.org/node/6524977926",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6482359931",
+      "name": "文华社区",
+      "nameEn": "Wenhua",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1318525,
+      "lat": 22.5471184,
+      "x": 6593.86777,
+      "z": 742.62017,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6482359931",
+        "url": "https://www.openstreetmap.org/node/6482359931",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9419755575",
+      "name": "文昌街社区",
+      "nameEn": "Wenchang Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9696354,
+      "lat": 22.5529218,
+      "x": -3416.54947,
+      "z": 1130.24087,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9419755575",
+        "url": "https://www.openstreetmap.org/node/9419755575",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3927538052",
+      "name": "文锦渡",
+      "nameEn": "Man Kam To",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1294537,
+      "lat": 22.5390257,
+      "x": 6445.83783,
+      "z": 202.09255,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3927538052",
+        "url": "https://www.openstreetmap.org/node/3927538052",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9421884826",
+      "name": "文锦社区",
+      "nameEn": "Wenjin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1238475,
+      "lat": 22.5430082,
+      "x": 6099.87922,
+      "z": 468.09169,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9421884826",
+        "url": "https://www.openstreetmap.org/node/9421884826",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9380917569",
+      "name": "新兴社区",
+      "nameEn": "Xinxing",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0451998,
+      "lat": 22.5691487,
+      "x": 1246.52966,
+      "z": 2214.06797,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9380917569",
+        "url": "https://www.openstreetmap.org/node/9380917569",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265264087",
+      "name": "新华社区",
+      "nameEn": "Xinhua",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0365314,
+      "lat": 22.5273809,
+      "x": 711.60269,
+      "z": -575.68693,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265264087",
+        "url": "https://www.openstreetmap.org/node/7265264087",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9421884825",
+      "name": "新南社区",
+      "nameEn": "Xinnan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1241729,
+      "lat": 22.5461461,
+      "x": 6119.95966,
+      "z": 677.67831,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9421884825",
+        "url": "https://www.openstreetmap.org/node/9421884825",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10108293778",
+      "name": "新围社区",
+      "nameEn": "Xinwei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1034455,
+      "lat": 22.5413358,
+      "x": 4840.87181,
+      "z": 356.38875,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10108293778",
+        "url": "https://www.openstreetmap.org/node/10108293778",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13019025289",
+      "name": "新村社区",
+      "nameEn": "Xincun",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1337367,
+      "lat": 22.5668732,
+      "x": 6710.14176,
+      "z": 2062.08277,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13019025289",
+        "url": "https://www.openstreetmap.org/node/13019025289",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265183478",
+      "name": "新沙社区",
+      "nameEn": "Xinsha",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.040773,
+      "lat": 22.532959,
+      "x": 973.35183,
+      "z": -203.11447,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265183478",
+        "url": "https://www.openstreetmap.org/node/7265183478",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265183479",
+      "name": "新洲社区",
+      "nameEn": "Xinzhou",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0422586,
+      "lat": 22.5271138,
+      "x": 1065.02821,
+      "z": -593.52707,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265183479",
+        "url": "https://www.openstreetmap.org/node/7265183479",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9323426762",
+      "name": "新港社区",
+      "nameEn": "Xingang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0479585,
+      "lat": 22.5214468,
+      "x": 1416.76903,
+      "z": -972.03733,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9323426762",
+        "url": "https://www.openstreetmap.org/node/9323426762",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395959293",
+      "name": "新田社区",
+      "nameEn": "Xintian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0646719,
+      "lat": 22.5455318,
+      "x": 2448.15295,
+      "z": 636.64799,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395959293",
+        "url": "https://www.openstreetmap.org/node/9395959293",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6482359927",
+      "name": "新谊社区",
+      "nameEn": "Xinyi",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1289879,
+      "lat": 22.5530305,
+      "x": 6417.09331,
+      "z": 1137.50116,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6482359927",
+        "url": "https://www.openstreetmap.org/node/6482359927",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9383042753",
+      "name": "新阁社区",
+      "nameEn": "Xinge",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0693717,
+      "lat": 22.5714829,
+      "x": 2738.17761,
+      "z": 2369.97386,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9383042753",
+        "url": "https://www.openstreetmap.org/node/9383042753",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9317807192",
+      "name": "明月社区",
+      "nameEn": "Mingyue",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0485645,
+      "lat": 22.5282369,
+      "x": 1454.16529,
+      "z": -518.51298,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9317807192",
+        "url": "https://www.openstreetmap.org/node/9317807192",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9419725498",
+      "name": "明珠街社区",
+      "nameEn": "Mingzhu Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9623293,
+      "lat": 22.5459985,
+      "x": -3867.4089,
+      "z": 667.81981,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9419725498",
+        "url": "https://www.openstreetmap.org/node/9419725498",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9419762255",
+      "name": "星河街社区",
+      "nameEn": "Xinghe Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9669274,
+      "lat": 22.5423094,
+      "x": -3583.66015,
+      "z": 421.41744,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9419762255",
+        "url": "https://www.openstreetmap.org/node/9419762255",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10893196318",
+      "name": "景华社区",
+      "nameEn": "Jinghua",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0417603,
+      "lat": 22.5533521,
+      "x": 1034.27811,
+      "z": 1158.98146,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10893196318",
+        "url": "https://www.openstreetmap.org/node/10893196318",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13277111520",
+      "name": "景和社区",
+      "nameEn": "Jinghe",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9755905,
+      "lat": 22.5677028,
+      "x": -3049.06025,
+      "z": 2117.49342,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13277111520",
+        "url": "https://www.openstreetmap.org/node/13277111520",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9334003593",
+      "name": "景田社区",
+      "nameEn": "Jingtian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0391641,
+      "lat": 22.5595626,
+      "x": 874.06661,
+      "z": 1573.79318,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9334003593",
+        "url": "https://www.openstreetmap.org/node/9334003593",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11052543018",
+      "name": "木头龙社区",
+      "nameEn": "Mutoulong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1252889,
+      "lat": 22.5566976,
+      "x": 6188.82802,
+      "z": 1382.4341,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11052543018",
+        "url": "https://www.openstreetmap.org/node/11052543018",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9473292190",
+      "name": "松园社区",
+      "nameEn": "Songyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1017922,
+      "lat": 22.5553038,
+      "x": 4738.84666,
+      "z": 1289.33941,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9473292190",
+        "url": "https://www.openstreetmap.org/node/9473292190",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13275329047",
+      "name": "松坪山社区",
+      "nameEn": "Songpingshan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9464405,
+      "lat": 22.5620219,
+      "x": -4847.90675,
+      "z": 1738.05474,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13275329047",
+        "url": "https://www.openstreetmap.org/node/13275329047",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/5249954151",
+      "name": "松坪村",
+      "nameEn": "Songping Village",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.9497884,
+      "lat": 22.5611022,
+      "x": -4641.30784,
+      "z": 1676.62614,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/5249954151",
+        "url": "https://www.openstreetmap.org/node/5249954151",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6236114635",
+      "name": "桂园街道",
+      "nameEn": "Guiyuan",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1071184,
+      "lat": 22.5469036,
+      "x": 5067.52646,
+      "z": 728.27325,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6236114635",
+        "url": "https://www.openstreetmap.org/node/6236114635",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9473396827",
+      "name": "桂木园社区",
+      "nameEn": "Guimuyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1076141,
+      "lat": 22.5501785,
+      "x": 5098.11611,
+      "z": 947.01037,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9473396827",
+        "url": "https://www.openstreetmap.org/node/9473396827",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13277111521",
+      "name": "桃源社区",
+      "nameEn": "Taoyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9773497,
+      "lat": 22.561646,
+      "x": -2940.50001,
+      "z": 1712.94763,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13277111521",
+        "url": "https://www.openstreetmap.org/node/13277111521",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9387005287",
+      "name": "梅丰社区",
+      "nameEn": "Meifeng",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0467574,
+      "lat": 22.5664755,
+      "x": 1342.64915,
+      "z": 2035.5196,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9387005287",
+        "url": "https://www.openstreetmap.org/node/9387005287",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9381007534",
+      "name": "梅京社区",
+      "nameEn": "Meijing",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0297224,
+      "lat": 22.5651449,
+      "x": 291.4193,
+      "z": 1946.64616,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9381007534",
+        "url": "https://www.openstreetmap.org/node/9381007534",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9385450764",
+      "name": "梅亭社区",
+      "nameEn": "Meiting",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0580284,
+      "lat": 22.5694034,
+      "x": 2038.18256,
+      "z": 2231.07989,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9385450764",
+        "url": "https://www.openstreetmap.org/node/9385450764",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13022228128",
+      "name": "梅园社区",
+      "nameEn": "Meiyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0975346,
+      "lat": 22.5718711,
+      "x": 4476.11017,
+      "z": 2395.90251,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13022228128",
+        "url": "https://www.openstreetmap.org/node/13022228128",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9348147929",
+      "name": "梅富社区",
+      "nameEn": "Meifu",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0353171,
+      "lat": 22.5609953,
+      "x": 636.66824,
+      "z": 1669.48608,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9348147929",
+        "url": "https://www.openstreetmap.org/node/9348147929",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928082",
+      "name": "梅岗社区",
+      "nameEn": "Meigang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0809158,
+      "lat": 22.5620447,
+      "x": 3450.56402,
+      "z": 1739.5776,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928082",
+        "url": "https://www.openstreetmap.org/node/9395928082",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9334003595",
+      "name": "梅岭社区",
+      "nameEn": "Meiling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.035831,
+      "lat": 22.5448656,
+      "x": 668.38101,
+      "z": 592.15116,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9334003595",
+        "url": "https://www.openstreetmap.org/node/9334003595",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9385406388",
+      "name": "梅林一村社区",
+      "nameEn": "Meilin Yi Cun",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0335643,
+      "lat": 22.5698116,
+      "x": 528.50295,
+      "z": 2258.34439,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9385406388",
+        "url": "https://www.openstreetmap.org/node/9385406388",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753432",
+      "name": "梅林街道",
+      "nameEn": "Meilin",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0469156,
+      "lat": 22.5731907,
+      "x": 1352.41168,
+      "z": 2484.04123,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753432",
+        "url": "https://www.openstreetmap.org/node/8440753432",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9387183902",
+      "name": "梅河社区",
+      "nameEn": "Meihe",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0390831,
+      "lat": 22.5678417,
+      "x": 869.0681,
+      "z": 2126.77083,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9387183902",
+        "url": "https://www.openstreetmap.org/node/9387183902",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9387164272",
+      "name": "梅都社区",
+      "nameEn": "Meidu",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0558889,
+      "lat": 22.5743269,
+      "x": 1906.15402,
+      "z": 2559.9303,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9387164272",
+        "url": "https://www.openstreetmap.org/node/9387164272",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078180",
+      "name": "椰树村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0253856,
+      "lat": 22.5296459,
+      "x": 23.79538,
+      "z": -424.40305,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078180",
+        "url": "https://www.openstreetmap.org/node/10669078180",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11061150915",
+      "name": "民新社区",
+      "nameEn": "Minxin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1199032,
+      "lat": 22.5641107,
+      "x": 5856.47647,
+      "z": 1877.56987,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11061150915",
+        "url": "https://www.openstreetmap.org/node/11061150915",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13146344179",
+      "name": "水围",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0579635,
+      "lat": 22.5247514,
+      "x": 2034.17758,
+      "z": -751.31649,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13146344179",
+        "url": "https://www.openstreetmap.org/node/13146344179",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9197289186",
+      "name": "水围社区",
+      "nameEn": "Shuiwei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0586053,
+      "lat": 22.5224618,
+      "x": 2073.78306,
+      "z": -904.24345,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9197289186",
+        "url": "https://www.openstreetmap.org/node/9197289186",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13019007378",
+      "name": "水贝社区",
+      "nameEn": "Shuibei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.119439,
+      "lat": 22.5721534,
+      "x": 5827.83069,
+      "z": 2414.75789,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13019007378",
+        "url": "https://www.openstreetmap.org/node/13019007378",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078177",
+      "name": "沙嘴村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0330557,
+      "lat": 22.5205542,
+      "x": 497.11725,
+      "z": -1031.65587,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078177",
+        "url": "https://www.openstreetmap.org/node/10669078177",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9360187783",
+      "name": "沙嘴社区",
+      "nameEn": "Shazui",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0324822,
+      "lat": 22.5204289,
+      "x": 461.72656,
+      "z": -1040.02491,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9360187783",
+        "url": "https://www.openstreetmap.org/node/9360187783",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9299988370",
+      "name": "沙埔头社区",
+      "nameEn": "Shaputou",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0881238,
+      "lat": 22.5395657,
+      "x": 3895.3697,
+      "z": 238.16023,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9299988370",
+        "url": "https://www.openstreetmap.org/node/9299988370",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265183477",
+      "name": "沙头街道",
+      "nameEn": "Shatou",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0373199,
+      "lat": 22.5316238,
+      "x": 760.26103,
+      "z": -292.29515,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265183477",
+        "url": "https://www.openstreetmap.org/node/7265183477",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078175",
+      "name": "沙尾东村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0378705,
+      "lat": 22.5220825,
+      "x": 794.23855,
+      "z": -929.57766,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078175",
+        "url": "https://www.openstreetmap.org/node/10669078175",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265183484",
+      "name": "沙尾社区",
+      "nameEn": "Shawei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0369412,
+      "lat": 22.5221818,
+      "x": 736.89145,
+      "z": -922.94521,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265183484",
+        "url": "https://www.openstreetmap.org/node/7265183484",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078176",
+      "name": "沙尾西村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0362673,
+      "lat": 22.5210984,
+      "x": 695.30508,
+      "z": -995.30767,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078176",
+        "url": "https://www.openstreetmap.org/node/10669078176",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/2427777921",
+      "name": "沙嶺",
+      "nameEn": "Sandy Ridge",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.117549,
+      "lat": 22.5276403,
+      "x": 5711.19879,
+      "z": -558.36108,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/2427777921",
+        "url": "https://www.openstreetmap.org/node/2427777921",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9419751317",
+      "name": "沙河街社区",
+      "nameEn": "Shahe Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.964885,
+      "lat": 22.5450955,
+      "x": -3709.69665,
+      "z": 607.50664,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9419751317",
+        "url": "https://www.openstreetmap.org/node/9419751317",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6524977924",
+      "name": "沙河街道",
+      "nameEn": "Shahe",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 113.9745102,
+      "lat": 22.5395599,
+      "x": -3115.72556,
+      "z": 237.77284,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6524977924",
+        "url": "https://www.openstreetmap.org/node/6524977924",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9387183900",
+      "name": "河背村",
+      "nameEn": "Hebei Village ",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0373021,
+      "lat": 22.5671415,
+      "x": 759.16259,
+      "z": 2080.00307,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9387183900",
+        "url": "https://www.openstreetmap.org/node/9387183900",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11361445281",
+      "name": "泥岗社区",
+      "nameEn": "Nigang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0935498,
+      "lat": 22.5696201,
+      "x": 4230.20816,
+      "z": 2245.55372,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11361445281",
+        "url": "https://www.openstreetmap.org/node/11361445281",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265264090",
+      "name": "泰然社区",
+      "nameEn": "Tairan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0198404,
+      "lat": 22.5346168,
+      "x": -318.39892,
+      "z": -92.38669,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265264090",
+        "url": "https://www.openstreetmap.org/node/7265264090",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068609",
+      "name": "洪湖",
+      "nameEn": "Honghu",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.1158135,
+      "lat": 22.5590486,
+      "x": 5604.10108,
+      "z": 1539.46209,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068609",
+        "url": "https://www.openstreetmap.org/node/3373068609",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13275381562",
+      "name": "海湾社区",
+      "nameEn": "Haiwan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9266006,
+      "lat": 22.4972157,
+      "x": -6072.22697,
+      "z": -2590.48097,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13275381562",
+        "url": "https://www.openstreetmap.org/node/13275381562",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9213206185",
+      "name": "海滨社区",
+      "nameEn": "Haibin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0612132,
+      "lat": 22.5299772,
+      "x": 2234.71657,
+      "z": -402.27486,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9213206185",
+        "url": "https://www.openstreetmap.org/node/9213206185",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8569701604",
+      "name": "深圳中心区",
+      "nameEn": "Shenzhen Central Business District",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0545869,
+      "lat": 22.5425993,
+      "x": 1825.8076,
+      "z": 440.78045,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8569701604",
+        "url": "https://www.openstreetmap.org/node/8569701604",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9430325094",
+      "name": "渔邨社区",
+      "nameEn": "Yucun",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.10713,
+      "lat": 22.5364402,
+      "x": 5068.2423,
+      "z": 29.40184,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9430325094",
+        "url": "https://www.openstreetmap.org/node/9430325094",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10119993746",
+      "name": "湖容社区",
+      "nameEn": "Hurong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1198364,
+      "lat": 22.5486358,
+      "x": 5852.35424,
+      "z": 843.97035,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10119993746",
+        "url": "https://www.openstreetmap.org/node/10119993746",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11039650166",
+      "name": "湖景社区",
+      "nameEn": "Hujing",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1171632,
+      "lat": 22.5613007,
+      "x": 5687.39107,
+      "z": 1689.88435,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11039650166",
+        "url": "https://www.openstreetmap.org/node/11039650166",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10118915650",
+      "name": "湖贝社区",
+      "nameEn": "Hubei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1237698,
+      "lat": 22.5509655,
+      "x": 6095.08436,
+      "z": 999.57568,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10118915650",
+        "url": "https://www.openstreetmap.org/node/10118915650",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9303606811",
+      "name": "滨江社区",
+      "nameEn": "Binjiang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0954842,
+      "lat": 22.5387086,
+      "x": 4349.57998,
+      "z": 180.91281,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9303606811",
+        "url": "https://www.openstreetmap.org/node/9303606811",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9247352243",
+      "name": "滨河社区",
+      "nameEn": "Binhe",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0776873,
+      "lat": 22.5313374,
+      "x": 3251.33328,
+      "z": -311.42438,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9247352243",
+        "url": "https://www.openstreetmap.org/node/9247352243",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9334032539",
+      "name": "狮岭社区",
+      "nameEn": "Shiling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0372189,
+      "lat": 22.5521747,
+      "x": 754.02832,
+      "z": 1080.34056,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9334032539",
+        "url": "https://www.openstreetmap.org/node/9334032539",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13111286534",
+      "name": "珠光村东区",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.9595583,
+      "lat": 22.5740358,
+      "x": -4038.40731,
+      "z": 2540.48715,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13111286534",
+        "url": "https://www.openstreetmap.org/node/13111286534",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13111271964",
+      "name": "珠光村西区",
+      "nameEn": "Zhuguang Village",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 113.9553897,
+      "lat": 22.5745541,
+      "x": -4295.65161,
+      "z": 2575.10545,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13111271964",
+        "url": "https://www.openstreetmap.org/node/13111271964",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8831279382",
+      "name": "田下村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9151743,
+      "lat": 22.533911,
+      "x": -6777.34395,
+      "z": -139.52849,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8831279382",
+        "url": "https://www.openstreetmap.org/node/8831279382",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10895307418",
+      "name": "田厦社区",
+      "nameEn": "Tianxia Community",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9151514,
+      "lat": 22.5330491,
+      "x": -6778.75711,
+      "z": -197.09651,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10895307418",
+        "url": "https://www.openstreetmap.org/node/10895307418",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11039650165",
+      "name": "田心社区",
+      "nameEn": "Tianxin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1085837,
+      "lat": 22.5709934,
+      "x": 5157.95013,
+      "z": 2337.27917,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11039650165",
+        "url": "https://www.openstreetmap.org/node/11039650165",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11039650167",
+      "name": "田贝社区",
+      "nameEn": "Tianbei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1172347,
+      "lat": 22.5653364,
+      "x": 5691.80334,
+      "z": 1959.43683,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11039650167",
+        "url": "https://www.openstreetmap.org/node/11039650167",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928079",
+      "name": "田面社区",
+      "nameEn": "Tianmian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0707234,
+      "lat": 22.5460066,
+      "x": 2821.59101,
+      "z": 668.36083,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928079",
+        "url": "https://www.openstreetmap.org/node/9395928079",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13174704885",
+      "name": "登良社区",
+      "nameEn": "Dengliang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9179487,
+      "lat": 22.5145883,
+      "x": -6606.13572,
+      "z": -1430.13027,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13174704885",
+        "url": "https://www.openstreetmap.org/node/13174704885",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9406382984",
+      "name": "白石洲东社区",
+      "nameEn": "Baishizhou Dong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9633302,
+      "lat": 22.5367899,
+      "x": -3805.64336,
+      "z": 52.759,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9406382984",
+        "url": "https://www.openstreetmap.org/node/9406382984",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9406382985",
+      "name": "白石洲西社区",
+      "nameEn": "Baishizhou Xi",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.959804,
+      "lat": 22.5352044,
+      "x": -4023.24516,
+      "z": -53.13972,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9406382985",
+        "url": "https://www.openstreetmap.org/node/9406382985",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068612",
+      "name": "皇岗",
+      "nameEn": "Huanggang",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0552857,
+      "lat": 22.5292004,
+      "x": 1868.93055,
+      "z": -454.15888,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068612",
+        "url": "https://www.openstreetmap.org/node/3373068612",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13146693215",
+      "name": "皇岗上围一村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.05782,
+      "lat": 22.5294207,
+      "x": 2025.3222,
+      "z": -439.44461,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13146693215",
+        "url": "https://www.openstreetmap.org/node/13146693215",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13146693216",
+      "name": "皇岗上围二村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0555362,
+      "lat": 22.5307827,
+      "x": 1884.3889,
+      "z": -348.4739,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13146693216",
+        "url": "https://www.openstreetmap.org/node/13146693216",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13146693214",
+      "name": "皇岗下围一村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0576486,
+      "lat": 22.527004,
+      "x": 2014.74511,
+      "z": -600.86083,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13146693214",
+        "url": "https://www.openstreetmap.org/node/13146693214",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9209476227",
+      "name": "皇岗社区",
+      "nameEn": "Huanggang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0555835,
+      "lat": 22.528255,
+      "x": 1887.30778,
+      "z": -517.30404,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9209476227",
+        "url": "https://www.openstreetmap.org/node/9209476227",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9317807193",
+      "name": "石厦社区",
+      "nameEn": "Shixia",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0455819,
+      "lat": 22.522958,
+      "x": 1270.10905,
+      "z": -871.10126,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9317807193",
+        "url": "https://www.openstreetmap.org/node/9317807193",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9329365126",
+      "name": "福中社区",
+      "nameEn": "Fuzhong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0575189,
+      "lat": 22.5492034,
+      "x": 2006.74132,
+      "z": 881.88149,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9329365126",
+        "url": "https://www.openstreetmap.org/node/9329365126",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9211435610",
+      "name": "福华社区",
+      "nameEn": "Fuhua",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0794711,
+      "lat": 22.5400955,
+      "x": 3361.41158,
+      "z": 273.54664,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9211435610",
+        "url": "https://www.openstreetmap.org/node/9211435610",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9245476368",
+      "name": "福南社区",
+      "nameEn": "Funan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0763019,
+      "lat": 22.5404135,
+      "x": 3165.84025,
+      "z": 294.78649,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9245476368",
+        "url": "https://www.openstreetmap.org/node/9245476368",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9213182516",
+      "name": "福安社区",
+      "nameEn": "Fu'an",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.051056,
+      "lat": 22.5371402,
+      "x": 1607.91576,
+      "z": 76.15624,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9213182516",
+        "url": "https://www.openstreetmap.org/node/9213182516",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9218013955",
+      "name": "福山社区",
+      "nameEn": "Fushan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0632995,
+      "lat": 22.5335946,
+      "x": 2363.46214,
+      "z": -160.66148,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9218013955",
+        "url": "https://www.openstreetmap.org/node/9218013955",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9307760821",
+      "name": "福强社区",
+      "nameEn": "Fuqiang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0879913,
+      "lat": 22.5460405,
+      "x": 3887.19312,
+      "z": 670.62508,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9307760821",
+        "url": "https://www.openstreetmap.org/node/9307760821",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9348154802",
+      "name": "福新社区",
+      "nameEn": "Fuxin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0463162,
+      "lat": 22.5477921,
+      "x": 1315.4227,
+      "z": 787.61794,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9348154802",
+        "url": "https://www.openstreetmap.org/node/9348154802",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9213206236",
+      "name": "福民社区",
+      "nameEn": "Fumin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0640768,
+      "lat": 22.5258534,
+      "x": 2411.42933,
+      "z": -677.71171,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9213206236",
+        "url": "https://www.openstreetmap.org/node/9213206236",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13147663780",
+      "name": "福田村大门坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0763084,
+      "lat": 22.5331276,
+      "x": 3166.24136,
+      "z": -191.85334,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13147663780",
+        "url": "https://www.openstreetmap.org/node/13147663780",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13147663782",
+      "name": "福田村牛巷坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0745924,
+      "lat": 22.5358383,
+      "x": 3060.347,
+      "z": -10.80027,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13147663782",
+        "url": "https://www.openstreetmap.org/node/13147663782",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13147663783",
+      "name": "福田村祠堂坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0733638,
+      "lat": 22.5376156,
+      "x": 2984.5301,
+      "z": 107.90916,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13147663783",
+        "url": "https://www.openstreetmap.org/node/13147663783",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13147663781",
+      "name": "福田村西大门坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0746049,
+      "lat": 22.5342375,
+      "x": 3061.11838,
+      "z": -117.7209,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13147663781",
+        "url": "https://www.openstreetmap.org/node/13147663781",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9213101696",
+      "name": "福田社区",
+      "nameEn": "Futian",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0753296,
+      "lat": 22.5365069,
+      "x": 3105.83962,
+      "z": 33.85686,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9213101696",
+        "url": "https://www.openstreetmap.org/node/9213101696",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753438",
+      "name": "福田街道",
+      "nameEn": "Futian",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0626711,
+      "lat": 22.5308965,
+      "x": 2324.68358,
+      "z": -340.87297,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753438",
+        "url": "https://www.openstreetmap.org/node/8440753438",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10120738250",
+      "name": "立新社区",
+      "nameEn": "Lixin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1154422,
+      "lat": 22.5514535,
+      "x": 5581.18816,
+      "z": 1032.17017,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10120738250",
+        "url": "https://www.openstreetmap.org/node/10120738250",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9349871847",
+      "name": "竹园社区",
+      "nameEn": "Zhuyuan",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0100332,
+      "lat": 22.5425336,
+      "x": -923.60123,
+      "z": 436.39221,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9349871847",
+        "url": "https://www.openstreetmap.org/node/9349871847",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068618",
+      "name": "竹子林",
+      "nameEn": "Zhuzilin",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0043313,
+      "lat": 22.539217,
+      "x": -1275.46548,
+      "z": 214.86986,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068618",
+        "url": "https://www.openstreetmap.org/node/3373068618",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9349891592",
+      "name": "竹林社区",
+      "nameEn": "Zhulin",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0059349,
+      "lat": 22.5392158,
+      "x": -1176.50732,
+      "z": 214.78971,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9349891592",
+        "url": "https://www.openstreetmap.org/node/9349891592",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11039650164",
+      "name": "笋岗社区",
+      "nameEn": "Sungang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1095779,
+      "lat": 22.5674665,
+      "x": 5219.30221,
+      "z": 2101.71047,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11039650164",
+        "url": "https://www.openstreetmap.org/node/11039650164",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6248968602",
+      "name": "笋岗街道",
+      "nameEn": "Sungang",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1067955,
+      "lat": 22.5670363,
+      "x": 5047.6003,
+      "z": 2072.97655,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6248968602",
+        "url": "https://www.openstreetmap.org/node/6248968602",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11039650168",
+      "name": "笋西社区",
+      "nameEn": "Sunxi",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1037628,
+      "lat": 22.5617432,
+      "x": 4860.45239,
+      "z": 1719.43981,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11039650168",
+        "url": "https://www.openstreetmap.org/node/11039650168",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068611",
+      "name": "笔架山",
+      "nameEn": "Bijiashan",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0821556,
+      "lat": 22.5631838,
+      "x": 3527.07208,
+      "z": 1815.66037,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068611",
+        "url": "https://www.openstreetmap.org/node/3373068611",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6524977927",
+      "name": "粤海街道",
+      "nameEn": "Yuehai",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 113.9231474,
+      "lat": 22.5167611,
+      "x": -6285.32395,
+      "z": -1285.00461,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6524977927",
+        "url": "https://www.openstreetmap.org/node/6524977927",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9334003594",
+      "name": "紫荆社区",
+      "nameEn": "Zijing",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0420859,
+      "lat": 22.546794,
+      "x": 1054.37089,
+      "z": 720.95285,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9334003594",
+        "url": "https://www.openstreetmap.org/node/9334003594",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13021831392",
+      "name": "红岗社区",
+      "nameEn": "Honggang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1042258,
+      "lat": 22.5745922,
+      "x": 4889.02412,
+      "z": 2577.65022,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13021831392",
+        "url": "https://www.openstreetmap.org/node/13021831392",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10108661001",
+      "name": "红村社区",
+      "nameEn": "Hongcun",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1043343,
+      "lat": 22.547907,
+      "x": 4895.71965,
+      "z": 795.29234,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10108661001",
+        "url": "https://www.openstreetmap.org/node/10108661001",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10895307420",
+      "name": "红花园社区",
+      "nameEn": "Honghuayuan Community",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9152063,
+      "lat": 22.5415249,
+      "x": -6775.36923,
+      "z": 369.01912,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10895307420",
+        "url": "https://www.openstreetmap.org/node/10895307420",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333970",
+      "name": "红荔社区",
+      "nameEn": "Hongli",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0930016,
+      "lat": 22.5552194,
+      "x": 4196.37874,
+      "z": 1283.70216,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333970",
+        "url": "https://www.openstreetmap.org/node/9391333970",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265264088",
+      "name": "绿景社区",
+      "nameEn": "",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0393705,
+      "lat": 22.5287957,
+      "x": 886.80355,
+      "z": -481.18961,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265264088",
+        "url": "https://www.openstreetmap.org/node/7265264088",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8033192254",
+      "name": "罗湖",
+      "nameEn": "Lo Wu",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1137168,
+      "lat": 22.5289183,
+      "x": 5474.71373,
+      "z": -473.00091,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8033192254",
+        "url": "https://www.openstreetmap.org/node/8033192254",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9430387854",
+      "name": "罗湖桥社区",
+      "nameEn": "Luohu Qiao",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1132597,
+      "lat": 22.5326623,
+      "x": 5446.50609,
+      "z": -222.93166,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9430387854",
+        "url": "https://www.openstreetmap.org/node/9430387854",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9424731127",
+      "name": "罗湖社区",
+      "nameEn": "Luohu",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1157479,
+      "lat": 22.5379029,
+      "x": 5600.05291,
+      "z": 127.0985,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9424731127",
+        "url": "https://www.openstreetmap.org/node/9424731127",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11061148675",
+      "name": "翠岭社区",
+      "nameEn": "Cuiling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1266632,
+      "lat": 22.5689746,
+      "x": 6273.63607,
+      "z": 2202.43948,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11061148675",
+        "url": "https://www.openstreetmap.org/node/11061148675",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11059508250",
+      "name": "翠平社区",
+      "nameEn": "Cuiping",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1233248,
+      "lat": 22.5636473,
+      "x": 6067.62341,
+      "z": 1846.61846,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11059508250",
+        "url": "https://www.openstreetmap.org/node/11059508250",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/11059523905",
+      "name": "翠竹社区",
+      "nameEn": "Cuizhu",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1272699,
+      "lat": 22.561692,
+      "x": 6311.07553,
+      "z": 1716.02006,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/11059523905",
+        "url": "https://www.openstreetmap.org/node/11059523905",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6248968600",
+      "name": "翠竹街道",
+      "nameEn": "Cuizhu",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.1247022,
+      "lat": 22.5728387,
+      "x": 6152.62276,
+      "z": 2460.53045,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6248968600",
+        "url": "https://www.openstreetmap.org/node/6248968600",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13019007377",
+      "name": "翠达社区",
+      "nameEn": "Cuida",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1272997,
+      "lat": 22.5746136,
+      "x": 6312.91449,
+      "z": 2579.07957,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13019007377",
+        "url": "https://www.openstreetmap.org/node/13019007377",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9387219357",
+      "name": "翰岭社区",
+      "nameEn": "Hanling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0638224,
+      "lat": 22.5740413,
+      "x": 2395.7303,
+      "z": 2540.85451,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9387219357",
+        "url": "https://www.openstreetmap.org/node/9387219357",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10108293777",
+      "name": "老围社区",
+      "nameEn": "Laowei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1014458,
+      "lat": 22.5483774,
+      "x": 4717.47032,
+      "z": 826.7113,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10108293777",
+        "url": "https://www.openstreetmap.org/node/10108293777",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10120744819",
+      "name": "花场社区",
+      "nameEn": "Huachang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1185746,
+      "lat": 22.5572171,
+      "x": 5774.48857,
+      "z": 1417.13254,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10120744819",
+        "url": "https://www.openstreetmap.org/node/10120744819",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9387183901",
+      "name": "荔园村",
+      "nameEn": "Liyuan Village",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0421444,
+      "lat": 22.5689315,
+      "x": 1057.98092,
+      "z": 2199.56075,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9387183901",
+        "url": "https://www.openstreetmap.org/node/9387183901",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9307760822",
+      "name": "荔村社区",
+      "nameEn": "Licun",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0855129,
+      "lat": 22.549819,
+      "x": 3734.25106,
+      "z": 922.99865,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9307760822",
+        "url": "https://www.openstreetmap.org/node/9307760822",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10895307426",
+      "name": "莲城社区",
+      "nameEn": "Liancheng Community",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9226984,
+      "lat": 22.5465052,
+      "x": -6313.03174,
+      "z": 701.66332,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10895307426",
+        "url": "https://www.openstreetmap.org/node/10895307426",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7283556825",
+      "name": "莲塘尾",
+      "nameEn": "Liantangwei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0092317,
+      "lat": 22.5665603,
+      "x": -973.06179,
+      "z": 2041.18356,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7283556825",
+        "url": "https://www.openstreetmap.org/node/7283556825",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928076",
+      "name": "莲花一村社区",
+      "nameEn": "Liánhuā Yīcūn",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0651086,
+      "lat": 22.5571437,
+      "x": 2475.10171,
+      "z": 1412.23001,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928076",
+        "url": "https://www.openstreetmap.org/node/9395928076",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928078",
+      "name": "莲花三村社区",
+      "nameEn": "Liánhuā Sāncūn",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0651229,
+      "lat": 22.5492566,
+      "x": 2475.98416,
+      "z": 885.43483,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928078",
+        "url": "https://www.openstreetmap.org/node/9395928078",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928077",
+      "name": "莲花二村社区",
+      "nameEn": "Liánhuā Èrcūn",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0657094,
+      "lat": 22.5529294,
+      "x": 2512.17707,
+      "z": 1130.74848,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928077",
+        "url": "https://www.openstreetmap.org/node/9395928077",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9329343814",
+      "name": "莲花北社区",
+      "nameEn": "Lianhuabei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0457084,
+      "lat": 22.5622969,
+      "x": 1277.91536,
+      "z": 1756.42254,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9329343814",
+        "url": "https://www.openstreetmap.org/node/9329343814",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753433",
+      "name": "莲花街道",
+      "nameEn": "Lianhua",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0489004,
+      "lat": 22.5533062,
+      "x": 1474.89368,
+      "z": 1155.91571,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753433",
+        "url": "https://www.openstreetmap.org/node/8440753433",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373386573",
+      "name": "蔡屋围",
+      "nameEn": "Caiwuwei",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.1027486,
+      "lat": 22.5408676,
+      "x": 4797.86611,
+      "z": 325.11674,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373386573",
+        "url": "https://www.openstreetmap.org/node/3373386573",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10120716331",
+      "name": "螺岭社区",
+      "nameEn": "Luoling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.121789,
+      "lat": 22.5544119,
+      "x": 5972.84919,
+      "z": 1229.76762,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10120716331",
+        "url": "https://www.openstreetmap.org/node/10120716331",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13147663784",
+      "name": "贝底田坊",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0756776,
+      "lat": 22.5374904,
+      "x": 3127.3147,
+      "z": 99.5468,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13147663784",
+        "url": "https://www.openstreetmap.org/node/13147663784",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373386574",
+      "name": "赤尾社区",
+      "nameEn": "Chiwei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0802431,
+      "lat": 22.5335808,
+      "x": 3409.0517,
+      "z": -161.58321,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373386574",
+        "url": "https://www.openstreetmap.org/node/3373386574",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/3373068617",
+      "name": "车公庙",
+      "nameEn": "Chegongmiao",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0231552,
+      "lat": 22.5377854,
+      "x": -113.84261,
+      "z": 119.25044,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3373068617",
+        "url": "https://www.openstreetmap.org/node/3373068617",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9307728167",
+      "name": "通新岭社区",
+      "nameEn": "Tongxinling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0940674,
+      "lat": 22.5481939,
+      "x": 4262.14925,
+      "z": 814.45497,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9307728167",
+        "url": "https://www.openstreetmap.org/node/9307728167",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265183483",
+      "name": "金地社区",
+      "nameEn": "Jindi",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0325276,
+      "lat": 22.5249117,
+      "x": 464.5282,
+      "z": -740.60973,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265183483",
+        "url": "https://www.openstreetmap.org/node/7265183483",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265183481",
+      "name": "金城社区",
+      "nameEn": "Jincheng",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9928111,
+      "lat": 22.5313847,
+      "x": -1986.37702,
+      "z": -308.26512,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265183481",
+        "url": "https://www.openstreetmap.org/node/7265183481",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/7265264086",
+      "name": "金碧社区",
+      "nameEn": "Jinbi Community",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0177443,
+      "lat": 22.5293592,
+      "x": -447.74925,
+      "z": -443.55231,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7265264086",
+        "url": "https://www.openstreetmap.org/node/7265264086",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9303525368",
+      "name": "锦龙社区",
+      "nameEn": "Jinlong",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0843293,
+      "lat": 22.5393213,
+      "x": 3661.2111,
+      "z": 221.83627,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9303525368",
+        "url": "https://www.openstreetmap.org/node/9303525368",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333972",
+      "name": "长城社区",
+      "nameEn": "Changcheng",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0846188,
+      "lat": 22.5561838,
+      "x": 3679.07615,
+      "z": 1348.11637,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333972",
+        "url": "https://www.openstreetmap.org/node/9391333972",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9349916021",
+      "name": "香安社区",
+      "nameEn": "Xiang'an",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.001496,
+      "lat": 22.5513907,
+      "x": -1450.43184,
+      "z": 1027.97563,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9349916021",
+        "url": "https://www.openstreetmap.org/node/9349916021",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9419755576",
+      "name": "香山街社区",
+      "nameEn": "Xiangshan Jie",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9826816,
+      "lat": 22.5415861,
+      "x": -2611.46846,
+      "z": 373.10679,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9419755576",
+        "url": "https://www.openstreetmap.org/node/9419755576",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9349890276",
+      "name": "香岭社区",
+      "nameEn": "Xiangling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9977903,
+      "lat": 22.5393772,
+      "x": -1679.11059,
+      "z": 225.56994,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9349890276",
+        "url": "https://www.openstreetmap.org/node/9349890276",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9354594051",
+      "name": "香梅社区",
+      "nameEn": "Xiangmei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0211991,
+      "lat": 22.557765,
+      "x": -234.55354,
+      "z": 1453.72788,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9354594051",
+        "url": "https://www.openstreetmap.org/node/9354594051",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/8440753430",
+      "name": "香蜜湖街道",
+      "nameEn": "Xiangmihu",
+      "category": "district",
+      "kind": "suburb",
+      "lon": 114.0128516,
+      "lat": 22.5483122,
+      "x": -749.67776,
+      "z": 822.35646,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8440753430",
+        "url": "https://www.openstreetmap.org/node/8440753430",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9354668359",
+      "name": "香蜜社区",
+      "nameEn": "Xiangmi",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0293906,
+      "lat": 22.5456435,
+      "x": 270.94393,
+      "z": 644.10865,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9354668359",
+        "url": "https://www.openstreetmap.org/node/9354668359",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10895307422",
+      "name": "马家龙社区",
+      "nameEn": "Majialong Community",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.923161,
+      "lat": 22.5523232,
+      "x": -6284.48469,
+      "z": 1090.25917,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10895307422",
+        "url": "https://www.openstreetmap.org/node/10895307422",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9406366753",
+      "name": "高发社区",
+      "nameEn": "Gaofa",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9837648,
+      "lat": 22.5538194,
+      "x": -2544.62419,
+      "z": 1190.19336,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9406366753",
+        "url": "https://www.openstreetmap.org/node/9406366753",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/12666708612",
+      "name": "高新区社区",
+      "nameEn": "Gaoxinqu",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.949164,
+      "lat": 22.5313932,
+      "x": -4679.83956,
+      "z": -307.69739,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/12666708612",
+        "url": "https://www.openstreetmap.org/node/12666708612",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13275329048",
+      "name": "高铁新城社区",
+      "nameEn": "Gaotiexincheng",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.946826,
+      "lat": 22.5698178,
+      "x": -4824.11754,
+      "z": 2258.7585,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13275329048",
+        "url": "https://www.openstreetmap.org/node/13275329048",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9391333966",
+      "name": "鹏盛社区",
+      "nameEn": "Pengsheng",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0946968,
+      "lat": 22.5602064,
+      "x": 4300.98953,
+      "z": 1616.79387,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9391333966",
+        "url": "https://www.openstreetmap.org/node/9391333966",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9435549751",
+      "name": "鹿丹村社区",
+      "nameEn": "Ludancun",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1020156,
+      "lat": 22.5367953,
+      "x": 4752.63268,
+      "z": 53.11968,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9435549751",
+        "url": "https://www.openstreetmap.org/node/9435549751",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9395928080",
+      "name": "黄木岗社区",
+      "nameEn": "Huangmugang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0760806,
+      "lat": 22.5562321,
+      "x": 3152.18383,
+      "z": 1351.34242,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9395928080",
+        "url": "https://www.openstreetmap.org/node/9395928080",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/6482359919",
+      "name": "黄贝岭社区",
+      "nameEn": "Huangbeiling",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.1331894,
+      "lat": 22.5500915,
+      "x": 6676.36787,
+      "z": 941.19947,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6482359919",
+        "url": "https://www.openstreetmap.org/node/6482359919",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13277111547",
+      "name": "龙光社区",
+      "nameEn": "Longguang",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9699248,
+      "lat": 22.5630915,
+      "x": -3398.69059,
+      "z": 1809.49547,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13277111547",
+        "url": "https://www.openstreetmap.org/node/13277111547",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/9385430761",
+      "name": "龙尾社区",
+      "nameEn": "Longwei",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 114.0400981,
+      "lat": 22.5734013,
+      "x": 931.70375,
+      "z": 2498.10763,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/9385430761",
+        "url": "https://www.openstreetmap.org/node/9385430761",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/13277111271",
+      "name": "龙悦社区",
+      "nameEn": "Longyue",
+      "category": "district",
+      "kind": "quarter",
+      "lon": 113.9586125,
+      "lat": 22.566918,
+      "x": -4096.77263,
+      "z": 2065.07506,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13277111271",
+        "url": "https://www.openstreetmap.org/node/13277111271",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:node/10669078179",
+      "name": "龙秋村",
+      "nameEn": "",
+      "category": "district",
+      "kind": "neighbourhood",
+      "lon": 114.0276836,
+      "lat": 22.5278245,
+      "x": 165.60496,
+      "z": -546.058,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10669078179",
+        "url": "https://www.openstreetmap.org/node/10669078179",
+        "file": "data/raw/guangdong.osm.pbf",
+        "coordinateMethod": "osm_node"
+      }
+    },
+    {
+      "id": "osm:way/159842621",
+      "name": "下梅林公园",
+      "nameEn": "Xiameilin Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.03866390573054,
+      "lat": 22.57085295,
+      "x": 843.19962,
+      "z": 2327.89824,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/159842621",
+        "url": "https://www.openstreetmap.org/way/159842621",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/638856669",
+      "name": "下沙文化广场",
+      "nameEn": "Xiasha Cultural Square",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.02081693738614,
+      "lat": 22.5285252,
+      "x": -258.13679,
+      "z": -499.25684,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/638856669",
+        "url": "https://www.openstreetmap.org/way/638856669",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/236402460",
+      "name": "世界之窗",
+      "nameEn": "Window of the World",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.96861145764687,
+      "lat": 22.53750575,
+      "x": -3479.73695,
+      "z": 100.57205,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/236402460",
+        "url": "https://www.openstreetmap.org/way/236402460",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/610762993",
+      "name": "世界之窗",
+      "nameEn": "",
+      "category": "park",
+      "kind": "yes",
+      "lon": 113.97201169566662,
+      "lat": 22.538316199999997,
+      "x": -3269.90826,
+      "z": 154.70363,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/610762993",
+        "url": "https://www.openstreetmap.org/way/610762993",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/571629098",
+      "name": "中湾阅海广场",
+      "nameEn": "Central Bay Square",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.98631690606703,
+      "lat": 22.5231323,
+      "x": -2387.13373,
+      "z": -859.45942,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/571629098",
+        "url": "https://www.openstreetmap.org/way/571629098",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/31355768",
+      "name": "人民公园",
+      "nameEn": "People's Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.11155144268542,
+      "lat": 22.55613545,
+      "x": 5341.08953,
+      "z": 1344.88698,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/31355768",
+        "url": "https://www.openstreetmap.org/way/31355768",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/440551685",
+      "name": "四海公园",
+      "nameEn": "Sihai Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.9223698108074,
+      "lat": 22.4990734,
+      "x": -6333.30898,
+      "z": -2466.40147,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/440551685",
+        "url": "https://www.openstreetmap.org/way/440551685",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "公园路82"
+    },
+    {
+      "id": "osm:way/571629078",
+      "name": "小沙山",
+      "nameEn": "Sand HIll",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.95187559658926,
+      "lat": 22.5225424,
+      "x": -4512.50693,
+      "z": -898.86002,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/571629078",
+        "url": "https://www.openstreetmap.org/way/571629078",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/609078453",
+      "name": "彩田公园",
+      "nameEn": "Caitian Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.05971710117257,
+      "lat": 22.5658989,
+      "x": 2142.39231,
+      "z": 1997.00733,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/609078453",
+        "url": "https://www.openstreetmap.org/way/609078453",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "彩云路18"
+    },
+    {
+      "id": "osm:way/684241524",
+      "name": "新洲文化广场",
+      "nameEn": "Xinzhou Cultural Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.04069121499714,
+      "lat": 22.5246141,
+      "x": 968.30488,
+      "z": -760.48703,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/684241524",
+        "url": "https://www.openstreetmap.org/way/684241524",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/740554726",
+      "name": "水围文化广场",
+      "nameEn": "Shuiwei Cultural Square",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.05882457168345,
+      "lat": 22.5242738,
+      "x": 2087.31432,
+      "z": -783.21635,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/740554726",
+        "url": "https://www.openstreetmap.org/way/740554726",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/571629068",
+      "name": "流花山",
+      "nameEn": "Romance Hill",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.94916362701636,
+      "lat": 22.5152664,
+      "x": -4679.86258,
+      "z": -1384.83861,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/571629068",
+        "url": "https://www.openstreetmap.org/way/571629068",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/571629093",
+      "name": "海韵公园",
+      "nameEn": "Sound of the Sea Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.97686094900453,
+      "lat": 22.5216906,
+      "x": -2970.66084,
+      "z": -955.75344,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/571629093",
+        "url": "https://www.openstreetmap.org/way/571629093",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/207170378",
+      "name": "深圳国际园林花卉博览园",
+      "nameEn": "Shenzhen International Garden & Flower Expo Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.99856977957936,
+      "lat": 22.540322099999997,
+      "x": -1631.0089,
+      "z": 288.6817,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/207170378",
+        "url": "https://www.openstreetmap.org/way/207170378",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/296199625",
+      "name": "深圳市儿童乐园",
+      "nameEn": "Shenzhen Children Amusement Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.00789762103483,
+      "lat": 22.545663349999998,
+      "x": -1055.38781,
+      "z": 645.43447,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/296199625",
+        "url": "https://www.openstreetmap.org/way/296199625",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "农林路71号"
+    },
+    {
+      "id": "osm:way/571629092",
+      "name": "白鹭坡",
+      "nameEn": "Egret Hill",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.9671077355531,
+      "lat": 22.521775650000002,
+      "x": -3572.53164,
+      "z": -950.07279,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/571629092",
+        "url": "https://www.openstreetmap.org/way/571629092",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/376392642",
+      "name": "科技公园",
+      "nameEn": "Tech Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.93899359345312,
+      "lat": 22.526346750000002,
+      "x": -5307.45535,
+      "z": -644.75987,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/376392642",
+        "url": "https://www.openstreetmap.org/way/376392642",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/533912156",
+      "name": "科苑公园",
+      "nameEn": "Keyuan Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.94457772809095,
+      "lat": 22.55190485,
+      "x": -4962.8584,
+      "z": 1062.31674,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/533912156",
+        "url": "https://www.openstreetmap.org/way/533912156",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/98999987",
+      "name": "笔架山公园",
+      "nameEn": "Bijiashan Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.07646506475707,
+      "lat": 22.5651644,
+      "x": 3175.90915,
+      "z": 1947.9486,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/98999987",
+        "url": "https://www.openstreetmap.org/way/98999987",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "梅岗路26"
+    },
+    {
+      "id": "osm:way/238150214",
+      "name": "红树林海滨生态公园",
+      "nameEn": "Mangrove Seashore Ecological Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.99575716412565,
+      "lat": 22.525873949999998,
+      "x": -1804.5754,
+      "z": -676.33913,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/238150214",
+        "url": "https://www.openstreetmap.org/way/238150214",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/178426795",
+      "name": "荔枝公园",
+      "nameEn": "Lychee Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.09743212111891,
+      "lat": 22.54772895,
+      "x": 4469.78619,
+      "z": 783.40003,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/178426795",
+        "url": "https://www.openstreetmap.org/way/178426795",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/215912569",
+      "name": "荔香公园",
+      "nameEn": "Lixiang Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.924645012292,
+      "lat": 22.53950545,
+      "x": -6192.90629,
+      "z": 234.13602,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/215912569",
+        "url": "https://www.openstreetmap.org/way/215912569",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/41281446",
+      "name": "莲花山公园",
+      "nameEn": "Lianhuashan Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.05323860072386,
+      "lat": 22.55662745,
+      "x": 1742.60405,
+      "z": 1377.74864,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/41281446",
+        "url": "https://www.openstreetmap.org/way/41281446",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "红荔路6030"
+    },
+    {
+      "id": "osm:way/236402467",
+      "name": "锦绣中华民俗村",
+      "nameEn": "Splendid China Folk Village",
+      "category": "park",
+      "kind": "park",
+      "lon": 113.98362007881627,
+      "lat": 22.533376099999998,
+      "x": -2553.55494,
+      "z": -175.25553,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/236402467",
+        "url": "https://www.openstreetmap.org/way/236402467",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/540340500",
+      "name": "香蜜公园",
+      "nameEn": "Xiangmi Park",
+      "category": "park",
+      "kind": "park",
+      "lon": 114.01661818403397,
+      "lat": 22.54984555,
+      "x": -517.24186,
+      "z": 924.77198,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/540340500",
+        "url": "https://www.openstreetmap.org/way/540340500",
+        "file": "data/processed/shenzhen_study/green.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "农园路30"
+    },
+    {
+      "id": "osm:way/182958974",
+      "name": "万象城中区",
+      "nameEn": "",
+      "category": "place",
+      "kind": "retail",
+      "lon": 114.10570269960374,
+      "lat": 22.5423972,
+      "x": 4980.16359,
+      "z": 427.28178,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/182958974",
+        "url": "https://www.openstreetmap.org/way/182958974",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "宝安南路1881"
+    },
+    {
+      "id": "osm:way/781181215",
+      "name": "万象城北区",
+      "nameEn": "",
+      "category": "place",
+      "kind": "retail",
+      "lon": 114.10593774752897,
+      "lat": 22.5438915,
+      "x": 4994.6684,
+      "z": 527.08907,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/781181215",
+        "url": "https://www.openstreetmap.org/way/781181215",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/781181213",
+      "name": "万象城南区",
+      "nameEn": "",
+      "category": "place",
+      "kind": "retail",
+      "lon": 114.10564475993164,
+      "lat": 22.54081145,
+      "x": 4976.58814,
+      "z": 321.36637,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/781181213",
+        "url": "https://www.openstreetmap.org/way/781181213",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1190750254",
+      "name": "后海汇",
+      "nameEn": "Houhai Harbour",
+      "category": "place",
+      "kind": "retail",
+      "lon": 113.93585813274478,
+      "lat": 22.519333699999997,
+      "x": -5500.94463,
+      "z": -1113.17551,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1190750254",
+        "url": "https://www.openstreetmap.org/way/1190750254",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/549180086",
+      "name": "欢乐海岸购物中心",
+      "nameEn": "O'PLAZA",
+      "category": "place",
+      "kind": "retail",
+      "lon": 113.98426392593927,
+      "lat": 22.5284987,
+      "x": -2513.82313,
+      "z": -501.02683,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/549180086",
+        "url": "https://www.openstreetmap.org/way/549180086",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/235150410",
+      "name": "海岸城东座",
+      "nameEn": "",
+      "category": "place",
+      "kind": "commercial",
+      "lon": 113.93302386588299,
+      "lat": 22.521234149999998,
+      "x": -5675.84724,
+      "z": -986.24065,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/235150410",
+        "url": "https://www.openstreetmap.org/way/235150410",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/235151190",
+      "name": "海岸城西座",
+      "nameEn": "",
+      "category": "place",
+      "kind": "commercial",
+      "lon": 113.93167386422058,
+      "lat": 22.5211669,
+      "x": -5759.15584,
+      "z": -990.73242,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/235151190",
+        "url": "https://www.openstreetmap.org/way/235151190",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/146862823",
+      "name": "深圳会展中心",
+      "nameEn": "Shenzhen Convention & Exhibition Center",
+      "category": "place",
+      "kind": "public",
+      "lon": 114.05474720883808,
+      "lat": 22.533504100000002,
+      "x": 1835.70026,
+      "z": -166.70615,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/146862823",
+        "url": "https://www.openstreetmap.org/way/146862823",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "福华三路111"
+    },
+    {
+      "id": "osm:way/1294976437",
+      "name": "上梅林站",
+      "nameEn": "Shangmeilin Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.05433917634615,
+      "lat": 22.57308065,
+      "x": 1810.52057,
+      "z": 2476.69077,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1294976437",
+        "url": "https://www.openstreetmap.org/way/1294976437",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      },
+      "address": "中康路122"
+    },
+    {
+      "id": "osm:way/1345394382",
+      "name": "上沙站",
+      "nameEn": "Shangsha Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.03032525904183,
+      "lat": 22.52750975,
+      "x": 328.62174,
+      "z": -567.08078,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1345394382",
+        "url": "https://www.openstreetmap.org/way/1345394382",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1309874874",
+      "name": "下梅林站",
+      "nameEn": "Xiameilin Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.03661895400916,
+      "lat": 22.56839635,
+      "x": 717.00565,
+      "z": 2163.81701,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1309874874",
+        "url": "https://www.openstreetmap.org/way/1309874874",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1345394383",
+      "name": "下沙站",
+      "nameEn": "Xiasha Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.01947358356244,
+      "lat": 22.53180335,
+      "x": -341.03516,
+      "z": -280.30265,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1345394383",
+        "url": "https://www.openstreetmap.org/way/1345394383",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1197685533",
+      "name": "世界之窗站",
+      "nameEn": "Window of the World Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 113.96926673461272,
+      "lat": 22.53988305,
+      "x": -3439.29981,
+      "z": 259.35668,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1197685533",
+        "url": "https://www.openstreetmap.org/way/1197685533",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1459060192",
+      "name": "东门站",
+      "nameEn": "Dongmen Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.11224223454747,
+      "lat": 22.54566605,
+      "x": 5383.71829,
+      "z": 645.61481,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1459060192",
+        "url": "https://www.openstreetmap.org/way/1459060192",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1302652254",
+      "name": "华侨城站",
+      "nameEn": "Overseas Chinese Town Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 113.98024630058256,
+      "lat": 22.536380299999998,
+      "x": -2761.75079,
+      "z": 25.401,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1302652254",
+        "url": "https://www.openstreetmap.org/way/1302652254",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1279570288",
+      "name": "华强北站",
+      "nameEn": "Huaqiang North Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.08169109990965,
+      "lat": 22.54629305,
+      "x": 3498.40778,
+      "z": 687.4934,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1279570288",
+        "url": "https://www.openstreetmap.org/way/1279570288",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1194892360",
+      "name": "后海站",
+      "nameEn": "Houhai Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 113.94043835757269,
+      "lat": 22.5205932,
+      "x": -5218.29895,
+      "z": -1029.05099,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1194892360",
+        "url": "https://www.openstreetmap.org/way/1194892360",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:relation/15525717",
+      "name": "岗厦北站",
+      "nameEn": "Gangxia North Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.06274230050158,
+      "lat": 22.540792000000003,
+      "x": 2329.07736,
+      "z": 320.06726,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "relation/15525717",
+        "url": "https://www.openstreetmap.org/relation/15525717",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1195269080",
+      "name": "岗厦站",
+      "nameEn": "Gangxia Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.0628564747778,
+      "lat": 22.536620149999997,
+      "x": 2336.12306,
+      "z": 41.42106,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1195269080",
+        "url": "https://www.openstreetmap.org/way/1195269080",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1197685531",
+      "name": "白石洲站",
+      "nameEn": "Baishizhou Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 113.96216453142105,
+      "lat": 22.542527,
+      "x": -3877.57677,
+      "z": 435.95138,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1197685531",
+        "url": "https://www.openstreetmap.org/way/1197685531",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1338561345",
+      "name": "皇岗口岸站",
+      "nameEn": "Huanggang Checkpoint Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.06897402563845,
+      "lat": 22.524373750000002,
+      "x": 2713.63712,
+      "z": -776.54049,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1338561345",
+        "url": "https://www.openstreetmap.org/way/1338561345",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/1338561346",
+      "name": "皇岗村站",
+      "nameEn": "Huanggangcun Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.05466241425056,
+      "lat": 22.52588935,
+      "x": 1830.46758,
+      "z": -675.31053,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/1338561346",
+        "url": "https://www.openstreetmap.org/way/1338561346",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/800275815",
+      "name": "购物公园站",
+      "nameEn": "Shopping Park Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.04789259597305,
+      "lat": 22.536145599999998,
+      "x": 1412.7021,
+      "z": 9.72492,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/800275815",
+        "url": "https://www.openstreetmap.org/way/800275815",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    },
+    {
+      "id": "osm:way/412443234",
+      "name": "车公庙站",
+      "nameEn": "Chegongmiao Station",
+      "category": "transport",
+      "kind": "train_station",
+      "lon": 114.0232772901987,
+      "lat": 22.538495,
+      "x": -106.30842,
+      "z": 166.64604,
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/412443234",
+        "url": "https://www.openstreetmap.org/way/412443234",
+        "file": "data/processed/shenzhen_study/buildings.geojson",
+        "coordinateMethod": "osm_polygon_point_on_surface"
+      }
+    }
+  ]
+}

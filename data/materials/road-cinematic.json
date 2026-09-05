@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "source": {
+    "title": "Asphalt Floor",
+    "assetId": "asphalt_floor",
+    "author": "eye-candy.xyz",
+    "url": "https://polyhaven.com/a/asphalt_floor",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "downloadMetadataUrl": "https://api.polyhaven.com/files/asphalt_floor",
+    "checkedDate": "2026-09-05",
+    "sourceWidthMetres": 2.35,
+    "sourceWidthEvidence": "Poly Haven info endpoint dimensions 2349.9999 mm; page rounds to 2.3 m",
+    "files": {
+      "normal.png": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/asphalt_floor/asphalt_floor_nor_gl_1k.png",
+        "sha256": "dbd2f10be9249626426f1922f04319cba114af30fad05b9c46a154eea28f86dd"
+      },
+      "arm.png": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/asphalt_floor/asphalt_floor_arm_1k.png",
+        "sha256": "da13bdd60a4a832e9f6f748c9520a438d1c742214e3adb9a81cd61fbb725802b"
+      }
+    }
+  },
+  "adaptation": {
+    "albedo": "Preserve landscape albedo texture, calibrate linear reflectance multiplier to [0.72,0.76,0.79] for the photographed environment",
+    "normal": "Convert source to RGB8 lossless WebP, remove mean XY tilt, renormalize; source detail retained at 1K",
+    "roughness": "Original periodic multiscale dampness field blended with tiled scanned aggregate; no baked light, reflection, lane direction or shadows",
+    "gameScale": 0.6,
+    "sourceGameWidth": 1.41,
+    "ormGameWidth": 11.28,
+    "roadUvWorldDivisor": 14,
+    "roadUvEvidence": "scripts/build_city_detail_assets.py uses (x/14,y/14); current roads.glb decoded world-space position/UV spot-check agrees within quantization tolerance",
+    "normalStrength": 0.22,
+    "specularIntensity": 0.38,
+    "runtimeParameterSource": "src/city-road-surface.ts; checked against integration owner's current values",
+    "dryRoughnessFormula": ".72 + .10 * normalizedScannedRoughness",
+    "dampRoughnessFormula": ".52 + .10 * normalizedScannedRoughness",
+    "distribution": "Continuous soft transition, with equal broad/medium frequency weighting and a smaller fine breakup band",
+    "tuningReference": "output/playwright/visual-upgrade/first-integrated/opening-no-hud.png: reduce large white isolated wet spots; new image still requires runtime review",
+    "roughnessPercentiles": {
+      "0": 0.5323,
+      "10": 0.6372,
+      "50": 0.7466,
+      "90": 0.7935,
+      "100": 0.8159
+    },
+    "dampAreaFractionAboveHalf": 0.2658
+  },
+  "outputs": [
+    {
+      "url": "/city/textures/road-cinematic/asphalt-normal-gl.webp",
+      "role": "tangent-space OpenGL normal, linear",
+      "size": [
+        1024,
+        1024
+      ],
+      "bytes": 2210328,
+      "sha256": "553c7e1f76b7fc87ad225fd322236db339a7761656fb0bb7917b71f987b77180"
+    },
+    {
+      "url": "/city/textures/road-cinematic/asphalt-orm.webp",
+      "role": "R=cavity AO; G=roughness; B=zero metallic, all linear",
+      "size": [
+        2048,
+        2048
+      ],
+      "bytes": 1660544,
+      "sha256": "d7312c36d81dc8ca282d4b4d502c40ee2f829ab3f0ee56f44defbf6d5cd2631b"
+    }
+  ],
+  "totalBytes": 3870872,
+  "estimatedTextureMiBWithMipmapsRGBA8": 26.67,
+  "validation": {
+    "sourceHashes": "pass",
+    "metallicChannelAllZero": true,
+    "roughnessBounds": [
+      136,
+      208
+    ],
+    "normalUnitLengthMaxError": 0.006278812885284424,
+    "runtimeVisualReview": "pending",
+    "runtimePerformance": "not measured"
+  }
+}

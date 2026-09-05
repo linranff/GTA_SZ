@@ -1,0 +1,891 @@
+{
+  "schema_version": 1,
+  "id": "tencent",
+  "name": "腾讯滨海大厦",
+  "status": "source_grounded_exterior_v1",
+  "detail_level": "mapped-footprint + published-height + estimated-exterior",
+  "units": "real_world_metres",
+  "coordinate_frame": "local east,north,up; angle degrees counterclockwise from east",
+  "anchor": {
+    "lon": 113.93108,
+    "lat": 22.525955,
+    "source": "osm-stop",
+    "role": "legacy city landmark marker (bus stop); geometry stores offsets from this anchor"
+  },
+  "scene_scale": 0.6,
+  "sources": [
+    {
+      "id": "tencent-2011",
+      "url": "https://www.tencent.com/index.php/zh-cn/articles/80064.html",
+      "title": "腾讯滨海大厦奠基 新地标助力新辉煌",
+      "publisher": "Tencent",
+      "kind": "owner_statement",
+      "accessed": "2026-09-05",
+      "supports": [
+        "南塔248m、50层；北塔194m、41层",
+        "三条连接层"
+      ]
+    },
+    {
+      "id": "wsp-completed",
+      "url": "https://www.wsp.com/zh-cn/projects/tencent-seafront-tower-shenzhen-china",
+      "title": "腾讯全球新总部滨海大厦",
+      "publisher": "WSP，机电顾问",
+      "kind": "project_participant",
+      "accessed": "2026-09-05",
+      "supports": [
+        "2017年完工，南塔248m/北塔194m",
+        "文化、健康、知识三种连接层"
+      ]
+    },
+    {
+      "id": "nbbj-asbuilt-photos",
+      "url": "https://www.nbbj.com/work/tencent-global-headquarters",
+      "title": "Tencent Global Headquarters",
+      "publisher": "NBBJ，设计建筑师",
+      "kind": "architect_project_and_photos",
+      "accessed": "2026-09-05",
+      "visual_review": "Chrome检查页首竣工黄昏实景：两片不同高度的玻璃板式塔楼；铜色连桥包裹塔楼部分端部；桥端大玻璃窗；连桥横向位置不同；上部屋顶平直。",
+      "supports": [
+        "两塔和三条桥",
+        "塔楼旋转及错位",
+        "幕墙模块化遮阳和屋顶花园"
+      ]
+    },
+    {
+      "id": "inhabit-facade",
+      "url": "https://inhabitgroup.com/project/tencent-seafront-tower-shenzhen-prc/",
+      "title": "TENCENT SEAFRONT TOWER",
+      "publisher": "Inhabit，全过程幕墙顾问",
+      "kind": "project_participant",
+      "accessed": "2026-09-05",
+      "supports": [
+        "南立面约95m宽",
+        "幕墙三对模块类型、最大悬挑1200mm",
+        "连桥端部Big Window",
+        "最高桥近180m，最低桥延伸裙房"
+      ]
+    },
+    {
+      "id": "inhabit-photo",
+      "url": "https://inhabitgroup.com/wp-content/uploads/2016/09/web3-900x594-1.jpg",
+      "title": "Tencent exterior construction photograph",
+      "publisher": "Inhabit；页面摄影署名Terrence Zhang",
+      "kind": "construction_photo",
+      "accessed": "2026-09-05",
+      "visual_review": "Chrome检查900×594图片：双塔均为细长板式而非近方形，三条桥分层并存在外伸；照片仍有吊机，不能当竣工测绘图。"
+    },
+    {
+      "id": "cscec-construction",
+      "url": "https://2bur.cscec.com/xwzx6/gskx6/201512/2733709.html",
+      "title": "挑战“埃菲尔铁塔”——局深圳分公司腾讯滨海大厦项目连廊提升纪实",
+      "publisher": "中国建筑第二工程局，承建方",
+      "kind": "contractor_construction_record",
+      "accessed": "2026-09-05",
+      "supports": [
+        "三座连廊最大跨度51m",
+        "报道层位3至6层/29m、21至26层/121m、34至38层/161m"
+      ],
+      "caveat": "这些是施工报道的层位/提升标高，不能据此确定竣工连桥外壳顶底。"
+    },
+    {
+      "id": "nbbj-concept-plan",
+      "url": "https://www.modlar.com/photos/8029/tencent-seafront-towers-concept-designfloor-plan/",
+      "image_url": "https://cdn.modlar.com/photos/8029/img/s_1920_x/tencent_seafront_towers_587d45265aeaf.jpg",
+      "title": "Tencent Seafront Towers - Concept Design/Floor Plan",
+      "publisher": "NBBJ图纸由Modlar转载",
+      "kind": "architect_concept_diagram_republished",
+      "accessed": "2026-09-05",
+      "visual_review": "Chrome检查1920×1328总平面：宽板双塔南北错位、不同转角；连接体并非三条同轴横杆；图中屋顶标250m/195m，桥标35m/124m/175m，属概念图，与竣工参数不同。",
+      "caveat": "只用于拓扑与量级参考；未把图上标高当作竣工实测。"
+    },
+    {
+      "id": "osm-south",
+      "url": "https://www.openstreetmap.org/way/694152192",
+      "local_file": "data/processed/tech_park/buildings.geojson",
+      "title": "腾讯滨海大厦南塔轮廓",
+      "kind": "open_map_footprint",
+      "license": "ODbL-1.0",
+      "accessed": "2026-09-05",
+      "supports": [
+        "WGS84轮廓、长轴角度、地图量测宽深与中心"
+      ],
+      "caveat": "地图描绘轮廓，不是测绘成果。Overture副本来源仍是同一OSM记录，不算第二个独立证据。"
+    },
+    {
+      "id": "osm-north",
+      "url": "https://www.openstreetmap.org/way/694152193",
+      "local_file": "data/processed/tech_park/buildings.geojson",
+      "title": "腾讯滨海大厦北塔轮廓",
+      "kind": "open_map_footprint",
+      "license": "ODbL-1.0",
+      "accessed": "2026-09-05",
+      "supports": [
+        "WGS84轮廓、长轴角度、地图量测宽深与中心"
+      ]
+    },
+    {
+      "id": "osm-stop",
+      "url": "https://www.openstreetmap.org/node/9017425342",
+      "local_file": "data/processed/tech_park/pois.geojson",
+      "title": "腾讯滨海大厦公交站",
+      "kind": "open_map_poi",
+      "license": "ODbL-1.0",
+      "accessed": "2026-09-05",
+      "supports": [
+        "当前city.json地标坐标实际为公交站；不能用它作双塔几何中心"
+      ]
+    },
+    {
+      "id": "ctbuh-height",
+      "url": "https://www.skyscrapercenter.com/complex/453",
+      "title": "Tencent Seafront Towers Complex",
+      "publisher": "CTBUH / CVU",
+      "kind": "height_database",
+      "accessed": "2026-09-05",
+      "supports": [
+        "南塔建筑高245.8m，北塔约194.8m的不同口径"
+      ],
+      "caveat": "与业主248/194m声明存在口径差异，保留差异，当前模型采用业主/WSP数值。"
+    }
+  ],
+  "towers": [
+    {
+      "id": "south",
+      "name": "南塔",
+      "footprint_lonlat": [
+        [
+          113.9302831,
+          22.5256016
+        ],
+        [
+          113.9306505,
+          22.5256737
+        ],
+        [
+          113.9307348,
+          22.5256903
+        ],
+        [
+          113.9307551,
+          22.5256943
+        ],
+        [
+          113.9309808,
+          22.5257159
+        ],
+        [
+          113.9310418,
+          22.525451
+        ],
+        [
+          113.9307719,
+          22.525398
+        ],
+        [
+          113.9306141,
+          22.525367
+        ],
+        [
+          113.9304994,
+          22.5253445
+        ],
+        [
+          113.9301342,
+          22.5252728
+        ],
+        [
+          113.9300728,
+          22.5255394
+        ]
+      ],
+      "footprint_m": {
+        "value": [
+          [
+            -81.9612,
+            -39.3405
+          ],
+          [
+            -44.1741,
+            -31.3143
+          ],
+          [
+            -35.5038,
+            -29.4664
+          ],
+          [
+            -33.416,
+            -29.0211
+          ],
+          [
+            -10.2027,
+            -26.6166
+          ],
+          [
+            -3.9289,
+            -56.1053
+          ],
+          [
+            -31.6881,
+            -62.0052
+          ],
+          [
+            -47.9178,
+            -65.4562
+          ],
+          [
+            -59.7147,
+            -67.9609
+          ],
+          [
+            -97.2755,
+            -75.9425
+          ],
+          [
+            -103.5905,
+            -46.2646
+          ]
+        ],
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-south"
+        ],
+        "confidence": 0.82,
+        "note": "OSM轮廓按项目统一102850/111320 m per degree投影转换；不是实测"
+      },
+      "center_m": {
+        "value": [
+          -53.9963,
+          -50.0717
+        ],
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-south"
+        ],
+        "confidence": 0.82
+      },
+      "width_m": {
+        "value": 95.4383,
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-south",
+          "inhabit-facade"
+        ],
+        "confidence": 0.83
+      },
+      "depth_m": {
+        "value": 32.6241,
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-south"
+        ],
+        "confidence": 0.8
+      },
+      "rotation_deg": {
+        "value": 11.99912,
+        "unit": "deg",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-south"
+        ],
+        "confidence": 0.83
+      },
+      "height_m": {
+        "value": 248,
+        "unit": "m",
+        "evidence": "published",
+        "sources": [
+          "tencent-2011",
+          "wsp-completed"
+        ],
+        "confidence": 0.92,
+        "note": "业主/顾问声明；CTBUH/OSM另报245.8/194.8m"
+      },
+      "published_floors": {
+        "value": 50,
+        "unit": "floors",
+        "evidence": "published",
+        "sources": [
+          "tencent-2011",
+          "wsp-completed"
+        ],
+        "confidence": 0.9,
+        "note": "北塔层数另有38/39口径；只用于幕墙节奏近似"
+      },
+      "roof_screen_m": {
+        "value": 6,
+        "unit": "m",
+        "evidence": "photo_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.4
+      },
+      "roof_equipment_height_m": {
+        "value": 3.5,
+        "unit": "m",
+        "evidence": "authoring_estimate",
+        "sources": [
+          "nbbj-concept-plan"
+        ],
+        "confidence": 0.3
+      }
+    },
+    {
+      "id": "north",
+      "name": "北塔",
+      "footprint_lonlat": [
+        [
+          113.9300967,
+          22.5261812
+        ],
+        [
+          113.9301771,
+          22.5262226
+        ],
+        [
+          113.9302942,
+          22.5262825
+        ],
+        [
+          113.9305043,
+          22.5263898
+        ],
+        [
+          113.9306405,
+          22.5261634
+        ],
+        [
+          113.9305052,
+          22.5260741
+        ],
+        [
+          113.9304575,
+          22.5260498
+        ],
+        [
+          113.9301264,
+          22.5258808
+        ],
+        [
+          113.9301185,
+          22.5258768
+        ],
+        [
+          113.9299683,
+          22.5258152
+        ],
+        [
+          113.9298306,
+          22.526044
+        ]
+      ],
+      "footprint_m": {
+        "value": [
+          [
+            -101.1324,
+            25.1806
+          ],
+          [
+            -92.8633,
+            29.7892
+          ],
+          [
+            -80.8195,
+            36.4573
+          ],
+          [
+            -59.2107,
+            48.4019
+          ],
+          [
+            -45.2026,
+            23.1991
+          ],
+          [
+            -59.1182,
+            13.2582
+          ],
+          [
+            -64.0241,
+            10.5531
+          ],
+          [
+            -98.0778,
+            -8.2599
+          ],
+          [
+            -98.8903,
+            -8.7052
+          ],
+          [
+            -114.3383,
+            -15.5625
+          ],
+          [
+            -128.5008,
+            9.9075
+          ]
+        ],
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-north"
+        ],
+        "confidence": 0.82,
+        "note": "OSM轮廓按项目统一102850/111320 m per degree投影转换；不是实测"
+      },
+      "center_m": {
+        "value": [
+          -86.4098,
+          15.7552
+        ],
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-north"
+        ],
+        "confidence": 0.82
+      },
+      "width_m": {
+        "value": 79.3126,
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-north"
+        ],
+        "confidence": 0.83
+      },
+      "depth_m": {
+        "value": 30.8075,
+        "unit": "m",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-north"
+        ],
+        "confidence": 0.8
+      },
+      "rotation_deg": {
+        "value": 28.9713,
+        "unit": "deg",
+        "evidence": "map_derived",
+        "sources": [
+          "osm-north"
+        ],
+        "confidence": 0.83
+      },
+      "height_m": {
+        "value": 194,
+        "unit": "m",
+        "evidence": "published",
+        "sources": [
+          "tencent-2011",
+          "wsp-completed"
+        ],
+        "confidence": 0.92,
+        "note": "业主/顾问声明；CTBUH/OSM另报245.8/194.8m"
+      },
+      "published_floors": {
+        "value": 41,
+        "unit": "floors",
+        "evidence": "published",
+        "sources": [
+          "tencent-2011",
+          "wsp-completed"
+        ],
+        "confidence": 0.9,
+        "note": "北塔层数另有38/39口径；只用于幕墙节奏近似"
+      },
+      "roof_screen_m": {
+        "value": 6,
+        "unit": "m",
+        "evidence": "photo_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.4
+      },
+      "roof_equipment_height_m": {
+        "value": 3.5,
+        "unit": "m",
+        "evidence": "authoring_estimate",
+        "sources": [
+          "nbbj-concept-plan"
+        ],
+        "confidence": 0.3
+      }
+    }
+  ],
+  "bridges": [
+    {
+      "id": "culture",
+      "name": "文化连接层",
+      "bottom_m": {
+        "value": 14,
+        "unit": "m",
+        "evidence": "image_and_construction_estimate",
+        "sources": [
+          "cscec-construction",
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.52,
+        "note": "外壳底标高估计，约±5m；施工提升标高不等于外壳底"
+      },
+      "height_m": {
+        "value": 21,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos",
+          "nbbj-concept-plan"
+        ],
+        "confidence": 0.48,
+        "note": "多层功能体量，约±4m"
+      },
+      "lateral_fraction": {
+        "value": 0,
+        "unit": "tower_width_fraction",
+        "evidence": "concept_and_photo_estimate",
+        "sources": [
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.43,
+        "note": "沿塔长轴选取连接中心，正为东端。竣工连接平面需更多正射/多视角核实"
+      },
+      "width_m": {
+        "value": 44,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.45
+      },
+      "end_overhang_m": {
+        "value": 4,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.4
+      },
+      "window_inset_m": {
+        "value": 2.2,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "inhabit-facade",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.5
+      },
+      "panel_pitch_m": {
+        "value": 1.25,
+        "unit": "m",
+        "evidence": "rendering_approximation",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.3
+      },
+      "sleeve_extra_width_m": {
+        "value": 6,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.35,
+        "note": "桥带包裹塔端的侧向余量，属外观估计"
+      }
+    },
+    {
+      "id": "health",
+      "name": "健康连接层",
+      "bottom_m": {
+        "value": 103,
+        "unit": "m",
+        "evidence": "image_and_construction_estimate",
+        "sources": [
+          "cscec-construction",
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.52,
+        "note": "外壳底标高估计，约±5m；施工提升标高不等于外壳底"
+      },
+      "height_m": {
+        "value": 21,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos",
+          "nbbj-concept-plan"
+        ],
+        "confidence": 0.48,
+        "note": "多层功能体量，约±4m"
+      },
+      "lateral_fraction": {
+        "value": -0.3,
+        "unit": "tower_width_fraction",
+        "evidence": "concept_and_photo_estimate",
+        "sources": [
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.43,
+        "note": "沿塔长轴选取连接中心，正为东端。竣工连接平面需更多正射/多视角核实"
+      },
+      "width_m": {
+        "value": 31,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.45
+      },
+      "end_overhang_m": {
+        "value": 4,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.4
+      },
+      "window_inset_m": {
+        "value": 2.2,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "inhabit-facade",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.5
+      },
+      "panel_pitch_m": {
+        "value": 1.25,
+        "unit": "m",
+        "evidence": "rendering_approximation",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.3
+      },
+      "sleeve_extra_width_m": {
+        "value": 6,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.35,
+        "note": "桥带包裹塔端的侧向余量，属外观估计"
+      }
+    },
+    {
+      "id": "knowledge",
+      "name": "知识连接层",
+      "bottom_m": {
+        "value": 158,
+        "unit": "m",
+        "evidence": "image_and_construction_estimate",
+        "sources": [
+          "cscec-construction",
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.52,
+        "note": "外壳底标高估计，约±5m；施工提升标高不等于外壳底"
+      },
+      "height_m": {
+        "value": 20,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos",
+          "nbbj-concept-plan"
+        ],
+        "confidence": 0.48,
+        "note": "多层功能体量，约±4m"
+      },
+      "lateral_fraction": {
+        "value": 0.3,
+        "unit": "tower_width_fraction",
+        "evidence": "concept_and_photo_estimate",
+        "sources": [
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.43,
+        "note": "沿塔长轴选取连接中心，正为东端。竣工连接平面需更多正射/多视角核实"
+      },
+      "width_m": {
+        "value": 29,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-concept-plan",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.45
+      },
+      "end_overhang_m": {
+        "value": 4,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.4
+      },
+      "window_inset_m": {
+        "value": 2.2,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "inhabit-facade",
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.5
+      },
+      "panel_pitch_m": {
+        "value": 1.25,
+        "unit": "m",
+        "evidence": "rendering_approximation",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.3
+      },
+      "sleeve_extra_width_m": {
+        "value": 6,
+        "unit": "m",
+        "evidence": "image_estimate",
+        "sources": [
+          "nbbj-asbuilt-photos"
+        ],
+        "confidence": 0.35,
+        "note": "桥带包裹塔端的侧向余量，属外观估计"
+      }
+    }
+  ],
+  "facade": {
+    "bay_width_m": {
+      "value": 3.2,
+      "unit": "m",
+      "evidence": "image_estimate",
+      "sources": [
+        "nbbj-asbuilt-photos"
+      ],
+      "confidence": 0.4
+    },
+    "floor_course_m": {
+      "value": 4.8,
+      "unit": "m",
+      "evidence": "rendering_approximation",
+      "sources": [
+        "tencent-2011",
+        "nbbj-asbuilt-photos"
+      ],
+      "confidence": 0.45,
+      "note": "外观分格平均间距，并非逐层标高"
+    },
+    "max_projection_m": {
+      "value": 1.2,
+      "unit": "m",
+      "evidence": "published",
+      "sources": [
+        "inhabit-facade"
+      ],
+      "confidence": 0.91
+    },
+    "mullion_width_m": {
+      "value": 0.1,
+      "unit": "m",
+      "evidence": "rendering_approximation",
+      "sources": [
+        "nbbj-asbuilt-photos"
+      ],
+      "confidence": 0.3
+    },
+    "parapet_height_m": {
+      "value": 1.3,
+      "unit": "m",
+      "evidence": "image_estimate",
+      "sources": [
+        "nbbj-concept-plan"
+      ],
+      "confidence": 0.3
+    }
+  },
+  "podium": {
+    "height_m": {
+      "value": 7.5,
+      "unit": "m",
+      "evidence": "image_estimate",
+      "sources": [
+        "nbbj-asbuilt-photos",
+        "nbbj-concept-plan"
+      ],
+      "confidence": 0.4
+    },
+    "connector_width_m": {
+      "value": 30,
+      "unit": "m",
+      "evidence": "concept_estimate",
+      "sources": [
+        "nbbj-concept-plan"
+      ],
+      "confidence": 0.35
+    },
+    "terrace_margin_m": {
+      "value": 3.0,
+      "unit": "m",
+      "evidence": "rendering_approximation",
+      "sources": [
+        "nbbj-concept-plan"
+      ],
+      "confidence": 0.3
+    }
+  },
+  "quality": {
+    "triangle_budget": 50000,
+    "texture_policy": "procedural materials only; reference photographs not redistributed or used as texture",
+    "verified": [
+      "双塔南北位置和各自地图轮廓",
+      "塔长轴差约17度",
+      "南塔约95m宽",
+      "三座不同高度多层连接体",
+      "最高外观高度248/194m按业主口径"
+    ],
+    "estimated": [
+      "连廊外壳底/顶标高",
+      "连桥平面相对位置和宽度",
+      "幕墙逐块分格与颜色",
+      "裙房连接形状和设备屋顶"
+    ],
+    "known_limits": [
+      "不是摄影测量模型或工程/BIM竣工模型",
+      "没有门窗逐项实测",
+      "没有室内或私人居住信息",
+      "南北塔高度口径差异未消除"
+    ]
+  },
+  "projection": {
+    "east_metres_per_degree": 102850,
+    "north_metres_per_degree": 111320,
+    "source": "scripts/prepare_driving_city.py:14",
+    "method": "project local equirectangular; minimum-area rotated rectangle from OSM footprint edges"
+  }
+}

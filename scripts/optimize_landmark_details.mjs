@@ -1,0 +1,18 @@
+import {NodeIO} from '@gltf-transform/core';
+import {ALL_EXTENSIONS} from '@gltf-transform/extensions';
+import {weld,meshopt,prune,dedup} from '@gltf-transform/functions';
+import {MeshoptEncoder,MeshoptDecoder} from 'meshoptimizer';
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+await Promise.all([MeshoptEncoder.ready,MeshoptDecoder.ready]);
+const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'meshopt.encoder':MeshoptEncoder,'meshopt.decoder':MeshoptDecoder});
+const path='public/city/landmark-detail.glb',manifestPath='public/city/landmark-detail.json';
+const before=(await fs.stat(path)).size,doc=await io.read(path);
+await doc.transform(dedup(),weld(),prune(),meshopt({encoder:MeshoptEncoder,level:'high',quantizePosition:16,quantizeNormal:10,quantizeTexcoord:14,quantizationVolume:'mesh'}));
+await io.write(path,doc);
+const bytes=await fs.readFile(path),after=bytes.length,sha256=createHash('sha256').update(bytes).digest('hex');
+const manifest=JSON.parse(await fs.readFile(manifestPath,'utf8'));
+manifest.assetStats.bytes=after;manifest.assetStats.sha256=sha256;
+manifest.compression={before,after,algorithm:'EXT_meshopt_compression',positionBits:16};
+await fs.writeFile(manifestPath,JSON.stringify(manifest,null,2)+'\n');
+console.log(JSON.stringify({before,after,sha256}));

@@ -1,0 +1,371 @@
+#ui.cinematic-hud {
+  --hud-white: #f4f3ef;
+  --hud-muted: rgba(238, 240, 235, .68);
+  --hud-edge: clamp(22px, 1.7vw, 40px);
+  --hud-dial: clamp(224px, 16vw, 308px);
+  --hud-map: calc(var(--hud-dial) * .865);
+  color: var(--hud-white);
+  font-family: 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .42);
+}
+
+.cinematic-hud header {
+  position: absolute;
+  inset: 0 0 auto;
+  align-items: flex-start;
+  padding: clamp(25px, 2.5vh, 40px) var(--hud-edge);
+  background: none;
+}
+
+.cinematic-hud .wordmark {
+  font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif;
+  font-size: clamp(30px, 2.35vw, 45px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: .26em;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px #0004;
+}
+
+.cinematic-hud .wordmark span {
+  margin-top: 8px;
+  font-family: 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  font-size: clamp(11px, .93vw, 17px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: .12em;
+  color: rgba(249, 247, 240, .86);
+}
+
+.cinematic-hud .location,
+.cinematic-hud .intro { display: none; }
+
+.cinematic-hud #map-button,
+.cinematic-hud #journal-button {
+  position: absolute;
+  right: var(--hud-edge);
+  top: 33px;
+  bottom: auto;
+  padding: 5px 0 5px 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: rgba(245, 245, 239, .72);
+  opacity: .72;
+  transition: opacity .18s, color .18s;
+}
+
+.cinematic-hud #journal-button { top: 69px; }
+.cinematic-hud #wallet { display: none; }
+.cinematic-hud #map-button:hover,
+.cinematic-hud #journal-button:hover,
+.cinematic-hud #map-button:focus-visible,
+.cinematic-hud #journal-button:focus-visible { color: white; opacity: 1; }
+.cinematic-hud kbd { border-color: #ffffff35; color: #efeee4; font-size: 10px; }
+
+.cinematic-hud #minimap {
+  bottom: 49px;
+  left: calc(var(--hud-edge) - 10px);
+  width: var(--hud-map);
+  height: var(--hud-map);
+  border: 1px solid rgba(240, 242, 237, .24);
+  border-radius: 50%;
+  overflow: visible;
+  background: none;
+  box-shadow: none;
+  transition: opacity .2s;
+}
+
+.cinematic-hud #mini-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  border-radius: 50%;
+}
+
+.cinematic-hud .north {
+  top: 5%;
+  bottom: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  color: #f7f8ef;
+  text-shadow: 0 1px 3px #000;
+}
+
+.cinematic-hud .cinematic-road-label {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: -5%;
+  width: 110%;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+  font-size: clamp(10px, .82vw, 14px);
+  line-height: 1.4;
+  color: rgba(242, 243, 236, .83);
+}
+
+.cinematic-hud #road-name {
+  position: static;
+  padding: 0;
+  background: none;
+  font-size: inherit;
+  letter-spacing: .04em;
+}
+
+.cinematic-hud .cinematic-road-english {
+  padding-left: 10px;
+  border-left: 1px solid #f1f1e961;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: .95em;
+  letter-spacing: .02em;
+  color: rgba(240, 240, 236, .69);
+}
+
+.cinematic-hud #speedometer {
+  right: var(--hud-edge);
+  bottom: 20px;
+  width: var(--hud-dial);
+  height: calc(var(--hud-dial) * .9643);
+  text-align: center;
+  transition: opacity .2s;
+}
+
+.cinematic-hud #speedometer::before {
+  content: '';
+  position: absolute;
+  inset: 8% 3% 13%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 48%, #070d164d 0, #070d162b 43%, #070d1600 72%);
+  pointer-events: none;
+}
+
+.cinematic-hud .cinematic-dial {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+
+.cinematic-dial .dial-track { stroke: #f5f5ed70; stroke-width: 1.15; }
+.cinematic-dial .dial-inner-ring { stroke: #f5f5ed38; stroke-width: .6; }
+.cinematic-dial .dial-progress {
+  stroke: #fcfcf6;
+  stroke-width: 4;
+  stroke-linecap: butt;
+  transition: stroke-dasharray .12s linear;
+}
+.cinematic-dial .dial-limit { stroke: #d87477; stroke-width: 5; }
+.cinematic-dial .dial-tick { stroke: #f0f0e966; stroke-width: .75; }
+.cinematic-dial .dial-tick-major { stroke: #f9f9efd6; stroke-width: 1; }
+.cinematic-dial .dial-label {
+  fill: #f3f3ed94;
+  stroke: none;
+  font: 7px 'Helvetica Neue', Arial, sans-serif;
+  text-anchor: middle;
+}
+.cinematic-dial .dial-needle { stroke: white; stroke-width: 2; }
+.cinematic-dial .dial-power-ring { fill: #10202927; stroke: #ffffff36; stroke-width: .7; }
+.cinematic-dial .dial-power { fill: #6de2c9; stroke: none; }
+
+.cinematic-hud #speedometer .cinematic-speed-readout {
+  position: absolute;
+  inset: 29.5% 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.cinematic-hud #speed {
+  display: block;
+  padding-right: .02em;
+  color: #f6f5f0;
+  font-family: 'DIN Alternate', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  font-size: calc(var(--hud-dial) * .34);
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: .045em;
+  line-height: .98;
+  transform: skewX(-8deg) scaleX(.73);
+  transform-origin: center;
+  text-shadow: 0 2px 5px #0008;
+}
+
+.cinematic-hud #speedometer .cinematic-speed-readout > span {
+  margin-top: 5px;
+  padding-left: 3px;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: calc(var(--hud-dial) * .069);
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: .13em;
+  color: #f4f4ecaa;
+  transform: skewX(-8deg) scaleX(.9);
+}
+
+.cinematic-hud #speedometer .speed-line { display: none; }
+.cinematic-hud #speedometer .cinematic-speed-meta {
+  position: absolute;
+  right: 20%;
+  left: 20%;
+  bottom: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  opacity: .58;
+}
+.cinematic-hud #speedometer .cinematic-speed-meta > span { font-size: 9px; letter-spacing: .06em; }
+.cinematic-hud #speedometer .cinematic-speed-meta > span:last-child { display: none; }
+.cinematic-hud #speedometer #gear { font-size: 10px; color: #f4f4eb; }
+
+.cinematic-hud #route-hud {
+  top: auto;
+  right: auto;
+  left: var(--hud-edge);
+  bottom: calc(var(--hud-map) + 90px);
+  width: var(--hud-map);
+  padding: 5px 12px;
+  border-right: 0;
+  border-left: 1px solid #c1d69caf;
+  background: none;
+  text-align: left;
+}
+.cinematic-hud #route-hud small { font-size: 9px; letter-spacing: .16em; color: #e8eddfa6; }
+.cinematic-hud #route-hud strong { margin: 6px 0; font-size: 15px; font-weight: 400; }
+.cinematic-hud #route-hud span { font-size: 11px; color: #e8eddfbf; }
+
+.cinematic-hud #toast,
+.cinematic-hud #ride-prompt {
+  padding: 11px 20px;
+  border: 1px solid #f5f5e91f;
+  border-radius: 2px;
+  background: #172026c9;
+  backdrop-filter: none;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #f2f1e7;
+}
+.cinematic-hud #toast { top: 120px; }
+.cinematic-hud #ride-prompt { bottom: 75px; }
+.cinematic-hud #credits { left: var(--hud-edge); bottom: 9px; color: #eeeede7d; }
+.cinematic-hud #fps { right: var(--hud-edge); bottom: 9px; color: #eeeedea3; }
+
+.cinematic-hud #map-panel {
+  z-index: 5;
+  padding: 38px;
+  background: #0b121be8;
+  backdrop-filter: none;
+}
+.cinematic-hud .map-shell {
+  border: 1px solid #d7e0df29;
+  border-radius: 4px;
+  background: #17222bf5;
+  box-shadow: 0 18px 70px #0005;
+}
+.cinematic-hud .map-heading h2 { font-family: 'Songti SC', 'Noto Serif SC', serif; font-size: 28px; }
+.cinematic-hud .map-heading small { color: #d7ddd291; }
+.cinematic-hud aside { background: #0d162254; }
+.cinematic-hud .place.selected { background: #d5e1d111; border-color: #d5e1d147; }
+.cinematic-hud #destination-actions button { background: #c1d5bc; color: #1c2c28; }
+.cinematic-hud #destination-actions button.secondary { background: transparent; color: #d5e1d1; }
+.cinematic-hud #life-journal {
+  z-index: 5;
+  top: 111px;
+  right: var(--hud-edge);
+  bottom: 56px;
+  max-width: calc(100vw - var(--hud-edge) * 2);
+  border-color: #d7e0df40;
+  border-radius: 4px;
+  background: #14212bf7;
+}
+.cinematic-hud .life-heading h2 { font-family: 'Songti SC', 'Noto Serif SC', serif; font-size: 26px; }
+.cinematic-hud #pause { z-index: 6; padding: 25px; background: #0b1723d9; backdrop-filter: none; }
+.cinematic-hud #pause h2 { font-family: 'Songti SC', 'Noto Serif SC', serif; font-size: 44px; }
+.cinematic-hud #pause > button { justify-self: center; min-width: 170px; background: #d2dfcb1c; border-color: #d9e3d847; }
+.cinematic-hud #pause .controls {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 17px 25px;
+  margin-top: 56px;
+  font-size: 11px;
+  color: #e8ecdfb5;
+}
+.cinematic-hud #observer-help {
+  z-index: 2;
+  bottom: 34px;
+  padding: 10px 19px;
+  border: 1px solid #f4f4e924;
+  border-radius: 3px;
+  background: #101b26a8;
+  font-size: 11px;
+  color: #f0f3e8bf;
+}
+.cinematic-hud #observer-help strong { font-size: 12px; font-weight: 500; }
+.cinematic-hud[data-observer='true'] #speedometer { opacity: 0; }
+.cinematic-hud[data-observer='true'] #minimap { opacity: .62; }
+.cinematic-hud[data-observer='true'] #route-hud { opacity: 0; }
+.cinematic-hud[data-menu-open='true'] #minimap,
+.cinematic-hud[data-menu-open='true'] #speedometer,
+.cinematic-hud[data-menu-open='true'] #route-hud { opacity: 0; }
+
+@media (max-width: 1000px) {
+  #ui.cinematic-hud { --hud-edge: 22px; --hud-dial: 205px; }
+  .cinematic-hud #minimap { bottom: 57px; }
+  .cinematic-hud #speedometer { bottom: 40px; }
+  .cinematic-hud .wordmark { font-size: 31px; }
+  .cinematic-hud .wordmark span { font-size: 11px; }
+  .cinematic-hud #map-button { top: 24px; }
+  .cinematic-hud #journal-button { top: 59px; }
+  .cinematic-hud #route-hud { bottom: 290px; }
+  .cinematic-hud #pause .controls { grid-template-columns: repeat(2, auto); font-size: 10px; }
+  .cinematic-hud #map-panel { padding: 22px; }
+  .cinematic-hud .map-heading { padding: 20px; }
+}
+
+@media (max-width: 650px), (max-height: 540px) {
+  #ui.cinematic-hud { --hud-edge: 15px; --hud-dial: 150px; }
+  .cinematic-hud header { padding-top: 17px; }
+  .cinematic-hud .wordmark { font-size: 25px; }
+  .cinematic-hud .wordmark span { margin-top: 5px; font-size: 9px; }
+  .cinematic-hud #minimap { bottom: 45px; }
+  .cinematic-hud #speedometer { bottom: 34px; }
+  .cinematic-hud .cinematic-road-label { top: calc(100% + 8px); font-size: 9px; gap: 6px; }
+  .cinematic-hud .cinematic-road-english { display: none; }
+  .cinematic-hud #map-button { top: 17px; font-size: 10px; }
+  .cinematic-hud #journal-button { top: 48px; font-size: 10px; }
+  .cinematic-hud #route-hud { bottom: 222px; padding: 3px 8px; }
+  .cinematic-hud #route-hud strong { font-size: 12px; }
+  .cinematic-hud #route-hud span { font-size: 9px; }
+  .cinematic-hud #toast { top: 92px; max-width: 75%; font-size: 10px; }
+  .cinematic-hud #credits { font-size: 6px; }
+  .cinematic-hud #pause .controls { margin-top: 25px; gap: 11px; }
+  .cinematic-hud #pause h2 { margin: 15px 0 25px; font-size: 32px; }
+  .cinematic-hud #observer-help { bottom: 18px; font-size: 9px; padding: 8px 12px; }
+  .cinematic-hud #observer-help strong { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-hud .dial-progress,
+  .cinematic-hud #minimap,
+  .cinematic-hud #speedometer { transition: none; }
+}

@@ -1,0 +1,37 @@
+{
+  "version": "0.2",
+  "source": "OpenStreetMap contributors / Geofabrik Guangdong 2026-09-04",
+  "license": "ODbL-1.0",
+  "bboxWGS84": [
+    113.915,
+    22.497,
+    114.135,
+    22.575
+  ],
+  "originWGS84": [
+    114.025,
+    22.536
+  ],
+  "horizontalScale": 0.6,
+  "verticalScale": 0.6,
+  "coordinateSystem": "local east/north; equirectangular at Shenzhen latitude, metres scaled 0.60",
+  "roadTreatment": "prototype roads flattened; one-way tags kept but arcade driving unrestricted",
+  "heightStatus": {
+    "osm_height": 508,
+    "osm_levels_estimated": 5445,
+    "typology_estimate": 9603
+  },
+  "counts": {
+    "roads": 12202,
+    "buildings": 16076,
+    "green": 1703,
+    "water": 312,
+    "landmarks": 10
+  },
+  "extent": [
+    -6788.1,
+    -2604.89,
+    6788.1,
+    2604.89
+  ]
+}

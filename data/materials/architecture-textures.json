@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T11:02:21.026Z",
+  "textures": [
+    {
+      "id": "curtain-glass",
+      "path": "public/city/textures/architecture/curtain-glass.png",
+      "url": "/city/textures/architecture/curtain-glass.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 296391,
+      "sha256": "2471a3cc6557e21f0a922f56ea4f0bbdbd6ec68c89214f68d9ccab2879789f81",
+      "sourcePath": "data/raw/materials/curtain-glass-source.png",
+      "sourceSha256": "2c6a47f9ba7989204f14fec2803db9a6f728044ca17f75c0fe5b732dbc97f39a",
+      "generationTool": "image_gen",
+      "generationBrief": "Blue-gray Shenzhen office curtain wall, silver mullions, neutral unlit glazing.",
+      "processing": "Uniform 512x512 resize with macOS sips. Original image retained.",
+      "use": "Artistic tileable base color; generated example of a material family, not a photographed/surveyed individual facade."
+    },
+    {
+      "id": "warm-residential",
+      "path": "public/city/textures/architecture/warm-residential.png",
+      "url": "/city/textures/architecture/warm-residential.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 467022,
+      "sha256": "40ebedb6489c8ac9b999b86dbdb24a326a0475738645c02c387f5ce954228fce",
+      "sourcePath": "data/raw/materials/warm-residential-source.png",
+      "sourceSha256": "c6b84e02782ba98d1beb73ac68089d820678a92ef76cace22ae221c581fc672d",
+      "generationTool": "image_gen",
+      "generationBrief": "Warm ivory Shenzhen housing, solid ceramic/render piers, recessed windows, balcony and AC details.",
+      "processing": "Uniform 512x512 resize with macOS sips. Original image retained.",
+      "use": "Artistic tileable base color; generated example of a material family, not a photographed/surveyed individual facade."
+    },
+    {
+      "id": "light-stone",
+      "path": "public/city/textures/architecture/light-stone.png",
+      "url": "/city/textures/architecture/light-stone.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 371228,
+      "sha256": "6f441b80b8ab615ddf0149d685331be7cd46be40525aaf8278798e9da39042bb",
+      "sourcePath": "data/raw/materials/light-stone-source.png",
+      "sourceSha256": "7f21eadf6629930037c4ba8da9e57df42b564fc652c84ae869fe78792b91e3d0",
+      "generationTool": "image_gen",
+      "generationBrief": "Pale warm-gray Shenzhen mid-rise stone cladding, narrow horizontal window ribbons.",
+      "processing": "Uniform 512x512 resize with macOS sips. Original image retained.",
+      "use": "Artistic tileable base color; generated example of a material family, not a photographed/surveyed individual facade."
+    }
+  ],
+  "totalBytes": 1134641,
+  "estimatedRGBA8WithMipmapsBytes": 4194304,
+  "maxDimension": 512,
+  "textureCount": 3,
+  "scope": "Three shared albedo textures. Matching 256px sparse window masks are recorded separately in architecture-windows.json. No new normal/metallic textures, lights or postprocessing.",
+  "referencePalette": "data/materials/shenzhen-palette.json"
+}

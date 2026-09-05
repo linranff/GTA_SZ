@@ -1,0 +1,56 @@
+{
+  "license": "CC0-1.0",
+  "license_url": "https://polyhaven.com/license",
+  "credit": "Powered by Poly Haven",
+  "downloaded_at": "2026-09-05T15:37:02.269562+08:00",
+  "files": [
+    {
+      "asset": "plastered_wall_05",
+      "channel": "diff",
+      "file": "public/assets/textures/polyhaven/plastered_wall_05_diff.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/plastered_wall_05/plastered_wall_05_diff_1k.jpg",
+      "sha256": "b10e2fc12c6f6bb8a355fe7c5d6eab19222337414ce055df0701e75f5f603764",
+      "bytes": 557082
+    },
+    {
+      "asset": "plastered_wall_05",
+      "channel": "nor_gl",
+      "file": "public/assets/textures/polyhaven/plastered_wall_05_nor_gl.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/plastered_wall_05/plastered_wall_05_nor_gl_1k.jpg",
+      "sha256": "560ca5b81f8c37a1bf9d44f9d20adc983d1cad3a7c6aa23835a1e1c1b63da98f",
+      "bytes": 1051165
+    },
+    {
+      "asset": "plastered_wall_05",
+      "channel": "rough",
+      "file": "public/assets/textures/polyhaven/plastered_wall_05_rough.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/plastered_wall_05/plastered_wall_05_rough_1k.jpg",
+      "sha256": "5e9439a03d2895acc902596a6a899509bb2b42dfb16ab4ea10a2a6a22c1329cf",
+      "bytes": 149189
+    },
+    {
+      "asset": "wood_table_001",
+      "channel": "diff",
+      "file": "public/assets/textures/polyhaven/wood_table_001_diff.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_diff_1k.jpg",
+      "sha256": "460dd08d240f4a1f02982415048c3c5c200f385db212da18dc7e2df68bf4d0be",
+      "bytes": 215573
+    },
+    {
+      "asset": "wood_table_001",
+      "channel": "nor_gl",
+      "file": "public/assets/textures/polyhaven/wood_table_001_nor_gl.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_nor_gl_1k.jpg",
+      "sha256": "9bf7ddf5721e225c20290f1772ae37f9bdfd49658f6d458259eb794e2149d3cf",
+      "bytes": 51927
+    },
+    {
+      "asset": "wood_table_001",
+      "channel": "rough",
+      "file": "public/assets/textures/polyhaven/wood_table_001_rough.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_rough_1k.jpg",
+      "sha256": "a2ca9ae89dfe7b8e2e5e92f0aa43467845417de8a50205b5852ef0d57c7624f9",
+      "bytes": 237261
+    }
+  ]
+}

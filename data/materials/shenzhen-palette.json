@@ -1,0 +1,1201 @@
+{
+  "schemaVersion": 1,
+  "researchedAt": "2026-09-05",
+  "status": "source_referenced_art_direction_v1",
+  "numericParameterStatus": "All hex colors, roughness ranges, proportions and suggested metal proxies are artistic approximations; no calibrated reflectance, spectral or roughness measurement was performed.",
+  "colorSpace": {
+    "hex": "sRGB display-referred swatches, not lighting-baked photograph colors",
+    "baseColorLinear": "IEC sRGB transfer decoded once to linear RGB; do not decode these values again",
+    "roughness": "perceptual roughness 0..1, renderer-facing artistic range",
+    "glassMode": "opaque architectural glazing proxy; not a measured physical transmission model"
+  },
+  "implementationGuidance": [
+    {
+      "rule": "separate_surface_roles",
+      "text": "为玻璃、实墙、金属/涂层框、屋顶使用独立角色；重点地标不共用一个黑色玻璃实例。",
+      "status": "art_direction"
+    },
+    {
+      "rule": "dielectric_glass",
+      "text": "玻璃/石材/瓷砖/涂漆表层使用 metallic=0；只有明确或标为艺术推定的裸金属角色使用1。玻璃反射由介电反射与环境光实现，不能靠把全楼变成金属。",
+      "sourceIds": [
+        "filament-pbr"
+      ],
+      "status": "primary_PBR_model_with_artistic_proxies"
+    },
+    {
+      "rule": "daylight_before_night",
+      "text": "先在中性日光和一致曝光检查浅墙/玻璃层次，再检查黄昏；夜景只对窗与灯发光，不用整墙发光掩盖缺少环境照明。",
+      "status": "art_direction"
+    },
+    {
+      "rule": "avoid_double_darkening",
+      "text": "不要把带重阴影的颜色贴图再次乘上深灰全楼底色；核对色彩空间和环境光后再调色。",
+      "status": "implementation_review_advice"
+    },
+    {
+      "rule": "coherent_variation",
+      "text": "按用途/已有照片/片区为楼选择材质族，每楼固定；同族色相约±4度、明度约±5%的变化作为艺术上限参考，避免像素噪声与随机彩虹。",
+      "status": "artistic_estimate"
+    },
+    {
+      "rule": "lod_texture",
+      "text": "远景保留墙窗面积和大分格；细缝用mipmap或法线，避免细白线远景闪烁。窗亮度按房间/连续楼层形成稀疏组团。",
+      "status": "art_direction"
+    },
+    {
+      "rule": "references_not_textures",
+      "text": "公开照片作为参考链接保留；本文件没有下载或授权照片用作游戏贴图。",
+      "status": "asset_provenance"
+    }
+  ],
+  "sources": [
+    {
+      "id": "kk100-farrells",
+      "title": "KK100",
+      "url": "https://farrells.com/project/kk100/",
+      "publisher": "Farrells，设计方",
+      "evidenceType": "architect_statement",
+      "supports": "确认玻璃与钢的塔冠和整体围护设计；精确蓝灰色号未发布。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "pingan-kpf",
+      "title": "Ping An Finance Centre",
+      "url": "https://www.kpf.com/project/ping-an-finance-centre",
+      "publisher": "KPF，设计方",
+      "evidenceType": "architect_statement",
+      "supports": "玻璃、石材和竖向构件的材料分工；页面不提供PBR参数。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "pingan-steel",
+      "title": "Megatall with iconic steel façade",
+      "url": "https://www.outokumpu.com/en/news/2014/~/link.aspx?_id=618B28850F1F4BDDB736E5DB4109CA52&_z=z",
+      "publisher": "Outokumpu，材料供应商",
+      "evidenceType": "supplier_statement",
+      "supports": "Supra 316L不锈钢、Deco Linen亚麻压纹，目标为柔和表面光泽。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "diwang-cvu",
+      "title": "Shun Hing Square",
+      "url": "https://www.skyscrapercenter.com/build/shun-hing-square/258",
+      "publisher": "CVU / CTBUH，自有建筑数据库",
+      "evidenceType": "research_database_statement",
+      "supports": "公开说明明确列出绿色玻璃与自然棕色土色系；未发布色卡。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "tencent-nbbj",
+      "title": "Tencent Global Headquarters",
+      "url": "https://www.nbbj.com/work/tencent-global-headquarters",
+      "publisher": "NBBJ，设计方",
+      "evidenceType": "architect_photograph_previously_reviewed",
+      "supports": "本轮前已实际目视竣工图：蓝灰玻璃、铜棕色连桥、浅色细分格；铜色不等于确认实铜。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "tencent-inhabit",
+      "title": "Tencent Seafront Tower",
+      "url": "https://inhabitgroup.com/project/tencent-seafront-tower-shenzhen-prc/",
+      "publisher": "Inhabit，幕墙顾问",
+      "evidenceType": "project_participant_statement",
+      "supports": "玻璃单元式幕墙和不同幕墙系统；不支持把全楼当均一黑金属。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "mixc-foster",
+      "title": "Nanshan Technology Finance City",
+      "url": "https://www.fosterandpartners.com/projects/nanshan-technology-finance-city/",
+      "publisher": "Foster + Partners，设计方",
+      "evidenceType": "architect_statement",
+      "supports": "大冲/科技金融城塔楼与公共空间语境；本轮未做校色照片目视，具体蓝灰色为临时艺术选择。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "mixc-foster-office",
+      "title": "Shenzhen office in China Resources Land Tower B",
+      "url": "https://www.fosterandpartners.com/news/the-foster-plus-partners-office-in-shenzhen-s-high-tech-nanshan-district",
+      "publisher": "Foster + Partners，设计方",
+      "evidenceType": "architect_statement",
+      "supports": "确认其深圳办公室在华润置地大厦B座，与大冲四座设计塔楼实体对应。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "mixc-capol",
+      "title": "深圳华润城及万象天地",
+      "url": "https://www.capol.cn/projectdetail.aspx?id=100000068055563",
+      "publisher": "华阳国际，项目设计方",
+      "evidenceType": "architect_statement",
+      "supports": "万象天地属于商场、街区及楼群的复合项目，不应全用同一个塔楼玻璃材质。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "bamboo-kpf",
+      "title": "China Resources Tower",
+      "url": "https://www.kpf.com/project/china-resources-tower",
+      "publisher": "KPF，设计方",
+      "evidenceType": "architect_statement",
+      "supports": "春笋为独立地标；玻璃、竖向结构和上下段三角构成的分工。色号为艺术推定。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "qijie-photo",
+      "title": "七街公馆整体实景",
+      "url": "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/35346e99-628d-4242-8ac9-a64f6adf9e5d.jpg",
+      "publisher": "乐有家，原实景相册",
+      "evidenceType": "field_photo_previously_reviewed",
+      "supports": "已实际目视银灰白窗格、蓝灰窗、较暗凹槽。实际涂层或面板基材未知。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "qijie-entry",
+      "title": "七街公馆入口实景",
+      "url": "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/b6c701f6-debf-42df-a05d-1ef107f87a6d.jpg",
+      "publisher": "乐有家，原实景相册",
+      "evidenceType": "field_photo_previously_reviewed",
+      "supports": "已实际目视浅灰围护和蓝灰玻璃；照片非校色样本。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "fortune-photo",
+      "title": "财富广场整体实景",
+      "url": "https://fang-community.leyoujia.com//community/album/2019-06/10/10/0bf01030-5f46-4f65-90b7-2864d64e6156.jpg",
+      "publisher": "乐有家，原实景相册",
+      "evidenceType": "field_photo_previously_reviewed",
+      "supports": "已实际目视明亮蓝玻璃、银白水平带、白色实体墙、通透顶格栅。各面板真实基材未核。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "node-nantou",
+      "title": "南头古城NT33、NT34改造",
+      "url": "https://www.archiposition.com/items/20240411043122",
+      "publisher": "NODE设计方供稿，有方发布",
+      "evidenceType": "architect_statement_republished",
+      "supports": "页面明确标记文字由南沙原创提供；确认原城中村住宅白色瓷砖及灰色水刷石。仅是类型样本，非深圳全市比例调查。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "sz-color-study",
+      "title": "城市色彩研究",
+      "url": "https://www.szdesigncenter.com/pxjkl",
+      "publisher": "深圳市规划国土发展研究中心 / 城市设计促进中心",
+      "evidenceType": "public_institution_research_summary",
+      "supports": "深圳存在多源、多时期的建筑色彩风貌；支持分区/分类型处理，不能推出每栋楼实际颜色。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "sz-roof-guide",
+      "title": "深圳市城市第六立面提升设计导则",
+      "url": "https://zjj.sz.gov.cn/attachment/1/1396/1396655/11035379.pdf",
+      "publisher": "深圳市住房和建设局",
+      "evidenceType": "public_design_guide",
+      "supports": "屋顶建议高明度、低饱和度并协调片区；此证据只用于屋顶艺术方向，不当作现状立面统计。",
+      "accessedAt": "2026-09-05"
+    },
+    {
+      "id": "filament-pbr",
+      "title": "Filament material model",
+      "url": "https://google.github.io/filament/main/filament.html",
+      "publisher": "Google Filament，渲染器作者",
+      "evidenceType": "primary_technical_documentation",
+      "supports": "区分导体/介电体、BaseColor线性RGB和粗糙度；提供通用PBR含义，不提供深圳建筑实测值。",
+      "accessedAt": "2026-09-05"
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "kk100",
+      "name": "京基100",
+      "colorClaim": "以中等明度冷蓝灰玻璃和浅银灰竖向细构件表现；精确色相待校色实景复核。",
+      "sourceIds": [
+        "kk100-farrells"
+      ],
+      "evidenceStatus": "published_materials_color_provisional",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "蓝灰玻璃",
+          "baseColorSRGBHex": "#809CA8",
+          "baseColorLinear": [
+            0.215861,
+            0.332452,
+            0.391572
+          ],
+          "roughnessRange": [
+            0.18,
+            0.3
+          ],
+          "roughnessSuggested": 0.24,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "kk100-farrells"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "此颜色是建筑玻璃类型引导的艺术暂定值，未声称从照片测量。"
+        },
+        {
+          "id": "frame",
+          "label": "浅银灰构件",
+          "baseColorSRGBHex": "#C0C8C9",
+          "baseColorLinear": [
+            0.527115,
+            0.57758,
+            0.584078
+          ],
+          "roughnessRange": [
+            0.3,
+            0.48
+          ],
+          "roughnessSuggested": 0.39,
+          "metallic": 1,
+          "materialInterpretation": "metal_finish_proxy",
+          "sourceIds": [
+            "kk100-farrells"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "金属度代表裸金属艺术近似；不能推定全部构件均为同一种钢。"
+        }
+      ],
+      "limitations": [
+        "色号未由设计方发布，玻璃实际镀膜和立面分区仍待核实。"
+      ],
+      "sourceUrls": [
+        "https://farrells.com/project/kk100/"
+      ]
+    },
+    {
+      "id": "pingan",
+      "name": "平安金融中心",
+      "colorClaim": "浅银灰亚麻纹不锈钢、灰蓝玻璃和偏暖石材分开。",
+      "sourceIds": [
+        "pingan-kpf",
+        "pingan-steel"
+      ],
+      "evidenceStatus": "supplier_confirmed_materials_color_estimated",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "灰蓝玻璃",
+          "baseColorSRGBHex": "#8D9FA4",
+          "baseColorLinear": [
+            0.266356,
+            0.346704,
+            0.371238
+          ],
+          "roughnessRange": [
+            0.18,
+            0.3
+          ],
+          "roughnessSuggested": 0.24,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "pingan-kpf"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "steel",
+          "label": "亚麻纹不锈钢",
+          "baseColorSRGBHex": "#C7CAC7",
+          "baseColorLinear": [
+            0.571125,
+            0.590619,
+            0.571125
+          ],
+          "roughnessRange": [
+            0.3,
+            0.46
+          ],
+          "roughnessSuggested": 0.38,
+          "metallic": 1,
+          "materialInterpretation": "stainless_steel",
+          "sourceIds": [
+            "pingan-steel"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "用细粗糙度变化表现压纹，不把金属涂成白色发光面。"
+        },
+        {
+          "id": "stone",
+          "label": "暖灰石材",
+          "baseColorSRGBHex": "#C5BEAF",
+          "baseColorLinear": [
+            0.55834,
+            0.514918,
+            0.42869
+          ],
+          "roughnessRange": [
+            0.64,
+            0.8
+          ],
+          "roughnessSuggested": 0.72,
+          "metallic": 0,
+          "materialInterpretation": "stone",
+          "sourceIds": [
+            "pingan-kpf"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        }
+      ],
+      "limitations": [
+        "钢材与表面处理有供应商依据；色号、粗糙度及玻璃色相仍是艺术近似。"
+      ],
+      "sourceUrls": [
+        "https://www.kpf.com/project/ping-an-finance-centre",
+        "https://www.outokumpu.com/en/news/2014/~/link.aspx?_id=618B28850F1F4BDDB736E5DB4109CA52&_z=z"
+      ]
+    },
+    {
+      "id": "diwang",
+      "name": "地王大厦",
+      "colorClaim": "保留青绿色玻璃与暖土色细部的辨识关系。",
+      "sourceIds": [
+        "diwang-cvu"
+      ],
+      "evidenceStatus": "published_color_description",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "青绿玻璃",
+          "baseColorSRGBHex": "#659C90",
+          "baseColorLinear": [
+            0.130136,
+            0.332452,
+            0.278894
+          ],
+          "roughnessRange": [
+            0.18,
+            0.3
+          ],
+          "roughnessSuggested": 0.24,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "diwang-cvu"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "cladding",
+          "label": "暖灰土色细部",
+          "baseColorSRGBHex": "#B1A38C",
+          "baseColorLinear": [
+            0.439657,
+            0.366253,
+            0.262251
+          ],
+          "roughnessRange": [
+            0.48,
+            0.68
+          ],
+          "roughnessSuggested": 0.58,
+          "metallic": 0,
+          "materialInterpretation": "opaque_cladding_unknown_substrate",
+          "sourceIds": [
+            "diwang-cvu"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "trim",
+          "label": "浅灰绿分格",
+          "baseColorSRGBHex": "#C5CEC5",
+          "baseColorLinear": [
+            0.55834,
+            0.617207,
+            0.55834
+          ],
+          "roughnessRange": [
+            0.34,
+            0.5
+          ],
+          "roughnessSuggested": 0.42,
+          "metallic": 0,
+          "materialInterpretation": "coated_trim_proxy",
+          "sourceIds": [
+            "diwang-cvu"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        }
+      ],
+      "limitations": [
+        "绿色/土色有数据库文字依据；具体面板范围和材质牌号未核实。"
+      ],
+      "sourceUrls": [
+        "https://www.skyscrapercenter.com/build/shun-hing-square/258"
+      ]
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯滨海大厦",
+      "colorClaim": "蓝灰玻璃塔楼配铜棕色连桥，细分格保持浅银灰。",
+      "sourceIds": [
+        "tencent-nbbj",
+        "tencent-inhabit"
+      ],
+      "evidenceStatus": "previously_reviewed_primary_photographs",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "蓝灰玻璃",
+          "baseColorSRGBHex": "#8BA8B1",
+          "baseColorLinear": [
+            0.258183,
+            0.391572,
+            0.439657
+          ],
+          "roughnessRange": [
+            0.2,
+            0.32
+          ],
+          "roughnessSuggested": 0.26,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "tencent-nbbj",
+            "tencent-inhabit"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "bridge",
+          "label": "铜棕色连桥",
+          "baseColorSRGBHex": "#B98D68",
+          "baseColorLinear": [
+            0.48515,
+            0.266356,
+            0.138432
+          ],
+          "roughnessRange": [
+            0.38,
+            0.55
+          ],
+          "roughnessSuggested": 0.465,
+          "metallic": 0,
+          "materialInterpretation": "colored_cladding_unknown_substrate",
+          "sourceIds": [
+            "tencent-nbbj"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "只确认铜棕外观；先按有色涂层介电体处理，未确认裸铜，不套黄金金属度。"
+        },
+        {
+          "id": "frame",
+          "label": "浅色幕墙分格",
+          "baseColorSRGBHex": "#C3CBCB",
+          "baseColorLinear": [
+            0.545724,
+            0.597202,
+            0.597202
+          ],
+          "roughnessRange": [
+            0.32,
+            0.48
+          ],
+          "roughnessSuggested": 0.4,
+          "metallic": 0,
+          "materialInterpretation": "coated_frame_proxy",
+          "sourceIds": [
+            "tencent-nbbj"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        }
+      ],
+      "limitations": [
+        "黄昏实景受暖光影响；连桥铜色不能推出纯铜或固定日光色。"
+      ],
+      "sourceUrls": [
+        "https://www.nbbj.com/work/tencent-global-headquarters",
+        "https://inhabitgroup.com/project/tencent-seafront-tower-shenzhen-prc/"
+      ]
+    },
+    {
+      "id": "mixc-world",
+      "name": "万象天地 / 华润置地大厦B、C、D座",
+      "colorClaim": "暂用比腾讯略偏青的中浅蓝灰玻璃和银白细框；商城石材/店铺另分材质。",
+      "sourceIds": [
+        "mixc-foster",
+        "mixc-foster-office",
+        "mixc-capol"
+      ],
+      "evidenceStatus": "entity_confirmed_color_provisional",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "中浅蓝灰玻璃",
+          "baseColorSRGBHex": "#97AFB4",
+          "baseColorLinear": [
+            0.309469,
+            0.42869,
+            0.456411
+          ],
+          "roughnessRange": [
+            0.22,
+            0.34
+          ],
+          "roughnessSuggested": 0.28,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "mixc-foster"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "公开资料确认实体和项目，当前具体色号为改善黑色剪影的艺术暂定，不是照片采样。"
+        },
+        {
+          "id": "frame",
+          "label": "银白细框",
+          "baseColorSRGBHex": "#C8CFCE",
+          "baseColorLinear": [
+            0.57758,
+            0.62396,
+            0.617207
+          ],
+          "roughnessRange": [
+            0.32,
+            0.48
+          ],
+          "roughnessSuggested": 0.4,
+          "metallic": 0,
+          "materialInterpretation": "coated_frame_proxy",
+          "sourceIds": [
+            "mixc-foster"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "recess",
+          "label": "灰蓝凹部",
+          "baseColorSRGBHex": "#657D83",
+          "baseColorLinear": [
+            0.130136,
+            0.205079,
+            0.226966
+          ],
+          "roughnessRange": [
+            0.36,
+            0.5
+          ],
+          "roughnessSuggested": 0.43,
+          "metallic": 0,
+          "materialInterpretation": "opaque_recess_proxy",
+          "sourceIds": [
+            "mixc-foster"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        }
+      ],
+      "limitations": [
+        "B/C/D高度来自未复核OSM标签；外观色号尚需日光照片校核。",
+        "商城、高街、品牌店立面不继承塔楼全玻璃方案。"
+      ],
+      "sourceUrls": [
+        "https://www.fosterandpartners.com/projects/nanshan-technology-finance-city/",
+        "https://www.fosterandpartners.com/news/the-foster-plus-partners-office-in-shenzhen-s-high-tech-nanshan-district",
+        "https://www.capol.cn/projectdetail.aspx?id=100000068055563"
+      ]
+    },
+    {
+      "id": "bamboo",
+      "name": "中国华润大厦 / 春笋",
+      "colorClaim": "明快冷灰玻璃和银白竖肋形成细密而清楚的轮廓。",
+      "sourceIds": [
+        "bamboo-kpf"
+      ],
+      "evidenceStatus": "published_geometry_materials_color_estimated",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "冷灰玻璃",
+          "baseColorSRGBHex": "#A0B2B7",
+          "baseColorLinear": [
+            0.351533,
+            0.445201,
+            0.473531
+          ],
+          "roughnessRange": [
+            0.18,
+            0.3
+          ],
+          "roughnessSuggested": 0.24,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "bamboo-kpf"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "ribs",
+          "label": "银灰竖肋",
+          "baseColorSRGBHex": "#CFD5D3",
+          "baseColorLinear": [
+            0.62396,
+            0.665387,
+            0.651406
+          ],
+          "roughnessRange": [
+            0.3,
+            0.46
+          ],
+          "roughnessSuggested": 0.38,
+          "metallic": 0,
+          "materialInterpretation": "coated_structure_proxy",
+          "sourceIds": [
+            "bamboo-kpf"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "diagrid",
+          "label": "灰银三角框",
+          "baseColorSRGBHex": "#AEBDBD",
+          "baseColorLinear": [
+            0.423268,
+            0.508881,
+            0.508881
+          ],
+          "roughnessRange": [
+            0.32,
+            0.48
+          ],
+          "roughnessSuggested": 0.4,
+          "metallic": 0,
+          "materialInterpretation": "coated_structure_proxy",
+          "sourceIds": [
+            "bamboo-kpf"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        }
+      ],
+      "limitations": [
+        "玻璃与结构分工有设计方依据；具体银灰色与表面涂层是艺术解释。",
+        "这是后海春笋，不是大冲万象天地塔楼。"
+      ],
+      "sourceUrls": [
+        "https://www.kpf.com/project/china-resources-tower"
+      ]
+    },
+    {
+      "id": "qijie-gongguan",
+      "name": "七街公馆 / 哈尔滨大厦",
+      "colorClaim": "浅银灰实体格框为主要视觉骨架，蓝灰窗和较暗凹槽为次。",
+      "sourceIds": [
+        "qijie-photo",
+        "qijie-entry"
+      ],
+      "evidenceStatus": "previously_reviewed_field_photographs",
+      "roles": [
+        {
+          "id": "cladding",
+          "label": "浅银灰围护",
+          "baseColorSRGBHex": "#C9CECE",
+          "baseColorLinear": [
+            0.584078,
+            0.617207,
+            0.617207
+          ],
+          "roughnessRange": [
+            0.54,
+            0.72
+          ],
+          "roughnessSuggested": 0.63,
+          "metallic": 0,
+          "materialInterpretation": "opaque_cladding_unknown_substrate",
+          "sourceIds": [
+            "qijie-photo",
+            "qijie-entry"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "glass",
+          "label": "蓝灰窗",
+          "baseColorSRGBHex": "#829EAB",
+          "baseColorLinear": [
+            0.223228,
+            0.341914,
+            0.40724
+          ],
+          "roughnessRange": [
+            0.24,
+            0.38
+          ],
+          "roughnessSuggested": 0.31,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "qijie-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "recess",
+          "label": "蓝灰凹槽",
+          "baseColorSRGBHex": "#596F7A",
+          "baseColorLinear": [
+            0.099899,
+            0.158961,
+            0.194618
+          ],
+          "roughnessRange": [
+            0.36,
+            0.52
+          ],
+          "roughnessSuggested": 0.44,
+          "metallic": 0,
+          "materialInterpretation": "opaque_recess_proxy",
+          "sourceIds": [
+            "qijie-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "trim",
+          "label": "白灰细框",
+          "baseColorSRGBHex": "#DADDD9",
+          "baseColorLinear": [
+            0.701102,
+            0.723055,
+            0.693872
+          ],
+          "roughnessRange": [
+            0.48,
+            0.64
+          ],
+          "roughnessSuggested": 0.56,
+          "metallic": 0,
+          "materialInterpretation": "coated_trim_proxy",
+          "sourceIds": [
+            "qijie-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        }
+      ],
+      "limitations": [
+        "照片色彩未标定，围护基材不能仅凭灰白外观断定为混凝土或铝板。",
+        "保留窗与墙的面积关系，整栋不能替换成纯玻璃盒。"
+      ],
+      "sourceUrls": [
+        "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/35346e99-628d-4242-8ac9-a64f6adf9e5d.jpg",
+        "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/b6c701f6-debf-42df-a05d-1ef107f87a6d.jpg"
+      ]
+    },
+    {
+      "id": "fortune-plaza",
+      "name": "财富广场 A、B 座",
+      "colorClaim": "偏亮蓝玻璃、银白水平带和宽白实体墙共同表现弧面。",
+      "sourceIds": [
+        "fortune-photo"
+      ],
+      "evidenceStatus": "previously_reviewed_field_photographs",
+      "roles": [
+        {
+          "id": "glass",
+          "label": "蓝玻璃",
+          "baseColorSRGBHex": "#83A8B9",
+          "baseColorLinear": [
+            0.226966,
+            0.391572,
+            0.48515
+          ],
+          "roughnessRange": [
+            0.16,
+            0.28
+          ],
+          "roughnessSuggested": 0.22,
+          "metallic": 0,
+          "materialInterpretation": "opaque_glazing_proxy",
+          "sourceIds": [
+            "fortune-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "bands",
+          "label": "银白水平带",
+          "baseColorSRGBHex": "#CDD2D0",
+          "baseColorLinear": [
+            0.610496,
+            0.64448,
+            0.630757
+          ],
+          "roughnessRange": [
+            0.32,
+            0.5
+          ],
+          "roughnessSuggested": 0.41,
+          "metallic": 0,
+          "materialInterpretation": "coated_metal_proxy",
+          "sourceIds": [
+            "fortune-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "照片能确认颜色，面板基材未核，先使用介电涂层近似。"
+        },
+        {
+          "id": "walls",
+          "label": "白灰实体墙",
+          "baseColorSRGBHex": "#D3D4CF",
+          "baseColorLinear": [
+            0.651406,
+            0.658375,
+            0.62396
+          ],
+          "roughnessRange": [
+            0.52,
+            0.7
+          ],
+          "roughnessSuggested": 0.61,
+          "metallic": 0,
+          "materialInterpretation": "opaque_cladding_unknown_substrate",
+          "sourceIds": [
+            "fortune-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": ""
+        },
+        {
+          "id": "crown",
+          "label": "顶格栅",
+          "baseColorSRGBHex": "#BEC7C6",
+          "baseColorLinear": [
+            0.514918,
+            0.571125,
+            0.564712
+          ],
+          "roughnessRange": [
+            0.3,
+            0.48
+          ],
+          "roughnessSuggested": 0.39,
+          "metallic": 1,
+          "materialInterpretation": "bare_metal_proxy",
+          "sourceIds": [
+            "fortune-photo"
+          ],
+          "parameterStatus": "artistic_approximation_not_measured",
+          "notes": "顶格栅金属表现是艺术推定，未确认合金。"
+        }
+      ],
+      "limitations": [
+        "玻璃含强天空反射，不能把实景高光直接当固有色；A/B分面材质及牌号尚未测定。"
+      ],
+      "sourceUrls": [
+        "https://fang-community.leyoujia.com//community/album/2019-06/10/10/0bf01030-5f46-4f65-90b7-2864d64e6156.jpg"
+      ]
+    }
+  ],
+  "buildingGroups": [
+    {
+      "id": "residential_warm",
+      "name": "普通住宅：浅暖涂层/石色",
+      "classification": "已知住宅；以阳台、实墙与独立窗为主。用标签和外观证据分组。",
+      "paletteSRGBHex": [
+        "#D8D0BF",
+        "#CEC4B1",
+        "#C8B9A4"
+      ],
+      "windowSRGBHex": "#82969C",
+      "roughnessRange": [
+        0.64,
+        0.86
+      ],
+      "metallic": 0,
+      "textureNotes": [
+        "墙面细颗粒，低幅竖向雨痕",
+        "窗与阳台形成局部深色，墙面保持明度"
+      ],
+      "sourceIds": [
+        "sz-color-study",
+        "sz-roof-guide"
+      ],
+      "confidence": "art_directed_typology_not_citywide_statistics",
+      "paletteLinear": [
+        [
+          0.686685,
+          0.630757,
+          0.520996
+        ],
+        [
+          0.617207,
+          0.552011,
+          0.439657
+        ],
+        [
+          0.57758,
+          0.48515,
+          0.371238
+        ]
+      ],
+      "parameterStatus": "artistic_approximation_not_measured",
+      "sourceUrls": [
+        "https://www.szdesigncenter.com/pxjkl",
+        "https://zjj.sz.gov.cn/attachment/1/1396/1396655/11035379.pdf"
+      ]
+    },
+    {
+      "id": "residential_cool_tile",
+      "name": "普通住宅：灰白瓷砖/灰白围护",
+      "classification": "已知住宅，瓷砖或冷灰白实体墙证据优先；七街为独立专用配置。",
+      "paletteSRGBHex": [
+        "#D1D4D0",
+        "#C0C9C8",
+        "#D4D8D4"
+      ],
+      "windowSRGBHex": "#78939F",
+      "roughnessRange": [
+        0.42,
+        0.7
+      ],
+      "metallic": 0,
+      "textureNotes": [
+        "细砖缝主要放在法线/粗糙度层，避免每块砖黑边",
+        "重复窗格与局部窗帘变化，实体墙不随机发光"
+      ],
+      "sourceIds": [
+        "qijie-photo",
+        "node-nantou"
+      ],
+      "confidence": "sample_based_typology_estimated",
+      "paletteLinear": [
+        [
+          0.637597,
+          0.658375,
+          0.630757
+        ],
+        [
+          0.527115,
+          0.584078,
+          0.57758
+        ],
+        [
+          0.658375,
+          0.686685,
+          0.658375
+        ]
+      ],
+      "parameterStatus": "artistic_approximation_not_measured",
+      "sourceUrls": [
+        "https://fang-community.leyoujia.com//pic/hsl/2018-07/17/35346e99-628d-4242-8ac9-a64f6adf9e5d.jpg",
+        "https://www.archiposition.com/items/20240411043122"
+      ]
+    },
+    {
+      "id": "office_glass_cool",
+      "name": "办公楼：冷灰蓝/灰青玻璃",
+      "classification": "已知办公用途且幕墙外观可支持；不能仅凭楼高给整片区域套玻璃。",
+      "paletteSRGBHex": [
+        "#8FA6AF",
+        "#97AEAD",
+        "#899CA8"
+      ],
+      "windowSRGBHex": "#91AAB3",
+      "roughnessRange": [
+        0.18,
+        0.34
+      ],
+      "metallic": 0,
+      "textureNotes": [
+        "玻璃反射随朝向变化，保持窄而浅的分格",
+        "粗糙度按大面轻微变化，不叠全楼黑噪声"
+      ],
+      "sourceIds": [
+        "tencent-inhabit",
+        "mixc-foster",
+        "kk100-farrells"
+      ],
+      "confidence": "project_sample_typology_estimated",
+      "paletteLinear": [
+        [
+          0.274677,
+          0.381326,
+          0.42869
+        ],
+        [
+          0.309469,
+          0.423268,
+          0.417885
+        ],
+        [
+          0.250158,
+          0.332452,
+          0.391572
+        ]
+      ],
+      "parameterStatus": "artistic_approximation_not_measured",
+      "sourceUrls": [
+        "https://inhabitgroup.com/project/tencent-seafront-tower-shenzhen-prc/",
+        "https://www.fosterandpartners.com/projects/nanshan-technology-finance-city/",
+        "https://farrells.com/project/kk100/"
+      ]
+    },
+    {
+      "id": "office_masonry_mix",
+      "name": "办公楼：暖灰实墙与窗带",
+      "classification": "普通/较早办公楼或非通透幕墙证据；无照片时只作可替换默认。",
+      "paletteSRGBHex": [
+        "#C3C0B6",
+        "#B6B7B0",
+        "#CCC9C0"
+      ],
+      "windowSRGBHex": "#82999E",
+      "roughnessRange": [
+        0.54,
+        0.76
+      ],
+      "metallic": 0,
+      "textureNotes": [
+        "实墙占比高于全玻璃塔楼",
+        "水平窗带与实体角部区分，不使用统一住宅小窗贴图"
+      ],
+      "sourceIds": [
+        "pingan-kpf",
+        "sz-color-study"
+      ],
+      "confidence": "art_directed_typology_not_site_identification",
+      "paletteLinear": [
+        [
+          0.545724,
+          0.527115,
+          0.467784
+        ],
+        [
+          0.467784,
+          0.473531,
+          0.434154
+        ],
+        [
+          0.603827,
+          0.584078,
+          0.527115
+        ]
+      ],
+      "parameterStatus": "artistic_approximation_not_measured",
+      "sourceUrls": [
+        "https://www.kpf.com/project/ping-an-finance-centre",
+        "https://www.szdesigncenter.com/pxjkl"
+      ]
+    },
+    {
+      "id": "urban_village_tile",
+      "name": "城中村：灰白瓷砖/水刷石",
+      "classification": "须有城中村边界、名称、照片或人工确认；密度/小足印仅可列候选，不能单独定类。",
+      "paletteSRGBHex": [
+        "#D0D1C6",
+        "#BBBEB8",
+        "#B4B7AF",
+        "#C8C1B0"
+      ],
+      "windowSRGBHex": "#788B88",
+      "roughnessRange": [
+        0.46,
+        0.82
+      ],
+      "metallic": 0,
+      "textureNotes": [
+        "按楼区分瓷砖与水刷石，不按每个像素随机彩色",
+        "底层店铺允许少量低饱和蓝绿/砖红招牌，墙面仍是浅灰白",
+        "栏杆、空调和雨痕局部处理，不把城中村统一做成暗褐破败墙"
+      ],
+      "sourceIds": [
+        "node-nantou",
+        "sz-color-study"
+      ],
+      "confidence": "architect_documented_sample_with_artistic_variation",
+      "paletteLinear": [
+        [
+          0.630757,
+          0.637597,
+          0.564712
+        ],
+        [
+          0.496933,
+          0.514918,
+          0.47932
+        ],
+        [
+          0.456411,
+          0.473531,
+          0.42869
+        ],
+        [
+          0.57758,
+          0.533276,
+          0.434154
+        ]
+      ],
+      "parameterStatus": "artistic_approximation_not_measured",
+      "sourceUrls": [
+        "https://www.archiposition.com/items/20240411043122",
+        "https://www.szdesigncenter.com/pxjkl"
+      ]
+    },
+    {
+      "id": "roof_neutral",
+      "name": "屋顶：低饱和浅中灰",
+      "classification": "无屋顶专属资料的普通楼默认；地标已知屋顶优先专用。",
+      "paletteSRGBHex": [
+        "#B6BCB8",
+        "#A8B1AD",
+        "#C6C9C2"
+      ],
+      "windowSRGBHex": null,
+      "roughnessRange": [
+        0.68,
+        0.9
+      ],
+      "metallic": 0,
+      "textureNotes": [
+        "区别混凝土、防水层与机房，但控制整体反差",
+        "中心区/滨海/居住区按片区协调；此处是设计方向，不声称现状统计"
+      ],
+      "sourceIds": [
+        "sz-roof-guide"
+      ],
+      "confidence": "public_design_guidance_adapted_not_existing_condition",
+      "paletteLinear": [
+        [
+          0.467784,
+          0.502886,
+          0.47932
+        ],
+        [
+          0.391572,
+          0.439657,
+          0.417885
+        ],
+        [
+          0.564712,
+          0.584078,
+          0.539479
+        ]
+      ],
+      "parameterStatus": "artistic_approximation_not_measured",
+      "sourceUrls": [
+        "https://zjj.sz.gov.cn/attachment/1/1396/1396655/11035379.pdf"
+      ]
+    }
+  ]
+}

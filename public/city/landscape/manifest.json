@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "models": [
+    {
+      "id": "banyan",
+      "file": "banyan.glb",
+      "triangles": 2644,
+      "meshes": 2,
+      "bytes": 235540
+    },
+    {
+      "id": "banyan-lod",
+      "file": "banyan-lod.glb",
+      "triangles": 224,
+      "meshes": 2,
+      "bytes": 7636
+    },
+    {
+      "id": "palm",
+      "file": "palm.glb",
+      "triangles": 4124,
+      "meshes": 2,
+      "bytes": 178880
+    },
+    {
+      "id": "palm-lod",
+      "file": "palm-lod.glb",
+      "triangles": 176,
+      "meshes": 2,
+      "bytes": 8676
+    },
+    {
+      "id": "orchid-tree",
+      "file": "orchid-tree.glb",
+      "triangles": 2644,
+      "meshes": 2,
+      "bytes": 235556
+    },
+    {
+      "id": "orchid-tree-lod",
+      "file": "orchid-tree-lod.glb",
+      "triangles": 224,
+      "meshes": 2,
+      "bytes": 7644
+    },
+    {
+      "id": "lawn-tuft",
+      "file": "lawn-tuft.glb",
+      "triangles": 28,
+      "meshes": 1,
+      "bytes": 4112
+    },
+    {
+      "id": "flower-shrub",
+      "file": "flower-shrub.glb",
+      "triangles": 144,
+      "meshes": 2,
+      "bytes": 120448
+    },
+    {
+      "id": "fountain-grass",
+      "file": "fountain-grass.glb",
+      "triangles": 118,
+      "meshes": 2,
+      "bytes": 7504
+    },
+    {
+      "id": "drain-grate",
+      "file": "drain-grate.glb",
+      "triangles": 26,
+      "meshes": 2,
+      "bytes": 4128
+    },
+    {
+      "id": "manhole",
+      "file": "manhole.glb",
+      "triangles": 126,
+      "meshes": 2,
+      "bytes": 9852
+    }
+  ],
+  "source": "Original Blender procedural botanical studies, not a species survey",
+  "textureAtlas": [
+    1024,
+    1024
+  ],
+  "groundTextures": [
+    512,
+    512
+  ],
+  "budgets": {
+    "nearTrees": 48,
+    "farTrees": 220,
+    "lawnTufts": 520,
+    "shrubs": 110,
+    "ornamentalGrass": 120,
+    "roadDetails": 28,
+    "detailTriangleCeiling": 150000
+  },
+  "farCanopy": "Original Blender opaque distant silhouettes; retains near botanical models and planting clearance."
+}

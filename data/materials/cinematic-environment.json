@@ -1,0 +1,111 @@
+{
+  "id": "cinematic-bay-sunset",
+  "authoringPurpose": "Photographic sky and shared PBR environment; art direction, not measured Shenzhen illumination.",
+  "source": {
+    "name": "Belfast Sunset (Pure Sky)",
+    "page": "https://polyhaven.com/a/belfast_sunset_puresky",
+    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/belfast_sunset_puresky_4k.hdr",
+    "authors": [
+      "Dimitrios Savva",
+      "Greg Zaal",
+      "Jarod Guest"
+    ],
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "retrieved": "2026-09-05",
+    "size": 17420114,
+    "md5": "52d2339c16069a2aaa7fd37a320d8495",
+    "sha256": "cafc52b99ce15d84bd039826a0333f5ab0259d8c1f4feb2f7faf5fafa039108a",
+    "metadataUrl": "https://api.polyhaven.com/files/belfast_sunset_puresky"
+  },
+  "runtime": {
+    "file": "public/city/environment/belfast-sunset-4k.hdr",
+    "sourceResolution": [
+      4096,
+      2048
+    ],
+    "cubeFaceResolution": 1024,
+    "linear": true,
+    "prefilteredOnLoad": true,
+    "rotationY": 2.8,
+    "note": "Background exposure and sunset orientation are artistic settings. Runtime cube generation occurs once during loading. Final performance requires current asset test.",
+    "shadowContract": "Driving focus distance 800 with 520-world-unit caster radius; aerial focus distance 1800, frustum +/-1050, caster radius1650, refresh every12frames.",
+    "integrationStatus": "Current integrated reflection/moon/rain/sign/map package; visual report under output/playwright/reflection-repair-final",
+    "radianceGrade": "Uncompressed coral/amber/lavender HDR for PBR prefilter; separate 1024px RGB8 visible sky cube with hue-preserving shoulder. No extra source download or render pass.",
+    "nightSky": {
+      "source": "Directional procedural stars and textured moon disc; directional moonlight shares the moon direction. Artistic exposure, not astronomical simulation.",
+      "environment": "CC0 Rooftop Night 2K HDR / 512px cube; neutral fallback on load failure",
+      "extraRenderTargets": 0
+    }
+  },
+  "history": [
+    {
+      "date": "2026-09-05",
+      "reason": "2K source / 512 cube showed coarse cloud detail in the second integrated 1080p scene; retained during the 4K switch.",
+      "source": {
+        "name": "Belfast Sunset (Pure Sky)",
+        "page": "https://polyhaven.com/a/belfast_sunset_puresky",
+        "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/belfast_sunset_puresky_2k.hdr",
+        "authors": [
+          "Dimitrios Savva",
+          "Greg Zaal",
+          "Jarod Guest"
+        ],
+        "license": "CC0-1.0",
+        "licenseUrl": "https://polyhaven.com/license",
+        "retrieved": "2026-09-05",
+        "size": 4563204,
+        "md5": "4bb56d6163ef1c7ec762e4a7ef8ede81",
+        "sha256": "273003109ca1cfb798ce6b96e09ac8440f763d0ef0c376bbe77492613540b4a3"
+      },
+      "runtime": {
+        "file": "public/city/environment/belfast-sunset-2k.hdr",
+        "sourceResolution": [
+          2048,
+          1024
+        ],
+        "cubeFaceResolution": 512,
+        "linear": true,
+        "prefilteredOnLoad": true,
+        "rotationY": 2.8,
+        "note": "Background exposure and sunset orientation are artistic settings. Runtime cube generation occurs once during loading. Final performance requires current asset test.",
+        "shadowContract": "Directional light position follows focus minus normalized direction * 800 game units; retain shadow frustum and existing aerial cache."
+      },
+      "retainedOnDisk": false
+    },
+    {
+      "date": "2026-09-06",
+      "reason": "Separate sky display shoulder from IBL: the previous shared radiance cap erased surface highlights.",
+      "previousRadianceGrade": "Coral/amber/lavender HDR with hue-preserving rational highlight shoulder before spherical harmonics and roughness prefilter; source unchanged",
+      "previousNightSky": {
+        "source": "Procedural directional star field on the existing sky mesh",
+        "environment": "Independent neutral linear 32px cube, replacing sunset IBL at night",
+        "horizonFade": [
+          0.055,
+          0.28
+        ],
+        "extraRenderTargets": 0
+      }
+    }
+  ],
+  "validation": {
+    "source": "Official metadata bytes and MD5 match; local HDR header is 4096x2048",
+    "runtime": "48 tests and TypeScript/Vite build passed; current visual reports output/playwright/reflection-repair-final and output/playwright/building-signs-final",
+    "performance": "Current final build, actual 416.33-second night round trip: mean 57.21 FPS, P95 16.8 ms, P99 33.4 ms, 25 frames over 50 ms. 1080p Chrome Metal, 2 arrivals, 0 runtime/HTTP/GL errors. See output/playwright/rain-city-final-drive/report.json. Not a locked-60 or Codex in-app-browser claim."
+  },
+  "nightReflectionSource": {
+    "size": 6509158,
+    "md5": "966095e85f971fbc00aeb67e7d60d1c9",
+    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/rooftop_night_2k.hdr",
+    "name": "Rooftop Night",
+    "author": "Greg Zaal",
+    "page": "https://polyhaven.com/a/rooftop_night",
+    "metadataUrl": "https://api.polyhaven.com/files/rooftop_night",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "file": "public/city/environment/rooftop-night-2k.hdr",
+    "retrieved": "2026-09-06",
+    "sha256": "8ace3b81da7659381998ea4423fb4c7ffc1310ac27c4baa7a32088bd093de82e",
+    "purpose": "PBR lighting reference only; this is not a photograph of Shenzhen."
+  }
+}

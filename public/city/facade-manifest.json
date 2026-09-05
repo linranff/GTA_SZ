@@ -1,0 +1,13 @@
+{
+  "file": "buildings.glb",
+  "bytes": 353151272,
+  "triangles": 3310538,
+  "meshes": 882,
+  "nearDetails": {
+    "file": "facades.glb",
+    "bytes": 338506588,
+    "triangles": 3651432,
+    "meshes": 443
+  },
+  "balconyFacades": 7490
+}

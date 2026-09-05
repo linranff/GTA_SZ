@@ -1,0 +1,15 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--use-angle=metal']});
+const page=await browser.newPage({viewport:{width:1600,height:1000},deviceScaleFactor:1});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.status()+': '+r.url());});
+await page.goto(process.env.GAME_URL??'http://127.0.0.1:5173/',{waitUntil:'networkidle'});
+await page.waitForFunction(()=>window.__SHENCHENGJI__?.ready,null,{timeout:60000});
+await fs.mkdir('artifacts/game',{recursive:true});
+await page.screenshot({path:'artifacts/game/title-first.png'});
+await page.getByRole('button',{name:'走进这座城市'}).click();
+await page.getByRole('button',{name:'去看看这份活'}).click();
+await page.waitForTimeout(2000);
+await page.screenshot({path:'artifacts/game/street-first.png'});
+console.log(JSON.stringify({errors,state:await page.evaluate(()=>window.__SHENCHENGJI__.state),performance:await page.evaluate(()=>window.__SHENCHENGJI__.performance),bounds:await page.evaluate(()=>window.__SHENCHENGJI__.sceneStats.filter(m=>/street_road|street_ceramic|body_skin/.test(m.name)))},null,2));
+await browser.close();

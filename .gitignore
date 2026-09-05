@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+.DS_Store
+data/raw/*.pbf
+data/raw/*.part
+data/cache/
+*.blend1
+node_modules/
+dist/
+.npm-cache/
+test-results/
+artifacts/game/*.blend
+# Reproducible build products, downloaded originals and visual test captures.
+artifacts/
+output/
+data/raw/
+data/processed/
+archive/
+.env
+.env.*
+!.env.example
+*.log

@@ -1,0 +1,22 @@
+{
+  "excludedIds": [
+    "way/364716846",
+    "way/533679838",
+    "way/533679840",
+    "way/533679841",
+    "way/668050779",
+    "way/668050780",
+    "way/694152192",
+    "way/694152193"
+  ],
+  "assets": {
+    "buildings.glb": {
+      "bytes": 42262408,
+      "sha256": "3e3a62701058e0aa3bf5981f7bd60014d62d4a5df44e64f86c9239abdd49f17b"
+    },
+    "facades.glb": {
+      "bytes": 29815904,
+      "sha256": "346b49ffeaf96319d0635ca3e59e790bcb92857129b54e9f5c47a75a47b67f2f"
+    }
+  }
+}

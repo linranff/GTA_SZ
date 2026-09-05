@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "title": "Tencent logo since 2017",
+  "author": "Tencent",
+  "sourcePage": "https://commons.wikimedia.org/wiki/File:Tencent_logo_2017.svg",
+  "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Tencent_logo_2017.svg",
+  "upstreamStatedSource": "https://www.tencent.com/en-us/",
+  "retrievedAt": "2026-09-05",
+  "sourcePageCopyrightLabel": "PD-textlogo",
+  "sourcePageOtherMark": "Trademarked",
+  "actualEncoding": "The published SVG embeds one RGBA PNG; the PNG was extracted without resampling. This is not vector path geometry.",
+  "localPath": "data/raw/materials/tencent-logo-2017-source.png",
+  "width": 2160,
+  "height": 290,
+  "bytes": 61734,
+  "sha256": "4751b4e7b89321daba602ac6cc1f017d6f99934584de051d572ec4561bdfd4a7",
+  "usage": "Letterform source for recreating observed building signage; not a claim of endorsement.",
+  "runtimeDerivation": "Use original alpha contours, crop English region x=0..1531 for roof, recolor to observed white/silver or blue, downsample to bounded 512 px transparent texture."
+}

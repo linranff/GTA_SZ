@@ -1,0 +1,6 @@
+.city-audio-controls{width:min(430px,90vw);margin:22px auto 0;padding:18px 0;border-top:1px solid #e6ede025;text-align:left;color:#eef0e8;font:13px/1.6 system-ui,sans-serif}
+.audio-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;letter-spacing:.08em}
+.audio-heading button{padding:5px 13px;border:1px solid #cbdcca44;border-radius:5px;background:#d3ebdb12;color:#d2ebda;font:inherit;cursor:pointer}
+.city-audio-controls label{display:flex;align-items:center;justify-content:space-between;margin:9px 0;gap:20px;color:#c4c9c4}
+.city-audio-controls input{width:48%;accent-color:#a9d3b8;cursor:pointer}
+.city-audio-controls small{display:block;margin-top:12px;color:#a3aca7;font-size:11px}

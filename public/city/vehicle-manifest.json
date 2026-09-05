@@ -1,0 +1,393 @@
+{
+  "source": "Khronos glTF-Sample-Assets CarConcept",
+  "sourceTriangles": 213347,
+  "sourceStraightenedBounds": {
+    "min": [
+      -1.1689555644989014,
+      -2.4171547889709473,
+      -0.00024142861366271973
+    ],
+    "max": [
+      1.1689553260803223,
+      1.9402313232421875,
+      1.1486549377441406
+    ]
+  },
+  "sourceWheelCentresBlender": {
+    "lf": [
+      0.9754931926727295,
+      -1.4856806993484497,
+      0.3837592899799347
+    ],
+    "rf": [
+      -0.9766749143600464,
+      -1.4839686155319214,
+      0.3837592303752899
+    ],
+    "lr": [
+      0.9825136661529541,
+      1.314062476158142,
+      0.3837588429450989
+    ],
+    "rr": [
+      -0.981704831123352,
+      1.314062476158142,
+      0.3837588429450989
+    ]
+  },
+  "modifiedBoundsBlender": {
+    "min": [
+      -1.0262340307235718,
+      -2.5000030994415283,
+      0
+    ],
+    "max": [
+      1.0262342691421509,
+      2.499990940093994,
+      1.3183320760726929
+    ],
+    "size": [
+      2.0524682998657227,
+      4.9999940395355225,
+      1.3183320760726929
+    ]
+  },
+  "scale": {
+    "x": 0.877906976744186,
+    "y": 1.1474769210802114,
+    "z": 1.1474769210802114
+  },
+  "wheelCentresBlender": {
+    "lf": [
+      -0.8563922643661499,
+      1.4311549663543701,
+      0.4406319558620453
+    ],
+    "rf": [
+      0.8574297428131104,
+      1.4291903972625732,
+      0.4406318962574005
+    ],
+    "lr": [
+      -0.8625556230545044,
+      -1.781485676765442,
+      0.4406314492225647
+    ],
+    "rr": [
+      0.8618454933166504,
+      -1.781485676765442,
+      0.4406314492225647
+    ]
+  },
+  "wheelCentresGltf": {
+    "lf": [
+      -0.8563922643661499,
+      0.4406319558620453,
+      -1.4311549663543701
+    ],
+    "rf": [
+      0.8574297428131104,
+      0.4406318962574005,
+      -1.4291903972625732
+    ],
+    "lr": [
+      -0.8625556230545044,
+      0.4406314492225647,
+      1.781485676765442
+    ],
+    "rr": [
+      0.8618454933166504,
+      0.4406314492225647,
+      1.781485676765442
+    ]
+  },
+  "wheelRadius": 0.4404016423105851,
+  "brakeCorrections": [
+    {
+      "sourceWheel": "lr",
+      "mesh": "WheelRearLBrakeDisc",
+      "translationX": 0.07905665040016174
+    }
+  ],
+  "steeringBrakeMeshes": {
+    "lf": [
+      "brake_lf_caliper",
+      "brake_lf_darkalloy"
+    ],
+    "rf": [
+      "brake_rf_caliper",
+      "brake_rf_darkalloy"
+    ]
+  },
+  "front": "Blender +Y / GLTF -Z / game after existing root reflection +Z",
+  "triangles": 78825,
+  "meshes": 26,
+  "materials": [
+    "amberled",
+    "car_caliper",
+    "car_chrome",
+    "car_glass",
+    "car_leather",
+    "car_trim",
+    "carpaint",
+    "led",
+    "redled",
+    "wheel_alloy",
+    "wheel_darkalloy",
+    "wheel_rubber"
+  ],
+  "lights": {
+    "head": "led",
+    "tail": "redled",
+    "indicator": "amberled"
+  },
+  "textures": [
+    {
+      "name": "Image_12",
+      "size": [
+        512,
+        128
+      ]
+    }
+  ],
+  "removedObjects": [
+    "BodyWindshieldWipers",
+    "BodyWindshieldWipersBase",
+    "Engine",
+    "InteriorFloormats",
+    "InteriorPedalAccel",
+    "InteriorPedalAccelArm",
+    "InteriorPedalBrake",
+    "InteriorPedalBrakeArm",
+    "InteriorSeatsFrame1",
+    "InteriorSeatsFrame2",
+    "InteriorSteeringBase",
+    "InteriorSteeringCylinder",
+    "InteriorSteeringEmblem",
+    "InteriorSteeringHandleL",
+    "InteriorSteeringHandleR",
+    "InteriorRearHatch",
+    "BodyHoodInterior01",
+    "BodyHoodInterior02",
+    "InteriorDoorR01",
+    "InteriorDoorR02",
+    "InteriorDoorR03",
+    "InteriorDoorR04",
+    "InteriorDoorR05",
+    "InteriorDoorR06",
+    "InteriorDoorL04",
+    "InteriorDoorL01",
+    "InteriorDoorL02",
+    "InteriorDoorL03",
+    "InteriorDoorL05",
+    "InteriorDoorL06",
+    "Axles"
+  ],
+  "glbBytes": 3114608,
+  "sha256": "acde675fd1c606413b883981bbaf888f011a2ad70397e1141e25ffdd8de70c2e",
+  "delivery": {
+    "bytes": 2143520,
+    "primitives": 26,
+    "triangles": 78825,
+    "materials": [
+      {
+        "name": "car_caliper",
+        "color": [
+          0.6600000262260437,
+          0.23999999463558197,
+          0.03500000014901161,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "wheel_darkalloy",
+        "color": [
+          0.07500000298023224,
+          0.09200000017881393,
+          0.11500000208616257,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "amberled",
+        "color": [
+          1,
+          0.25,
+          0.02500000037252903,
+          1
+        ],
+        "emissive": [
+          0.3499999940395355,
+          0.08749999850988388,
+          0.008749999981373546
+        ]
+      },
+      {
+        "name": "car_chrome",
+        "color": [
+          0.5799999833106995,
+          0.6399999856948853,
+          0.699999988079071,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "car_glass",
+        "color": [
+          0.07500000298023224,
+          0.14000000059604645,
+          0.20000000298023224,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "car_leather",
+        "color": [
+          0.28999999165534973,
+          0.20000000298023224,
+          0.11999999731779099,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "led",
+        "color": [
+          0.699999988079071,
+          0.8500000238418579,
+          1,
+          1
+        ],
+        "emissive": [
+          0.699999988079071,
+          0.8500000238418579,
+          1
+        ]
+      },
+      {
+        "name": "carpaint",
+        "color": [
+          0.03500000014901161,
+          0.0949999988079071,
+          0.3199999928474426,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "redled",
+        "color": [
+          1,
+          0.008999999612569809,
+          0.00800000037997961,
+          1
+        ],
+        "emissive": [
+          1,
+          0.008999999612569809,
+          0.00800000037997961
+        ]
+      },
+      {
+        "name": "car_trim",
+        "color": [
+          0.03200000151991844,
+          0.039000000804662704,
+          0.052000001072883606,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "wheel_alloy",
+        "color": [
+          0.6100000143051147,
+          0.6499999761581421,
+          0.699999988079071,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "wheel_rubber",
+        "color": [
+          0.02199999988079071,
+          0.027000000700354576,
+          0.032999999821186066,
+          1
+        ],
+        "emissive": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "textures": [
+      {
+        "name": "Image_12",
+        "size": [
+          512,
+          128
+        ],
+        "mimeType": "image/png"
+      }
+    ],
+    "extensions": [
+      "KHR_materials_clearcoat",
+      "KHR_materials_emissive_strength"
+    ],
+    "sha256": "3afa89657aa2af08cebe471b86c3ffb36f0e397d8d842ff5ba48142679a36826"
+  },
+  "wheelbaseMetres": 3.2116583585739136,
+  "frontTrackMetres": 1.7138220071792603,
+  "rearTrackMetres": 1.7244011163711548,
+  "recommendedHeadlightAnchorsGame": [
+    [
+      -0.7,
+      0.79,
+      2.36
+    ],
+    [
+      0.7,
+      0.79,
+      2.36
+    ]
+  ]
+}
