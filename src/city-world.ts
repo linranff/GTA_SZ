@@ -195,7 +195,12 @@ export class DrivingWorld{
  setupSigns(){
   // Signs are placed at actual major-road points, never at arbitrary world rows.
   let count=0;for(const road of this.data.roads){if(road.points.length<4||!['primary','trunk'].includes(road.kind)||road.name.includes('辅'))continue;const a=road.points[0],b=road.points[1];if(Math.abs(a[0]-this.data.spawn.x)>650||Math.abs(a[1]-this.data.spawn.z)>700)continue;if(count++>8)break;
-   const sign=MeshBuilder.CreatePlane('direction-sign',{width:8,height:2,sideOrientation:Mesh.DOUBLESIDE},this.scene);const mat=new StandardMaterial('wayfinding',this.scene);mat.diffuseTexture=new Texture('/city/textures/sign-'+(b[0]<a[0]?'west':'east')+'.jpg',this.scene);(mat.diffuseTexture as Texture).anisotropicFilteringLevel=8;mat.specularColor=Color3.Black();mat.disableLighting=true;mat.emissiveTexture=mat.diffuseTexture;mat.diffuseTexture=null;mat.emissiveColor=new Color3(.62,.70,.68);sign.material=mat;sign.position.set(a[0],6.8,a[1]);sign.rotation.y=Math.atan2(b[0]-a[0],b[1]-a[1])+Math.PI;sign.isPickable=false;
+   const sign=MeshBuilder.CreatePlane('direction-sign',{width:8,height:2,sideOrientation:Mesh.DOUBLESIDE},this.scene);const mat=new StandardMaterial('wayfinding',this.scene);
+   mat.diffuseTexture=new Texture('/city/textures/sign-'+(b[0]<a[0]?'west':'east')+'.jpg',this.scene);mat.diffuseTexture.anisotropicFilteringLevel=8;
+   // StandardMaterial adds emissiveTexture to emissiveColor. Keep the green
+   // artwork in diffuseTexture so the unlit brightness multiplies its color.
+   mat.specularColor=Color3.Black();mat.disableLighting=true;mat.emissiveColor=new Color3(.82,.82,.82);
+   sign.material=mat;sign.position.set(a[0],6.8,a[1]);sign.rotation.y=Math.atan2(b[0]-a[0],b[1]-a[1])+Math.PI;sign.isPickable=false;
   }
  }
  cull(){const p=this.sceneFocus();this.lastCull.set(p.x,0,p.z);const shadowDistance=this.overviewEffects?1800:800;this.sun.position.set(p.x-this.sun.direction.x*shadowDistance,this.groundHeight(p.x,p.z)-this.sun.direction.y*shadowDistance,p.z-this.sun.direction.z*shadowDistance);this.facadeStream?.update(p.x,p.z,this.debugFacades);const traffic=this.traffic?.meshes.flat()??[];const casters:AbstractMesh[]=[...this.carMeshes,...traffic,...(this.pedestrians?.casters??[])];const reflect:AbstractMesh[]=[...this.carMeshes,...this.landmarks,...traffic,...(this.buildingSigns?.meshes??[])];const sky=this.scene.getMeshByName('atmosphere');if(sky)reflect.push(sky);
@@ -233,7 +238,10 @@ export class DrivingWorld{
   this.architecture.setNight(this.night);this.facadeDiversity.setNight(this.night);this.signage?.setNight(this.night);this.buildingSigns?.setNight(this.night);
   this.cinematic?.setMode(mode);this.bayWater?.setNight(this.night);this.publicLighting?.setMode(mode);this.lightTick=0;
   for(const light of this.headlights)light.intensity=mode==='day'?20:250;
-  for(const m of this.scene.materials){if(m instanceof PBRMaterial&&/^lamp(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:1;if(m instanceof StandardMaterial&&m.name==='wayfinding')m.emissiveColor.copyFrom(mode==='day'?new Color3(.24,.31,.27):new Color3(.62,.70,.68));}
+  for(const m of this.scene.materials){
+   if(m instanceof PBRMaterial&&/^lamp(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:1;
+   if(m instanceof StandardMaterial&&m.name==='wayfinding'){const brightness=mode==='day'?.95:mode==='night'?.60:.82;m.emissiveColor.copyFromFloats(brightness,brightness,brightness);}
+  }
   this.cull();this.shadows.getShadowMap()?.resetRefreshCounter();this.mirror.resetRefreshCounter();this.waterMirror.resetRefreshCounter();
   this.onMessage?.({sunset:'海湾日落 · L 切换夜色',night:'月下深圳 · L 切换晴日',day:'雨后晴日 · 蓝天白云 · L 切换日落'}[mode]);
  }
