@@ -1,4 +1,4 @@
-import type {Road, V2} from './city-types.ts';
+import type {Landmark, Road, V2} from './city-types.ts';
 
 export type MapView = {x: number; z: number; scale: number; width: number; height: number};
 export type MapCategory = 'landmark' | 'district' | 'park' | 'place' | 'transport' | 'road';
@@ -114,6 +114,16 @@ export class MapRoadIndex {
     for (const segment of this.segments) inspect(segment);
     return best;
   }
+}
+
+/** Observation stays at the clicked point; only the car's arrival snaps to a road. */
+export function mapPointDestination(point: V2, roads: MapRoadIndex): (Landmark & {category: MapCategory; source: MapPlaceSource}) | null {
+  const nearest = roads.nearest(point);
+  if (!nearest) return null;
+  return {id: `map-point:${point[0].toFixed(2)}:${point[1].toFixed(2)}`, name: `${nearest.road.name}附近 · 选定位置`,
+    x: point[0], z: point[1], height: 0, area: '深圳 · 地图选点', excludeRadius: 0,
+    arrival: [nearest.x, nearest.z], yaw: nearest.yaw, category: 'place',
+    source: {provider: 'OpenStreetMap', id: nearest.road.id, url: `https://www.openstreetmap.org/${nearest.road.id}`, coordinateMethod: 'map_pointer_with_nearest_road_arrival'}};
 }
 
 export function roadLabelAnchor(road: Road): {point: V2; angle: number; length: number} | null {

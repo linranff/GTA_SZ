@@ -2,7 +2,7 @@ import './city-map.css';
 import type {CityData, Landmark, Road, V2} from './city-types.ts';
 import type {RoadGraph} from './navigation.ts';
 import {localMapView, rememberLocalMapWidth} from './city-map-view.ts';
-import {MapRoadIndex, mapToScreen, screenToMap, zoomMapAt, placeMapLabels, roadLabelAnchor, wgs84ToMap,
+import {MapRoadIndex, mapPointDestination, mapToScreen, screenToMap, zoomMapAt, placeMapLabels, roadLabelAnchor, wgs84ToMap,
   type MapCategory, type MapView, type MapLabelCandidate, type MapPlaceSource, type SourcedMapPlace} from './city-map-geometry.ts';
 
 export type CityMapDestination = Landmark & {
@@ -89,7 +89,7 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
             <p id="destination-status">从地图或列表中选择目的地。</p>
             <p id="map-destination-address" hidden></p>
             <div class="atlas-route-actions" hidden><button id="auto-drive" type="button">自动驾驶前往 <span>↗</span></button><button id="drive-route" type="button">自己开过去 <span>→</span></button></div>
-            <div class="atlas-travel-actions"><button id="quick-travel" type="button" disabled>瞬移到附近道路</button><button id="photo-view" type="button" disabled>俯瞰此处</button></div>
+            <div class="atlas-travel-actions"><button id="quick-travel" type="button" disabled>移动到附近道路</button><button id="photo-view" type="button" disabled>俯瞰此处</button></div>
             <div class="atlas-secondary-actions" hidden><a id="map-place-source" target="_blank" rel="noopener noreferrer" hidden>地点来源 ↗</a></div>
           </div>
         </aside>
@@ -244,7 +244,7 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
     node<HTMLButtonElement>('#quick-travel').disabled = !selected || !options.onDebugTravel;
     node<HTMLButtonElement>('#photo-view').disabled = !selected;
     if (!selected) {
-      writeText(title, '开往你想去的地方'); writeText(destinationStatus, '选择地点后，可瞬移到附近道路、俯瞰或自动驾驶。');
+      writeText(title, '开往你想去的地方'); writeText(destinationStatus, '点击地图任意位置，可移动到附近道路、俯瞰或自动驾驶。');
       writeText(node('#map-selection-category'), '下一站'); writeText(node('#map-selection-visited'), '');
       node('#map-destination-address').hidden = true; sourceLink.hidden = true; return;
     }
@@ -275,11 +275,8 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
     const label = [...hitLabels].reverse().find(box => point[0] >= box.left && point[0] <= box.left + box.width && point[1] >= box.top && point[1] <= box.top + box.height);
     const marker = hitMarkers.find(p => Math.hypot(p.x - point[0], p.y - point[1]) < 13);
     if (label || marker) { selectDestination((label ?? marker)!.place, false); return; }
-    const world = screenToMap(view, point), nearest = roadIndex.nearest(world);
-    if (!nearest || nearest.distance > Math.min(180, 18 / view.scale)) { writeText(status, '这里没有附近的驾驶道路，请选择地图中的道路或地点。'); return; }
-    const destination: CityMapDestination = {id: `map-point:${Math.round(nearest.x)}:${Math.round(nearest.z)}`, name: `${nearest.road.name} · 选定路段`,
-      x: nearest.x, z: nearest.z, height: 0, area: '深圳 · 地图选点', excludeRadius: 0,
-      arrival: [nearest.x, nearest.z], yaw: nearest.yaw, category: 'road', source: {provider: 'OpenStreetMap', id: nearest.road.id, url: `https://www.openstreetmap.org/${nearest.road.id}`, coordinateMethod: 'nearest_road_point'}};
+    const destination = mapPointDestination(screenToMap(view, point), roadIndex);
+    if (!destination) { writeText(status, '道路数据暂时未载入，请稍后重试。'); return; }
     selectDestination(destination, false);
   }
 

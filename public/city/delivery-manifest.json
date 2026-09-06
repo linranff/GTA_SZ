@@ -1,9 +1,9 @@
 {
-  "date": "2026-09-05T19:41:51.514Z",
+  "date": "2026-09-06T04:32:12.837Z",
   "assets": {
     "buildings.glb": {
-      "bytes": 42262408,
-      "sha256": "3e3a62701058e0aa3bf5981f7bd60014d62d4a5df44e64f86c9239abdd49f17b"
+      "bytes": 49728080,
+      "sha256": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb"
     },
     "car.glb": {
       "bytes": 2143520,
@@ -66,7 +66,7 @@
       "sha256": "676d3ae4c461c8f5d07736ed3b737f0b355f51055f76e756013dfdba7514ba8f"
     }
   },
-  "totalGlbBytes": 98565060,
+  "totalGlbBytes": 106030732,
   "files": {
     "LANDMARK_ATTRIBUTION.md": {
       "bytes": 1779,
@@ -77,8 +77,8 @@
       "sha256": "acb58a684f0e821545fda8e54de4347fb78b097efad43a7f2cdd6c3d61286d67"
     },
     "buildings.glb": {
-      "bytes": 42262408,
-      "sha256": "3e3a62701058e0aa3bf5981f7bd60014d62d4a5df44e64f86c9239abdd49f17b"
+      "bytes": 49728080,
+      "sha256": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb"
     },
     "car.glb": {
       "bytes": 2143520,
@@ -13777,7 +13777,7 @@
       "sha256": "4f704aeb8baae349e4e99f4f57be309a06b7687e38b2efd50f3a43d71199dd2d"
     }
   },
-  "totalRuntimeFileBytes": 287802200,
+  "totalRuntimeFileBytes": 295267872,
   "streamingFacades": {
     "totalTiles": 150,
     "totalBytes": 32166308,

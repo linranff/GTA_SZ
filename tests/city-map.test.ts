@@ -1,13 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {MapRoadIndex, mapToScreen, screenToMap, zoomMapAt, placeMapLabels, wgs84ToMap, roadLabelAnchor,
+import {MapRoadIndex, mapPointDestination, mapToScreen, screenToMap, zoomMapAt, placeMapLabels, wgs84ToMap, roadLabelAnchor,
   type MapView, type SourcedMapPlace} from '../src/city-map-geometry.ts';
 import type {CityData, Road, V2} from '../src/city-types.ts';
 import {localMapView, rememberLocalMapWidth} from '../src/city-map-view.ts';
 
 const close = (a: number, b: number, epsilon = 1e-8) => assert.ok(Math.abs(a - b) < epsilon, `${a} differs from ${b}`);
 const makeRoad = (name: string, points: V2[]): Road => ({id: name, name, points, kind: 'primary', width: 10, grade: '0', oneway: true});
+
+test('off-road map selection preserves the observation point and independently snaps car arrival', () => {
+  const roads = new MapRoadIndex([makeRoad('滨海大道', [[-500, 0], [500, 0]])]);
+  for (const point of [[80, 500], [-80, -700], [9000, 12000]] as V2[]) {
+    const destination = mapPointDestination(point, roads)!;
+    assert.deepEqual([destination.x, destination.z], point);
+    assert.deepEqual(destination.arrival, [Math.max(-500, Math.min(500, point[0])), 0]);
+    assert.equal(destination.yaw, Math.PI / 2);
+  }
+  assert.notEqual(mapPointDestination([80, 500], roads)!.id, mapPointDestination([80, 600], roads)!.id);
+  assert.equal(mapPointDestination([80, 500], new MapRoadIndex([])), null);
+});
 
 test('opening the map centers the current driving or observer location at a local scale', () => {
   const view = {x: 0, z: 0, scale: .08, width: 1280, height: 740};

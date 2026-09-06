@@ -2,10 +2,11 @@ import {Color3,DynamicTexture,Matrix,Mesh,PBRMaterial,Texture,Vector3,VertexBuff
 
 type Triangle = {points:number[];minX:number;maxX:number;minY:number;maxY:number};
 
-/** A small, source-surface-fitted identity plate for the integrated CarConcept.
+/** A source-surface-fitted identity plate for the integrated CarConcept.
  * The original model, materials, wheels and CC BY attribution are untouched.
- * Inspection of public/city/car.glb found its lower rear surface at GLB Z
- * 2.439–2.492 m for X ±.24, Y .328–.468. Runtime projection below rechecks
+ * The enlarged lettering spans 3× the original physical width and height.
+ * Its rear-panel surface is GLB Z 2.399–2.500 m at X ±.72, Y .34–.76.
+ * Runtime projection below rechecks
  * the actual imported surface in carRoot space, including the existing Z flip.
  * The original taillights are retained: their surrounding surface has a deep
  * discontinuity, so a continuous added strip would not be reliably flush.
@@ -17,7 +18,7 @@ export function applyCinematicVehicleFinish(scene:Scene,carRoot:TransformNode,ca
   let disposed = false;
   let skippedReason:string|null = null;
   let surfaceRange:number[] = [];
-  const width=.48,height=.14,centreY=.398,offset=.006,columns=32,rows=12;
+  const width=1.44,height=.42,centreY=.55,offset=.006,columns=32,rows=12;
   const inverseRoot=Matrix.Invert(carRoot.computeWorldMatrix(true));
   const tail=carMeshes.find(mesh=>/^car_redled(?:\.\d+)?$/.test(mesh.name));
   let rearSign=-1;
@@ -44,7 +45,7 @@ export function applyCinematicVehicleFinish(scene:Scene,carRoot:TransformNode,ca
       for(let k=0;k<3;k++){const j=indices[i+k]*3;p.push(positions[j],positions[j+1],positions[j+2]);}
       const minX=Math.min(p[0],p[3],p[6]),maxX=Math.max(p[0],p[3],p[6]);
       const minY=Math.min(p[1],p[4],p[7]),maxY=Math.max(p[1],p[4],p[7]);
-      if(maxX<-.25||minX>.25||maxY<.32||minY>.48||Math.max(p[2]*rearSign,p[5]*rearSign,p[8]*rearSign)<1.8)continue;
+      if(maxX<-width/2-offset||minX>width/2+offset||maxY<centreY-height/2-offset||minY>centreY+height/2+offset||Math.max(p[2]*rearSign,p[5]*rearSign,p[8]*rearSign)<1.8)continue;
       triangles.push({points:p,minX,maxX,minY,maxY});
     }
   }
@@ -73,7 +74,7 @@ export function applyCinematicVehicleFinish(scene:Scene,carRoot:TransformNode,ca
       depths.push(depth);positions.push(x,y,rearSign*(depth+offset));uvs.push(rearSign<0?u:1-u,v);
     }
     const min=Math.min(...depths),max=Math.max(...depths);
-    if(!depths.every(Number.isFinite)||min<2.35||max>2.56||max-min>.09)skippedReason='rear-plate-surface-check-failed';
+    if(!depths.every(Number.isFinite)||min<2.38||max>2.52||max-min>.12)skippedReason='rear-plate-surface-check-failed';
     else surfaceRange=[min,max];
   }
 

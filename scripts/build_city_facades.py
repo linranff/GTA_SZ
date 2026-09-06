@@ -27,8 +27,11 @@ chunks={};details={};detail_count=0
 for row in city['buildings']:
  if row.get('id') in excluded:continue
  ring=row['rings'][0];cx=sum(p[0] for p in ring[:-1])/len(ring[:-1]);cy=sum(p[1] for p in ring[:-1])/len(ring[:-1]);key=(math.floor(cx/640),math.floor(cy/640));b=chunks.setdefault(key,FacadeMesh());h=row['height'];typ=row['style'];rnd=random.Random(row['seed']);b.tint=rnd.choice(palettes[typ]);baseTint=b.tint
- b.footprint(typ,ring,0,h);b.footprint('concrete' if typ=='residential' else 'steel',ring,h,h+.40,1.015);b.footprint(typ,ring,h+.4,h+max(1.2,h*.035),.76)
- b.footprint('darkglass',ring,.12,min(3.5,h*.25),1.006)
+ # Split the wall vertically: overlapping a scaled glass shell and the main
+ # facade caused depth fighting, especially on concave and narrow footprints.
+ shop_top=min(3.5,h*.25)
+ b.footprint(typ,ring,shop_top,h);b.footprint('concrete' if typ=='residential' else 'steel',ring,h,h+.40,1.015);b.footprint(typ,ring,h+.4,h+max(1.2,h*.035),.76)
+ b.footprint('darkglass',ring,0,shop_top)
  if h>25:b.box('roof',(cx,cy,h+max(2,h*.04)),(max(1.4,math.sqrt(h)*.7),2.5,1.1))
  if typ=='residential' and h<65:
   for z in range(6,int(h),4):b.footprint('concrete',ring,z,z+.16,1.018)
