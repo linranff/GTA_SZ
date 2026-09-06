@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-06T05:23:10.806Z",
+  "date": "2026-09-06T06:04:28.500Z",
   "assets": {
     "buildings.glb": {
       "bytes": 49728080,
@@ -22,8 +22,8 @@
       "sha256": "346b49ffeaf96319d0635ca3e59e790bcb92857129b54e9f5c47a75a47b67f2f"
     },
     "landmark-detail.glb": {
-      "bytes": 1375748,
-      "sha256": "04643a8c21dc74c30c2e80745b76e8ab69830d75d70b9db54c2d2d54aa548d00"
+      "bytes": 2163100,
+      "sha256": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22"
     },
     "landmarks.glb": {
       "bytes": 2266028,
@@ -66,7 +66,7 @@
       "sha256": "676d3ae4c461c8f5d07736ed3b737f0b355f51055f76e756013dfdba7514ba8f"
     }
   },
-  "totalGlbBytes": 106030732,
+  "totalGlbBytes": 106818084,
   "files": {
     "LANDMARK_ATTRIBUTION.md": {
       "bytes": 1779,
@@ -123,10 +123,6 @@
     "environment/rooftop-night-2k.hdr": {
       "bytes": 6509158,
       "sha256": "8ace3b81da7659381998ea4423fb4c7ffc1310ac27c4baa7a32088bd093de82e"
-    },
-    "environment/shenzhen-fire-sky.hdr": {
-      "bytes": 14668816,
-      "sha256": "6bf277074763cf24bcfa1a48bdd297e78c58598c699d13924e1edeafec3efa81"
     },
     "facade-manifest.json": {
       "bytes": 237,
@@ -13441,12 +13437,12 @@
       "sha256": "2601c3181b91b6115803b1276658c625ef3f4881a404a88fa376e8e99becddf3"
     },
     "landmark-detail.glb": {
-      "bytes": 1375748,
-      "sha256": "04643a8c21dc74c30c2e80745b76e8ab69830d75d70b9db54c2d2d54aa548d00"
+      "bytes": 2163100,
+      "sha256": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22"
     },
     "landmark-detail.json": {
-      "bytes": 26617,
-      "sha256": "fa37faf0924519b6eda01734b2387c7f86cafaae38c6f505f53e40dd9bd24766"
+      "bytes": 33019,
+      "sha256": "bfe6907f82731d00621d378a65f04c33dd4fbd70d2bc35fc0d2c175c1c51852b"
     },
     "landmark-signage.json": {
       "bytes": 5519,
@@ -13781,7 +13777,7 @@
       "sha256": "4f704aeb8baae349e4e99f4f57be309a06b7687e38b2efd50f3a43d71199dd2d"
     }
   },
-  "totalRuntimeFileBytes": 309936688,
+  "totalRuntimeFileBytes": 296061626,
   "streamingFacades": {
     "totalTiles": 150,
     "totalBytes": 32166308,

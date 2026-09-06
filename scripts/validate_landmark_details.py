@@ -3,7 +3,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
-from shapely.geometry import Polygon, Point
+from shapely.geometry import Polygon, Point, LineString
 from landmarks.lianhua import height_at
 
 R = Path(__file__).resolve().parents[1]
@@ -52,6 +52,18 @@ for mark in m['landmarks']:
     check(not any(Polygon(f['rings'][0], f['rings'][1:]).contains(Point(*mark['arrival']))
                   for f in m['collisionFootprints']), 'Arrival placed inside replacement building '+mark['id'])
     check(height_at(g, *mark['arrival']) < .2, 'Arrival needs slope-aware review '+mark['id'])
+if any(mark['id']=='civic' for mark in m['landmarks']):
+    civic = load('data/landmarks/civic.json')
+    by_role = {part['role']: part for part in civic['parts']}
+    check(by_role['yellow-round']['centerMeters'][0] < 0 < by_role['red-square']['centerMeters'][0],
+          'Civic yellow/red tower orientation reversed')
+    check('landmark_civic_' in m['replacedMeshPrefixes'], 'Legacy civic roof/towers remain')
+    solids = [Polygon(f['rings'][0], f['rings'][1:]) for f in m['collisionFootprints'] if f['id'].startswith('detail-civic-')]
+    for road_id in ['way/616988593', 'way/617152037']:
+        road = next(road for road in city['roads'] if road['id']==road_id)
+        path = LineString(road['points'])
+        check(min(p.distance(path) for p in solids) > road['width']/2+1.15,
+              'Civic service passage obstructed: '+road_id)
 report = {'passed': not errors, 'errors': errors, 'landmarks': [x['id'] for x in m['landmarks']],
           'assetSha256': hashlib.sha256(asset.read_bytes()).hexdigest(),
           'terrain': t['stats'], 'replacedChunks': [p for p in m['replacedMeshPrefixes'] if p.startswith('block_')]}

@@ -5,7 +5,7 @@
 | Island Tree 03 | [Poly Haven](https://polyhaven.com/a/island_tree_03)，Rico Cilliers / Rob Tuytel | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | 实测高面数源模型的游戏衍生树干、照片叶簇及近远景版本 |
 | Palm tree v2 | [OpenGameArt](https://opengameart.org/content/palm-tree-v2)，Yughues | CC0 1.0；原包附许可说明 | 有真实叶纹与透明遮罩的棕榈树 |
 | Modular Street Seating | [Poly Haven](https://polyhaven.com/a/modular_street_seating)，Stuart Attenborrow | CC0 1.0 | 从模块包组装一张有靠背长椅，保留木材、金属的 albedo / normal / ARM；移除散放的备选连接件并降模 |
-| Belfast Sunset | [Poly Haven](https://polyhaven.com/a/belfast_sunset)，既有项目来源记录 | CC0 1.0 | 历史日落环境，已由项目生成的火烧云替换 |
+| Belfast Sunset (Pure Sky) | [Poly Haven](https://polyhaven.com/a/belfast_sunset_puresky)，Dimitrios Savva / Greg Zaal / Jarod Guest | CC0 1.0 | 当前日落天空与玻璃、水面、车漆的环境照明；运行时统一调色 |
 
 源模型与贴图下载保存在 `sources/`。Poly Haven 的 25 个文件已按官方下载清单逐个校验 MD5，见 `sources/verified-downloads.json`。只有经过实时加工的资产进入游戏目录。
 
@@ -13,4 +13,4 @@
 
 车体沿用已有 CarConcept（DGG / Eric Chadwick，CC BY 4.0），本轮仪表舱是可逆运行时衍生部件，继续保留原署名。音效和《海湾晚风》BGM 为项目中新编写的 Web Audio 合成内容，无外部录音或歌曲采样。
 
-当前火烧云全景由 Codex 图像生成工具参考用户提供的天空图片生成，并用 Blender 转为游戏环境贴图；它不是 Poly Haven 的 CC0 摄影素材。来源与加工记录见 `data/materials/cinematic-environment.json`。
+当前傍晚恢复使用 Belfast Sunset 4K 的摄影云层，加载时作方向性橙色晚霞、暗云底与靛蓝背光调色。前一版生成的火烧云全景已从交付目录移除。来源、哈希与加工记录见 `data/materials/cinematic-environment.json`。

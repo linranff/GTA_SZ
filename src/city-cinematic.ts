@@ -83,7 +83,7 @@ export async function createCinematicLook(world:CinematicScene){
  try{
   await loaded;
   if(scene.isDisposed)throw new Error('Scene disposed');
-  // Rotate the authored sunset toward the west/southwest, consistently for
+  // Rotate the restored photographic sunset toward the west/southwest, for
   // the visible sky and every PBR surface. This is art direction, not astronomy.
   environment.rotationY=CITY_SUNSET_SOURCE.rotationY;
   scene.environmentTexture=environment;

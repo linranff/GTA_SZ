@@ -3,14 +3,15 @@
   "asset": "/city/landmark-detail.glb",
   "assetStats": {
     "file": "landmark-detail.glb",
-    "bytes": 1375748,
-    "triangles": 103564,
-    "meshes": 27,
-    "sha256": "04643a8c21dc74c30c2e80745b76e8ab69830d75d70b9db54c2d2d54aa548d00"
+    "bytes": 2163100,
+    "triangles": 210204,
+    "meshes": 41,
+    "sha256": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22"
   },
   "replacedMeshPrefixes": [
     "landmark_tencent_",
-    "landmark_lianhua_"
+    "landmark_lianhua_",
+    "landmark_civic_"
   ],
   "baseBuildingIds": [
     "way/364716846",
@@ -171,6 +172,35 @@
         "OSM高度有标签但未被设计方尺寸复核",
         "三栋楼塔改善不等于万象天地整体高精模",
         "缺少近期四面照片/商场平面定位，暂不自动制作店招、装置或街区精细外观"
+      ]
+    },
+    {
+      "id": "civic",
+      "name": "深圳市民中心",
+      "lon": 114.05452,
+      "lat": 22.54637,
+      "x": 1821.68,
+      "z": 692.63,
+      "height": 50.82,
+      "area": "福田 · 市民中心",
+      "excludeRadius": 0,
+      "arrival": [
+        1820.55,
+        402.54
+      ],
+      "yaw": 4.7518302685576534,
+      "arrivalRoad": "深南大道",
+      "detailCollision": true,
+      "photoDistance": 360,
+      "photoTargetHeight": 22,
+      "photoElevation": 0.26,
+      "photoAngle": 0,
+      "sourceStatus": "Mapped component footprints; roof surface, facade details and lighting fitted to two user photographs",
+      "limitations": [
+        "Roof depth 154m is secondary-source corroborated, not confirmed from accessible primary text.",
+        "OSM tower height 91.5m conflicts with documented total 84.7m and is not used.",
+        "Roof section, facade panel spacing, sloping tower tops and stairs are exterior photo estimates.",
+        "No interiors or photographic textures; service roads below the canopy remain passable."
       ]
     }
   ],
@@ -1088,6 +1118,256 @@
           ]
         ]
       ]
+    },
+    {
+      "id": "detail-civic-west-office",
+      "rings": [
+        [
+          [
+            1755.7622,
+            725.3053
+          ],
+          [
+            1680.2023,
+            724.5193
+          ],
+          [
+            1681.1085,
+            642.1307
+          ],
+          [
+            1694.9192,
+            647.7847
+          ],
+          [
+            1704.2471,
+            651.2012
+          ],
+          [
+            1717.1032,
+            655.036
+          ],
+          [
+            1721.1328,
+            656.0438
+          ],
+          [
+            1729.6754,
+            658.1672
+          ],
+          [
+            1743.2867,
+            660.7787
+          ],
+          [
+            1756.463,
+            662.8578
+          ],
+          [
+            1755.7622,
+            725.3053
+          ]
+        ],
+        [
+          [
+            1696.5805,
+            663.4283
+          ],
+          [
+            1696.0429,
+            707.7538
+          ],
+          [
+            1707.2497,
+            707.8806
+          ],
+          [
+            1707.7511,
+            665.97
+          ],
+          [
+            1696.5805,
+            663.4283
+          ]
+        ],
+        [
+          [
+            1727.9415,
+            671.4148
+          ],
+          [
+            1727.4763,
+            708.375
+          ],
+          [
+            1739.4987,
+            708.5144
+          ],
+          [
+            1739.9156,
+            673.7284
+          ],
+          [
+            1727.9415,
+            671.4148
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-civic-east-office",
+      "rings": [
+        [
+          [
+            1918.6204,
+            718.2568
+          ],
+          [
+            1887.8576,
+            717.9272
+          ],
+          [
+            1888.4255,
+            674.8377
+          ],
+          [
+            1899.3604,
+            673.5129
+          ],
+          [
+            1911.1714,
+            671.5796
+          ],
+          [
+            1919.5508,
+            669.9063
+          ],
+          [
+            1927.4651,
+            668.1061
+          ],
+          [
+            1933.0473,
+            666.5595
+          ],
+          [
+            1943.1002,
+            663.6057
+          ],
+          [
+            1953.6848,
+            659.9167
+          ],
+          [
+            1963.6531,
+            655.8537
+          ],
+          [
+            1963.4175,
+            677.1449
+          ],
+          [
+            1956.3793,
+            677.0752
+          ],
+          [
+            1956.1316,
+            700.287
+          ],
+          [
+            1963.1698,
+            700.3567
+          ],
+          [
+            1962.9765,
+            718.7132
+          ],
+          [
+            1933.1561,
+            718.3582
+          ],
+          [
+            1918.6204,
+            718.2568
+          ]
+        ],
+        [
+          [
+            1905.5227,
+            675.5349
+          ],
+          [
+            1905.136,
+            710.3273
+          ],
+          [
+            1917.1524,
+            710.4477
+          ],
+          [
+            1917.5451,
+            673.4875
+          ],
+          [
+            1905.5227,
+            675.5349
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-civic-yellow-round",
+      "rings": [
+        [
+          [
+            1805.3608,
+            677.457
+          ],
+          [
+            1805.3608,
+            712.257
+          ],
+          [
+            1774.1608,
+            712.257
+          ],
+          [
+            1774.1608,
+            677.457
+          ],
+          [
+            1805.3608,
+            677.457
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "detail-civic-red-square",
+      "rings": [
+        [
+          [
+            1867.6748,
+            678.0458
+          ],
+          [
+            1867.6748,
+            712.8458
+          ],
+          [
+            1836.4748,
+            712.8458
+          ],
+          [
+            1836.4748,
+            678.0458
+          ],
+          [
+            1867.6748,
+            678.0458
+          ]
+        ]
+      ]
     }
   ],
   "terrain": {
@@ -1236,6 +1516,28 @@
         "referenceDataset": "data/landmarks/priority-places.json",
         "parameterDataset": "data/landmarks/priority-models.json"
       }
+    },
+    {
+      "id": "detail_civic",
+      "triangles": 106640,
+      "meshes": 14,
+      "report": {
+        "heightMeters": 84.7,
+        "roofSpanMeters": 486,
+        "sourceIds": [
+          "relation/10837976",
+          "relation/10837977",
+          "way/616988599",
+          "way/616988601"
+        ],
+        "limitations": [
+          "Roof depth 154m is secondary-source corroborated, not confirmed from accessible primary text.",
+          "OSM tower height 91.5m conflicts with documented total 84.7m and is not used.",
+          "Roof section, facade panel spacing, sloping tower tops and stairs are exterior photo estimates.",
+          "No interiors or photographic textures; service roads below the canopy remain passable."
+        ],
+        "orientation": "west yellow round / east red rectangular"
+      }
     }
   ],
   "sourceSha256": {
@@ -1245,8 +1547,11 @@
     "scripts/landmarks/tencent.py": "364d03b9b15f1d6ff6a1bb4857477cb6959543e1644d7d2f1fa2f464ea0f2362",
     "scripts/landmarks/priority.py": "3a48f3c30a149d56591c50eb7233753185ded80c3b566fd9c2d183dc6747d6c7",
     "scripts/landmarks/lianhua.py": "dd2573d64ef5c9101df49866573e569dd9161a1f0537c6e558b7d390997fe43a",
-    "scripts/build_landmark_details.py": "f02fef2d5ab0be7319d6ba8ecf6cb0196dd84e85e729496b231627354093312f",
-    "scripts/city_mesh.py": "bcc9eb59c5e2d6ca39f61e0b9e39433aa89c85833e72bd3630f3c328ad3cd42a"
+    "scripts/build_landmark_details.py": "6dcfe88769ba860edd52f320bfa045cd7fd9903fb628a9536627f7027f87e38d",
+    "scripts/city_mesh.py": "bcc9eb59c5e2d6ca39f61e0b9e39433aa89c85833e72bd3630f3c328ad3cd42a",
+    "data/landmarks/civic.json": "d6bf8d3162e1498b03c7a6c47e808b0cf3c532f738da8bb0c1ff2a1cd14566da",
+    "scripts/landmarks/civic.py": "3e95ced9589c1f1c8c9e302ccd33b39bfe9ca82defd9a244f5ba7cfaccf90a69",
+    "scripts/prepare_civic_center.py": "d18b4504548de2cbdd611039bb9ccdf1f519c730aced5de78634a7c64d4a7a01"
   },
   "coordinateSystem": "Blender east,north,up; GLB y-up; runtime preserves root Z reflection",
   "horizontalScale": 0.6,
@@ -1260,8 +1565,8 @@
     "MixC only restores mapped tower parts; shopping-street and mall exterior remain pending"
   ],
   "compression": {
-    "before": 6337480,
-    "after": 1375748,
+    "before": 13024756,
+    "after": 2163100,
     "algorithm": "EXT_meshopt_compression",
     "positionBits": 16
   }

@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from city_mesh import *
 import hashlib
-from landmarks import tencent, lianhua, priority
+from landmarks import tencent, lianhua, priority, civic
 
 city = json.loads((O/'city.json').read_text())
 scale = city['meta']['horizontalScale']
@@ -16,6 +16,7 @@ project = lambda lon, lat: ((lon-origin[0])*102850*scale, (lat-origin[1])*111320
 terrain = json.loads((O/'terrain-detail.json').read_text())
 tc = json.loads((R/'data/landmarks/tencent.json').read_text())
 specs = json.loads((R/'data/landmarks/priority-models.json').read_text())['models']
+civic_spec = json.loads((R/'data/landmarks/civic.json').read_text())
 objects, records, collisions, replacements = [], [], [], ['landmark_tencent_', 'landmark_lianhua_']
 reports = []
 
@@ -121,11 +122,49 @@ for spec in specs:
 # near facade meshes. Its signed asset manifest is checked at integration time.
 # This keeps all four affected neighbourhoods on the current ordinary art style.
 
+# Civic Center is an independent replacement: never regenerate the shared
+# roads/car GLB just to replace its previous two-red-cylinder approximation.
+for name, color, roughness, metal, emission in [
+    ('civic_roof_blue', (.035,.29,.52), .29,.52,0),
+    ('civic_roof_seam', (.09,.34,.49), .34,.55,0),
+    ('civic_fascia', (.72,.79,.79), .38,.34,0),
+    ('civic_soffit', (.79,.76,.66), .73,.08,.08),
+    ('civic_mullion', (.58,.68,.69), .32,.62,0),
+    ('civic_glass', (.045,.22,.27), .15,.55,0),
+    ('civic_office_roof', (.27,.35,.36), .65,.12,0),
+    ('civic_yellow', (.94,.58,.014), .39,.18,0),
+    ('civic_red', (.72,.024,.012), .42,.12,0),
+    ('civic_tower_roof', (.63,.66,.64), .46,.3,0),
+    ('civic_stone', (.52,.55,.51), .8,0,0),
+    ('civic_paving_joint', (.27,.30,.29), .9,0,0),
+    ('civic_eave_light', (1,.79,.49), .3,0,.55),
+    ('civic_flood_light', (1,.73,.40), .3,0,.55),
+]:
+    material(name,color,roughness,metal,emission)
+legacy_civic = next(lm for lm in city['landmarks'] if lm['id']=='civic')
+b = B()
+report = civic.build(b,legacy_civic,civic_spec,scale)
+collect(b,'detail_civic',report,smooth=True)
+# Keep office mullions/tower corners crisp while the canopy curves interpolate.
+for ob in objects:
+    if ob.name.startswith('detail_civic_') and ob.name not in ['detail_civic_civic_roof_blue','detail_civic_civic_soffit','detail_civic_civic_yellow']:
+        for polygon in ob.data.polygons:
+            polygon.use_smooth=False
+replacements.append('landmark_civic_')
+records.append({**legacy_civic,'height':84.7*scale,'excludeRadius':0,'detailCollision':True,
+                'photoDistance':360,'photoTargetHeight':22,'photoElevation':.26,'photoAngle':0,
+                'sourceStatus':civic_spec['status'],'limitations':civic_spec['limitations']})
+for part in civic_spec['parts']:
+    collisions.append({'id':'detail-civic-'+part['role'],
+                       'rings': [[[round(legacy_civic['x']+x*scale,4),round(legacy_civic['z']+y*scale,4)] for x,y in ring]
+                                 for ring in part.get('podiumRingsMeters',part['ringsMeters'])]})
+
 asset = export('landmark-detail', objects)
 bpy.ops.wm.save_as_mainfile(filepath=str(A/'landmark-details.blend'))
 source_paths = ['data/landmarks/tencent.json', 'data/landmarks/priority-models.json', 'public/city/terrain-detail.json',
                 'scripts/landmarks/tencent.py', 'scripts/landmarks/priority.py', 'scripts/landmarks/lianhua.py',
                 'scripts/build_landmark_details.py', 'scripts/city_mesh.py']
+source_paths += ['data/landmarks/civic.json','scripts/landmarks/civic.py','scripts/prepare_civic_center.py']
 manifest = {'schemaVersion': 1, 'asset': '/city/landmark-detail.glb', 'assetStats': asset,
             'replacedMeshPrefixes': replacements, 'baseBuildingIds': sorted(base_ids), 'landmarks': records,
             'baseBuildingExclusionsRequired': True, 'collisionFootprints': collisions, 'terrain': {'url': '/city/terrain-detail.json'},

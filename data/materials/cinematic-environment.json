@@ -1,22 +1,25 @@
 {
-  "id": "shenzhen-majestic-fire-sky",
-  "authoringPurpose": "Authored majestic sunset: broad vermilion and amber cloud hemisphere, indigo reverse; shared visible sky and PBR environment. Artistic radiance, not measured Shenzhen illumination.",
+  "id": "cinematic-bay-sunset",
+  "authoringPurpose": "Restored photographic sky and shared PBR environment, using the orange sunset / dark cloud intermediate grade selected in the user screenshot. Artistic illumination, not a measurement of Shenzhen.",
   "source": {
-    "name": "Shenzhen Fire Sky",
-    "creation": "Codex image generation from a user-supplied sunset art reference; Blender 5.2 conversion and authoring",
-    "file": "data/art-direction/shenzhen-fire-sky-panorama.png",
-    "resolution": [
-      1774,
-      887
+    "name": "Belfast Sunset (Pure Sky)",
+    "page": "https://polyhaven.com/a/belfast_sunset_puresky",
+    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/belfast_sunset_puresky_4k.hdr",
+    "authors": [
+      "Dimitrios Savva",
+      "Greg Zaal",
+      "Jarod Guest"
     ],
-    "date": "2026-09-06",
-    "sha256": "b25e537b26cb856b5d884a61e6ed061b236f8c9b6c82ab0acff9e33e236ac3b7",
-    "size": 2053380,
-    "licenseNote": "Project-generated artwork; not a Poly Haven/CC0 photograph. No attribution to the historical HDR authors for this new image.",
-    "reference": "User-supplied codex-clipboard-a4d01bcd-9c92-4c66-8acb-bea71a917fda.png"
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "retrieved": "2026-09-05",
+    "size": 17420114,
+    "md5": "52d2339c16069a2aaa7fd37a320d8495",
+    "sha256": "cafc52b99ce15d84bd039826a0333f5ab0259d8c1f4feb2f7faf5fafa039108a",
+    "metadataUrl": "https://api.polyhaven.com/files/belfast_sunset_puresky"
   },
   "runtime": {
-    "file": "public/city/environment/shenzhen-fire-sky.hdr",
+    "file": "public/city/environment/belfast-sunset-4k.hdr",
     "sourceResolution": [
       4096,
       2048
@@ -24,20 +27,24 @@
     "cubeFaceResolution": 1024,
     "linear": true,
     "prefilteredOnLoad": true,
-    "rotationY": 1.74651,
-    "note": "One HDR source, prefiltered once. Bilinear 4096x2048 bake from native 1774x887 artwork avoids nearest-sampling steps; interpolation does not add native detail. Generated colour is expanded to authored radiance, not recovered physical exposure. No added per-frame render pass.",
+    "rotationY": 2.8,
+    "note": "Background exposure and sunset orientation are artistic settings. Runtime cube generation occurs once during loading. Final performance requires current asset test.",
     "shadowContract": "Driving focus distance 800 with 520-world-unit caster radius; aerial focus distance 1800, frustum +/-1050, caster radius1650, refresh every12frames.",
-    "integrationStatus": "Majestic sunset integration; visual evidence output/playwright/majestic-sunset",
-    "radianceGrade": "Blender: sRGB decoding, feathered warm/indigo hemispheres, horizon alignment, wrap/pole repair, authored HDR gain and compact solar radiance; runtime: preserve HDR for PBR, compress only RGB8 sky display.",
+    "integrationStatus": "Restored photographic orange sunset. Targeted source/radiance/display tests passed; current integrated visual review is pending.",
+    "radianceGrade": "Directional orange/amber clouds with dark cool undersides and an indigo reverse. Source-space sun axis (0.6,0,0.8); local solar-glare normalization changes the cloud mask only. PBR radiance is never display-capped. Separate RGB8 visible sky with hue-preserving shoulder.",
     "nightSky": {
       "source": "Directional procedural stars and textured moon disc; directional moonlight shares the moon direction. Artistic exposure, not astronomical simulation.",
       "environment": "CC0 Rooftop Night 2K HDR / 512px cube; neutral fallback on load failure",
       "extraRenderTargets": 0
     },
-    "sourceBytes": 14668816,
-    "sha256": "6bf277074763cf24bcfa1a48bdd297e78c58598c699d13924e1edeafec3efa81",
-    "bakeScript": "scripts/build_sunset_environment.py",
-    "fireAzimuthWeight": "smoothstep(-0.46, 0.24, cos(azimuth-sunset)); majority hemisphere warm, not a uniform red tint"
+    "skyPrimaryColor": [
+      0.2,
+      0.2,
+      0.2
+    ],
+    "sourceBytes": 17420114,
+    "sha256": "cafc52b99ce15d84bd039826a0333f5ab0259d8c1f4feb2f7faf5fafa039108a",
+    "gradeImplementation": "src/city-sunset-environment.ts"
   },
   "history": [
     {
@@ -90,7 +97,7 @@
     },
     {
       "date": "2026-09-06",
-      "reason": "Replace thin photographed sunset clouds with authored dense fire-cloud panorama; the previous CC0 source remains on disk for historical reproduction.",
+      "reason": "Historical source validation and performance from the earlier reflection repair; not a performance claim for the restored grade.",
       "source": {
         "name": "Belfast Sunset (Pure Sky)",
         "page": "https://polyhaven.com/a/belfast_sunset_puresky",
@@ -120,25 +127,81 @@
         "rotationY": 2.8,
         "note": "Background exposure and sunset orientation are artistic settings. Runtime cube generation occurs once during loading. Final performance requires current asset test.",
         "shadowContract": "Driving focus distance 800 with 520-world-unit caster radius; aerial focus distance 1800, frustum +/-1050, caster radius1650, refresh every12frames.",
-        "integrationStatus": "Current integrated reflection/moon/rain/sign/map package; visual report under output/playwright/reflection-repair-final",
-        "radianceGrade": "Uncompressed coral/amber/lavender HDR for PBR prefilter; separate 1024px RGB8 visible sky cube with hue-preserving shoulder. No extra source download or render pass.",
+        "integrationStatus": "Restored photographic orange sunset. Targeted source/radiance/display tests passed; current integrated visual review is pending.",
+        "radianceGrade": "Directional orange/amber clouds with dark cool undersides and an indigo reverse. Source-space sun axis (0.6,0,0.8); local solar-glare normalization changes the cloud mask only. PBR radiance is never display-capped. Separate RGB8 visible sky with hue-preserving shoulder.",
         "nightSky": {
           "source": "Directional procedural stars and textured moon disc; directional moonlight shares the moon direction. Artistic exposure, not astronomical simulation.",
           "environment": "CC0 Rooftop Night 2K HDR / 512px cube; neutral fallback on load failure",
           "extraRenderTargets": 0
-        }
+        },
+        "skyPrimaryColor": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "sourceBytes": 17420114,
+        "sha256": "cafc52b99ce15d84bd039826a0333f5ab0259d8c1f4feb2f7faf5fafa039108a",
+        "gradeImplementation": "src/city-sunset-environment.ts"
       },
       "validation": {
         "source": "Official metadata bytes and MD5 match; local HDR header is 4096x2048",
         "runtime": "48 tests and TypeScript/Vite build passed; current visual reports output/playwright/reflection-repair-final and output/playwright/building-signs-final",
         "performance": "Current final build, actual 416.33-second night round trip: mean 57.21 FPS, P95 16.8 ms, P99 33.4 ms, 25 frames over 50 ms. 1080p Chrome Metal, 2 arrivals, 0 runtime/HTTP/GL errors. See output/playwright/rain-city-final-drive/report.json. Not a locked-60 or Codex in-app-browser claim."
       }
+    },
+    {
+      "date": "2026-09-06",
+      "reason": "User requested restoration of the photographed orange sunset with dark cloud undersides, matching their third screenshot. Generated panorama is no longer shipped.",
+      "source": {
+        "name": "Shenzhen Fire Sky",
+        "creation": "Codex image generation from a user-supplied sunset art reference; Blender 5.2 conversion and authoring",
+        "file": "data/art-direction/shenzhen-fire-sky-panorama.png",
+        "resolution": [
+          1774,
+          887
+        ],
+        "date": "2026-09-06",
+        "sha256": "b25e537b26cb856b5d884a61e6ed061b236f8c9b6c82ab0acff9e33e236ac3b7",
+        "size": 2053380,
+        "licenseNote": "Project-generated artwork; not a Poly Haven/CC0 photograph. No attribution to the historical HDR authors for this new image.",
+        "reference": "User-supplied codex-clipboard-a4d01bcd-9c92-4c66-8acb-bea71a917fda.png"
+      },
+      "runtime": {
+        "file": "public/city/environment/shenzhen-fire-sky.hdr",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "cubeFaceResolution": 1024,
+        "linear": true,
+        "prefilteredOnLoad": true,
+        "rotationY": 1.74651,
+        "note": "One HDR source, prefiltered once. Bilinear 4096x2048 bake from native 1774x887 artwork avoids nearest-sampling steps; interpolation does not add native detail. Generated colour is expanded to authored radiance, not recovered physical exposure. No added per-frame render pass.",
+        "shadowContract": "Driving focus distance 800 with 520-world-unit caster radius; aerial focus distance 1800, frustum +/-1050, caster radius1650, refresh every12frames.",
+        "integrationStatus": "Majestic sunset integration; visual evidence output/playwright/majestic-sunset",
+        "radianceGrade": "Blender: sRGB decoding, feathered warm/indigo hemispheres, horizon alignment, wrap/pole repair, authored HDR gain and compact solar radiance; runtime: preserve HDR for PBR, compress only RGB8 sky display.",
+        "nightSky": {
+          "source": "Directional procedural stars and textured moon disc; directional moonlight shares the moon direction. Artistic exposure, not astronomical simulation.",
+          "environment": "CC0 Rooftop Night 2K HDR / 512px cube; neutral fallback on load failure",
+          "extraRenderTargets": 0
+        },
+        "sourceBytes": 14668816,
+        "sha256": "6bf277074763cf24bcfa1a48bdd297e78c58598c699d13924e1edeafec3efa81",
+        "bakeScript": "scripts/build_sunset_environment.py",
+        "fireAzimuthWeight": "smoothstep(-0.46, 0.24, cos(azimuth-sunset)); majority hemisphere warm, not a uniform red tint"
+      },
+      "retainedOnDisk": false,
+      "validation": {
+        "source": "Generated panorama and Blender-baked RGBE have explicit hashes; native source is 1774x887, cube interpolation is not additional measured detail.",
+        "runtime": "72 tests and TypeScript/Vite production build passed. Current Chrome Metal 1920x1080 screenshots: spawn, north/east/south/west drone, overhead, night, day. No page/console errors; output/playwright/majestic-sunset/report.json. Visual review covers sky colour/coverage, cloud sampling, glass/water reflection and retained night/day modes.",
+        "performance": "No new FPS benchmark for this art iteration; historical performance records do not validate this asset."
+      }
     }
   ],
   "validation": {
-    "source": "Generated panorama and Blender-baked RGBE have explicit hashes; native source is 1774x887, cube interpolation is not additional measured detail.",
-    "runtime": "72 tests and TypeScript/Vite production build passed. Current Chrome Metal 1920x1080 screenshots: spawn, north/east/south/west drone, overhead, night, day. No page/console errors; output/playwright/majestic-sunset/report.json. Visual review covers sky colour/coverage, cloud sampling, glass/water reflection and retained night/day modes.",
-    "performance": "No new FPS benchmark for this art iteration; historical performance records do not validate this asset."
+    "source": "Local 4096x2048 Belfast Sunset Pure Sky HDR matches the retained CC0 source SHA-256 and byte count.",
+    "runtime": "Three focused sunset tests, TypeScript/Vite build and 73-test integration suite passed. Current restored sky is captured in output/playwright/civic-center/restored-sunset-spawn.png and sunset-aerial.png. Day/night Civic Center captures use the same game runtime; see its hash-bound report.json. No additional FPS benchmark.",
+    "performance": "No new FPS benchmark for this restoration; historical performance records are not current verification."
   },
   "nightReflectionSource": {
     "size": 6509158,

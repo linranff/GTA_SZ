@@ -242,6 +242,10 @@ export class DrivingWorld{
    if(m instanceof PBRMaterial&&/^lamp(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:1;
    if(m instanceof StandardMaterial&&m.name==='wayfinding'){const brightness=mode==='day'?.95:mode==='night'?.60:.82;m.emissiveColor.copyFromFloats(brightness,brightness,brightness);}
   }
+   // Dedicated civic materials retain the photographed blue roof/red-yellow
+   // towers. Only the underside and eave fixtures receive night illumination.
+   if(m instanceof PBRMaterial&&/^civic_(?:eave_light|flood_light)(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:mode==='night'?2.1:.55;
+   if(m instanceof PBRMaterial&&/^civic_soffit(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:mode==='night'?.45:.08;
   this.cull();this.shadows.getShadowMap()?.resetRefreshCounter();this.mirror.resetRefreshCounter();this.waterMirror.resetRefreshCounter();
   this.onMessage?.({sunset:'海湾日落 · L 切换夜色',night:'月下深圳 · L 切换晴日',day:'雨后晴日 · 蓝天白云 · L 切换日落'}[mode]);
  }

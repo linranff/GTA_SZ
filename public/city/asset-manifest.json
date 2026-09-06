@@ -48,12 +48,12 @@
     },
     {
       "file": "landmark-detail.glb",
-      "triangles": 103564,
-      "meshes": 27,
-      "primitives": 27,
+      "triangles": 210204,
+      "meshes": 41,
+      "primitives": 41,
       "facadeMetadataPrimitives": 0,
-      "bytes": 1375748,
-      "sha256": "04643a8c21dc74c30c2e80745b76e8ab69830d75d70b9db54c2d2d54aa548d00"
+      "bytes": 2163100,
+      "sha256": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22"
     },
     {
       "file": "landmarks.glb",
@@ -294,6 +294,6 @@
   ],
   "treeInstances": 7933,
   "chunkSize": 640,
-  "totalBytes": 106030732,
+  "totalBytes": 106818084,
   "geometrySource": "Actual GLB JSON accessors; not stale authoring reports"
 }

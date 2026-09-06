@@ -1,6 +1,6 @@
 import {chromium} from 'playwright';
 import fs from 'node:fs/promises';
-const out='output/playwright/majestic-sunset',errors=[],shots=[];
+const out='output/playwright/restored-photographic-sunset',errors=[],shots=[];
 const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--use-angle=metal']});
 await fs.mkdir(out,{recursive:true});
 const page=await browser.newPage({viewport:{width:1920,height:1080}});
