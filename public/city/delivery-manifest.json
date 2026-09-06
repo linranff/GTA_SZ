@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-06T04:32:12.837Z",
+  "date": "2026-09-06T05:23:10.806Z",
   "assets": {
     "buildings.glb": {
       "bytes": 49728080,
@@ -123,6 +123,10 @@
     "environment/rooftop-night-2k.hdr": {
       "bytes": 6509158,
       "sha256": "8ace3b81da7659381998ea4423fb4c7ffc1310ac27c4baa7a32088bd093de82e"
+    },
+    "environment/shenzhen-fire-sky.hdr": {
+      "bytes": 14668816,
+      "sha256": "6bf277074763cf24bcfa1a48bdd297e78c58598c699d13924e1edeafec3efa81"
     },
     "facade-manifest.json": {
       "bytes": 237,
@@ -13777,7 +13781,7 @@
       "sha256": "4f704aeb8baae349e4e99f4f57be309a06b7687e38b2efd50f3a43d71199dd2d"
     }
   },
-  "totalRuntimeFileBytes": 295267872,
+  "totalRuntimeFileBytes": 309936688,
   "streamingFacades": {
     "totalTiles": 150,
     "totalBytes": 32166308,

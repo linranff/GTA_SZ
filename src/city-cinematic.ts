@@ -3,7 +3,7 @@ import {
  Vector3, type BaseTexture, type Scene, type DirectionalLight, type HemisphericLight,
  type DefaultRenderingPipeline, type PointLight, type Material,
 } from '@babylonjs/core';
-import {ShenzhenSunsetEnvironment} from './city-sunset-environment.ts';
+import {ShenzhenSunsetEnvironment,CITY_SUNSET_SOURCE} from './city-sunset-environment.ts';
 import {createCityNightSky,CITY_MOON_DIRECTION} from './city-night-sky.ts';
 import {CITY_DAYLIGHT_SOURCE,CITY_DAYLIGHT_SUN_DIRECTION,type CinematicLightingMode} from './city-daylight.ts';
 export type {CinematicLightingMode} from './city-daylight.ts';
@@ -13,8 +13,8 @@ type CinematicScene={
  pipeline:DefaultRenderingPipeline;carFill?:PointLight|null;
 };
 
-/** One photographed sky supplies both visible atmosphere and PBR reflections.
- * No extra per-frame rendering passes. The 4K CC0 source is prefiltered once
+/** One authored sky supplies both visible atmosphere and PBR reflections.
+ * No extra per-frame rendering passes. The Blender-baked radiance is prefiltered once
  * during loading; display highlight compression never alters PBR radiance.
  * See data/materials/cinematic-environment.json for attribution and checksum.
  */
@@ -28,7 +28,7 @@ export async function createCinematicLook(world:CinematicScene){
  const loaded=new Promise<void>((resolve,reject)=>{
   textureLoaded=resolve;textureFailed=message=>reject(new Error(message??'HDR environment load failed'));
  });
- const environment=new ShenzhenSunsetEnvironment('/city/environment/belfast-sunset-4k.hdr',scene,1024,false,true,false,true,textureLoaded,textureFailed);
+ const environment=new ShenzhenSunsetEnvironment(CITY_SUNSET_SOURCE.file,scene,CITY_SUNSET_SOURCE.cubeSize,false,true,false,true,textureLoaded,textureFailed);
  let status:'loading'|'ready'|'failed'='loading';
  let failure:string|null=null;
  let skyMaterial:BackgroundMaterial|null=null;
@@ -83,9 +83,9 @@ export async function createCinematicLook(world:CinematicScene){
  try{
   await loaded;
   if(scene.isDisposed)throw new Error('Scene disposed');
-  // Rotate the photographed sunset toward the west/southwest, consistently for
+  // Rotate the authored sunset toward the west/southwest, consistently for
   // the visible sky and every PBR surface. This is art direction, not astronomy.
-  environment.rotationY=2.80;
+  environment.rotationY=CITY_SUNSET_SOURCE.rotationY;
   scene.environmentTexture=environment;
   if(sky){
    skyTexture=environment.createDisplayTexture(scene);
@@ -149,7 +149,7 @@ export async function createCinematicLook(world:CinematicScene){
   scene.fogColor.copyFrom(night?new Color3(.12,.095,.17):day?new Color3(.60,.72,.80):new Color3(.54,.34,.36));
   // The sky is independently exposed so preserving dark asphalt and bright
   // clouds never requires flattening the material response of the entire city.
-  if(skyMaterial)skyMaterial.primaryColor.copyFromFloats(.16,.16,.16);
+  if(skyMaterial)skyMaterial.primaryColor.copyFromFloats(.20,.20,.20);
   if(sky)sky.material=night?nightSky.material:day&&daylightStatus==='ready'?daylightMaterial:skyMaterial??fallbackMaterial;
   if(world.carFill){world.carFill.intensity=night?12:day?5.5:10;world.carFill.diffuse.copyFrom(day?new Color3(.88,.92,1):new Color3(.77,.79,.87));}
  }
@@ -158,7 +158,7 @@ export async function createCinematicLook(world:CinematicScene){
 
  return {
   setMode,setNight,
-  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:'Poly Haven / Belfast Sunset (Pure Sky)',radianceGrade:mode==='day'?'shared linear HDR visible sky and prefiltered PBR environment':'uncompressed HDR for PBR; display-only highlight shoulder',nightSky:'directional stars and moon with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared HDR cube; raw level for sky; prefiltered levels for PBR'},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:17420114,exposure:ip.exposure,environmentIntensity:scene.environmentIntensity};},
+  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:CITY_SUNSET_SOURCE.name,radianceGrade:mode==='day'?'shared linear HDR visible sky and prefiltered PBR environment':'directional vermilion/amber fire hemisphere and dark indigo reverse; HDR for PBR, display-only highlight shoulder',nightSky:'directional stars and moon with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared HDR cube; raw level for sky; prefiltered levels for PBR'},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:CITY_SUNSET_SOURCE.bytes,exposure:ip.exposure,environmentIntensity:scene.environmentIntensity};},
   dispose(){
    disposed=true;scene.onDisposeObservable.remove(sceneDisposal);
    if(scene.environmentTexture===environment||scene.environmentTexture===nightSky.environment||scene.environmentTexture===nightEnvironment||scene.environmentTexture===daylightEnvironment)scene.environmentTexture=fallbackEnvironment;
