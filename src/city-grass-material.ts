@@ -1,4 +1,5 @@
 import {Color3, MaterialPluginBase, PBRMaterial, ShaderLanguage, Texture, type BaseTexture, type MaterialDefines, type Scene, type UniformBuffer} from '@babylonjs/core';
+import {applyLandscapeNightLight,landscapeLightingStats} from './city-landscape-lighting.ts';
 
 const BASE='/city/grassland-v2/';
 type GrassState={textures:Texture[];ready:boolean;errors:string[];plugins:Set<GrassSurface>;materials:Set<PBRMaterial>};
@@ -98,7 +99,8 @@ export function applyGrassMaterial(scene:Scene,material:PBRMaterial,park=true){
  if(state.ready)material.albedoTexture=null;
  const shared=state,plugin=new GrassSurface(material,shared,park);
  shared.materials.add(material);shared.plugins.add(plugin);
+ applyLandscapeNightLight(scene,material,'terrain');
  material.onDisposeObservable.addOnce(()=>{shared.materials.delete(material);shared.plugins.delete(plugin);});
 }
 
-export function grassMaterialStats(scene:Scene){const state=states.get(scene);return {mode:grassBaseline()?'baseline':'layered-pbr',ready:state?.ready??false,materials:state?.materials.size??0,textures:state?.textures.length??0,errors:state?.errors??[],extraPasses:0};}
+export function grassMaterialStats(scene:Scene){const state=states.get(scene);return {mode:grassBaseline()?'baseline':'layered-pbr',ready:state?.ready??false,materials:state?.materials.size??0,textures:state?.textures.length??0,errors:state?.errors??[],nightLighting:landscapeLightingStats(scene),extraPasses:0};}

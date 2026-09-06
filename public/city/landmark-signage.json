@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceEvidenceSha256": "dd5409b18b5cd6430eea94da9c9ec5367a58ad348a3ca569e58dedf28012f9f8",
+  "sourceEvidenceSha256": "893e9e591bc14446007b8a580f8b336a21eae7cbfcfed6ade36389ba5ace8f9a",
   "artwork": [
     {
       "id": "tencent-south-roof",
@@ -50,7 +50,26 @@
         "qijie-focus-west-entry"
       ],
       "method": "Manually composed text and local font outlines, no image generation.",
-      "typographyStatus": "Readable lettering and composition follow references; font contours remain approximations, including Qijie calligraphy.",
+      "typographyStatus": "Readable lettering and spacing follow references; local font contours remain approximations.",
+      "artworkSource": null,
+      "renderReady": true,
+      "placementStatus": "photo_interpretation_estimated"
+    },
+    {
+      "id": "fortune-roof-name",
+      "exactText": "财富广场",
+      "url": "/city/textures/signage/fortune-roof-name.png",
+      "width": 512,
+      "height": 128,
+      "bytes": 7346,
+      "sha256": "f3311456fdd7d9a53a7b7cbd4d20e41c32607c255d48fd9b8680d7018e5f3fea",
+      "sourceIds": [
+        "fortune-overall",
+        "fortune-user-front-road",
+        "fortune-user-front-courtyard"
+      ],
+      "method": "Manually composed text and local font outlines, no image generation.",
+      "typographyStatus": "Readable lettering and spacing follow references; local font contours remain approximations.",
       "artworkSource": null,
       "renderReady": true,
       "placementStatus": "photo_interpretation_estimated"
@@ -67,7 +86,7 @@
         "mixc-sign-photo-2"
       ],
       "method": "Manually composed text and local font outlines, no image generation.",
-      "typographyStatus": "Readable lettering and composition follow references; font contours remain approximations, including Qijie calligraphy.",
+      "typographyStatus": "Readable lettering and spacing follow references; local font contours remain approximations.",
       "artworkSource": null,
       "renderReady": false,
       "placementStatus": "pending_georeferenced_surface"
@@ -98,9 +117,10 @@
         "tencent-roof-close"
       ],
       "illuminationVerified": false,
-      "emissiveAtDusk": 0,
-      "emissiveAtNight": 0,
-      "note": "Observed white lettering. Cardinal face and metric pose estimated from the locked tower footprint; night emission has not been verified."
+      "illuminationBasis": "user_requested_artistic",
+      "emissiveAtDusk": 1.1,
+      "emissiveAtNight": 3,
+      "note": "Observed white lettering. Cardinal face and metric pose remain estimated; HDR emission is user-requested game art, not a claim about the real lighting."
     },
     {
       "id": "qijie-entry-bilingual",
@@ -145,11 +165,43 @@
         "status": "photo_interpretation_estimated"
       },
       "note": "West-recess entrance matched by the reported west entrance and reference photograph. Metric offset, height, canopy and font contours remain approximations; no unverified LED text or night emission."
+    },
+    {
+      "id": "fortune-roof-name",
+      "placeId": "fortune-plaza",
+      "text": "财富广场",
+      "textureUrl": "/city/textures/signage/fortune-roof-name.png",
+      "position": [
+        -227.3090877900163,
+        52.68,
+        284.13467835519765
+      ],
+      "width": 14.399999999999999,
+      "height": 3.0,
+      "rotationY": -1.0593189533551035,
+      "surfaceNormal": [
+        0.8720223353696605,
+        0,
+        -0.4894660832135802
+      ],
+      "curvatureRadius": 28.305249306,
+      "curvatureSegments": 32,
+      "placementStatus": "photo_interpretation_estimated",
+      "sourceIds": [
+        "fortune-overall",
+        "fortune-user-front-road",
+        "fortune-user-front-courtyard"
+      ],
+      "illuminationVerified": false,
+      "illuminationBasis": "user_requested_artistic",
+      "emissiveAtDusk": 0.72,
+      "emissiveAtNight": 2.15,
+      "note": "Exact text and facade band are visible in two user-provided references. Pose and dimensions remain photo/model estimates; emission is explicitly user-directed game art, not a claim about the real lamp type."
     }
   ],
-  "textureBytes": 44934,
-  "activeTextureCount": 2,
-  "additionalTriangles": 16,
+  "textureBytes": 52280,
+  "activeTextureCount": 3,
+  "additionalTriangles": 80,
   "noNewLights": true,
   "pending": [
     "tencent-low-link-bilingual",

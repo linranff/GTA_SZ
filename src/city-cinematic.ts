@@ -62,10 +62,16 @@ export async function createCinematicLook(world:CinematicScene){
  });
  (daylightEnvironment as HDRCubeTexture|null)!.rotationY=CITY_DAYLIGHT_SOURCE.rotationY;
  daylightMaterial=new BackgroundMaterial('cinematic-blue-sky-white-clouds',scene);
+ // BackgroundMaterial defaults to the alpha-test queue, which runs AFTER
+ // opaque terrain. Put our finite sky in the sky-first opaque queue instead,
+ // otherwise it paints over land outside its 4 km radius in aerial views.
+ daylightMaterial.transparencyMode=BackgroundMaterial.MATERIAL_OPAQUE;
  daylightMaterial.backFaceCulling=false;daylightMaterial.disableDepthWrite=true;
  daylightMaterial.useRGBColor=false;daylightMaterial.enableNoise=true;
  daylightMaterial.reflectionBlur=0;daylightMaterial.maxSimultaneousLights=0;
- daylightMaterial.primaryColor.copyFromFloats(.92,.92,.92);
+ // Display-only lift: a clearer blue sky and brighter clouds, sharing the
+ // original HDR reflections and sun direction without changing city exposure.
+ daylightMaterial.primaryColor.copyFromFloats(.94,1.02,1.10);
  let nightEnvironment:HDRCubeTexture|null=null,nightEnvironmentReady=false;
  // A real CC0 urban HDR retains small city-light reflections. The visible
  // night sky remains our stars/moon. Decode and prefilter only once at load.
@@ -90,6 +96,7 @@ export async function createCinematicLook(world:CinematicScene){
   if(sky){
    skyTexture=environment.createDisplayTexture(scene);
    skyMaterial=new BackgroundMaterial('cinematic-photographic-sky',scene);
+   skyMaterial.transparencyMode=BackgroundMaterial.MATERIAL_OPAQUE;
    skyMaterial.reflectionTexture=skyTexture;
    skyMaterial.backFaceCulling=false;
    skyMaterial.disableDepthWrite=true;
@@ -122,19 +129,17 @@ export async function createCinematicLook(world:CinematicScene){
  ip.toneMappingEnabled=true;
  ip.toneMappingType=ImageProcessingConfiguration.TONEMAPPING_ACES;
  ip.contrast=1.09;
- // Thin illuminated windows and tail lamps remain readable without spilling
- // broad white halos over neighbouring facades.
+ // Keep HDR cores distinct: a restrained halo must not merge whole facades.
+ // Daylight keeps its own smaller bloom so clouds retain their structure.
  pipeline.bloomEnabled=true;
- pipeline.bloomThreshold=1.25;
- pipeline.bloomWeight=.14;
- pipeline.bloomKernel=36;
  pipeline.bloomScale=.5;
 
  function setMode(next:CinematicLightingMode){
   if(disposed||scene.isDisposed)return;
   mode=next;night=next==='night';const day=next==='day';
-  pipeline.bloomThreshold=night?1.15:day?2.5:1.45;
-  pipeline.bloomWeight=night?.12:day?.065:.14;
+  pipeline.bloomThreshold=night?1.30:day?2.5:1.35;
+  pipeline.bloomWeight=night?.24:day?.065:.19;
+  pipeline.bloomKernel=day?36:56;
   ip.exposure=night?.83:day?.91:.87;
   ip.contrast=day?1.06:1.09;
   sun.direction.copyFrom(night?CITY_MOON_DIRECTION.scale(-1):day?CITY_DAYLIGHT_SUN_DIRECTION.scale(-1):new Vector3(.95,-.19,.31).normalize());
@@ -158,7 +163,7 @@ export async function createCinematicLook(world:CinematicScene){
 
  return {
   setMode,setNight,
-  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:CITY_SUNSET_SOURCE.name,radianceGrade:mode==='day'?'shared linear HDR visible sky and prefiltered PBR environment':'directional vermilion/amber fire hemisphere and dark indigo reverse; HDR for PBR, display-only highlight shoulder',nightSky:'directional stars and moon with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared HDR cube; raw level for sky; prefiltered levels for PBR'},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:CITY_SUNSET_SOURCE.bytes,exposure:ip.exposure,environmentIntensity:scene.environmentIntensity};},
+  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:CITY_SUNSET_SOURCE.name,radianceGrade:mode==='day'?'shared linear HDR visible sky and prefiltered PBR environment':'directional vermilion/amber fire hemisphere and dark indigo reverse; HDR for PBR, display-only highlight shoulder',nightSky:'directional Milky Way, dense stars and moonlit cirrus with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared HDR cube; raw level for sky; prefiltered levels for PBR'},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:CITY_SUNSET_SOURCE.bytes,exposure:ip.exposure,bloom:{enabled:pipeline.bloomEnabled,threshold:pipeline.bloomThreshold,weight:pipeline.bloomWeight,kernel:pipeline.bloomKernel,scale:pipeline.bloomScale},environmentIntensity:scene.environmentIntensity};},
   dispose(){
    disposed=true;scene.onDisposeObservable.remove(sceneDisposal);
    if(scene.environmentTexture===environment||scene.environmentTexture===nightSky.environment||scene.environmentTexture===nightEnvironment||scene.environmentTexture===daylightEnvironment)scene.environmentTexture=fallbackEnvironment;

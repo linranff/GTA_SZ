@@ -1,10 +1,11 @@
-import {Color3,Mesh,MeshBuilder,PBRMaterial,Texture,Vector3,type Scene} from '@babylonjs/core';
+import {Color3,Mesh,MeshBuilder,PBRMaterial,Texture,Vector3,VertexData,type Scene} from '@babylonjs/core';
+import type {CinematicLightingMode} from './city-daylight.ts';
 
 type LoadState='loading'|'ready'|'error';
 type Artwork={id:string;placeId:string;exactText:string;url:string;width:number;height:number;sourceIds:string[]};
 type Canopy={position:[number,number,number];size:[number,number,number];rotationY:number;albedoSrgb:string;roughness:number;status:'photo_interpretation_estimated'};
 type Placement={id:string;placeId:string;text:string;textureUrl:string;position:[number,number,number];width:number;height:number;rotationY:number;
- surfaceNormal:[number,number,number];sourceIds:string[];illuminationVerified:boolean;emissiveAtDusk:number;emissiveAtNight:number;canopy?:Canopy};
+ surfaceNormal:[number,number,number];sourceIds:string[];illuminationVerified:boolean;emissionEnabled:boolean;emissiveAtDusk:number;emissiveAtNight:number;canopy?:Canopy;curvatureRadius?:number;curvatureSegments?:number};
 type TextureEntry={texture:Texture;state:LoadState;url:string;width:number;height:number;meshes:Mesh[];error?:string};
 type SignEntry={placement:Placement;mesh:Mesh;material:PBRMaterial;texture:TextureEntry};
 type CanopyEntry={placementId:string;spec:Canopy;mesh:Mesh;material:PBRMaterial};
@@ -15,6 +16,7 @@ const MANIFEST_URL='/city/landmark-signage.json';
 const VERIFIED_SIGNS:Record<string,{placeId:string;text:string}>={
  'tencent-south-roof':{placeId:'tencent',text:'Tencent'},
  'qijie-entry-bilingual':{placeId:'qijie-gongguan',text:'七街公館\nSEVENTH AVENUE RESIDENCE'},
+ 'fortune-roof-name':{placeId:'fortune-plaza',text:'财富广场'},
 };
 const row=(value:unknown):value is Row=>typeof value==='object'&&value!==null&&!Array.isArray(value);
 const number=(value:unknown,min:number,max:number):value is number=>typeof value==='number'&&Number.isFinite(value)&&value>=min&&value<=max;
@@ -58,13 +60,28 @@ function placementFrom(value:unknown,art:Artwork):Placement|null{
  const expected=[-Math.sin(value.rotationY),0,-Math.cos(value.rotationY)];
  if(value.surfaceNormal.some((n,i)=>Math.abs(n-expected[i])>.001))return null;
  const illuminationVerified=value.illuminationVerified===true;
- if(illuminationVerified&&(!number(value.emissiveAtDusk,0,3)||!number(value.emissiveAtNight,0,3)))return null;
+ const emissionEnabled=illuminationVerified||value.illuminationBasis==='user_requested_artistic';
+ if(emissionEnabled&&(!number(value.emissiveAtDusk,0,3)||!number(value.emissiveAtNight,0,3)))return null;
+ const curved=value.curvatureRadius!==undefined;
+ if(curved&&(!number(value.curvatureRadius,value.width,200)||!number(value.curvatureSegments,4,64)||!Number.isInteger(value.curvatureSegments)))return null;
  const canopy=value.id==='qijie-entry-bilingual'?canopyFrom(value.canopy,{position:value.position,width:value.width,height:value.height,rotationY:value.rotationY,surfaceNormal:value.surfaceNormal}):null;
  if(value.id==='qijie-entry-bilingual'&&!canopy)return null;
  if(value.id!=='qijie-entry-bilingual'&&value.canopy!==undefined)return null;
  return {id:value.id,placeId:value.placeId,text:value.text,textureUrl:art.url,position:value.position,width:value.width,height:value.height,
-  rotationY:value.rotationY,surfaceNormal:value.surfaceNormal,sourceIds:value.sourceIds,illuminationVerified,
-  emissiveAtDusk:illuminationVerified?value.emissiveAtDusk as number:0,emissiveAtNight:illuminationVerified?value.emissiveAtNight as number:0,...(canopy?{canopy}:{})};
+  rotationY:value.rotationY,surfaceNormal:value.surfaceNormal,sourceIds:value.sourceIds,illuminationVerified,emissionEnabled,
+  emissiveAtDusk:emissionEnabled?value.emissiveAtDusk as number:0,emissiveAtNight:emissionEnabled?value.emissiveAtNight as number:0,...(canopy?{canopy}:{}),
+  ...(curved?{curvatureRadius:value.curvatureRadius as number,curvatureSegments:value.curvatureSegments as number}:{})};
+}
+
+/** Match the inner facade's arc so the ends of the text never enter the wall. */
+export function curvedSignGeometry(width:number,height:number,radius:number,segments:number){
+ const data=new VertexData(),positions:number[]=[],normals:number[]=[],uvs:number[]=[],indices:number[]=[];
+ for(let i=0;i<=segments;i++){
+  const u=i/segments,angle=(u-.5)*width/radius,s=Math.sin(angle),c=Math.cos(angle);
+  for(const v of [0,1]){positions.push(radius*s,(v-.5)*height,radius*(c-1));normals.push(-s,0,-c);uvs.push(u,v);}
+  if(i<segments){const k=i*2;indices.push(k,k+2,k+3,k,k+3,k+1);}
+ }
+ data.positions=positions;data.normals=normals;data.uvs=uvs;data.indices=indices;return data;
 }
 
 /** Optional evidence-gated signage layer. Await this after loading the building,
@@ -78,16 +95,17 @@ export async function loadLandmarkSignage(scene:Scene){
  const canopies:CanopyEntry[]=[];
  const errors:string[]=[];
  const request=new AbortController();
- let manifestState:LoadState='loading',disposed=false,night=false,pendingArtworks=0,skippedPlacements=0;
+ let manifestState:LoadState='loading',disposed=false,night=false,mode:CinematicLightingMode='sunset',pendingArtworks=0,skippedPlacements=0;
 
  function updateEmission(sign:SignEntry){
-  const verified=sign.placement.illuminationVerified&&sign.texture.state==='ready';
+  const verified=sign.placement.emissionEnabled&&sign.texture.state==='ready'&&mode!=='day';
   sign.material.emissiveTexture=verified?sign.texture.texture:null;
   sign.material.emissiveColor=verified?Color3.White():Color3.Black();
   sign.material.emissiveIntensity=verified?(night?sign.placement.emissiveAtNight:sign.placement.emissiveAtDusk):0;
  }
 
- function setNight(value:boolean){night=value;for(const sign of signs)updateEmission(sign);}
+ function setMode(value:CinematicLightingMode){mode=value;night=value==='night';for(const sign of signs)updateEmission(sign);}
+ function setNight(value:boolean){setMode(value?'night':'sunset');}
 
  function dispose(){
   if(disposed)return;
@@ -101,19 +119,19 @@ export async function loadLandmarkSignage(scene:Scene){
  function stats(){
   const entries=[...textures.values()];
   const state=disposed?'disposed':manifestState==='error'?'error':manifestState==='loading'||entries.some(t=>t.state==='loading')?'loading':errors.length?'error':'ready';
-  return {state,manifestState,night,meshCount:meshes.length,signCount:signs.length,canopyCount:canopies.length,readyMeshCount:signs.filter(s=>s.texture.state==='ready').length+canopies.length,
+  return {state,manifestState,night,mode,meshCount:meshes.length,signCount:signs.length,canopyCount:canopies.length,readyMeshCount:signs.filter(s=>s.texture.state==='ready').length+canopies.length,
    additionalTriangles:meshes.reduce((sum,mesh)=>sum+mesh.getTotalIndices()/3,0),textureCount:textures.size,pendingArtworks,skippedPlacements,errors:[...errors],
    textures:entries.map(t=>({url:t.url,state:t.state,width:t.width,height:t.height,error:t.error??null})),
    placements:signs.map(s=>({id:s.placement.id,placeId:s.placement.placeId,sourceIds:[...s.placement.sourceIds],
     position:s.mesh.position.asArray(),width:s.placement.width,height:s.placement.height,rotationY:s.mesh.rotation.y,
-    surfaceNormal:[...s.placement.surfaceNormal],illuminationVerified:s.placement.illuminationVerified,emissiveIntensity:s.material.emissiveIntensity})),
+    surfaceNormal:[...s.placement.surfaceNormal],curvatureRadius:s.placement.curvatureRadius??null,illuminationVerified:s.placement.illuminationVerified,emissionEnabled:s.placement.emissionEnabled,emissiveIntensity:s.material.emissiveIntensity})),
    canopies:canopies.map(c=>({placementId:c.placementId,position:c.mesh.position.asArray(),size:[...c.spec.size],rotationY:c.mesh.rotation.y,
     top:c.spec.position[1]+c.spec.size[1]/2,albedoSrgb:c.spec.albedoSrgb,albedoLinear:c.material.albedoColor.asArray(),roughness:c.material.roughness})),
   };
  }
 
  scene.onDisposeObservable.addOnce(dispose);
- const result={meshes,setNight,stats,dispose};
+ const result={meshes,setMode,setNight,stats,dispose};
  if(scene.isDisposed){dispose();return result;}
  try{
   const response=await fetch(MANIFEST_URL,{signal:request.signal});
@@ -171,7 +189,8 @@ export async function loadLandmarkSignage(scene:Scene){
    material.transparencyMode=PBRMaterial.PBRMATERIAL_ALPHATEST;material.alphaCutOff=.40;
    material.useAlphaFromAlbedoTexture=true;material.backFaceCulling=true;
    material.emissiveColor=Color3.Black();material.emissiveIntensity=0;
-   const mesh=MeshBuilder.CreatePlane('landmark-signage_'+placement.id,{width:placement.width,height:placement.height,sideOrientation:Mesh.FRONTSIDE},scene);
+   const mesh=placement.curvatureRadius?new Mesh('landmark-signage_'+placement.id,scene):MeshBuilder.CreatePlane('landmark-signage_'+placement.id,{width:placement.width,height:placement.height,sideOrientation:Mesh.FRONTSIDE},scene);
+   if(placement.curvatureRadius)curvedSignGeometry(placement.width,placement.height,placement.curvatureRadius,placement.curvatureSegments!).applyToMesh(mesh);
    mesh.position=Vector3.FromArray(placement.position);mesh.rotation.y=placement.rotationY;mesh.material=material;
    mesh.isPickable=false;mesh.receiveShadows=true;mesh.checkCollisions=false;mesh.visibility=entry.state==='ready'?1:0;
    mesh.metadata={kind:'landmark-signage',placeId:placement.placeId,sourceIds:[...placement.sourceIds],placementStatus:'photo_interpretation_estimated'};

@@ -266,7 +266,6 @@
 }
 .cinematic-hud #toast { top: 120px; }
 .cinematic-hud #ride-prompt { bottom: 75px; }
-.cinematic-hud #credits { left: var(--hud-edge); bottom: 9px; color: #eeeede7d; }
 .cinematic-hud #fps { right: var(--hud-edge); bottom: 9px; color: #eeeedea3; }
 
 .cinematic-hud #map-panel {
@@ -357,7 +356,6 @@
   .cinematic-hud #route-hud strong { font-size: 12px; }
   .cinematic-hud #route-hud span { font-size: 9px; }
   .cinematic-hud #toast { top: 92px; max-width: 75%; font-size: 10px; }
-  .cinematic-hud #credits { font-size: 6px; }
   .cinematic-hud #pause .controls { margin-top: 25px; gap: 11px; }
   .cinematic-hud #pause h2 { margin: 15px 0 25px; font-size: 32px; }
   .cinematic-hud #observer-help { bottom: 18px; font-size: 9px; padding: 8px 12px; }

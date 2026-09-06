@@ -252,6 +252,44 @@
       ]
     },
     {
+      "id": "fortune-user-front-road",
+      "title": "用户提供：财富广场临深南大道正面参考",
+      "pageUrl": null,
+      "imageUrl": null,
+      "localPath": "artifacts/materials/fortune-signage-references/front-road.png",
+      "publisherOrAuthor": "用户提供，原作者未注明",
+      "sourceType": "user_supplied_reference_photo",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-06",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "5635f03a0dbe17340371aea9b44441776767838998bd4fd6693fddadd4185a56",
+      "notes": [
+        "A座弧形正面顶部可清楚识读横排四字‘财富广场’，金黄色字面位于顶格栅下方。",
+        "只作位置、文字与比例参考，不打包为游戏纹理。"
+      ]
+    },
+    {
+      "id": "fortune-user-front-courtyard",
+      "title": "用户提供：财富广场院内正面参考",
+      "pageUrl": null,
+      "imageUrl": null,
+      "localPath": "artifacts/materials/fortune-signage-references/front-courtyard.png",
+      "publisherOrAuthor": "用户提供，原作者未注明",
+      "sourceType": "user_supplied_reference_photo",
+      "visuallyInspected": true,
+      "accessedAt": "2026-09-06",
+      "photoDate": null,
+      "photoDateStatus": "unknown",
+      "referenceOnly": true,
+      "imageSha256": "e1e31adb6ae45ca7ea542087d52fd8e6a8c4bb2ffadda9836a4cf3ea21e9d5b8",
+      "notes": [
+        "补充确认四字位于A座弧形主立面上沿，按单行等高排列。",
+        "只作位置、文字与比例参考，不打包为游戏纹理。"
+      ]
+    },
+    {
       "id": "bamboo-kpf",
       "title": "中国华润大厦设计方建成实景",
       "pageUrl": "https://www.kpf.com/project/china-resources-tower",
@@ -297,6 +335,8 @@
         {
           "id": "tencent-south-roof",
           "exactText": "Tencent",
+          "illuminationBasis": "user_requested_artistic",
+          "illuminationRequest": "用户于2026-09-06要求 Tencent 顶部英文招牌具有夜间 HDR 发光；不代表对实景灯具的核实。",
           "letterCase": {
             "Latin": "T uppercase; encent lowercase"
           },
@@ -692,35 +732,61 @@
     {
       "id": "fortune-plaza",
       "name": "财富广场 A / B 座",
-      "status": "unknown",
+      "status": "verified_in_user_reference_photo",
       "signs": [
         {
-          "id": "fortune-roof-unknown",
-          "exactText": null,
+          "id": "fortune-roof-name",
+          "exactText": "财富广场",
           "letterCase": null,
-          "script": null,
-          "colors": null,
-          "placementObserved": "已检查曲面楼与通透顶格栅实景，未能读出永久楼名大招牌。",
-          "placementEstimate": null,
-          "status": "unknown",
+          "script": "Simplified Chinese",
+          "colors": {
+            "observed": "暖金黄色字面；照片不是校色样本",
+            "suggestedSrgbHex": {
+              "letters": "#FFD34E"
+            }
+          },
+          "placementObserved": "用户提供的两个正面视角均显示A座弧形主立面顶部、顶格栅下方横排‘财富广场’四字。",
+          "placementEstimate": {
+            "modelSpec": "data/landmarks/priority-models.json",
+            "modelId": "fortune-plaza",
+            "componentId": "way/668050780",
+            "surface": "inner concave fitted arc midpoint, courtyard-facing",
+            "arcFitIndex": 1,
+            "surfaceNormalRadialSign": -1,
+            "followCurvature": true,
+            "orientationCorrection": "用户于2026-09-06明确要求改到内凹圆弧、庭院一侧顶部。",
+            "arcFraction": 0.5,
+            "outwardOffsetMeters": 0.42,
+            "heightCenterMeters": 87.8,
+            "signWidthMeters": 24,
+            "signHeightMeters": 5,
+            "status": "photo_interpretation_estimated"
+          },
+          "status": "verified_in_reference_photo",
           "currentInstallationStatus": "not_reverified_on_site",
-          "textAssetReady": false,
-          "renderReady": false,
-          "renderPlacementStatus": "pending_evidence",
+          "textAssetReady": true,
+          "renderReady": true,
+          "renderPlacementStatus": "photo_interpretation_estimated",
           "sourceIds": [
-            "fortune-overall"
+            "fortune-overall",
+            "fortune-user-front-road",
+            "fortune-user-front-courtyard"
           ],
           "sourceUrls": [
             "https://shenzhen.leyoujia.com/xq/detail/8645",
             "https://fang-community.leyoujia.com//community/album/2019-06/10/10/0bf01030-5f46-4f65-90b7-2864d64e6156.jpg"
           ],
           "limitations": [
-            "公开照片未覆盖全部立面与入口。",
+            "字符轮廓使用本机黑体近似，不声称复原现场定制字体。",
+            "宽高、弧面中心位置和离墙距离由照片与现有拟合模型估算，非实测。",
+            "用户明确要求发光；发光强度为游戏艺术参数，不声称照片证明夜间灯具类型。",
             "不得使用福华三路时代财富大厦/财富大厦的文字和位置。"
           ]
         }
       ],
-      "exactText": []
+      "exactText": [
+        "财富广场"
+      ]
     },
     {
       "id": "mixc-world",
@@ -976,13 +1042,13 @@
     }
   ],
   "validation": {
-    "visuallyInspectedSourceCount": 14,
+    "visuallyInspectedSourceCount": 16,
     "placeCount": 7,
-    "placesWithVerifiedText": 3,
-    "signObservationsWithVerifiedText": 7,
-    "signsReadyForEstimatedPlacement": 2,
+    "placesWithVerifiedText": 4,
+    "signObservationsWithVerifiedText": 8,
+    "signsReadyForEstimatedPlacement": 3,
     "referenceImagesBundled": false,
     "browserOrGpuStarted": false,
-    "sourceCount": 15
+    "sourceCount": 17
   }
 }

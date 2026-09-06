@@ -4,6 +4,4 @@
 
 #observer-help{position:fixed;left:50%;bottom:42px;transform:translateX(-50%);background:#102229d9;border:1px solid #bdd3c34d;border-radius:10px;padding:12px 24px;color:#dfebe2;display:flex;flex-direction:column;gap:5px;text-align:center;font-size:12px;pointer-events:none}#observer-help[hidden]{display:none}#observer-help strong{letter-spacing:3px;font-size:14px}.observer-muted{opacity:.25}body:has(#observer-help:not([hidden])) .intro{display:none}
 
-#credits a{color:inherit;pointer-events:auto;text-decoration:none}#credits a:hover{text-decoration:underline}
-
 body:has(#observer-help:not([hidden])) .controls{display:none}

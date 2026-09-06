@@ -1,24 +1,24 @@
 {
-  "id": "shenzhen-rain-cleared-daylight",
-  "purpose": "Third selectable lighting mode: blue sky, white cumulus clouds, warm-white afternoon sunlight and the same sky reflected in PBR surfaces. Lighting reference, not a photograph of Shenzhen.",
+  "id": "shenzhen-clear-blue-daylight",
+  "purpose": "Clear blue sky over the bay, with sparse soft clouds and shared HDR radiance in sky, water and PBR reflections. Lighting reference, not a photograph of Shenzhen.",
   "source": {
-    "name": "Kloofendal 48d Partly Cloudy (Pure Sky)",
+    "name": "Rustig Koppie (Pure Sky)",
     "authors": [
       "Greg Zaal",
       "Jarod Guest"
     ],
-    "page": "https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky",
-    "metadataUrl": "https://api.polyhaven.com/files/kloofendal_48d_partly_cloudy_puresky",
-    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/kloofendal_48d_partly_cloudy_puresky_4k.hdr",
+    "page": "https://polyhaven.com/a/rustig_koppie_puresky",
+    "metadataUrl": "https://api.polyhaven.com/files/rustig_koppie_puresky",
+    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/rustig_koppie_puresky_4k.hdr",
     "license": "CC0-1.0",
     "licenseUrl": "https://polyhaven.com/license",
     "retrieved": "2026-09-06",
-    "size": 20674857,
-    "md5": "816340c969d2e60d659051d13ac3c4dc",
-    "sha256": "3061c00a16ecae748e84fd6c44c04804f539c118bb66325db858bad87b11bf88"
+    "size": 15257521,
+    "md5": "499abd33d77b000b80a7ce024fc72ec2",
+    "sha256": "0a7431d4831e71d8690ab1be0a9baaec181962918166395cf14cbe1add6a84a9"
   },
   "runtime": {
-    "file": "public/city/environment/kloofendal-clouds-4k.hdr",
+    "file": "public/city/environment/rustig-blue-sky-4k.hdr",
     "sourceResolution": [
       4096,
       2048
@@ -29,11 +29,16 @@
     "radiance": "Unclipped linear HDR. The unblurred cube level supplies the visible sky; roughness-prefiltered levels supply PBR reflections and diffuse irradiance.",
     "solarDirection": "Sampled source solar-disc direction in Babylon cube space, transformed by inverse environment rotation. Not astronomical simulation.",
     "extraFrameRenderTargets": 0,
-    "controls": "cinematic.setMode('day'); setNight(true/false) remains compatible for night/sunset."
+    "controls": "cinematic.setMode('day'); setNight(true/false) remains compatible for night/sunset.",
+    "solarDirectionSourceCube": [
+      0.504674,
+      0.473661,
+      0.721768
+    ]
   },
   "validation": {
     "source": "Downloaded bytes and MD5 match official metadata; local SHA-256 recorded; HDR decoded as 4096x2048.",
-    "visualSource": "Source panorama preview inspected: distinct cumulus clouds, blue gaps, bright compact high sun; no imported buildings or mountain silhouettes.",
-    "integratedVisual": "Inspected in game in output/playwright/career-chapter/03-city-daylight.png and output/playwright/life-hub-in-game/03-hub-day.png; blue sky, white cumulus, glass/car/wet-road response and three-mode switch verified. No FPS benchmark."
+    "visualSource": "Official panorama reviewed against Kloppenheim 05: predominantly clear blue upper sky, sparse soft clouds and low cloud band; no imported buildings or mountains.",
+    "integratedVisual": "Current build reviewed in output/playwright/coastal-sky/after: three daytime sky directions, open sea blue reflection, high coast in daylight and sunset, and night mode cycle. Browser errors 0; the 1080p high coast and daytime seaside 10-second samples were both about 60 FPS."
   }
 }

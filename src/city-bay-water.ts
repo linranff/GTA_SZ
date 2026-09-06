@@ -1,4 +1,4 @@
-import {Color3,Matrix,Vector3,MaterialPluginBase,PBRMaterial,ShaderLanguage,Texture,VertexBuffer,type AbstractEngine,type AbstractMesh,type BaseTexture,type MaterialDefines,type MirrorTexture,type Scene,type SubMesh,type UniformBuffer} from '@babylonjs/core';
+import {Color3,Matrix,Mesh,Vector3,VertexData,MaterialPluginBase,PBRMaterial,ShaderLanguage,Texture,VertexBuffer,type AbstractEngine,type AbstractMesh,type BaseTexture,type MaterialDefines,type MirrorTexture,type Scene,type SubMesh,type UniformBuffer} from '@babylonjs/core';
 import type {CoastalManifest} from './city-coastal-infrastructure.ts';
 type BayState={time:number;night:number;shore:Texture;extent:number[];ready:boolean};
 class BaySurface extends MaterialPluginBase{
@@ -17,7 +17,8 @@ class BaySurface extends MaterialPluginBase{
    reflectionCoords+=normalW.xz*vec2(.023,.040)*mix(1.,.30,smoothstep(100.,900.,length(vPositionW-vEyePosition.xyz)));
   `,CUSTOM_FRAGMENT_BEFORE_LIGHTS:`
    vec2 bayUV=(vPositionW.xz-cityBayExtent.xy)/cityBayExtent.zw;
-   float shoreDistance=mix(120.,texture2D(cityShoreDistance,bayUV).r*120.,cityBayClock.z);
+   float shoreInside=step(0.,bayUV.x)*step(bayUV.x,1.)*step(0.,bayUV.y)*step(bayUV.y,1.);
+   float shoreDistance=mix(120.,texture2D(cityShoreDistance,bayUV).r*120.,cityBayClock.z*shoreInside);
    vec2 wp=vPositionW.xz;float t=cityBayClock.x;
    float p1=dot(wp,vec2(.092,.171))-t*.72;
    float p2=dot(wp,vec2(-.238,.114))-t*.48;
@@ -43,8 +44,20 @@ export function createBayWater(scene:Scene,mirror:MirrorTexture,meshes:AbstractM
  const material=new PBRMaterial('living-bay',scene);material.albedoColor=new Color3(.025,.095,.105);material.metallic=0;material.roughness=.13;material.indexOfRefraction=1.333;material.metallicF0Factor=1;material.reflectionTexture=mirror;material.environmentIntensity=1;material.maxSimultaneousLights=2;material.enableSpecularAntiAliasing=true;material.backFaceCulling=false;
  const state:BayState={time:0,night:0,shore:null as unknown as Texture,extent:meta.shoreDistance.extent,ready:false};state.shore=new Texture(meta.shoreDistance.url,scene,{invertY:false,gammaSpace:false,samplingMode:Texture.TRILINEAR_SAMPLINGMODE,onLoad:()=>{state.ready=true;}});state.shore.wrapU=state.shore.wrapV=Texture.CLAMP_ADDRESSMODE;new BaySurface(material,state);
  for(const mesh of meshes){const original=mesh.getVerticesData(VertexBuffer.PositionKind);if(original){mesh.setVerticesData(VertexBuffer.PositionKind,positionsOnWorldWaterPlane(original,mesh.computeWorldMatrix(true),meta.waterHeight),false);mesh.refreshBoundingInfo({applySkeleton:false});}mesh.material=material;mesh.receiveShadows=false;}
+ // A four-quad ring extends the sea beyond the finite original map. Its inner
+ // edge exactly meets the existing water bounds: no coplanar overlap or new RTT.
+ const bounds=meshes.map(m=>m.getBoundingInfo().boundingBox);
+ const x0=Math.min(...bounds.map(b=>b.minimumWorld.x)),x1=Math.max(...bounds.map(b=>b.maximumWorld.x));
+ const z0=Math.min(...bounds.map(b=>b.minimumWorld.z)),z1=Math.max(...bounds.map(b=>b.maximumWorld.z));
+ const extension=new Mesh('bay-horizon-water',scene),v=new VertexData(),positions:number[]=[],normals:number[]=[],uvs:number[]=[],indices:number[]=[];
+ if(bounds.length)for(const [a,b,c,d] of [[-50000,-50000,x0,50000],[x1,-50000,50000,50000],[x0,-50000,x1,z0],[x0,z1,x1,50000]]){
+  const offset=positions.length/3;positions.push(a,meta.waterHeight,b,c,meta.waterHeight,b,c,meta.waterHeight,d,a,meta.waterHeight,d);
+  normals.push(0,1,0,0,1,0,0,1,0,0,1,0);uvs.push(0,0,1,0,1,1,0,1);indices.push(offset,offset+1,offset+2,offset,offset+2,offset+3);
+ }
+ v.positions=positions;v.normals=normals;v.uvs=uvs;v.indices=indices;v.applyToMesh(extension);
+ extension.material=material;extension.isPickable=false;extension.receiveShadows=false;extension.freezeWorldMatrix();meshes.push(extension);
  mirror.mirrorPlane.d=meta.waterHeight;mirror.level=.92;
  const setNight=(night:boolean)=>{state.night=night?1:0;material.environmentIntensity=night?.78:1;};
- scene.onDisposeObservable.addOnce(()=>{state.shore.dispose();material.dispose(false,false);});
+ scene.onDisposeObservable.addOnce(()=>{extension.dispose(false,false);state.shore.dispose();material.dispose(false,false);});
  return {material,update:(time:number)=>{state.time=time;},setNight,stats:()=>({meshWorldHeights:meshes.map(m=>({min:m.getBoundingInfo().boundingBox.minimumWorld.y,max:m.getBoundingInfo().boundingBox.maximumWorld.y})),shoreTextureReady:state.ready,waterLevel:meta.waterHeight,planarLevel:mirror.mirrorPlane.d,normalScale:'world-metres, four wind components, distance-filtered',lighting:'PBR with moon/sun specular; vehicle headlights excluded',night:!!state.night})};
 }

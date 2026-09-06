@@ -1,8 +1,9 @@
-import {Color3,PBRMaterial,Texture,VertexBuffer,type AbstractMesh,type BaseTexture,type Scene} from '@babylonjs/core';
+import {Color3,PBRMaterial,Texture,VertexBuffer,Mesh,type AbstractMesh,type BaseTexture,type Scene} from '@babylonjs/core';
+import {TencentWindowLighting,attachTencentWindowData} from './city-landmark-lighting.ts';
 
 type RGB=readonly [number,number,number];
 type TextureKind='curtain-glass'|'warm-residential'|'light-stone';
-type Profile={color:RGB;roughness:number;metallic:number;texture?:TextureKind;environment?:number};
+type Profile={color:RGB;roughness:number;metallic:number;texture?:TextureKind;environment?:number;lineEmission?:RGB};
 type AssetKind='ordinary'|'landmark'|'detail';
 type TextureSlot={url:string;state:'loading'|'ready'|'failed';texture:Texture|null;fallback:BaseTexture|null;users:Set<PBRMaterial>;failure?:string;
  maskUrl:string;maskState:'loading'|'ready'|'failed';mask:Texture|null;maskFailure?:string};
@@ -12,7 +13,7 @@ type TextureSlot={url:string;state:'loading'|'ready'|'failed';texture:Texture|nu
  * and docs/materials/shenzhen-palette-references.md; these values are authoring
  * approximations for this scene, not measured reflectance. Ordinary-building vertex
  * colors remain multiplicative, including palettes repaired in the offline GLB.
- * The 27 finite profiles plus three possible no-UV variants cap this cache at 30.
+ * The 28 finite profiles plus three possible no-UV variants cap this cache at 31.
  */
 const PROFILES={
  'city-office':{color:[.80,.88,.94],roughness:.33,metallic:.035,texture:'curtain-glass',environment:1.05},
@@ -34,6 +35,7 @@ const PROFILES={
  'fortune-glass':{color:[.38,.55,.66],roughness:.34,metallic:.03},
  'fortune-window':{color:[.26,.38,.46],roughness:.32,metallic:.02},
  'bamboo-glass':{color:[.44,.62,.66],roughness:.30,metallic:.04},
+ 'bamboo-ribs':{color:[.72,.76,.77],roughness:.40,metallic:.67,lineEmission:[.78,.9,1]},
  'recess-glass':{color:[.28,.35,.40],roughness:.34,metallic:.02},
  'qijie-render':{color:[.66,.68,.67],roughness:.78,metallic:0},
  'neutral-concrete':{color:[.73,.74,.72],roughness:.81,metallic:0},
@@ -78,7 +80,7 @@ function profileFor(mesh:AbstractMesh,kind:AssetKind,role:string):ProfileId|null
  if(role==='landmarkglass'||role==='office')return GLASS[id];
  if(role==='darkglass')return id==='tencent'?'tencent-window':id==='fortune-plaza'?'fortune-window':id==='qijie-gongguan'?'qijie-glass':'recess-glass';
  if(role==='concrete')return id==='qijie-gongguan'?'qijie-render':'neutral-concrete';
- if(role==='silver')return id==='fortune-plaza'?'fortune-band':'brushed-aluminum';
+ if(role==='silver')return id==='bamboo'?'bamboo-ribs':id==='fortune-plaza'?'fortune-band':'brushed-aluminum';
  if(role==='steel')return 'landmark-steel';
  if(role==='stone')return 'landmark-stone';
  if(role==='gold')return id==='tencent'?'tencent-champagne':'civic-gold';
@@ -107,13 +109,14 @@ function cloneWithoutTextures(source:PBRMaterial,name:string):PBRMaterial{
  */
 export function createArchitectureMaterials(scene:Scene){
  const materials=new Map<string,{material:PBRMaterial;profile:Profile;id:ProfileId}>();
+ const tencentLights=new Map<PBRMaterial,TencentWindowLighting>();
  const materialProfiles=new WeakMap<PBRMaterial,Profile>();
  const textures=new Map<TextureKind,TextureSlot>();
  const managed=new WeakSet<PBRMaterial>();
  const applied=new WeakSet<AbstractMesh>();
  const released=new WeakSet<BaseTexture>();
  const repairs={roof:0,concrete:0,darkglass:0,steel:0,silver:0};
- let night=false,assignments=0,retiredMaterials=0,releasedTextures=0,withoutUV=0;
+ let mode:'sunset'|'night'|'day'='sunset',night=false,assignments=0,retiredMaterials=0,releasedTextures=0,withoutUV=0;
 
  const protectedTextures=()=>{
   const result=new Set<BaseTexture>();
@@ -203,8 +206,13 @@ export function createArchitectureMaterials(scene:Scene){
   // landmark lamp/LED meshes remain outside this controller.
   const slot=profile.texture?textures.get(profile.texture):undefined;
   const aligned=Boolean(slot&&slot.state==='ready'&&slot.maskState==='ready'&&material.albedoTexture===slot.texture&&material.emissiveTexture===slot.mask);
-  material.emissiveIntensity=aligned?(night?1.15:.72):0;
+  material.emissiveIntensity=aligned?(night?2.0:mode==='day'?0:1.5):0;
   material.emissiveColor=aligned?new Color3(1,.94,.83):Color3.Black();
+  if(profile.lineEmission){
+   material.emissiveColor=new Color3(...profile.lineEmission);
+   material.emissiveIntensity=mode==='day'?0:night?2.8:1.2;
+  }
+  const windows=tencentLights.get(material);if(windows)windows.mode=mode;
   material.environmentIntensity=profile.environment??.96;
  }
 
@@ -238,6 +246,7 @@ export function createArchitectureMaterials(scene:Scene){
   material.subSurface.isTranslucencyEnabled=false;material.sheen.isEnabled=false;
   material.disableBumpMap=true;
   materialProfiles.set(material,profile);
+  if(id==='tencent-glass')tencentLights.set(material,new TencentWindowLighting(material));
   if(textured&&profile.texture){
    attachAlbedo(profile.texture,material,source.albedoTexture);
   }
@@ -257,6 +266,7 @@ export function createArchitectureMaterials(scene:Scene){
    if(!id)continue;
    const hasUV=mesh.isVerticesDataPresent(VertexBuffer.UVKind);
    mesh.material=materialFor(source,id,hasUV);
+   if(id==='tencent-glass'&&mesh instanceof Mesh)attachTencentWindowData(mesh);
    // Vertex colors are owned by the mesh. This preserves repaired per-building
    // palette data without a per-vertex scan, recolor, split or extra draw call.
    if(mesh.isVerticesDataPresent(VertexBuffer.ColorKind))mesh.useVertexColors=true;
@@ -278,13 +288,14 @@ export function createArchitectureMaterials(scene:Scene){
   releaseUnused(oldTextures);
  }
 
- function setNight(value:boolean){
-  night=value;
+ function setMode(value:'sunset'|'night'|'day'){
+  mode=value;night=value==='night';
   for(const {material,profile} of materials.values())applyNight(material,profile);
  }
 
  function stats(){
-  return {managedMaterials:materials.size,materialBudget:30,assignments,night,withoutUV,
+  return {managedMaterials:materials.size,materialBudget:31,assignments,night,withoutUV,
+   landmarkLighting:{basis:'user_requested_artistic',dayEmission:0,tencentWindowMaterials:tencentLights.size,tencentWindowHDR:mode==='day'?0:night?1.5:.55,bambooRibHDR:mode==='day'?0:night?2.8:1.2},
    repairedOrdinarySurfaces:{...repairs},retiredMaterials,releasedTextures,
    profiles:[...materials.keys()],
    sharedAlbedoTextures:(Object.keys(TEXTURE_URLS) as TextureKind[]).map(kind=>{const slot=textures.get(kind);return {kind,url:TEXTURE_URLS[kind],state:slot?.state??'not-requested',
@@ -295,6 +306,6 @@ export function createArchitectureMaterials(scene:Scene){
   };
  }
 
- scene.onDisposeObservable.addOnce(()=>{materials.clear();textures.clear();});
- return {applyMeshes,setNight,stats};
+ scene.onDisposeObservable.addOnce(()=>{materials.clear();textures.clear();tencentLights.clear();});
+ return {applyMeshes,setMode,setNight:(night:boolean)=>setMode(night?'night':'sunset'),stats};
 }

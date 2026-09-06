@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-06T06:04:28.500Z",
+  "date": "2026-09-06T10:17:32.085Z",
   "assets": {
     "buildings.glb": {
       "bytes": 49728080,
@@ -123,6 +123,10 @@
     "environment/rooftop-night-2k.hdr": {
       "bytes": 6509158,
       "sha256": "8ace3b81da7659381998ea4423fb4c7ffc1310ac27c4baa7a32088bd093de82e"
+    },
+    "environment/rustig-blue-sky-4k.hdr": {
+      "bytes": 15257521,
+      "sha256": "0a7431d4831e71d8690ab1be0a9baaec181962918166395cf14cbe1add6a84a9"
     },
     "facade-manifest.json": {
       "bytes": 237,
@@ -13445,8 +13449,8 @@
       "sha256": "bfe6907f82731d00621d378a65f04c33dd4fbd70d2bc35fc0d2c175c1c51852b"
     },
     "landmark-signage.json": {
-      "bytes": 5519,
-      "sha256": "ce62c2b0caf9fea651eb77c29209cf35beb088920f7d067f9d1ead1a74dbf7c1"
+      "bytes": 7388,
+      "sha256": "d15c4326d459d59116a54a00a0ee3fafcf769f618e2d45836bc9b43e4ba5a5f1"
     },
     "landmarks.glb": {
       "bytes": 2266028,
@@ -13601,8 +13605,8 @@
       "sha256": "dddc32644ad2bce25b77c46077ddcd1e6da6299eb75002dd2c7b8ead41891d99"
     },
     "rain/puddles-layout.json": {
-      "bytes": 4391619,
-      "sha256": "4a77a72cb028593a1252b6e9befe405624dd8773ca295e872812aca318e8962b"
+      "bytes": 4379027,
+      "sha256": "93009277ffeb0dc562893fc26b5ddcb2c2e865dd176adecbacd0e4d934e822c6"
     },
     "roads.glb": {
       "bytes": 16827100,
@@ -13732,6 +13736,10 @@
       "bytes": 54281,
       "sha256": "a1dfa5999d9ad4f28d3d851630f5795d3b5147b42c99f2f0cb9307da946a974b"
     },
+    "textures/signage/fortune-roof-name.png": {
+      "bytes": 7346,
+      "sha256": "f3311456fdd7d9a53a7b7cbd4d20e41c32607c255d48fd9b8680d7018e5f3fea"
+    },
     "textures/signage/mixc-street-link-entry.png": {
       "bytes": 9693,
       "sha256": "dcfa13b09c8639d8bd945200be9278a9fd79cb8ede37361aa2ad79dbc96dfb60"
@@ -13777,7 +13785,7 @@
       "sha256": "4f704aeb8baae349e4e99f4f57be309a06b7687e38b2efd50f3a43d71199dd2d"
     }
   },
-  "totalRuntimeFileBytes": 296061626,
+  "totalRuntimeFileBytes": 311315770,
   "streamingFacades": {
     "totalTiles": 150,
     "totalBytes": 32166308,

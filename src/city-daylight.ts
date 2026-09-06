@@ -3,9 +3,9 @@ import {Matrix,Vector3} from '@babylonjs/core';
 export type CinematicLightingMode='sunset'|'night'|'day';
 
 export const CITY_DAYLIGHT_SOURCE={
- file:'/city/environment/kloofendal-clouds-4k.hdr',
- name:'Poly Haven / Kloofendal 48d Partly Cloudy (Pure Sky)',
- bytes:20674857,
+ file:'/city/environment/rustig-blue-sky-4k.hdr',
+ name:'Poly Haven / Rustig Koppie (Pure Sky)',
+ bytes:15257521,
  cubeSize:1024,
  rotationY:1.85,
 } as const;
@@ -15,7 +15,7 @@ export const CITY_DAYLIGHT_SOURCE={
  * inverse. Sky, polished glass, paint highlights and cast shadows agree.
  * This is an authored afternoon, not a solar-position simulation of Shenzhen.
  */
-const sourceSolarDirection=new Vector3(.377,.741,.556).normalize();
+const sourceSolarDirection=new Vector3(.504674,.473661,.721768).normalize();
 export const CITY_DAYLIGHT_SUN_DIRECTION=Vector3.TransformNormal(
  sourceSolarDirection,Matrix.RotationY(-CITY_DAYLIGHT_SOURCE.rotationY),
 ).normalize();

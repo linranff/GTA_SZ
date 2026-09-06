@@ -1,6 +1,7 @@
 import {ImportMeshAsync,Mesh,Matrix,Quaternion,Vector3,Texture,PBRMaterial,Color3,type Scene,type AbstractMesh,type Observer} from '@babylonjs/core';
 import {CityMeadow} from './city-meadow.ts';
 import {grassBaseline} from './city-grass-material.ts';
+import {applyLandscapeNightLight} from './city-landscape-lighting.ts';
 
 type Plant=[number,number,number,number,number];
 type Planting={trees:Plant[];details:Plant[];roadDetails?:Plant[]};
@@ -58,6 +59,7 @@ export class CityLandscape {
       this.materials.set(key,shared);
      }mesh.material=shared;retired.add(original);
     }
+    if(mesh.material instanceof PBRMaterial&&/(?:grass|lawn)/i.test(mesh.material.name))applyLandscapeNightLight(this.scene,mesh.material,'grass');
     meshes.push(mesh);
    }
    for(const material of retired)material.dispose(false,true);

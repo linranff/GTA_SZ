@@ -1,0 +1,34 @@
+#area-reveal {
+  position: absolute;
+  z-index: 2;
+  top: 64px;
+  left: 12%;
+  right: 12%;
+  overflow: hidden;
+  color: #f4f3ef;
+  font: 500 clamp(30px, 2.35vw, 45px)/1.18 'Songti SC', 'Noto Serif SC', 'STSong', serif;
+  letter-spacing: .22em;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px #0004;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#area-reveal.visible {
+  animation: area-reveal 1s ease-in-out both;
+}
+
+@keyframes area-reveal {
+  0%, 100% { opacity: 0; }
+  18%, 68% { opacity: 1; }
+}
+
+@media (max-width: 1000px) {
+  #area-reveal { top: 86px; left: 5%; right: 5%; font-size: clamp(22px, 3vw, 30px); letter-spacing: .14em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #area-reveal.visible { animation-duration: 1s; }
+}

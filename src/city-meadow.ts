@@ -2,6 +2,7 @@ import {
  Color3, MaterialPluginBase, Matrix, Mesh, PBRMaterial, Quaternion, ShaderLanguage, Vector3, VertexData,
  type AbstractEngine, type AbstractMesh, type Scene, type SubMesh, type UniformBuffer,
 } from '@babylonjs/core';
+import {applyLandscapeNightLight} from './city-landscape-lighting.ts';
 
 type HeightAt = (x:number,z:number)=>number;
 export type MeadowTile = {id:string;ix:number;iz:number;url:string;bytes:number;count:number};
@@ -185,6 +186,7 @@ export class CityMeadow {
    material.emissiveColor=Color3.Black();material.environmentIntensity=.85;material.maxSimultaneousLights=3;
    material.backFaceCulling=false;material.twoSidedLighting=true;material.transparencyMode=PBRMaterial.PBRMATERIAL_OPAQUE;
    material.enableSpecularAntiAliasing=true;new MeadowMotion(material);this.material=material;
+   applyLandscapeNightLight(this.scene,material,'grass');
    this.geometry=createMeadowGeometry(this.scene.useRightHandedSystem);this.status='ready';this.dirty=true;
    if(this.requested)this.update(this.requested.x,this.requested.z,this.requested.aerial);
   }catch(error){if(this.disposed)return;this.error=error instanceof Error?error.message:String(error);if(this.status!=='missing-data')this.status='invalid-data';}

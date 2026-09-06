@@ -20,17 +20,21 @@ import {CityAudio} from './city-audio.ts';
 import {CityAutopilot,type DrivingInput} from './city-autopilot.ts';
 import {createCityCockpit,CITY_DRIVER_POSE} from './city-cockpit.ts';
 import {createCityTailLights} from './city-tail-lights.ts';
+import {createCitySportDetails} from './city-sport-details.ts';
 import {CityStreetFurniture} from './city-street-furniture.ts';
 import {CityPedestrians} from './pedestrians.ts';
 import {CityTraffic} from './traffic.ts';
 import {loadCoastalInfrastructure} from './city-coastal-infrastructure.ts';
 import {createBayWater} from './city-bay-water.ts';
+import {createCoastalHorizon} from './city-coastal-horizon.ts';
 import {createPublicLighting} from './city-public-lighting.ts';
+import {setLandscapeLightingMode} from './city-landscape-lighting.ts';
 import type {RoadGraph} from './navigation.ts';
 import type {CityData,Landmark,V2} from './city-types.ts';
 import {CityCollision,stepCar,manualSteeringInput,clamp,type CarState} from './driving.ts';
 export class DrivingWorld{
  coastal:Awaited<ReturnType<typeof loadCoastalInfrastructure>>|null=null;bayWater:ReturnType<typeof createBayWater>|null=null;publicLighting:ReturnType<typeof createPublicLighting>|null=null;private lampAssignments=[-1,-1];
+ coastalHorizon:ReturnType<typeof createCoastalHorizon>[]=[];
  propObstacles:{x:number;z:number;heading:number}[]=[];
  buildingSigns:Awaited<ReturnType<typeof attachCityBuildingSigns>>|null=null;
  vehicleMaterials:ReturnType<typeof refineHeroVehicleMaterials>|null=null;audio=new CityAudio();autopilot:CityAutopilot|null=null;cockpit:ReturnType<typeof createCityCockpit>|null=null;tailLights:ReturnType<typeof createCityTailLights>|null=null;streetFurniture:CityStreetFurniture|null=null;
@@ -39,7 +43,9 @@ export class DrivingWorld{
  roadSurface:ReturnType<typeof applyCinematicRoad>|null=null;
  rainPuddles:ReturnType<typeof createRainPuddles>|null=null;
  groundRelief:Awaited<ReturnType<typeof loadCityGroundRelief>>|null=null;
+ private nextDetailUpdate=0;private detailWasMoving=false;private previousDetailFocus={x:Infinity,z:Infinity};
  vehicleFinish:ReturnType<typeof applyCinematicVehicleFinish>|null=null;
+ sportDetails:ReturnType<typeof createCitySportDetails>|null=null;
  instrumentation!:SceneInstrumentation; gpuInstrumentation!:EngineInstrumentation; updateMs=0; renderMs=0; ao:SSAO2RenderingPipeline|null=null; debugSimulation=true; debugFacades=true; facadeStream:CityFacadeStream|null=null; aerial=false; observer=new CityObserver(); overviewEffects=false; renderFrames=0;
  architecture!:ReturnType<typeof createArchitectureMaterials>; facadeDiversity!:ReturnType<typeof createFacadeDiversity>; landscape:CityLandscape|null=null; signage:Awaited<ReturnType<typeof loadLandmarkSignage>>|null=null; wheelRadius=.4404; lastLandscapeAerial=false;
  engine:Engine;scene:Scene;camera:FreeCamera;car:TransformNode;data!:CityData;collision!:CityCollision;
@@ -145,7 +151,7 @@ export class DrivingWorld{
  private async load(name:string){const r=await ImportMeshAsync('/city/'+name+'.glb',this.scene);r.meshes[0].rotationQuaternion=Quaternion.Identity();for(const m of r.meshes){m.isPickable=false;m.receiveShadows=true;if(m.material instanceof PBRMaterial){m.material.environmentIntensity=1.0;m.material.forceIrradianceInFragment=true;m.material.maxSimultaneousLights=8;}if(m.getTotalVertices())m.freezeWorldMatrix();}this.architecture.applyMeshes(r.meshes,name);this.facadeDiversity.applyMeshes(r.meshes,name);return r;}
  async init(progress:(s:string)=>void){
   progress('正在展开深圳地图');const response=await fetch('/city/city.json');if(!response.ok)throw Error('地图加载失败');this.data=await response.json();const detail=await loadLandmarkDetails(this.data);if(detail){this.groundHeight=detail.heightAt;this.detailManifest=detail.manifest;}progress('正在铺设公园缓坡');this.groundRelief=await loadCityGroundRelief(this.groundHeight);this.groundHeight=this.groundRelief.heightAt;progress('正在架设跨水桥梁');this.coastal=await loadCoastalInfrastructure(this.data,this.groundHeight);this.groundHeight=this.coastal.heightAt;this.collision=new CityCollision(this.data);this.walk=new CityWalk((x,z)=>this.collision.blocked(x,z)||this.propBlocked(x,z),(x,z)=>this.groundHeight(x,z));this.windowSources=[];this.state={...this.data.spawn,speed:0,steer:0,distance:0};
-  progress('正在铺设海岸线和城市道路');await this.load('terrain');const roads=await this.load('roads');for(const name of ['coastal-bridges','coastal-shoreline','opposite-shore']){const part=await this.load(name);for(const mesh of part.meshes.filter(m=>m.getTotalVertices()>0)){mesh.receiveShadows=name!=='opposite-shore';if(name==='opposite-shore'){mesh.applyFog=false;if(mesh.material instanceof PBRMaterial){mesh.material.albedoColor.set(.10,.15,.14);mesh.material.environmentIntensity=.35;}}if(name==='coastal-shoreline'&&mesh.material)mesh.material.backFaceCulling=false;this.landmarks.push(mesh);}}
+  progress('正在铺设海岸线和城市道路');await this.load('terrain');const roads=await this.load('roads');for(const name of ['coastal-bridges','coastal-shoreline','opposite-shore']){const part=await this.load(name);for(const mesh of part.meshes.filter(m=>m.getTotalVertices()>0)){mesh.receiveShadows=name!=='opposite-shore';if(name==='opposite-shore'){mesh.applyFog=true;if(mesh.material instanceof PBRMaterial){mesh.material.albedoColor.set(.10,.15,.14);mesh.material.environmentIntensity=.35;}this.coastalHorizon.push(createCoastalHorizon(this.scene,mesh,this.coastal!.manifest.waterHeight));}if(name==='coastal-shoreline'&&mesh.material)mesh.material.backFaceCulling=false;this.landmarks.push(mesh);}}
   progress('正在载入南山、福田、罗湖建筑');const buildings=await this.load('buildings');this.facadeStream=new CityFacadeStream(this.scene,()=>this.cull(),(meshes,name)=>this.architecture.applyMeshes(meshes,name));await this.facadeStream.init(this.state.x,this.state.z);
   for(const mesh of [...roads.meshes,...buildings.meshes]){const m=mesh.name.match(/(?:block|roads)_(-?\d+)_(-?\d+)_/);if(m)this.blocks.push({mesh,x:(Number(m[1])+.5)*640,z:(Number(m[2])+.5)*640,road:mesh.name.startsWith('roads')});}
   progress('正在装配深圳地标');const lm=await this.load('landmarks');this.landmarks.push(...lm.meshes.filter(m=>m.getTotalVertices()>0));if(this.detailManifest){const prefixes=this.detailManifest.replacedMeshPrefixes;for(const m of [...this.scene.meshes])if(prefixes.some(p=>m.name.startsWith(p)))m.dispose(false,false);this.blocks=this.blocks.filter(b=>!b.mesh.isDisposed());this.landmarks=this.landmarks.filter(m=>!m.isDisposed());const details=await this.load('landmark-detail');for(const mesh of details.meshes.filter(m=>m.getTotalVertices()>0)){const tile=mesh.name.match(/detail_block_(-?\d+)_(-?\d+)_/);if(tile)this.blocks.push({mesh,x:(Number(tile[1])+.5)*640,z:(Number(tile[2])+.5)*640,road:false});else this.landmarks.push(mesh);}}
@@ -157,6 +163,7 @@ export class DrivingWorld{
   this.setupReflections();applyLandscapeSurfaces(this.scene);this.groundRelief?.attachVisuals(this.scene);this.roadSurface=applyCinematicRoad(this.scene,this.mirror);this.carFill=new PointLight('soft-vehicle-fill',Vector3.Zero(),this.scene);this.carFill.diffuse=new Color3(.40,.56,1);this.carFill.range=25;this.carFill.intensity=65;this.carFill.includedOnlyMeshes=this.carMeshes;this.carFill.renderPriority=10;this.setupSigns();this.pedestrians=new CityPedestrians(this.scene,this.groundHeight);await this.pedestrians.init();this.pedestrians.place(this.state.x,this.state.z);this.lampData=await(await fetch('/city/lamps.json')).json();for(let i=0;i<2;i++){const l=new PointLight('street-light-pool-'+i,Vector3.Zero(),this.scene);l.diffuse=new Color3(1,.67,.36);l.range=26;l.intensity=70;this.streetLights.push(l);}for(let i=0;i<2;i++){const l=new PointLight('window-spill-'+i,Vector3.Zero(),this.scene);l.diffuse=new Color3(1,.42,.14);l.range=17;l.intensity=0;l.setEnabled(false);this.windowLights.push(l);}
   const parkPoles=await this.load('park-floodlight');this.publicLighting=createPublicLighting(this.scene,this.lampData,this.coastal!.manifest.parkLights,parkPoles.meshes,this.groundHeight);this.publicLighting.update(this.state.x,this.state.z,true);
   progress('正在调试海湾的光与倒影');this.cinematic=await createCinematicLook(this);this.vehicleMaterials=refineHeroVehicleMaterials(this.scene,this.carMeshes);
+  this.sportDetails=createCitySportDetails(this.scene,this.car);this.sportDetails.setMode(this.lightMode);this.carMeshes.push(...this.sportDetails.meshes);this.scene.onDisposeObservable.addOnce(()=>this.sportDetails?.dispose());
   progress('雨停了，正在铺设路边积水');this.rainPuddles=createRainPuddles(this.scene,this.data,this.groundHeight,this.mirror);await this.rainPuddles.readyPromise;this.tailLights=createCityTailLights(this.scene,this.car,this.carMeshes);this.scene.onDisposeObservable.addOnce(()=>{this.rainPuddles?.dispose();this.cockpit?.dispose();this.tailLights?.dispose();this.streetFurniture?.dispose();this.audio.dispose();this.vehicleMaterials?.dispose();});
   this.ready=true;this.car.position.set(this.state.x,.12,this.state.z);this.car.rotation.y=this.state.yaw;this.cameraYaw=this.state.yaw;
   this.camera.position.set(this.state.x-Math.sin(this.state.yaw)*8,3.7,this.state.z-Math.cos(this.state.yaw)*8);this.camera.setTarget(new Vector3(this.state.x,1.1,this.state.z));this.cull();this.vegetation();
@@ -166,6 +173,8 @@ export class DrivingWorld{
  cancelAutoDrive(reason='manual-takeover'){const status=this.autopilot?.status;if(!status||['idle','cancelled'].includes(status.phase))return;this.autopilot!.cancel(reason);if(reason==='manual-takeover'){this.audio.cue('cancel');this.onMessage?.('已切换为手动驾驶');}}
  propBlocked(x:number,z:number){return this.propObstacles.some(p=>{const dx=x-p.x,dz=z-p.z,c=Math.cos(p.heading),s=Math.sin(p.heading),lx=dx*c-dz*s,lz=dx*s+dz*c;return Math.abs(lx)<6.1&&lz> -2.4&&lz<3.3;});}
  get actor(){return this.walk?.active?{x:this.walk.x,z:this.walk.z,yaw:this.walk.yaw,speed:this.walk.speed}:this.state;}
+ // Detail and lighting belong to the subject being viewed. Throttle costly
+ // updates while turning the drone, without moving that detail to the eye.
  sceneFocus(){return this.observer.active?this.observer.focus:this.actor;}
  toggleWalking(){
   if(!this.walk)return;
@@ -183,7 +192,11 @@ export class DrivingWorld{
  }
  aerialEffects(active:boolean){if(this.overviewEffects===active)return;this.overviewEffects=active;this.sun.orthoLeft=this.sun.orthoBottom=active?-1050:-260;this.sun.orthoRight=this.sun.orthoTop=active?1050:260;this.sun.shadowMaxZ=active?3200:1200;this.shadows.getShadowMap()!.refreshRate=active?12:1;this.shadows.getShadowMap()!.resetRefreshCounter();if(this.ao){if(active)this.scene.postProcessRenderPipelineManager.detachCamerasFromRenderPipeline('contact-shading',this.camera);else this.scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('contact-shading',this.camera);}this.cull();}
  toggleAerial(){if(this.observer.active){this.exitPhoto();return;}const s=this.actor;this.enterPhoto({id:'free-camera',name:'自由无人机',x:s.x,z:s.z,height:0,area:'城市全景',excludeRadius:0,arrival:[s.x,s.z],yaw:s.yaw,photoDistance:420,photoElevation:.42,photoAngle:.65,photoTargetHeight:this.groundHeight(s.x,s.z)+15});}
- exitPhoto(){this.aerialEffects(false);this.observer.active=false;this.aerial=false;this.photoTarget=null;this.paused=false;this.keys.clear();this.camera.position.set(this.state.x-Math.sin(this.state.yaw)*9,this.groundHeight(this.state.x,this.state.z)+3.5,this.state.z-Math.cos(this.state.yaw)*9);this.cull();this.vegetation();this.onMessage?.(this.walk?.active?'返回步行探索':'返回驾驶');}
+ exitPhoto(){this.aerialEffects(false);this.observer.active=false;this.aerial=false;this.photoTarget=null;this.paused=false;this.keys.clear();
+  // Reselect lamps at the returning actor; nearby aerial slots can otherwise
+  // remain latched to different poles within the 100 m assignment hysteresis.
+  this.lampAssignments.fill(-1);this.lightTargets=[];this.lightTick=0;for(const light of this.streetLights)light.intensity=0;
+  this.camera.position.set(this.state.x-Math.sin(this.state.yaw)*9,this.groundHeight(this.state.x,this.state.z)+3.5,this.state.z-Math.cos(this.state.yaw)*9);this.cull();this.vegetation();this.onMessage?.(this.walk?.active?'返回步行探索':'返回驾驶');}
  setupReflections(){
   for(const material of this.scene.materials)if(material instanceof PBRMaterial&&/^car_glass(?:\.\d+)?$/.test(material.name)){material.albedoColor=new Color3(.012,.020,.027);material.metallic=0;material.roughness=.17;material.environmentIntensity=.55;material.specularIntensity=.65;material.clearCoat.isEnabled=false;}
   for(const material of this.scene.materials){if(!(material instanceof PBRMaterial))continue;if(material.name==='roadline')material.zOffset=-2;if(/^carpaint(?:\.\d+)?$/.test(material.name)){material.albedoColor=new Color3(.028,.074,.093);material.environmentIntensity=.75;material.metallic=.52;material.roughness=.31;material.specularIntensity=.65;}}
@@ -195,7 +208,9 @@ export class DrivingWorld{
  setupSigns(){
   // Signs are placed at actual major-road points, never at arbitrary world rows.
   let count=0;for(const road of this.data.roads){if(road.points.length<4||!['primary','trunk'].includes(road.kind)||road.name.includes('辅'))continue;const a=road.points[0],b=road.points[1];if(Math.abs(a[0]-this.data.spawn.x)>650||Math.abs(a[1]-this.data.spawn.z)>700)continue;if(count++>8)break;
-   const sign=MeshBuilder.CreatePlane('direction-sign',{width:8,height:2,sideOrientation:Mesh.DOUBLESIDE},this.scene);const mat=new StandardMaterial('wayfinding',this.scene);
+   // The artwork belongs only on the traffic-facing side. Rendering the same
+   // textured plane from behind mirrors both the Chinese and Latin lettering.
+   const sign=MeshBuilder.CreatePlane('direction-sign',{width:8,height:2,sideOrientation:Mesh.FRONTSIDE},this.scene);const mat=new StandardMaterial('wayfinding',this.scene);
    mat.diffuseTexture=new Texture('/city/textures/sign-'+(b[0]<a[0]?'west':'east')+'.jpg',this.scene);mat.diffuseTexture.anisotropicFilteringLevel=8;
    // StandardMaterial adds emissiveTexture to emissiveColor. Keep the green
    // artwork in diffuseTexture so the unlit brightness multiplies its color.
@@ -203,8 +218,11 @@ export class DrivingWorld{
    sign.material=mat;sign.position.set(a[0],6.8,a[1]);sign.rotation.y=Math.atan2(b[0]-a[0],b[1]-a[1])+Math.PI;sign.isPickable=false;
   }
  }
- cull(){const p=this.sceneFocus();this.lastCull.set(p.x,0,p.z);const shadowDistance=this.overviewEffects?1800:800;this.sun.position.set(p.x-this.sun.direction.x*shadowDistance,this.groundHeight(p.x,p.z)-this.sun.direction.y*shadowDistance,p.z-this.sun.direction.z*shadowDistance);this.facadeStream?.update(p.x,p.z,this.debugFacades);const traffic=this.traffic?.meshes.flat()??[];const casters:AbstractMesh[]=[...this.carMeshes,...traffic,...(this.pedestrians?.casters??[])];const reflect:AbstractMesh[]=[...this.carMeshes,...this.landmarks,...traffic,...(this.buildingSigns?.meshes??[])];const sky=this.scene.getMeshByName('atmosphere');if(sky)reflect.push(sky);
-  for(const b of this.blocks){const d=Math.hypot(p.x-b.x,p.z-b.z);b.mesh.setEnabled((!b.detail||this.debugFacades)&&d<(b.detail?700:b.road?2500:3300));if(d<(this.overviewEffects?1650:520)&&!b.road)casters.push(b.mesh);if(d<1400&&!b.road)reflect.push(b.mesh);}
+ cull(){const p=this.sceneFocus();this.lastCull.set(p.x,0,p.z);const shadowDistance=this.overviewEffects?1800:800;this.sun.position.set(p.x-this.sun.direction.x*shadowDistance,this.groundHeight(p.x,p.z)-this.sun.direction.y*shadowDistance,p.z-this.sun.direction.z*shadowDistance);this.facadeStream?.update(p.x,p.z,this.debugFacades,this.overviewEffects?250:0);const traffic=this.traffic?.meshes.flat()??[];const casters:AbstractMesh[]=[...this.carMeshes.filter(m=>m.metadata?.castsShadows!==false),...traffic,...(this.pedestrians?.casters??[])];const reflect:AbstractMesh[]=[...this.carMeshes,...this.landmarks,...this.coastalHorizon.flatMap(h=>h.mesh?[h.mesh]:[]),...traffic,...(this.buildingSigns?.meshes??[])];const sky=this.scene.getMeshByName('atmosphere');if(sky)reflect.push(sky);
+  // Base buildings are already loaded. Aerial views retain their original
+  // roofs, UV2 facade styles and glass; normal frustum culling limits draws.
+  // Extra far geometry does not enter the existing shadow/reflection radii.
+  for(const b of this.blocks){const d=Math.hypot(p.x-b.x,p.z-b.z);b.mesh.setEnabled((!b.detail||this.debugFacades)&&(d<(b.detail?700:b.road?2500:3300)||(this.overviewEffects&&!b.detail&&(!b.road||b.mesh.name.endsWith('_asphalt')))));if(d<(this.overviewEffects?1650:520)&&!b.road)casters.push(b.mesh);if(d<1400&&!b.road)reflect.push(b.mesh);}
   for(const m of this.landmarks){const center=m.getBoundingInfo().boundingBox.centerWorld;if(Vector3.Distance(center,new Vector3(p.x,0,p.z))<(this.overviewEffects?1650:700))casters.push(m);}
   casters.push(...(this.groundRelief?.shadowMeshes(p.x,p.z,this.overviewEffects?1450:650)??[]));casters.push(...(this.landscape?.casters??[]));for(const m of this.facadeStream?.shadowMeshes??[])casters.push(m);
 
@@ -235,17 +253,18 @@ export class DrivingWorld{
  }
  setLightMode(mode:'sunset'|'night'|'day'){
   this.lightMode=mode;this.night=mode==='night';this.skyMat.setFloat('night',this.night?1:0);
-  this.architecture.setNight(this.night);this.facadeDiversity.setNight(this.night);this.signage?.setNight(this.night);this.buildingSigns?.setNight(this.night);
+  this.architecture.setMode(mode);this.facadeDiversity.setMode(mode);this.signage?.setMode(mode);this.buildingSigns?.setNight(this.night);
   this.cinematic?.setMode(mode);this.bayWater?.setNight(this.night);this.publicLighting?.setMode(mode);this.lightTick=0;
+  setLandscapeLightingMode(this.scene,mode);this.sportDetails?.setMode(mode);
   for(const light of this.headlights)light.intensity=mode==='day'?20:250;
   for(const m of this.scene.materials){
    if(m instanceof PBRMaterial&&/^lamp(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:1;
-   if(m instanceof StandardMaterial&&m.name==='wayfinding'){const brightness=mode==='day'?.95:mode==='night'?.60:.82;m.emissiveColor.copyFromFloats(brightness,brightness,brightness);}
-  }
    // Dedicated civic materials retain the photographed blue roof/red-yellow
    // towers. Only the underside and eave fixtures receive night illumination.
    if(m instanceof PBRMaterial&&/^civic_(?:eave_light|flood_light)(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:mode==='night'?2.1:.55;
    if(m instanceof PBRMaterial&&/^civic_soffit(?:\.\d+)?$/.test(m.name))m.emissiveIntensity=mode==='day'?0:mode==='night'?.45:.08;
+   if(m instanceof StandardMaterial&&m.name==='wayfinding'){const brightness=mode==='day'?.95:mode==='night'?.60:.82;m.emissiveColor.copyFromFloats(brightness,brightness,brightness);}
+  }
   this.cull();this.shadows.getShadowMap()?.resetRefreshCounter();this.mirror.resetRefreshCounter();this.waterMirror.resetRefreshCounter();
   this.onMessage?.({sunset:'海湾日落 · L 切换夜色',night:'月下深圳 · L 切换晴日',day:'雨后晴日 · 蓝天白云 · L 切换日落'}[mode]);
  }
@@ -281,9 +300,19 @@ export class DrivingWorld{
 
   if(this.carFill)this.carFill.position.copyFrom(this.camera.position).addInPlace(new Vector3(3,3,0));
   this.buildingSigns?.update(this.camera.position);
-  const focus=this.sceneFocus();this.streetFurniture?.update(focus.x,focus.z,this.overviewEffects);this.rainPuddles?.update(focus.x,focus.z,this.camera.position.y-this.groundHeight(this.camera.position.x,this.camera.position.z));if(!this.overviewEffects){const d=this.sun.direction;this.sun.position.set(focus.x-d.x*800,this.groundHeight(focus.x,focus.z)-d.y*800,focus.z-d.z*800);}
-  if(Math.hypot(focus.x-this.lastCull.x,focus.z-this.lastCull.z)>100)this.cull();if(Math.hypot(focus.x-this.lastVegetation.x,focus.z-this.lastVegetation.z)>22||this.lastLandscapeAerial!==this.overviewEffects)this.vegetation();
-  this.bayWater?.update(this.time);this.publicLighting?.update(focus.x,focus.z);
+  const focus=this.sceneFocus(),detailMoving=Math.hypot(focus.x-this.previousDetailFocus.x,focus.z-this.previousDetailFocus.z)>.01;
+  if(detailMoving)this.facadeStream?.noteFocusMotion();
+  const detailSettled=this.detailWasMoving&&!detailMoving;
+  this.previousDetailFocus={x:focus.x,z:focus.z};this.detailWasMoving=detailMoving;
+  if(!this.overviewEffects||this.time>=this.nextDetailUpdate||detailSettled){
+   this.nextDetailUpdate=this.time+.25;
+   this.streetFurniture?.update(focus.x,focus.z,this.overviewEffects);this.rainPuddles?.update(focus.x,focus.z,this.camera.position.y-this.groundHeight(this.camera.position.x,this.camera.position.z));
+   if(!this.overviewEffects){const d=this.sun.direction;this.sun.position.set(focus.x-d.x*800,this.groundHeight(focus.x,focus.z)-d.y*800,focus.z-d.z*800);}
+   if(Math.hypot(focus.x-this.lastCull.x,focus.z-this.lastCull.z)>100||detailSettled)this.cull();
+   if(Math.hypot(focus.x-this.lastVegetation.x,focus.z-this.lastVegetation.z)>22||this.lastLandscapeAerial!==this.overviewEffects)this.vegetation();
+   this.publicLighting?.update(focus.x,focus.z);
+  }
+  this.bayWater?.update(this.time);
   const direction=this.camera.getForwardRay().direction,moving=Vector3.DistanceSquared(this.camera.position,this.reflectionEye)>.000001||Vector3.DistanceSquared(direction,this.reflectionDirection)>.0000001;
   if(moving||this.drag)this.reflectionMotionUntil=this.time+.22;
   if(this.reflectionsEnabled){for(const [texture,idleRate] of [[this.mirror,2],[this.waterMirror,3]] as const){const rate=this.time<this.reflectionMotionUntil?1:idleRate;if(texture.refreshRate!==rate){texture.refreshRate=rate;texture.resetRefreshCounter();}}}
@@ -293,6 +322,6 @@ export class DrivingWorld{
  carPaintDiagnostics(){const m=this.carMeshes.map(m=>m.material).find(m=>m instanceof PBRMaterial&&/^carpaint(?:\.\d+)?$/.test(m.name)) as PBRMaterial|undefined;return m?{name:m.name,clearCoat:m.clearCoat.isEnabled,albedo:m.albedoColor.asArray(),environmentIntensity:m.environmentIntensity,roughness:m.roughness}:null;}
 
  profileControls(){const panel=document.createElement('div');panel.id='render-profile';panel.style.cssText='position:fixed;z-index:100;right:12px;top:140px;background:#102029ee;padding:12px;color:white;font:13px sans-serif;pointer-events:auto';for(const [name,change] of Object.entries({facades:(v:boolean)=>{this.debugFacades=v;this.cull();},shadows:(v:boolean)=>{this.scene.shadowsEnabled=v;},reflections:(v:boolean)=>{this.reflectionsEnabled=v;this.mirror.refreshRate=v?1:0;this.waterMirror.refreshRate=v?1:0;},ssao:(v:boolean)=>{if(v)this.scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('contact-shading',this.camera);else this.scene.postProcessRenderPipelineManager.detachCamerasFromRenderPipeline('contact-shading',this.camera);},simulation:(v:boolean)=>{this.debugSimulation=v;}})){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=true;input.dataset.profile=name;input.onchange=()=>change(input.checked);label.append(input,name);label.style.display='block';panel.append(label);}document.body.append(panel);}
- diagnostics(){const i=this.instrumentation;return {reflectionFrames:{...this.reflectionFrames,current:this.renderFrames,roadRate:this.mirror.refreshRate,waterRate:this.waterMirror.refreshRate},updateMs:this.updateMs,renderSubmitMs:this.renderMs,gpuMs:this.gpuInstrumentation.gpuFrameTimeCounter.lastSecAverage/1e6,activeEvaluationMs:i.activeMeshesEvaluationTimeCounter.lastSecAverage,renderTargetsMs:i.renderTargetsRenderTimeCounter.lastSecAverage,drawCalls:i.drawCallsCounter.current,instantFps:this.engine.getFps(),renderFrames:this.renderFrames,hidden:document.hidden,facades:this.facadeStream?.stats,aerial:this.aerial,observer:this.observer.status,loadedMeshes:this.scene.meshes.length,enabledMeshes:this.scene.meshes.filter(m=>m.isEnabled()).length};}
+ diagnostics(){const i=this.instrumentation;return {reflectionFrames:{...this.reflectionFrames,current:this.renderFrames,roadRate:this.mirror.refreshRate,waterRate:this.waterMirror.refreshRate},updateMs:this.updateMs,renderSubmitMs:this.renderMs,gpuMs:this.gpuInstrumentation.gpuFrameTimeCounter.lastSecAverage/1e6,activeEvaluationMs:i.activeMeshesEvaluationTimeCounter.lastSecAverage,renderTargetsMs:i.renderTargetsRenderTimeCounter.lastSecAverage,drawCalls:i.drawCallsCounter.current,instantFps:this.engine.getFps(),renderFrames:this.renderFrames,hidden:document.hidden,facades:this.facadeStream?.stats,coastalHorizon:this.coastalHorizon.map(h=>h.stats),distantCity:{strategy:"original-building-meshes",proxyMeshes:0,extraTextures:0,extraShadowDraws:0,extraReflectionDraws:0},detailFocus:{...this.sceneFocus()},aerial:this.aerial,observer:this.observer.status,loadedMeshes:this.scene.meshes.length,enabledMeshes:this.scene.meshes.filter(m=>m.isEnabled()).length};}
  performance(){const a=this.samples.slice(120),b=[...a].sort((x,y)=>x-y);const pct=(p:number)=>b[Math.floor((b.length-1)*p)]??0;const mean=a.reduce((s,v)=>s+v,0)/Math.max(1,a.length);return {...this.diagnostics(),samples:a.length,meanFps:a.length?1000/mean:0,p50:pct(.5),p95:pct(.95),p99:pct(.99),over50ms:a.filter(v=>v>50).length,resolution:[this.engine.getRenderWidth(),this.engine.getRenderHeight()],meshes:this.scene.getActiveMeshes().length,triangles:this.scene.getActiveIndices()/3};}
 }

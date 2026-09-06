@@ -24,7 +24,7 @@ export async function createCareerExperience(world:DrivingWorld,graph:RoadGraph,
  panel.classList.add('career-panel');
  const hud=document.createElement('section');hud.id='career-objective';hud.hidden=true;hud.innerHTML='<div class=career-status></div><button data-hud-auto>自动前往</button><button data-hud-journal>城市手账 <kbd>J</kbd></button><button data-dismiss>收起</button>';host.append(hud);const hudBody=hud.querySelector<HTMLElement>('.career-status')!;
  const walkHelp=document.createElement('div');walkHelp.id='walk-help';walkHelp.hidden=true;host.append(walkHelp);
- const invitation=document.createElement('button');invitation.id='career-invitation';invitation.innerHTML='<small>第一章 · 雨停以后</small><strong>城市这么大，先把今天过好。</strong><span>接一份日结 · 认识一个人 · 攒自己的房间 <kbd>J</kbd></span>';invitation.onclick=hooks.open;host.append(invitation);
+ const invitation=document.createElement('button');invitation.id='career-invitation';invitation.innerHTML='<small>第一章 · 雨停以后</small><strong>城市这么大，先把今天过好。</strong><span>去一个新的角落 · 认识一个人 · 攒自己的房间 <kbd>J</kbd></span>';invitation.onclick=hooks.open;host.append(invitation);
  const marker=createObjectiveMarker(world.scene,host,(x,z)=>world.groundHeight(x,z));
  let tab:'jobs'|'growth'|'people'|'stories'='jobs',objectiveKey='',hudTime=0,lastMode=world.lightMode;
  let receipt:{message:string;amount:number}|null=null,dismissed=false;

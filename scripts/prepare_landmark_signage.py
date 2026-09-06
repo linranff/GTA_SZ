@@ -41,6 +41,22 @@ def fitted(draw, text, box, filename, color, max_size=120):
             return
     raise ValueError('Text could not fit')
 
+def fitted_spaced(draw, text, box, filename, color, spacing, max_size=120):
+    x, y, width, height = box
+    for size in range(max_size, 7, -1):
+        face = font(filename, size)
+        bounds = [draw.textbbox((0, 0), character, font=face) for character in text]
+        glyph_widths = [b[2] - b[0] for b in bounds]
+        total = sum(glyph_widths) + spacing * (len(text) - 1)
+        glyph_height = max(b[3] - b[1] for b in bounds)
+        if total <= width and glyph_height <= height:
+            cursor = x + (width - total) / 2
+            for character, b, glyph_width in zip(text, bounds, glyph_widths):
+                draw.text((cursor - b[0], y + (height - glyph_height) / 2 - b[1]), character, font=face, fill=color)
+                cursor += glyph_width + spacing
+            return
+    raise ValueError('Spaced text could not fit')
+
 def tencent_artwork(image, english_only, color):
     # Commons identifies this as the 2017 Tencent mark, sourced from Tencent's
     # website. Its SVG actually embeds a PNG; keep that provenance explicit.
@@ -60,7 +76,7 @@ def tencent_artwork(image, english_only, color):
     return [f'<image x="{xy[0]}" y="{xy[1]}" width="{artwork.width}" height="{artwork.height}" href="data:image/png;base64,{base64.b64encode(stream.getvalue()).decode()}"/>']
 
 artwork = []
-requested = ['tencent-south-roof', 'tencent-low-link-bilingual', 'qijie-entry-bilingual', 'mixc-street-link-entry']
+requested = ['tencent-south-roof', 'tencent-low-link-bilingual', 'qijie-entry-bilingual', 'fortune-roof-name', 'mixc-street-link-entry']
 for ident in requested:
     entry = signs[ident]
     assert entry['textAssetReady'] and entry['exactText']
@@ -77,6 +93,9 @@ for ident in requested:
         fitted(draw, '七街公館', (57, 8, 398, 72), 'Arial Unicode.ttf', colors['letters'])
         fitted(draw, 'SEVENTH AVENUE RESIDENCE', (36, 94, 440, 22), 'Arial.ttf', colors['letters'])
         svg_parts = [f'<text x="256" y="77" text-anchor="middle" font-family="Arial Unicode MS" font-size="72" fill="{colors["letters"]}">七街公館</text>', f'<text x="256" y="115" text-anchor="middle" font-family="Arial" font-size="23" fill="{colors["letters"]}">SEVENTH AVENUE RESIDENCE</text>']
+    elif ident == 'fortune-roof-name':
+        fitted_spaced(draw, '财富广场', (20, 8, 472, 112), 'STHeiti Medium.ttc', colors['letters'], 22, 108)
+        svg_parts = [f'<text x="256" y="105" text-anchor="middle" font-family="STHeiti" font-weight="600" font-size="100" letter-spacing="22" fill="{colors["letters"]}">财富广场</text>']
     else:
         # Staggered brand composition; ordinary one-line typography would erase
         # the observed small "the", larger X and lowered gold c.
@@ -93,7 +112,7 @@ for ident in requested:
     artwork.append({'id': ident, 'exactText': entry['exactText'], 'url': f'/city/textures/signage/{ident}.png', 'width': width, 'height': height,
                     'bytes': path.stat().st_size, 'sha256': sha256(path.read_bytes()).hexdigest(),
                     'sourceIds': entry['sourceIds'], 'method': 'Manual layout from referenced Tencent brand artwork; no image generation.' if ident.startswith('tencent-') else 'Manually composed text and local font outlines, no image generation.',
-                    'typographyStatus': '2017 Tencent mark contours from the referenced brand artwork, recolored to the observed building sign.' if ident.startswith('tencent-') else 'Readable lettering and composition follow references; font contours remain approximations, including Qijie calligraphy.',
+                    'typographyStatus': '2017 Tencent mark contours from the referenced brand artwork, recolored to the observed building sign.' if ident.startswith('tencent-') else 'Readable lettering and spacing follow references; local font contours remain approximations.',
                     'artworkSource': 'data/materials/tencent-logo-source.json' if ident.startswith('tencent-') else None,
                     'renderReady': entry['renderReady'], 'placementStatus': entry['renderPlacementStatus']})
 
@@ -117,8 +136,9 @@ placements = [{'id': 'tencent-south-roof', 'placeId': 'tencent', 'text': 'Tencen
                'height': placement['signHeightFraction']*v('height_m')*scale,
                'rotationY': -angle, 'surfaceNormal': [s, 0, -c],
                'placementStatus': 'photo_interpretation_estimated', 'sourceIds': signs['tencent-south-roof']['sourceIds'],
-               'illuminationVerified': False, 'emissiveAtDusk': 0, 'emissiveAtNight': 0,
-               'note': 'Observed white lettering. Cardinal face and metric pose estimated from the locked tower footprint; night emission has not been verified.'}]
+               'illuminationVerified': False, 'illuminationBasis': signs['tencent-south-roof']['illuminationBasis'],
+               'emissiveAtDusk': 1.1, 'emissiveAtNight': 3,
+               'note': 'Observed white lettering. Cardinal face and metric pose remain estimated; HDR emission is user-requested game art, not a claim about the real lighting.'}]
 qijie = signs['qijie-entry-bilingual']
 if qijie['renderReady']:
     p = qijie['placementEstimate']
@@ -143,11 +163,38 @@ if qijie['renderReady']:
                                   'rotationY': rotation, 'albedoSrgb': canopy['suggestedSrgbHex'], 'roughness': .6,
                                   'status': 'photo_interpretation_estimated'},
                        'note': 'West-recess entrance matched by the reported west entrance and reference photograph. Metric offset, height, canopy and font contours remain approximations; no unverified LED text or night emission.'})
+fortune = signs['fortune-roof-name']
+if fortune['renderReady']:
+    p = fortune['placementEstimate']
+    assert p['status'] == 'photo_interpretation_estimated'
+    model = next(m for m in json.loads((R / p['modelSpec']).read_text())['models'] if m['id'] == p['modelId'])
+    component = next(c for c in model['components'] if c['id'] == p['componentId'])
+    arc = component['renderFootprintProvenance']['arcFits'][p['arcFitIndex']]
+    theta = arc['startAngleRadians'] + arc['sweepRadians'] * p['arcFraction']
+    radial_e, radial_n = math.cos(theta), math.sin(theta)
+    normal_e, normal_n = radial_e*p['surfaceNormalRadialSign'], radial_n*p['surfaceNormalRadialSign']
+    correction = [a*(1-p['arcFraction'])+b*p['arcFraction'] for a,b in zip(*arc['endpointCorrectionsMeters'])]
+    point_e = arc['centerLocalMeters'][0] + arc['radiusMeters'] * radial_e + correction[0] + p['outwardOffsetMeters'] * normal_e
+    point_n = arc['centerLocalMeters'][1] + arc['radiusMeters'] * radial_n + correction[1] + p['outwardOffsetMeters'] * normal_n
+    origin_e = (model['centerWGS84'][0]-114.025)*102850
+    origin_n = (model['centerWGS84'][1]-22.536)*111320
+    rotation = math.atan2(-normal_e, -normal_n)
+    placements.append({'id': fortune['id'], 'placeId': 'fortune-plaza', 'text': fortune['exactText'],
+                       'textureUrl': '/city/textures/signage/fortune-roof-name.png',
+                       'position': [(origin_e+point_e)*scale, p['heightCenterMeters']*scale, (origin_n+point_n)*scale],
+                       'width': p['signWidthMeters']*scale, 'height': p['signHeightMeters']*scale,
+                       'rotationY': rotation, 'surfaceNormal': [normal_e, 0, normal_n],
+                       'curvatureRadius': (arc['radiusMeters']-p['outwardOffsetMeters'])*scale,
+                       'curvatureSegments': 32,
+                       'placementStatus': p['status'], 'sourceIds': fortune['sourceIds'],
+                       'illuminationVerified': False, 'illuminationBasis': 'user_requested_artistic',
+                       'emissiveAtDusk': .72, 'emissiveAtNight': 2.15,
+                       'note': 'Exact text and facade band are visible in two user-provided references. Pose and dimensions remain photo/model estimates; emission is explicitly user-directed game art, not a claim about the real lamp type.'})
 manifest = {'schemaVersion': 1, 'sourceEvidenceSha256': sha256(evidence_path.read_bytes()).hexdigest(), 'artwork': artwork, 'placements': placements,
-            'textureBytes': sum(t['bytes'] for t in artwork), 'activeTextureCount': len(placements), 'additionalTriangles': len(placements)*2+sum(12 for p in placements if 'canopy' in p),
+            'textureBytes': sum(t['bytes'] for t in artwork), 'activeTextureCount': len(placements), 'additionalTriangles': sum(p.get('curvatureSegments',1)*2 for p in placements)+sum(12 for p in placements if 'canopy' in p),
             'noNewLights': True, 'pending': [t['id'] for t in artwork if not t['renderReady']]}
 (asset_root / 'landmark-signage.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n')
-sheet = Image.new('RGB', (544, 600), '#203137')
+sheet = Image.new('RGB', (544, len(artwork)*150), '#203137')
 label = ImageDraw.Draw(sheet)
 for i, asset in enumerate(artwork):
     sign = Image.open(O / (asset['id']+'.png'))
