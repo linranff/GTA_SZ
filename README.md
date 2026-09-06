@@ -31,7 +31,7 @@ Use **Node.js 24**, npm, Git LFS and a desktop browser with WebGL2. The current 
 
 ```sh
 git lfs install
-git clone https://github.com/linranff/ShenChengJi.git
+git clone --branch v0.2 https://github.com/linranff/ShenChengJi.git
 cd ShenChengJi
 git lfs pull
 npm ci

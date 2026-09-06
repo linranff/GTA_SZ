@@ -31,7 +31,7 @@
 
 ```sh
 git lfs install
-git clone https://github.com/linranff/ShenChengJi.git
+git clone --branch v0.2 https://github.com/linranff/ShenChengJi.git
 cd ShenChengJi
 git lfs pull
 npm ci
