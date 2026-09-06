@@ -4,7 +4,7 @@ type Triangle = {points:number[];minX:number;maxX:number;minY:number;maxY:number
 
 /** A source-surface-fitted identity plate for the integrated CarConcept.
  * The original model, materials, wheels and CC BY attribution are untouched.
- * The enlarged lettering spans 3× the original physical width and height.
+ * Lettering is 75% of the enlarged version; the fitted backing is unchanged.
  * Its rear-panel surface is GLB Z 2.399–2.500 m at X ±.72, Y .34–.76.
  * Runtime projection below rechecks
  * the actual imported surface in carRoot space, including the existing Z flip.
@@ -84,9 +84,9 @@ export function applyCinematicVehicleFinish(scene:Scene,carRoot:TransformNode,ca
     const context=texture.getContext() as CanvasRenderingContext2D;
     context.fillStyle='#111920';context.fillRect(0,0,512,128);
     context.strokeStyle='#65717c';context.lineWidth=3;context.strokeRect(10,10,492,108);
-    context.fillStyle='#e3e7df';context.font='600 80px "PingFang SC", "Microsoft YaHei", sans-serif';
+    context.fillStyle='#e3e7df';context.font='600 60px "PingFang SC", "Microsoft YaHei", sans-serif';
     context.textAlign='center';context.textBaseline='middle';
-    [...'深城纪'].forEach((character,i)=>context.fillText(character,144+i*112,66));
+    [...'深城纪'].forEach((character,i)=>context.fillText(character,256+(i-1)*84,66));
     texture.update(true);
     material=new PBRMaterial('vehicle-finish:plate',scene);
     material.albedoTexture=texture;material.albedoColor=Color3.White();
