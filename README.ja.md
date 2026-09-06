@@ -1,14 +1,22 @@
-# ShenChengJi · 深城纪
+# GTA_SZ · 深城纪
 
 **深圳を舞台に、ドライブと日常生活を楽しむブラウザーゲームのプロトタイプ。**
 
 [English](README.md) · [简体中文](README.zh-CN.md) · **日本語**
 
-[リリース v0.2](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
+[最新ソース](https://github.com/linranff/GTA_SZ/tree/main) · [v0.2 アーカイブ](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
 
 藍色のコンセプトGTで湾岸を走り、街を歩き、小さな仕事を引き受け、ときには空から街並みを眺める。ShenChengJiは、深圳湾・南山・福田・羅湖の一部を凝縮し、行き来して遊べる都市エリアとして再構成したゲームです。
 
 ゲーム内UIは現在、主に簡体字中国語です。3言語で提供しているのはドキュメントであり、ゲーム内の言語パックではありません。
+
+## main の最新変更
+
+- 昼の光にわずかな暖かさを加え、ガラスや車体の白飛びを抑制。
+- 北側の連続した山並み、公園の丘陵、芝生の起伏を追加。道路と建物の基礎の高さは維持。
+- 高空から見た水面の表示を改善。ドローン視点で長押しすると光の柱を置き、場所を保存したり、近くの適切な道路へ移動できます。
+
+最新版は **117 件のテスト**を通過しています。検証記録：[光と山地](docs/graphics/daylight-mountains-2026-09-06.md)、[水面の深度修正](docs/graphics/sea-depth-2026-09-06.md)、[ドローンのマーカー](docs/graphics/water-observer-beacons-2026-09-06.md)。下のスクリーンショットは以前の v0.2 リリースのものです。
 
 ![現在のゲームでの夜間ドライブ](docs/images/v0.2-night-driving.png)
 
@@ -31,8 +39,8 @@
 
 ```sh
 git lfs install
-git clone --branch v0.2 https://github.com/linranff/ShenChengJi.git
-cd ShenChengJi
+git clone --branch main https://github.com/linranff/GTA_SZ.git
+cd GTA_SZ
 git lfs pull
 npm ci
 npm run dev

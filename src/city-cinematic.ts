@@ -6,6 +6,7 @@ import {
 import {ShenzhenSunsetEnvironment,CITY_SUNSET_SOURCE} from './city-sunset-environment.ts';
 import {createCityNightSky,CITY_MOON_DIRECTION} from './city-night-sky.ts';
 import {CITY_DAYLIGHT_SOURCE,CITY_DAYLIGHT_SUN_DIRECTION,type CinematicLightingMode} from './city-daylight.ts';
+import {ShenzhenDaylightEnvironment} from './city-daylight-environment.ts';
 export type {CinematicLightingMode} from './city-daylight.ts';
 
 type CinematicScene={
@@ -39,12 +40,13 @@ export async function createCinematicLook(world:CinematicScene){
  let daylightEnvironment:HDRCubeTexture|null=null,daylightSkyTexture:HDRCubeTexture|null=null,daylightMaterial:BackgroundMaterial|null=null;
  let daylightStatus:'loading'|'ready'|'failed'='loading',daylightFailure:string|null=null;
  let daylightTimeout:number|undefined;
- // Real clouds remain linear HDR. The unblurred level supplies the sky while
+ // Real clouds remain linear HDR; only extreme solar radiance rolls off before
+ // SH and roughness filtering. The unblurred level supplies the sky while
  // roughness-prefiltered levels supply glazing, wet roads and car paint.
  // Both use the same cube and rotation: no painted blue ambient substitute.
  const daylightLoaded=new Promise<void>(resolve=>{
   daylightTimeout=window.setTimeout(()=>{daylightStatus='failed';daylightFailure='Daylight HDR load timed out';resolve();},45000);
-  daylightEnvironment=new HDRCubeTexture(CITY_DAYLIGHT_SOURCE.file,scene,CITY_DAYLIGHT_SOURCE.cubeSize,false,true,false,true,()=>{
+  daylightEnvironment=new ShenzhenDaylightEnvironment(CITY_DAYLIGHT_SOURCE.file,scene,CITY_DAYLIGHT_SOURCE.cubeSize,false,true,false,true,()=>{
    window.clearTimeout(daylightTimeout);
    if(!disposed&&!scene.isDisposed){
     // A lightweight clone shares the loaded GPU cube, while keeping skybox
@@ -141,29 +143,32 @@ export async function createCinematicLook(world:CinematicScene){
   pipeline.bloomWeight=night?.24:day?.065:.19;
   pipeline.bloomKernel=day?36:56;
   ip.exposure=night?.83:day?.91:.87;
-  ip.contrast=day?1.06:1.09;
+  ip.contrast=day?1.10:1.09;
   sun.direction.copyFrom(night?CITY_MOON_DIRECTION.scale(-1):day?CITY_DAYLIGHT_SUN_DIRECTION.scale(-1):new Vector3(.95,-.19,.31).normalize());
-  sun.diffuse.copyFrom(night?new Color3(.70,.79,1):day?new Color3(1,.955,.865):new Color3(1,.64,.39));
+  sun.diffuse.copyFrom(night?new Color3(.70,.79,1):day?new Color3(1,.91,.78):new Color3(1,.64,.39));
+  // PBR uses diffuse for both diffuse/specular energy. Standard materials use
+  // the independent specular colour, so keep their daytime sun equally warm.
+  sun.specular.copyFrom(day?sun.diffuse:Color3.White());
   sun.intensity=night?.24:day?1.32:1.12;
   hemi.diffuse.copyFrom(night?new Color3(.65,.70,.86):day?new Color3(.75,.84,.94):new Color3(.86,.79,.86));
   hemi.groundColor.copyFrom(day?new Color3(.29,.28,.245):new Color3(.24,.215,.19));
-  hemi.intensity=night?.32:day?.39:.54;
+  hemi.intensity=night?.32:day?.31:.54;
   scene.environmentTexture=night?(nightEnvironmentReady?nightEnvironment:nightSky.environment):day&&daylightStatus==='ready'?daylightEnvironment:status==='ready'?environment:fallbackEnvironment;
   scene.environmentIntensity=night?.62:day?.83:.53;
-  scene.fogDensity=night?.00010:day?.000043:.000078;
-  scene.fogColor.copyFrom(night?new Color3(.12,.095,.17):day?new Color3(.60,.72,.80):new Color3(.54,.34,.36));
+  scene.fogDensity=night?.00010:day?.000032:.000078;
+  scene.fogColor.copyFrom(night?new Color3(.12,.095,.17):day?new Color3(.46,.65,.79):new Color3(.54,.34,.36));
   // The sky is independently exposed so preserving dark asphalt and bright
   // clouds never requires flattening the material response of the entire city.
   if(skyMaterial)skyMaterial.primaryColor.copyFromFloats(.20,.20,.20);
   if(sky)sky.material=night?nightSky.material:day&&daylightStatus==='ready'?daylightMaterial:skyMaterial??fallbackMaterial;
-  if(world.carFill){world.carFill.intensity=night?12:day?5.5:10;world.carFill.diffuse.copyFrom(day?new Color3(.88,.92,1):new Color3(.77,.79,.87));}
+  if(world.carFill){world.carFill.intensity=night?12:day?3.2:10;world.carFill.diffuse.copyFrom(day?new Color3(.76,.86,1):new Color3(.77,.79,.87));}
  }
  function setNight(active:boolean){setMode(active?'night':'sunset');}
  setNight(false);
 
  return {
   setMode,setNight,
-  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:CITY_SUNSET_SOURCE.name,radianceGrade:mode==='day'?'shared linear HDR visible sky and prefiltered PBR environment':'directional vermilion/amber fire hemisphere and dark indigo reverse; HDR for PBR, display-only highlight shoulder',nightSky:'directional Milky Way, dense stars and moonlit cirrus with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared HDR cube; raw level for sky; prefiltered levels for PBR'},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:CITY_SUNSET_SOURCE.bytes,exposure:ip.exposure,bloom:{enabled:pipeline.bloomEnabled,threshold:pipeline.bloomThreshold,weight:pipeline.bloomWeight,kernel:pipeline.bloomKernel,scale:pipeline.bloomScale},environmentIntensity:scene.environmentIntensity};},
+  get stats(){return {status,failure,mode,night,source:mode==='day'?CITY_DAYLIGHT_SOURCE.name:CITY_SUNSET_SOURCE.name,radianceGrade:mode==='day'?'shared linear HDR; solar-only luminance shoulder 8→32 before irradiance and reflection filtering':'directional vermilion/amber fire hemisphere and dark indigo reverse; HDR for PBR, display-only highlight shoulder',nightSky:'directional Milky Way, dense stars and moonlit cirrus with matching moonlight',nightReflections:nightEnvironmentReady?'Poly Haven / Rooftop Night / 512px HDR':'neutral fallback',daylight:{status:daylightStatus,failure:daylightFailure,source:CITY_DAYLIGHT_SOURCE.name,sourceBytes:CITY_DAYLIGHT_SOURCE.bytes,cubeSize:CITY_DAYLIGHT_SOURCE.cubeSize,rotationY:CITY_DAYLIGHT_SOURCE.rotationY,sunDirection:CITY_DAYLIGHT_SUN_DIRECTION.asArray(),skyAndReflection:'shared solar-balanced HDR cube; sharp level for sky; prefiltered levels for PBR',solarHighlight:{knee:8,ceiling:32},sunColor:sun.diffuse.asArray(),sunIntensity:sun.intensity,skyFill:hemi.intensity,carFill:world.carFill?.intensity??null,fogDensity:scene.fogDensity},cubeSize:1024,sourceBytes:mode==='day'?CITY_DAYLIGHT_SOURCE.bytes:CITY_SUNSET_SOURCE.bytes,exposure:ip.exposure,bloom:{enabled:pipeline.bloomEnabled,threshold:pipeline.bloomThreshold,weight:pipeline.bloomWeight,kernel:pipeline.bloomKernel,scale:pipeline.bloomScale},environmentIntensity:scene.environmentIntensity};},
   dispose(){
    disposed=true;scene.onDisposeObservable.remove(sceneDisposal);
    if(scene.environmentTexture===environment||scene.environmentTexture===nightSky.environment||scene.environmentTexture===nightEnvironment||scene.environmentTexture===daylightEnvironment)scene.environmentTexture=fallbackEnvironment;

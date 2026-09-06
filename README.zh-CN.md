@@ -1,14 +1,22 @@
-# ShenChengJi · 深城纪
+# GTA_SZ · 深城纪
 
 **一款以深圳为背景的浏览器城市驾驶与日常生活原型。**
 
 [English](README.md) · **简体中文** · [日本語](README.ja.md)
 
-[v0.2 发布页](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
+[最新源码](https://github.com/linranff/GTA_SZ/tree/main) · [v0.2 历史发布](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
 
 驾驶靛蓝色概念 GT 沿海湾前行，步行探索城市，接一份小工作，或飞到天际线上方。深城纪将深圳湾、南山、福田和罗湖的部分区域压缩为一条可以游玩的城市走廊。
 
 游戏界面目前主要使用简体中文。这三个语言版本只涵盖项目文档，并非游戏内语言包。
+
+## main 最新改动
+
+- 晴天日照略偏暖，收敛玻璃和车漆上的强白色高光。
+- 补出北侧连续山脊、公园丘陵与草坪起伏，保留道路和楼基高度。
+- 改善高空海面的稳定性；无人机模式长按可放置光柱、收藏地点，或移动到附近合适的道路。
+
+最新版已通过 **117 项测试**。复核记录：[光照与山体](docs/graphics/daylight-mountains-2026-09-06.md)、[水面深度修复](docs/graphics/sea-depth-2026-09-06.md)、[无人机光柱](docs/graphics/water-observer-beacons-2026-09-06.md)。下方截图记录的是此前 v0.2 版本。
 
 ![当前游戏中的夜间驾驶](docs/images/v0.2-night-driving.png)
 
@@ -31,8 +39,8 @@
 
 ```sh
 git lfs install
-git clone --branch v0.2 https://github.com/linranff/ShenChengJi.git
-cd ShenChengJi
+git clone --branch main https://github.com/linranff/GTA_SZ.git
+cd GTA_SZ
 git lfs pull
 npm ci
 npm run dev

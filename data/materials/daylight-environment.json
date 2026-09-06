@@ -26,7 +26,7 @@
     "cubeFaceResolution": 1024,
     "rotationY": 1.85,
     "prefilteredOnLoad": true,
-    "radiance": "Unclipped linear HDR. The unblurred cube level supplies the visible sky; roughness-prefiltered levels supply PBR reflections and diffuse irradiance.",
+    "radiance": "Linear HDR with a solar-only luminance shoulder above 8 (asymptote 32) and restrained warm solar tint before spherical harmonics and roughness filtering. Ordinary sky/cloud radiance is unchanged. The sharp sky and PBR reflections share the same graded cube; the source file is untouched.",
     "solarDirection": "Sampled source solar-disc direction in Babylon cube space, transformed by inverse environment rotation. Not astronomical simulation.",
     "extraFrameRenderTargets": 0,
     "controls": "cinematic.setMode('day'); setNight(true/false) remains compatible for night/sunset.",
@@ -34,11 +34,22 @@
       0.504674,
       0.473661,
       0.721768
-    ]
+    ],
+    "solarHighlight": {
+      "luminanceKnee": 8,
+      "luminanceCeiling": 32,
+      "warmMultiplier": [
+        1,
+        0.94,
+        0.84
+      ],
+      "stage": "decode before SH and roughness filtering",
+      "extraTextures": 0
+    }
   },
   "validation": {
     "source": "Downloaded bytes and MD5 match official metadata; local SHA-256 recorded; HDR decoded as 4096x2048.",
     "visualSource": "Official panorama reviewed against Kloppenheim 05: predominantly clear blue upper sky, sparse soft clouds and low cloud band; no imported buildings or mountains.",
-    "integratedVisual": "Current build reviewed in output/playwright/coastal-sky/after: three daytime sky directions, open sea blue reflection, high coast in daylight and sunset, and night mode cycle. Browser errors 0; the 1080p high coast and daytime seaside 10-second samples were both about 60 FPS."
+    "integratedVisual": "2026-09-06 solar-highlight balance: matched front/rear car, city and bay views in output/playwright/daylight-balance/{before,after}; car paint retains blue under the solar highlight. Day, sunset and night cycling checked; browser errors 0. Current after city stationary 6-second 1080p Chrome Metal sample: 60.008 FPS, p95 19.7 ms. Details: docs/graphics/daylight-mountains-2026-09-06.md."
   }
 }

@@ -1,14 +1,22 @@
-# ShenChengJi · 深城纪
+# GTA_SZ · 深城纪
 
 **A browser city-driving and everyday-life prototype set in Shenzhen.**
 
 **English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-[Release v0.2](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
+[Latest source](https://github.com/linranff/GTA_SZ/tree/main) · [v0.2 archive](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
 
 Drive an indigo concept GT along the bay, walk through the city, take a small job, or fly above the skyline. ShenChengJi brings selected parts of Shenzhen Bay, Nanshan, Futian and Luohu into a compressed, playable city corridor.
 
 The game UI is currently primarily in Simplified Chinese. These three language editions cover the documentation; they are not in-game language packs.
+
+## Latest updates on main
+
+- Warmer daylight with controlled solar highlights on glass and car paint.
+- Continuous northern mountain ridges, raised park terrain and gentle lawns, with preserved road and building bases.
+- Improved distant-water stability, plus long-press light pillars in drone mode to save a place or travel to a suitable nearby road.
+
+The latest build passed **117 tests**. See [daylight and mountain checks](docs/graphics/daylight-mountains-2026-09-06.md), [water depth fixes](docs/graphics/sea-depth-2026-09-06.md) and [drone markers](docs/graphics/water-observer-beacons-2026-09-06.md). The screenshots below document the earlier v0.2 release.
 
 ![Night driving in the current game](docs/images/v0.2-night-driving.png)
 
@@ -31,8 +39,8 @@ Use **Node.js 24**, npm, Git LFS and a desktop browser with WebGL2. The current 
 
 ```sh
 git lfs install
-git clone --branch v0.2 https://github.com/linranff/ShenChengJi.git
-cd ShenChengJi
+git clone --branch main https://github.com/linranff/GTA_SZ.git
+cd GTA_SZ
 git lfs pull
 npm ci
 npm run dev

@@ -1,0 +1,35 @@
+.observer-beacons { position: absolute; inset: 0; z-index: 21; pointer-events: none; font-family: 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif; color: #edf8f2; }
+.observer-beacons[hidden], .observer-beacons [hidden] { display: none !important; }
+.observer-beacons button, .observer-beacons input { font: inherit; letter-spacing: .03em; }
+.observer-beacons button { cursor: pointer; }
+.observer-beacons button:focus-visible, .observer-beacons input:focus-visible { outline: 2px solid #a0f6d9; outline-offset: 3px; }
+.observer-beacons-toggle { position: absolute; top: 124px; right: var(--hud-edge, 28px); border: 1px solid #b5e5d33d; border-radius: 5px; padding: 9px 13px; background: #172b29a6; color: #edf8f2; font-size: 12px !important; pointer-events: auto; backdrop-filter: blur(9px); }
+.observer-beacons-toggle::before { content: '◇'; display: inline-block; margin-right: 8px; color: #9ef0d3; }
+.observer-beacon-panel, .observer-beacon-list { position: absolute; right: var(--hud-edge, 28px); box-sizing: border-box; width: 310px; border: 1px solid #b5e5d339; border-radius: 9px; padding: 19px; background: linear-gradient(145deg, #172e2beb, #132220ed); box-shadow: 0 12px 38px #0003; backdrop-filter: blur(14px); pointer-events: auto; text-shadow: none; }
+.observer-beacon-panel { bottom: max(142px, 19vh); }
+.observer-beacon-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.observer-beacon-eyebrow { font-size: 10px; color: #a9cbbb; letter-spacing: .08em; }
+.observer-beacons .observer-beacon-dismiss { flex: 0 0 auto; border: 0; background: transparent; color: #b7d5c8; font-size: 23px; line-height: 20px; padding: 0 0 0 8px; }
+.observer-beacon-title { margin: 17px 0 19px; font-size: 23px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
+.observer-beacon-name-label { display: flex; flex-direction: column; gap: 8px; color: #b9cfc5; font-size: 11px; }
+.observer-beacon-name { box-sizing: border-box; width: 100%; border: 1px solid #9cbeaf49; border-radius: 4px; padding: 10px 11px; background: #07151265; color: #f3fbf7; font-size: 13px !important; }
+.observer-beacon-hint { margin: 12px 0 18px; color: #b5cec2; font-size: 11px; line-height: 1.7; }
+.observer-beacon-actions { display: flex; gap: 9px; }
+.observer-beacon-actions button { flex: 1 1 0; border: 1px solid #a5dec273; border-radius: 4px; padding: 11px 5px; font-size: 12px; white-space: nowrap; }
+.observer-beacon-save { background: #9edec515; color: #e0f5eb; }
+.observer-beacon-travel { background: #abdfc8; color: #15372b; }
+.observer-beacons button:disabled { cursor: default; opacity: .42; }
+.observer-beacon-foot { margin: 15px 0 0; color: #8eafa0; font-size: 10px; line-height: 1.6; }
+.observer-beacon-list { top: 171px; max-height: min(59vh, 530px); padding: 16px; }
+.observer-beacon-list-title { font-size: 13px; font-weight: 500; margin: 0; color: #d6ebdf; }
+.observer-beacon-empty { margin: 24px 0 10px; color: #acc5b8; font-size: 12px; line-height: 1.8; }
+.observer-beacon-rows { max-height: min(calc(59vh - 70px), 460px); margin-top: 14px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #6f9683 #152821; }
+.observer-beacon-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid #a8cbb820; }
+.observer-beacon-place { flex: 1 1 0; min-width: 0; border: 0; background: transparent; color: #e7f5ee; padding: 8px 0; text-align: left; font-size: 12px !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.observer-beacon-place::before { content: '◇'; color: #89d9b5; margin-right: 9px; }
+.observer-beacon-remove { border: 0; padding: 8px 2px; background: transparent; color: #a6bdb1; font-size: 10px !important; }
+.observer-beacon-hold { position: fixed; width: 34px; height: 34px; transform: translate(-50%, -50%); border-radius: 50%; background: conic-gradient(#b9ffe2 var(--hold-progress, 0turn), #b9ffe235 0); box-shadow: 0 0 15px #60ffc744; }
+.observer-beacon-hold::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: #173c34a6; }
+.observer-beacon-hold-dot { position: absolute; z-index: 1; inset: 14px; border-radius: 50%; background: #d9ffec; }
+@media (max-width: 700px) { .observer-beacons-toggle { top: 110px; right: 16px; } .observer-beacon-panel, .observer-beacon-list { right: 16px; width: min(292px, calc(100vw - 32px)); padding: 15px; } .observer-beacon-panel { bottom: 142px; } .observer-beacon-list { top: 158px; } }
+@media (max-height: 620px) { .observer-beacon-panel { bottom: 100px; } .observer-beacon-title { font-size: 19px; margin: 10px 0; } .observer-beacon-hint { margin: 9px 0; } .observer-beacon-foot { margin-top: 9px; } }

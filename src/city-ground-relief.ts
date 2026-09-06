@@ -68,14 +68,16 @@ class GroundCoverPlugin extends MaterialPluginBase{
  * Candidate data comes from scripts/prepare_city_ground_relief.py; copy its
  * approved output to /city/ground-relief/ during integration.
  */
-export async function loadCityGroundRelief(baseHeightAt:HeightAt,baseURL='/city/ground-relief/'){
+export async function loadCityGroundRelief(baseHeightAt:HeightAt,baseURL='/city/ground-relief/',geometryEnabled=true){
  const metaResponse=await fetch(baseURL+'manifest.json');if(!metaResponse.ok)throw Error('公园地形清单加载失败');
  const manifest=await metaResponse.json() as ReliefManifest;
  if(manifest.schemaVersion!==1||!Array.isArray(manifest.tiles)||manifest.tiles.length>100||manifest.budgets.triangles>200000||manifest.preservedTerrainBounds.length!==4)throw Error('公园地形预算或格式无效');
- const meshResponse=await fetch(baseURL+manifest.mesh);if(!meshResponse.ok)throw Error('公园地形网格加载失败');const packed=await meshResponse.arrayBuffer();
- if(packed.byteLength!==manifest.budgets.meshBytes)throw Error('公园地形网格长度不符');
+ // Mountain mode supplies a single continuous height mesh. Keep the existing
+ // ground-cover/PBR layers, without stacking incompatible grass triangles on it.
+ let packed=new ArrayBuffer(0);
+ if(geometryEnabled){const meshResponse=await fetch(baseURL+manifest.mesh);if(!meshResponse.ok)throw Error('公园地形网格加载失败');packed=await meshResponse.arrayBuffer();if(packed.byteLength!==manifest.budgets.meshBytes)throw Error('公园地形网格长度不符');}
  const readFloats=(span:Span)=>new Float32Array(packed,span.offset,span.bytes/4);
- const geometry:ReliefGeometry[]=manifest.tiles.map(tile=>({tile,positions:readFloats(tile.positions),normals:readFloats(tile.normals),indices:new Uint32Array(packed,tile.indices.offset,tile.indices.bytes/4)}));
+ const geometry:ReliefGeometry[]=geometryEnabled?manifest.tiles.map(tile=>({tile,positions:readFloats(tile.positions),normals:readFloats(tile.normals),indices:new Uint32Array(packed,tile.indices.offset,tile.indices.bytes/4)})):[];
  for(const g of geometry)if(g.positions.length!==g.tile.vertexCount*3||g.normals.length!==g.positions.length||g.indices.length!==g.tile.triangleCount*3)throw Error('公园地形分块长度不符');
  const sampler=createReliefHeightSampler(geometry,baseHeightAt,manifest.preservedTerrainBounds,manifest.lookupCellSize);
  const meshes:Mesh[]=[],plugins:GroundCoverPlugin[]=[];const enhanced=new Set<PBRMaterial>();let material:PBRMaterial|null=null,cover:GroundCover|null=null;let disposed=false,attached=false,textureError:string|null=null;
@@ -107,5 +109,5 @@ export async function loadCityGroundRelief(baseHeightAt:HeightAt,baseURL='/city/
  function shadowMeshes(x:number,z:number,radius=850):AbstractMesh[]{return meshes.filter((_,i)=>{const b=geometry[i].tile.bounds;return Math.hypot(Math.max(b[0]-x,0,x-b[2]),Math.max(b[1]-z,0,z-b[3]))<radius;});}
  function dispose(){if(disposed)return;disposed=true;for(const mesh of meshes)mesh.dispose(false,false);material?.dispose(false,false);cover?.texture.dispose();sampler.dispose();}
  return {heightAt:sampler.heightAt,deltaAt:sampler.deltaAt,attachVisuals,enhanceGroundMaterials,shadowMeshes,meshes,manifest,dispose,
-  get stats(){return {ready:!disposed,attached,textureReady:cover?.ready??false,textureError,groundMaterials:enhanced.size,grassMaterial:material?grassMaterialStats(material.getScene()):null,lookupCells:sampler.cellCount,extraDrawCalls:meshes.length,...manifest.budgets,preservedTerrainBounds:manifest.preservedTerrainBounds};}};
+  get stats(){return {ready:!disposed,attached,geometryEnabled,textureReady:cover?.ready??false,textureError,groundMaterials:enhanced.size,grassMaterial:material?grassMaterialStats(material.getScene()):null,lookupCells:sampler.cellCount,...manifest.budgets,extraDrawCalls:meshes.length,triangles:geometryEnabled?manifest.budgets.triangles:0,vertices:geometryEnabled?manifest.budgets.vertices:0,meshBytes:packed.byteLength,tiles:meshes.length,preservedTerrainBounds:manifest.preservedTerrainBounds};}};
 }
