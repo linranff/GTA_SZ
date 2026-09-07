@@ -1,4 +1,4 @@
-import {Mesh,PBRMaterial,VertexData,VertexBuffer,Vector3,Matrix,Color3,type Scene,type AbstractMesh} from '@babylonjs/core';
+import {Mesh,PBRMaterial,VertexData,VertexBuffer,Vector3,Matrix,type Scene,type AbstractMesh} from '@babylonjs/core';
 import {applyGrassMaterial} from './city-grass-material.ts';
 
 type Grid={x0:number;z0:number;step:number;columns:number;rows:number};
@@ -23,8 +23,12 @@ async function loadMountainRegion(baseHeightAt:(x:number,z:number)=>number,manif
  const heights=new Float32Array(buffer),meshes:Mesh[]=[];let material:PBRMaterial|null=null;
  const deltaAt=(x:number,z:number)=>mountainHeightAt(heights,g,x,z);
  function attachVisuals(scene:Scene){
-  material=new PBRMaterial('mountain-landscape',scene);material.albedoColor=new Color3(.54,.69,.43);material.metallic=0;material.roughness=.98;material.environmentIntensity=.85;material.maxSimultaneousLights=3;
-  applyGrassMaterial(scene,material,false);
+  // Subtropical hill forest is a dark, low-chroma green, never lawn green.
+  // applyGrassMaterial owns the albedo (it resets albedoColor to white and
+  // replaces surfaceAlbedo in-shader); the forest flag adds the canopy tint
+  // and crown clumps there, and the vertex colours below survive that hook.
+  material=new PBRMaterial('mountain-landscape',scene);material.metallic=0;material.roughness=.98;material.environmentIntensity=.85;material.maxSimultaneousLights=3;
+  applyGrassMaterial(scene,material,false,true);
   for(const tile of manifest.tiles){
    const positions:number[]=[],normals:number[]=[],uvs:number[]=[],colors:number[]=[],indices:number[]=[];
    for(let z=0;z<tile.rows;z++)for(let x=0;x<tile.columns;x++){
@@ -32,8 +36,13 @@ async function loadMountainRegion(baseHeightAt:(x:number,z:number)=>number,manif
     positions.push(wx,h+baseHeightAt(wx,wz)+manifest.surfaceOffset,wz);uvs.push(wx/8,wz/8);
     const slopeX=(heights[row*g.columns+Math.min(g.columns-1,col+1)]-heights[row*g.columns+Math.max(0,col-1)])/(2*g.step),slopeZ=(heights[Math.min(g.rows-1,row+1)*g.columns+col]-heights[Math.max(0,row-1)*g.columns+col])/(2*g.step),len=Math.hypot(slopeX,1,slopeZ);
     normals.push(-slopeX/len,1/len,-slopeZ/len);
-    const stone=Math.min(.32,Math.max(0,Math.hypot(slopeX,slopeZ)-.35)*.65),shade=.85+.12*Math.sin(wx/183)*Math.cos(wz/229);
-    colors.push(shade+stone*.3,shade,shade+stone*.18,1);
+    // Canopy clumps at two scales, darker forest on the higher ground, and
+    // warm-grey rock where the DSM slope exceeds what trees hold. Vertex colour
+    // only: no texture, light or draw call is added for this variation.
+    const clumps=Math.sin(wx/91+wz/137)*Math.cos(wz/83-wx/211)*.5+.5,fine=.93+.07*Math.sin(wx/37+1.3)*Math.cos(wz/41);
+    const highland=Math.min(1,Math.max(0,(h-30)/200)),stone=Math.min(.45,Math.max(0,Math.hypot(slopeX,slopeZ)-.40)*.75);
+    const shade=(.78+.22*clumps)*fine*(1-.20*highland);
+    colors.push(shade*(1+stone*.60),shade*(1-stone*.22),shade*(1+stone*.48),1);
    }
    for(let z=0;z<tile.rows-1;z++)for(let x=0;x<tile.columns-1;x++){
     const col=tile.column+x,row=tile.row+z,k=row*g.columns+col;

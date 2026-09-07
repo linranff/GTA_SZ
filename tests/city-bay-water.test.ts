@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Effect,MeshBuilder,MirrorTexture,NullEngine,Scene,Texture,VertexBuffer} from '@babylonjs/core';
+import {BackgroundMaterial,CubeTexture,Effect,MeshBuilder,MirrorTexture,NullEngine,Scene,ShaderMaterial,Texture,VertexBuffer} from '@babylonjs/core';
 import {createBayWater} from '../src/city-bay-water.ts';
 import type {CoastalManifest} from '../src/city-coastal-infrastructure.ts';
 
@@ -69,5 +69,27 @@ test('horizon water falls back to supplied water bounds without original terrain
   assert.deepEqual(bay.stats().horizonCoverageBounds,[150,-700,350,-300]);
   assert.equal(scene.getMeshByName('bay-horizon-water')?.getTotalIndices()/3,8);
   for(const bounds of bay.stats().meshWorldHeights){assert(Math.abs(bounds.min+.25)<.0001);assert(Math.abs(bounds.max+.25)<.0001);}
+ }finally{scene.dispose();engine.dispose();}
+});
+
+test('daytime horizon shares the visible sky without moving water or adding textures',()=>{
+ const engine=new NullEngine(),scene=new Scene(engine),mirror=new MirrorTexture('existing-reflection',128,scene,true);
+ const water=MeshBuilder.CreateGround('terrain_water',{width:200,height:400},scene);
+ const sky=MeshBuilder.CreateSphere('atmosphere',{},scene),background=new BackgroundMaterial('visible-sky',scene);
+ const cube=new CubeTexture('',scene); // Metadata only: NullEngine has no GPU uploads.
+ background.reflectionTexture=cube;sky.material=background;
+ const bay=createBayWater(scene,mirror,[water],{schemaVersion:1,waterHeight:-.25,crossings:[],parkLights:[],shoreDistance:{url:'',extent:[-100,-200,100,200],maxDistance:120}});
+ const vertices=water.getVerticesData(VertexBuffer.PositionKind)!.slice(),textures=scene.textures.length;
+ try{
+  for(const mode of ['day','night','day','sunset'] as const){
+   bay.setMode(mode);
+   assert.equal(bay.stats().horizonAtmosphere.enabled,mode==='day');
+   assert(bay.material.hasTexture(cube),'reuse the actual sky cube');
+   assert.equal(scene.textures.length,textures,'no cloned cube or reflection target');
+   assert.deepEqual(water.getVerticesData(VertexBuffer.PositionKind),vertices,'lighting changes never alter shore elevation');
+   assert.equal(mirror.mirrorPlane.d,-.25);
+  }
+  sky.material=new ShaderMaterial('fallback-sky',scene,'fallback',{});bay.setMode('day');
+  assert.equal(bay.stats().horizonAtmosphere.enabled,false,'a procedural/fallback sky must not sample an incompatible texture');
  }finally{scene.dispose();engine.dispose();}
 });

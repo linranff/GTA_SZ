@@ -1,16 +1,42 @@
-import {Color3,Matrix,Mesh,Vector3,VertexData,MaterialPluginBase,PBRMaterial,ShaderLanguage,Texture,VertexBuffer,type AbstractEngine,type AbstractMesh,type BaseTexture,type MaterialDefines,type MirrorTexture,type Scene,type SubMesh,type UniformBuffer} from '@babylonjs/core';
+import {BackgroundMaterial,Color3,Matrix,Mesh,Vector3,VertexData,MaterialPluginBase,PBRMaterial,ShaderLanguage,Texture,VertexBuffer,type AbstractEngine,type AbstractMesh,type BaseTexture,type MaterialDefines,type MirrorTexture,type Scene,type SubMesh,type UniformBuffer} from '@babylonjs/core';
 import type {CoastalManifest} from './city-coastal-infrastructure.ts';
-type BayState={time:number;night:number;shore:Texture;extent:number[];ready:boolean};
+import type {CinematicLightingMode} from './city-daylight.ts';
+type BayState={time:number;night:number;shore:Texture;extent:number[];ready:boolean;mode:CinematicLightingMode;sky:BaseTexture|null;skyColor:Color3;skyEnabled:boolean};
 class BaySurface extends MaterialPluginBase{
  constructor(material:PBRMaterial,private state:BayState){super(material,'CityBaySurface',180,{CITY_BAY_SURFACE:true},true,true,true);}
  override isCompatible(l:ShaderLanguage){return l===ShaderLanguage.GLSL;}
  override prepareDefines(d:MaterialDefines){(d as MaterialDefines&{CITY_BAY_SURFACE:boolean}).CITY_BAY_SURFACE=true;}
- override getSamplers(s:string[]){s.push('cityShoreDistance');}
- override getUniforms(){return {ubo:[{name:'cityBayClock',size:4,type:'vec4'},{name:'cityBayExtent',size:4,type:'vec4'}],fragment:'uniform vec4 cityBayClock;uniform vec4 cityBayExtent;'};}
- override bindForSubMesh(b:UniformBuffer,_s:Scene,_e:AbstractEngine,_m:SubMesh){const e=this.state.extent;b.updateFloat4('cityBayClock',this.state.time,this.state.night,this.state.ready?1:0,0);b.updateFloat4('cityBayExtent',e[0],e[1],e[2]-e[0],e[3]-e[1]);b.setTexture('cityShoreDistance',this.state.shore);}
- override getActiveTextures(t:BaseTexture[]){t.push(this.state.shore);}
- override hasTexture(t:BaseTexture){return t===this.state.shore;}
- override getCustomCode(type:string){if(type!=='fragment')return null;return {CUSTOM_FRAGMENT_DEFINITIONS:'uniform sampler2D cityShoreDistance;',
+ override getSamplers(s:string[]){s.push('cityShoreDistance','cityBaySky');}
+ override getUniforms(){return {ubo:[{name:'cityBayClock',size:4,type:'vec4'},{name:'cityBayExtent',size:4,type:'vec4'},{name:'cityBaySkyInfo',size:4,type:'vec4'},{name:'cityBaySkyColor',size:3,type:'vec3'},{name:'cityBaySkyMatrix',size:16,type:'mat4'}],fragment:'uniform vec4 cityBayClock;uniform vec4 cityBayExtent;uniform vec4 cityBaySkyInfo;uniform vec3 cityBaySkyColor;uniform mat4 cityBaySkyMatrix;'};}
+ override bindForSubMesh(b:UniformBuffer,scene:Scene,_e:AbstractEngine,_m:SubMesh){
+  const s=this.state,e=s.extent,sky=s.sky;
+  b.updateFloat4('cityBayClock',s.time,s.night,s.ready?1:0,0);b.updateFloat4('cityBayExtent',e[0],e[1],e[2]-e[0],e[3]-e[1]);b.setTexture('cityShoreDistance',s.shore);
+  b.updateFloat4('cityBaySkyInfo',s.skyEnabled&&sky?.isReady()?1:0,sky?.gammaSpace?1:0,sky?.level??1,(scene.useRightHandedSystem?!sky?.invertZ:sky?.invertZ)?-1:1);
+  b.updateColor3('cityBaySkyColor',s.skyColor);b.updateMatrix('cityBaySkyMatrix',sky?.getReflectionTextureMatrix()??Matrix.IdentityReadOnly);b.setTexture('cityBaySky',sky);
+ }
+ override getActiveTextures(t:BaseTexture[]){t.push(this.state.shore);if(this.state.sky)t.push(this.state.sky);}
+ override hasTexture(t:BaseTexture){return t===this.state.shore||t===this.state.sky;}
+ override getCustomCode(type:string){if(type!=='fragment')return null;return {CUSTOM_FRAGMENT_DEFINITIONS:'uniform sampler2D cityShoreDistance;uniform samplerCube cityBaySky;',
+  CUSTOM_FRAGMENT_BEFORE_FRAGCOLOR:`
+   // Directional aerial perspective uses the already resident visible sky,
+   // not a flat fog-colour strip or an extra reflection pass. Fade only far,
+   // grazing water: shoreline depth, near ripples and reflections stay intact.
+   if(cityBaySkyInfo.x>.5){
+    vec3 bayViewRay=normalize(vPositionW-vEyePosition.xyz);
+    float bayAerial=smoothstep(1800.,14000.,length(vPositionW.xz-vEyePosition.xz))*(1.-smoothstep(.08,.25,abs(bayViewRay.y)));
+    if(bayAerial>.001){
+     vec3 bayHorizonRay=normalize(vec3(bayViewRay.x,.008,bayViewRay.z));
+     vec3 baySkyCoords=(cityBaySkyMatrix*vec4(bayHorizonRay,0.)).xyz;baySkyCoords.z*=cityBaySkyInfo.w;
+     vec3 baySkyColor=textureCube(cityBaySky,baySkyCoords).rgb;
+     if(cityBaySkyInfo.y>.5)baySkyColor=toLinearSpace(baySkyColor);
+     baySkyColor*=cityBaySkyInfo.z*cityBaySkyColor;
+     #if !defined(IMAGEPROCESSINGPOSTPROCESS) && !defined(SS_SCATTERING)
+      baySkyColor=applyImageProcessing(vec4(baySkyColor,1.)).rgb;
+     #endif
+     finalColor.rgb=mix(finalColor.rgb,baySkyColor,bayAerial);
+    }
+   }
+  `,
   '!reflectionCoords.y=1\\.0-reflectionCoords.y;':`$0
    // Projection mirrors otherwise ignore wave normals: keep the exact mirror
    // projection and perturb only its sample, never the camera or its timing.
@@ -76,7 +102,7 @@ export function positionsOnWorldWaterPlane(original:ArrayLike<number>,world:Matr
 }
 export function createBayWater(scene:Scene,mirror:MirrorTexture,meshes:AbstractMesh[],meta:CoastalManifest){
  const material=new PBRMaterial('living-bay',scene);material.albedoColor=new Color3(.025,.095,.105);material.metallic=0;material.roughness=.13;material.indexOfRefraction=1.333;material.metallicF0Factor=1;material.reflectionTexture=mirror;material.environmentIntensity=1;material.maxSimultaneousLights=2;material.enableSpecularAntiAliasing=true;material.backFaceCulling=false;
- const state:BayState={time:0,night:0,shore:null as unknown as Texture,extent:meta.shoreDistance.extent,ready:false};state.shore=new Texture(meta.shoreDistance.url,scene,{invertY:false,gammaSpace:false,samplingMode:Texture.TRILINEAR_SAMPLINGMODE,onLoad:()=>{state.ready=true;}});state.shore.wrapU=state.shore.wrapV=Texture.CLAMP_ADDRESSMODE;new BaySurface(material,state);
+ const state:BayState={time:0,night:0,shore:null as unknown as Texture,extent:meta.shoreDistance.extent,ready:false,mode:'sunset',sky:scene.environmentTexture,skyColor:Color3.White(),skyEnabled:false};state.shore=new Texture(meta.shoreDistance.url,scene,{invertY:false,gammaSpace:false,samplingMode:Texture.TRILINEAR_SAMPLINGMODE,onLoad:()=>{state.ready=true;}});state.shore.wrapU=state.shore.wrapV=Texture.CLAMP_ADDRESSMODE;new BaySurface(material,state);
  for(const mesh of meshes){const original=mesh.getVerticesData(VertexBuffer.PositionKind);if(original){mesh.setVerticesData(VertexBuffer.PositionKind,positionsOnWorldWaterPlane(original,mesh.computeWorldMatrix(true),meta.waterHeight),false);mesh.refreshBoundingInfo({applySkeleton:false});}mesh.material=material;mesh.receiveShadows=false;}
  // The original mainland reaches farther north than its water mesh. Starting
  // this ring at water-only bounds put sea just 25cm below that entire backdrop,
@@ -98,7 +124,13 @@ export function createBayWater(scene:Scene,mirror:MirrorTexture,meshes:AbstractM
  // reflection shimmer without another reflection pass or a larger texture.
  mirror.updateSamplingMode(Texture.TRILINEAR_SAMPLINGMODE);
  mirror.mirrorPlane.d=meta.waterHeight;mirror.level=.92;
- const setNight=(night:boolean)=>{state.night=night?1:0;material.environmentIntensity=night?.78:1;};
+ const setMode=(mode:CinematicLightingMode)=>{
+  state.mode=mode;state.night=mode==='night'?1:0;material.environmentIntensity=state.night?.78:1;
+  const sky=scene.getMeshByName('atmosphere')?.material;
+  state.skyEnabled=mode==='day'&&sky instanceof BackgroundMaterial&&!!sky.reflectionTexture?.isCube;
+  if(sky instanceof BackgroundMaterial&&sky.reflectionTexture?.isCube){state.sky=sky.reflectionTexture;state.skyColor.copyFrom(sky.primaryColor);}
+ };
+ const setNight=(night:boolean)=>setMode(night?'night':'sunset');
  scene.onDisposeObservable.addOnce(()=>{extension.dispose(false,false);state.shore.dispose();material.dispose(false,false);});
- return {material,update:(time:number)=>{state.time=time;},setNight,stats:()=>({meshWorldHeights:meshes.map(m=>({min:m.getBoundingInfo().boundingBox.minimumWorld.y,max:m.getBoundingInfo().boundingBox.maximumWorld.y})),horizonCoverageBounds:bounds.length?[x0,z0,x1,z1]:null,shoreTextureReady:state.ready,waterLevel:meta.waterHeight,planarLevel:mirror.mirrorPlane.d,normalScale:'world-metres, four wind components, pixel-footprint filtered',reflectionFiltering:'trilinear mipmaps with projected pixel footprint',subpixelWaves:'slope variance retained as roughness',lighting:'PBR with moon/sun specular; vehicle headlights excluded',night:!!state.night})};
+ return {material,update:(time:number)=>{state.time=time;},setMode,setNight,stats:()=>({meshWorldHeights:meshes.map(m=>({min:m.getBoundingInfo().boundingBox.minimumWorld.y,max:m.getBoundingInfo().boundingBox.maximumWorld.y})),horizonCoverageBounds:bounds.length?[x0,z0,x1,z1]:null,horizonAtmosphere:{enabled:state.skyEnabled,source:state.sky?.name??null,start:1800,end:14000,extraRenderTargets:0,extraGeometry:0},shoreTextureReady:state.ready,waterLevel:meta.waterHeight,planarLevel:mirror.mirrorPlane.d,normalScale:'world-metres, four wind components, pixel-footprint filtered',reflectionFiltering:'trilinear mipmaps with projected pixel footprint',subpixelWaves:'slope variance retained as roughness',lighting:'PBR with moon/sun specular; vehicle headlights excluded',mode:state.mode,night:!!state.night})};
 }

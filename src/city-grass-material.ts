@@ -8,13 +8,17 @@ const states=new WeakMap<Scene,GrassState>();
 /** Profiling switch only: permits a same-build A/B without adding gameplay UI. */
 export function grassBaseline(){return typeof location!=='undefined'&&new URLSearchParams(location.search).get('grass')==='baseline';}
 
+/** Hill forest is the same lawn/soil/litter PBR stack read as a canopy: crown
+ * clumps at two scales and a dark, low-chroma tint. Two noise evaluations on
+ * mountain pixels only; no texture, light or pass is added. */
+export const FOREST_CANOPY={tint:[.66,.74,.58],crownScale:.11,fineScale:.31,crownRange:[.62,1.08],fineRange:[.86,1.06]} as const;
 class GrassSurface extends MaterialPluginBase {
- constructor(material:PBRMaterial,private state:GrassState,private park:boolean){super(material,'CityGrassPBR',205,{CITY_GRASS_PBR:false},true,true,true);}
+ constructor(material:PBRMaterial,private state:GrassState,private park:boolean,private forest:boolean){super(material,'CityGrassPBR',205,{CITY_GRASS_PBR:false},true,true,true);}
  override isCompatible(language:ShaderLanguage){return language===ShaderLanguage.GLSL;}
  override prepareDefines(defines:MaterialDefines){(defines as MaterialDefines&{CITY_GRASS_PBR:boolean}).CITY_GRASS_PBR=this.state.ready;}
  override getSamplers(samplers:string[]){samplers.push('cityLawnColor','cityLawnNormal','citySoilColor','citySoilNormal','cityLitterColor','cityLitterNormal');}
- override getUniforms(){return {ubo:[{name:'cityGrassPark',size:1,type:'float'}],fragment:'uniform float cityGrassPark;'};}
- override bindForSubMesh(buffer:UniformBuffer){buffer.updateFloat('cityGrassPark',this.park?1:0);['cityLawnColor','cityLawnNormal','citySoilColor','citySoilNormal','cityLitterColor','cityLitterNormal'].forEach((name,i)=>buffer.setTexture(name,this.state.textures[i]));}
+ override getUniforms(){return {ubo:[{name:'cityGrassPark',size:2,type:'vec2'}],fragment:'uniform vec2 cityGrassPark;'};}
+ override bindForSubMesh(buffer:UniformBuffer){buffer.updateFloat2('cityGrassPark',this.park?1:0,this.forest?1:0);['cityLawnColor','cityLawnNormal','citySoilColor','citySoilNormal','cityLitterColor','cityLitterNormal'].forEach((name,i)=>buffer.setTexture(name,this.state.textures[i]));}
  override getActiveTextures(active:BaseTexture[]){active.push(...this.state.textures);}
  override hasTexture(texture:BaseTexture){return this.state.textures.includes(texture as Texture);}
  override getCustomCode(type:string):Record<string,string>|null {
@@ -47,13 +51,23 @@ class GrassSurface extends MaterialPluginBase {
     vec3 lawnB=toLinearSpace(texture2D(cityLawnColor,lawnUV2).rgb);
     vec3 soil=toLinearSpace(texture2D(citySoilColor,gp/1.2+7.).rgb);
     vec3 litter=toLinearSpace(texture2D(cityLitterColor,mat2(0.,1.,-1.,0.)*gp/1.2).rgb);
-    float worn=clamp(cityGrassSoil*.34+(1.-cityGrassPark)*.06+smoothstep(.65,.92,grassPatch)*.06,0.,.40);
+    float worn=clamp(cityGrassSoil*.34+(1.-cityGrassPark.x)*.06+smoothstep(.65,.92,grassPatch)*.06,0.,.40);
     float leafy=smoothstep(.62,.86,grassFine)*(.04+.10*cityGrassSoil);
     vec3 lawn=mix(lawnA,lawnB,.25+.45*grassPatch);
     // Keep the measured texture luminance; subtle warm/dry patches are spatial,
     // not a uniform saturated green overlay.
     surfaceAlbedo=mix(mix(lawn,soil,worn),litter,leafy)*mix(vec3(1.),cityGrassTint,.48);
     surfaceAlbedo*=mix(vec3(.95,.98,.93),vec3(1.02,1.01,.95),grassPatch);
+    #ifdef VERTEXCOLOR
+    // Authored per-vertex shading (mountain canopy clumps, highland, rock) was
+    // multiplied into the PBR albedo before this hook replaced it; keep it.
+    surfaceAlbedo*=vColor.rgb;
+    #endif
+    if(cityGrassPark.y>.5){
+     // Hill forest: crown clumps at ~9 m and ~3 m over a dark, low-chroma canopy.
+     float crown=cityGrassNoise(gp*${FOREST_CANOPY.crownScale}+3.),crownFine=cityGrassNoise(gp*${FOREST_CANOPY.fineScale}+71.);
+     surfaceAlbedo*=vec3(${FOREST_CANOPY.tint.join(',')})*mix(${FOREST_CANOPY.crownRange[0]},${FOREST_CANOPY.crownRange[1]},crown)*mix(${FOREST_CANOPY.fineRange[0]},${FOREST_CANOPY.fineRange[1]},crownFine);
+    }
     cityGrassRoughness=.96;
     // At aerial distances keep only broad geometry normals and albedo/macro;
     // do not pay for three invisible fine-normal samples across the city.
@@ -77,7 +91,7 @@ class GrassSurface extends MaterialPluginBase {
  }
 }
 
-export function applyGrassMaterial(scene:Scene,material:PBRMaterial,park=true){
+export function applyGrassMaterial(scene:Scene,material:PBRMaterial,park=true,forest=false){
  if(grassBaseline())return;
  let state=states.get(scene);
  if(!state){
@@ -97,7 +111,7 @@ export function applyGrassMaterial(scene:Scene,material:PBRMaterial,park=true){
  // Terrain uses the shared sky environment, never a planar road/water mirror.
  material.reflectionTexture=null;material.environmentIntensity=.75;
  if(state.ready)material.albedoTexture=null;
- const shared=state,plugin=new GrassSurface(material,shared,park);
+ const shared=state,plugin=new GrassSurface(material,shared,park,forest);
  shared.materials.add(material);shared.plugins.add(plugin);
  applyLandscapeNightLight(scene,material,'terrain');
  material.onDisposeObservable.addOnce(()=>{shared.materials.delete(material);shared.plugins.delete(plugin);});

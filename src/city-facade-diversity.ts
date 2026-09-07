@@ -10,20 +10,23 @@ type RGB=readonly [number,number,number];
 /** Authored material sets, linear reflectance. These are plausible Shenzhen
  * typologies, not measurements of the individual OSM buildings. Glass is an
  * independent material choice, not the same fixed multiplier for every tower.
+ * Wall chroma sits at 55% of the earlier palette and glass at 75%: the city
+ * is mostly grey-white tile, beige render and blue-green glazing, with colour
+ * arriving from light, signage and a few accent buildings, not from every wall.
  */
 export const FACADE_THEMES=[
- {name:'blue-steel',wall:[.135,.215,.300],glass:[.075,.170,.255],roughness:.30},
- {name:'sage-glass',wall:[.235,.345,.290],glass:[.075,.215,.155],roughness:.35},
- {name:'silver-glass',wall:[.490,.565,.605],glass:[.245,.340,.395],roughness:.32},
- {name:'warm-white',wall:[.710,.665,.555],glass:[.225,.270,.250],roughness:.43},
- {name:'sandstone',wall:[.520,.410,.285],glass:[.180,.220,.205],roughness:.45},
- {name:'graphite',wall:[.100,.125,.140],glass:[.085,.135,.155],roughness:.34},
- {name:'near-black',wall:[.027,.036,.044],glass:[.038,.060,.078],roughness:.28},
- {name:'pale-cool',wall:[.625,.680,.705],glass:[.305,.405,.445],roughness:.38},
- {name:'clay-render',wall:[.405,.240,.165],glass:[.125,.155,.150],roughness:.46},
- {name:'olive-render',wall:[.300,.385,.255],glass:[.130,.235,.160],roughness:.44},
- {name:'champagne-glass',wall:[.330,.290,.225],glass:[.240,.205,.130],roughness:.31},
- {name:'slate-blue',wall:[.064,.115,.190],glass:[.054,.125,.235],roughness:.29},
+ {name:'blue-steel',wall:[.166,.210,.257],glass:[.095,.166,.230],roughness:.30},
+ {name:'sage-glass',wall:[.272,.333,.302],glass:[.101,.206,.161],roughness:.35},
+ {name:'silver-glass',wall:[.518,.559,.581],glass:[.265,.336,.377],roughness:.32},
+ {name:'warm-white',wall:[.690,.666,.605],glass:[.233,.267,.252],roughness:.43},
+ {name:'sandstone',wall:[.477,.416,.348],glass:[.188,.218,.206],roughness:.45},
+ {name:'graphite',wall:[.109,.123,.131],glass:[.095,.133,.148],roughness:.34},
+ {name:'near-black',wall:[.030,.035,.040],glass:[.043,.059,.073],roughness:.28},
+ {name:'pale-cool',wall:[.645,.676,.689],glass:[.325,.400,.430],roughness:.38},
+ {name:'clay-render',wall:[.344,.253,.212],glass:[.131,.153,.150],roughness:.46},
+ {name:'olive-render',wall:[.326,.373,.301],glass:[.149,.228,.172],roughness:.44},
+ {name:'champagne-glass',wall:[.314,.292,.256],glass:[.232,.206,.149],roughness:.31},
+ {name:'slate-blue',wall:[.085,.113,.154],glass:[.070,.123,.206],roughness:.29},
 ] as const satisfies ReadonlyArray<{name:string;wall:RGB;glass:RGB;roughness:number}>;
 // Weighted use-specific pools, rather than every hue equally assigned everywhere.
 const THEME_POOLS=[
@@ -45,9 +48,36 @@ export const WINDOW_KERNEL_SCALES=[.88,1,1.12] as const;
 // Supplement suites only on active floors. Inactive office floors stay dark;
 // the few independent accent panes remain the intentional exception.
 export const NORMAL_WINDOW_FILL={dusk:.06,night:.10} as const;
-const NIGHT_EMISSION_GAIN=1.55;
-const DUSK_EMISSION_GAIN=2.40;
+// Dusk still has direct sun on the facades: interior lights are barely
+// visible then and only take over once the sky has gone dark.
+const NIGHT_EMISSION_GAIN=1.10;
+const DUSK_EMISSION_GAIN=.55;
 const WINDOW_BOUNCE_GAIN=.08;
+/** World-Y layering and analytic relief for ordinary walls. Everything here is
+ * a few ALU per pixel on the existing wall draw: no texture, vertex attribute,
+ * light or pass is added, and the CPU/far-field energy contract is unchanged.
+ * Heights are Blender metres above the block base, (1-TEXCOORD_0.y)*24 after the glTF V flip.
+ * - ground: wall reflectance falls to 72% between 9 m and the shopfront top
+ *   (canopy shade, tree cover and street grime on the first two floors).
+ * - sky: image-based irradiance and reflection fall to 42% at the base and
+ *   recover by 28 m; in a dense block the lower floors see little sky. Direct
+ *   sun and the hemisphere fill are not touched. Under full daylight the floor
+ *   is 62% instead: the sunlit road and the opposite block bounce light back
+ *   into the canyon, a term nothing else in the scene models. At dusk and at
+ *   night that bounce is gone and the lower floors stay in the dark.
+ * - plant: 55% of office towers get a louvred mechanical floor every 9–13 rows
+ *   from row 3; the band is solid, 78% wall reflectance and never lit at night.
+ * - recess: glazing sits 10 cm behind the wall plane. The screen derivative of
+ *   a glazing height field (one extra atlas alpha tap with a 14 cm footprint)
+ *   tilts pane edges (surface-gradient bump), so mullions and reveals catch or
+ *   shadow the low sun. Beyond street distance the pixel footprint dominates
+ *   and the relief fades by itself instead of shimmering.
+ * - lintelShade: the strip under each lintel loses 42% of its glass tint and
+ *   image-based light; the cheapest read of a recessed pane at any distance.
+ * - paneTilt: each resolved pane is rotated up to ±0.45° so a glass tower
+ *   reflects the sky as a mosaic rather than one flat mirror.
+ */
+export const FACADE_RELIEF={groundFloor:.72,groundTop:9,skyFloor:.42,skyFloorDay:.62,skyTop:28,plantRate:.55,plantMinPeriod:9,plantPeriodSpan:5,plantWall:.78,recess:.10,recessRamp:.14,lintelShade:.42,paneTilt:.016} as const;
 const NIGHT_LEVELS=[1.10,1.25,1.45,1.65,1.90,2.10] as const;
 const mod=(n:number,d:number)=>((n%d)+d)%d;
 function readonlyTuple<A extends number,B extends number>(a:A,b:B){return [a,b] as const;}
@@ -161,8 +191,31 @@ float cityFacadeF0=.04;
 vec3 cityFacadeSurfaceLinear=vec3(.5);
 vec3 cityFacadeRadiance=vec3(0.);
 vec3 cityFacadeBounce=vec3(0.);
+float cityFacadeGlazing=0.;
+float cityFacadeRecess=0.;
+float cityFacadeSolid=0.;
+float cityFacadeSky=1.;
+float cityFacadeResolved=1.;
+vec2 cityFacadeCell=vec2(0.);
 float cityFacadeStableSeed(){return mod(floor(vCityFacadeInfo.y+.5),4093.);}
 float cityFacadeHash(vec2 v){return fract(sin(dot(v,vec2(127.1,311.7)))*43758.5453123);}
+#if defined(CITY_FACADE_GRADIENT) && defined(NORMAL)
+vec3 cityFacadeRelief(vec3 n){
+ // Glazing sits behind the wall plane; its screen-space coverage gradient is
+ // the reveal slope at every pane edge (Mikkelsen surface-gradient bump).
+ vec3 dpx=dFdx(vPositionW),dpy=dFdy(vPositionW);
+ float h=-${FACADE_RELIEF.recess.toFixed(3)}*cityFacadeRecess,dhx=dFdx(h),dhy=dFdy(h);
+ vec3 r1=cross(dpy,n),r2=cross(n,dpx);float det=dot(dpx,r1);
+ if(abs(det)>1e-14)n=normalize(abs(det)*n-sign(det)*(dhx*r1+dhy*r2));
+ // Per-pane rotation of resolved glass only; the wall frame stays true.
+ vec3 t=cross(vec3(0.,1.,0.),n);float tl=length(t);
+ if(tl>1e-3){t/=tl;vec3 b=cross(n,t);float seed=cityFacadeStableSeed();
+  vec2 tilt=(vec2(cityFacadeHash(cityFacadeCell+vec2(seed*.07+31.,seed*.03+57.)),cityFacadeHash(cityFacadeCell+vec2(seed*.05+93.,seed*.09+11.)))-.5)
+   *${FACADE_RELIEF.paneTilt.toFixed(3)}*smoothstep(.2,.7,cityFacadeGlazing)*cityFacadeResolved;
+  n=normalize(n+t*tilt.x+b*tilt.y);}
+ return n;
+}
+#endif
 vec2 cityFacadeWindowAccent(vec2 cell,float seed){
  float x=mod(cell.x+mod(seed*5.,24.),24.),y=mod(cell.y+mod(floor(seed/24.)*3.,16.),16.),slot=-1.;
  if((abs(x-1.)<.5&&abs(y-1.)<.5)||(abs(x-20.)<.5&&abs(y-13.)<.5))slot=0.;
@@ -261,7 +314,7 @@ float cityFacadeBounceTap(vec2 pattern){
 #ifdef ALBEDO
 vec4 cityFacadeAlbedo(vec2 uv){
  #ifdef CITY_FACADE_VARIETY
- vec2 pattern=cityFacadePattern(uv);
+ vec2 pattern=cityFacadePattern(uv),grid=cityFacadeGrid();
  vec4 facadeTexel=cityFacadeSample(cityFacadeAtlas,pattern);
  cityFacadeRoughness=facadeTexel.a;
  // Alpha is a linear mixture of glass (.333) and wall (.780), not a
@@ -270,18 +323,45 @@ vec4 cityFacadeAlbedo(vec2 uv){
  float glassRoughness=clamp(vCityFacadeGlass.a*.52,.14,.24);
  float luminance=dot(toLinearSpace(facadeTexel.rgb),vec3(.2126,.7152,.0722));
  float wallDetail=clamp(luminance/.48,.78,1.10),glassDetail=clamp(luminance/.105,.94,1.06);
- vec3 wall=vCityFacadeTheme*wallDetail;
- vec3 glass=vCityFacadeGlass.rgb*glassDetail*.32;
- 
+ float unresolved=0.,rowsUnresolved=0.;
+ #ifdef CITY_FACADE_GRADIENT
+ vec2 cellDX=dFdx(pattern*grid),cellDY=dFdy(pattern*grid);
+ unresolved=smoothstep(.35,1.2,max(length(cellDX),length(cellDY)));
+ rowsUnresolved=smoothstep(.35,1.2,length(vec2(cellDX.y,cellDY.y)));
+ #endif
+ // World-Y layering, see FACADE_RELIEF. city_mesh.py writes v = z/24 and the
+ // glTF export flips V, so height above the block base is (1-v)*24; the wall
+ // itself starts above the separate shopfront glazing (v max = 1-3.5/24).
+ float seed=cityFacadeStableSeed(),family=floor(vCityFacadeInfo.x),height=(1.-uv.y)*24.,row=floor(pattern.y*grid.y);
+ float office=1.-step(1.5,family),plantPeriod=${FACADE_RELIEF.plantMinPeriod.toFixed(1)}+mod(seed,${FACADE_RELIEF.plantPeriodSpan.toFixed(1)});
+ float plant=office*step(${(1-FACADE_RELIEF.plantRate).toFixed(2)},cityFacadeHash(vec2(seed,131.)))*step(12.,height)*step(mod(row+floor(seed/5.),plantPeriod),.5)*(1.-rowsUnresolved);
+ float groundT=smoothstep(3.,${FACADE_RELIEF.groundTop.toFixed(1)},height),groundWall=mix(${FACADE_RELIEF.groundFloor.toFixed(2)},1.,groundT);
+ glazing*=1.-plant;
+ // Reveal: atlas panes start near the cell top (small fract = high z), so the
+ // strip under the lintel sees neither sky nor sun. Applied to the glass tint
+ // and, via cityFacadeSky, to the image-based terms; fades with resolution.
+ vec2 paneUV=fract(pattern*grid)-.5;
+ float lintel=(1.-smoothstep(-.46,-.10,paneUV.y))*glazing*(1.-unresolved);
+ vec3 wall=vCityFacadeTheme*wallDetail*mix(1.,${FACADE_RELIEF.plantWall.toFixed(2)},plant)*groundWall;
+ vec3 glass=vCityFacadeGlass.rgb*glassDetail*.32*mix(.86,1.,groundT)*(1.-${FACADE_RELIEF.lintelShade.toFixed(2)}*lintel);
+ cityFacadeSky=mix(cityFacadeSkyFloor,1.,smoothstep(0.,${FACADE_RELIEF.skyTop.toFixed(1)},height))*(1.-${FACADE_RELIEF.lintelShade.toFixed(2)}*lintel);
+ float recessField=glazing;
+ #ifdef CITY_FACADE_GRADIENT
+ // Height field for the reveal slope: a ~2 texel footprint so the edge spans
+ // 2–3 px at street distance instead of a 1 px line; beyond that the pixel
+ // footprint dominates and the field is as smooth as the visible glazing.
+ vec2 reliefFootprint=max(max(abs(dFdx(pattern)),abs(dFdy(pattern))),vec2(${FACADE_RELIEF.recessRamp.toFixed(2)})/cityFacadePeriod())*vec2(240.,496.)/1024.;
+ recessField=clamp((.780-textureGrad(cityFacadeAtlas,cityFacadeAtlasFromPattern(pattern),vec2(reliefFootprint.x,0.),vec2(0.,reliefFootprint.y)).a)/(.780-.333),0.,1.)*(1.-plant);
+ #endif
+ cityFacadeRecess=recessField;
+
  vec3 surface=mix(wall,glass,glazing);
  #ifdef CITY_FACADE_GRADIENT
- vec2 cellDX=dFdx(pattern*cityFacadeGrid()),cellDY=dFdy(pattern*cityFacadeGrid());
- float unresolved=smoothstep(.35,1.2,max(length(cellDX),length(cellDY)));
  // At subpixel size show the building's mean reflectance, not a black/white grid.
- float family=floor(vCityFacadeInfo.x),meanGlass=.568;
+ float meanGlass=.568;
  if(family>.5)meanGlass=.475;if(family>1.5)meanGlass=.311;if(family>2.5)meanGlass=.406;
  if(family>3.5)meanGlass=.355;if(family>4.5)meanGlass=.232;if(family>5.5)meanGlass=.263;if(family>6.5)meanGlass=.411;
- vec3 meanSurface=mix(vCityFacadeTheme,vCityFacadeGlass.rgb*.32,meanGlass);
+ vec3 meanSurface=mix(vCityFacadeTheme*groundWall,vCityFacadeGlass.rgb*.32,meanGlass);
  surface=mix(surface,meanSurface,unresolved*.82);
  glazing=mix(glazing,meanGlass,unresolved);
  #endif
@@ -292,6 +372,7 @@ vec4 cityFacadeAlbedo(vec2 uv){
  cityFacadeRoughness=mix(.78,glassRoughness,glassLobe);
  cityFacadeF0=mix(.04,.04*glazing,glassLobe);
  cityFacadeSurfaceLinear=clamp(surface,vec3(.009),vec3(.82));
+ cityFacadeGlazing=glazing;cityFacadeSolid=plant;cityFacadeCell=floor(pattern*grid);cityFacadeResolved=1.-unresolved;
  return vec4(facadeTexel.rgb,1.);
  #else
  return texture2D(albedoSampler,uv);
@@ -334,8 +415,18 @@ vec3 cityFacadeEmission(vec2 uv){
  vec3 variation=cityFacadeWindowVariation(cell,seed)*vec3(mix(1.,1.22,accent.x),mix(1.,1.12,accent.x),1.);
  variation=mix(variation,vec3(1.),paneFade);
  vec3 stencil=vec3(cityFacadeWindowSample(pattern,variation.z));
- float coverage=stencil.r*lit;
- float roomBrightness=mix(mix(.975,1.025,cityFacadeHash(vec2(suite+floorGroup*7.,seed+419.))),1.,subpixel);
+ // Interior variety: blinds and curtains dim individual panes and the visible
+ // room is brightest near the pane centre, so lit windows stop reading as a
+ // barcode of identical white blocks. Both terms fade to their mean once panes
+ // fall below pixel size, keeping the far-field energy the CPU mirror expects.
+ vec2 paneUV=fract(pattern*cityFacadeGrid())-.5;
+ float blind=cityFacadeHash(vec2(cell.x*1.7+seed*.031+911.,cell.y*2.3+seed*.017+1213.));
+ float curtain=mix(.28,1.,smoothstep(.12,.92,blind));
+ float interior=mix(.66,1.,1.-smoothstep(.12,.52,length(paneUV*vec2(1.,.85))));
+ float paneShade=mix(curtain*interior,.52,paneFade);
+ // Mechanical floors are solid louvres: no room, no light.
+ float coverage=stencil.r*lit*paneShade*(1.-cityFacadeSolid);
+ float roomBrightness=mix(mix(.86,1.08,cityFacadeHash(vec2(suite+floorGroup*7.,seed+419.))),1.,subpixel);
  float radiance=mix(vCityFacadeActivity.x,vCityFacadeLight.a*${NIGHT_EMISSION_GAIN.toFixed(2)},cityFacadeNight)*roomBrightness*cityFacadeGlow.x*variation.x;
  // Bloom extracts only the HDR shoulder. Vary that excess independently while
  // preserving the main window exposure and the shared post-process threshold.
@@ -373,8 +464,8 @@ export class CityFacadeDiversityPlugin extends MaterialPluginBase{
  }
  override getAttributes(attributes:string[],_scene:Scene,mesh:AbstractMesh){if(mesh.isVerticesDataPresent(VertexBuffer.UV2Kind)&&!attributes.includes(VertexBuffer.UV2Kind))attributes.push(VertexBuffer.UV2Kind);}
  override getSamplers(samplers:string[]){samplers.push('cityFacadeAtlas','cityFacadeWindows');}
- override getUniforms(){return {ubo:[{name:'cityFacadeNight',size:1,type:'float'},{name:'cityFacadeGlow',size:2,type:'vec2'}],fragment:'#ifdef CITY_FACADE_VARIETY\nuniform float cityFacadeNight;\nuniform vec2 cityFacadeGlow;\n#endif'};}
- override bindForSubMesh(buffer:UniformBuffer,_scene:Scene,_engine:AbstractEngine,_subMesh:SubMesh){const mode=this.shared.mode??(this.shared.night?'night':'sunset');buffer.updateFloat('cityFacadeNight',this.shared.night?1:0);buffer.updateFloat2('cityFacadeGlow',mode==='day'?0:mode==='sunset'?DUSK_EMISSION_GAIN:1,mode==='day'?0:WINDOW_BOUNCE_GAIN);buffer.setTexture('cityFacadeAtlas',this.shared.albedo);buffer.setTexture('cityFacadeWindows',this.shared.windows);}
+ override getUniforms(){return {ubo:[{name:'cityFacadeNight',size:1,type:'float'},{name:'cityFacadeGlow',size:2,type:'vec2'},{name:'cityFacadeSkyFloor',size:1,type:'float'}],fragment:'#ifdef CITY_FACADE_VARIETY\nuniform float cityFacadeNight;\nuniform vec2 cityFacadeGlow;\nuniform float cityFacadeSkyFloor;\n#endif'};}
+ override bindForSubMesh(buffer:UniformBuffer,_scene:Scene,_engine:AbstractEngine,_subMesh:SubMesh){const mode=this.shared.mode??(this.shared.night?'night':'sunset');buffer.updateFloat('cityFacadeNight',this.shared.night?1:0);buffer.updateFloat2('cityFacadeGlow',mode==='day'?0:mode==='sunset'?DUSK_EMISSION_GAIN:1,mode==='day'?0:WINDOW_BOUNCE_GAIN);buffer.updateFloat('cityFacadeSkyFloor',mode==='day'?FACADE_RELIEF.skyFloorDay:FACADE_RELIEF.skyFloor);buffer.setTexture('cityFacadeAtlas',this.shared.albedo);buffer.setTexture('cityFacadeWindows',this.shared.windows);}
  override getActiveTextures(active:BaseTexture[]){active.push(this.shared.albedo,this.shared.windows);}
  override hasTexture(texture:BaseTexture){return texture===this.shared.albedo||texture===this.shared.windows;}
  override getCustomCode(type:string):Record<string,string>|null{
@@ -382,7 +473,12 @@ export class CityFacadeDiversityPlugin extends MaterialPluginBase{
   if(type!=='fragment')return null;
   return {CUSTOM_FRAGMENT_DEFINITIONS:GLSL,
    CUSTOM_FRAGMENT_UPDATE_ALBEDO:'#ifdef CITY_FACADE_VARIETY\n// Whole-building linear theme replaces legacy per-vertex palette multiplication.\nsurfaceAlbedo=cityFacadeSurfaceLinear;\n#endif',
-   CUSTOM_FRAGMENT_BEFORE_FINALCOLORCOMPOSITION:'#if defined(CITY_FACADE_VARIETY) && defined(EMISSIVE)\nfinalEmissive=cityFacadeRadiance;\nfinalDiffuse+=surfaceAlbedo*cityFacadeBounce;\n#endif',
+   // Runs after the albedo hook (which fills the relief globals) and before
+   // normalW feeds NdotV, the reflection vector and every light.
+   CUSTOM_FRAGMENT_BEFORE_LIGHTS:'#if defined(CITY_FACADE_VARIETY) && defined(CITY_FACADE_GRADIENT) && defined(NORMAL)\nnormalW=cityFacadeRelief(normalW);\n#endif',
+   CUSTOM_FRAGMENT_BEFORE_FINALCOLORCOMPOSITION:'#if defined(CITY_FACADE_VARIETY) && defined(EMISSIVE)\nfinalEmissive=cityFacadeRadiance;\nfinalDiffuse+=surfaceAlbedo*cityFacadeBounce;\n#endif\n'+
+    // Sky-visibility occlusion on image-based terms only; sun and hemisphere stay.
+    '#if defined(CITY_FACADE_VARIETY) && defined(REFLECTION) && !defined(UNLIT)\nfinalIrradiance*=cityFacadeSky;finalRadianceScaled*=cityFacadeSky;\n#endif',
    '!vec4 albedoTexture=texture2D\\(albedoSampler,vAlbedoUV\\+uvOffset\\);':'vec4 albedoTexture=cityFacadeAlbedo(vAlbedoUV+uvOffset);',
    '!vec3 emissiveColorTex=texture2D\\(emissiveSampler,vEmissiveUV\\+uvOffset\\)\\.rgb;':'vec3 emissiveColorTex=cityFacadeEmission(vEmissiveUV+uvOffset);',
    CUSTOM_FRAGMENT_UPDATE_METALLICROUGHNESS:'#ifdef CITY_FACADE_VARIETY\nmetallicRoughness.r=0.;metallicRoughness.g=cityFacadeRoughness;reflectivityColor.a=cityFacadeF0;metallicReflectanceFactors=vec4(1.);\n#endif',
@@ -415,6 +511,7 @@ export function createFacadeDiversity(scene:Scene,baseURL='/city/textures/archit
  function setMode(mode:CinematicLightingMode){shared.mode=mode;shared.night=mode==='night';}
  return {applyMeshes,setMode,setNight:(night:boolean)=>setMode(night?'night':'sunset'),stats:()=>({ready:shared.ready,failures:[...shared.failures],managedMaterials:plugins.size,assignments,families:8,extraTextureBytesWithMipmaps:6990506,newDrawCalls:0,night:shared.night,buildingThemes:12,themeScope:'stable metadata building group; ordinary marked walls only; all named landmarks excluded',legacyVertexTint:'neutralized after multiply on themed walls',windowRadiance:'building-level HDR/color temperature; grouped suites/floors; glazing-only',normalWindowFill:{...NORMAL_WINDOW_FILL,grouping:'suite/floor groups',role:'dominant ordinary fluorescent/warm-white light'},rareWindowColors:{rate:RARE_WINDOW_LIGHT_RATE,motif:[...ACCENT_WINDOW_MOTIF],quota:{red:2,blue:2,green:2},palette:['red','blue','green'],forcedLit:true,hdrBoost:1.22,bloomBoost:1.12,scope:'resolved ordinary-building panes only',landmarkExclusions:['pingan','bamboo']},windowOpticalVariation:{hdr:[...WINDOW_HDR_SCALES],bloom:[...WINDOW_BLOOM_SCALES],kernel:[...WINDOW_KERNEL_SCALES],stable:true,scope:'ordinary-building panes only'},atlasMipDerivatives:'continuous pattern on WebGL2',seedStability:'flat varying + integer rounding + bounded hash + quantized face',
   windowEmissionGain:{dusk:DUSK_EMISSION_GAIN,night:NIGHT_EMISSION_GAIN},
+  relief:{...FACADE_RELIEF,scope:'ordinary marked walls; analytic per-pixel, no normal/AO texture, no new attribute or pass',skyOcclusionAppliesTo:'environment irradiance and reflection only'},
   windowRadianceRange:{dusk:[.62,1.96],night:[1.54,3.51],accentMultiplier:[1.12,1.3664]},mode:shared.mode??'sunset',
   windowBounce:{scope:'same-facade diffuse approximation; no ground or cross-building spill',gain:shared.mode==='day'?0:WINDOW_BOUNCE_GAIN,extraMaskSamples:4,farFieldFade:true},windowGrouping:'office 3–5 bays × 2 floors; ordinary-light fill only on active floors; home two-window units',windowFarField:'filter horizontal suites and vertical floors independently; average pane tint and energy only when unresolved'})};
 }
