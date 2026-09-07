@@ -1,5 +1,6 @@
 import {Color3, Material, Mesh, PBRMaterial, RawTexture, Texture, VertexData, type BaseTexture, type Scene} from '@babylonjs/core';
 import type {CityData, V2} from './city-types.ts';
+import type {CinematicLightingMode} from './city-daylight.ts';
 
 const ROAD_Y = .10;
 const CELL = 160;
@@ -166,6 +167,14 @@ export function createRainPuddles(scene:Scene,_data:CityData,_heightAt:(x:number
  const normal=RawTexture.CreateRGBTexture(pixels,n,n,scene,true,false,Texture.TRILINEAR_SAMPLINGMODE);normal.name='rain-pool-micro-normal';normal.gammaSpace=false;normal.wrapU=Texture.WRAP_ADDRESSMODE;normal.wrapV=Texture.WRAP_ADDRESSMODE;normal.anisotropicFilteringLevel=4;normal.level=.17;
  const film=new PBRMaterial('rain-damp-apron',scene);film.albedoColor=new Color3(.033,.038,.042);film.metallic=0;film.roughness=.55;film.specularIntensity=.28;film.maxSimultaneousLights=2;film.transparencyMode=Material.MATERIAL_ALPHABLEND;film.zOffset=-1;film.backFaceCulling=false;
  const water=new PBRMaterial('rain-standing-water',scene);water.albedoColor=new Color3(.025,.036,.045);water.metallic=0;water.roughness=.075;water.specularIntensity=.85;water.environmentIntensity=1.35;water.reflectionTexture=mirror;water.bumpTexture=normal;water.invertNormalMapX=!scene.useRightHandedSystem;water.invertNormalMapY=scene.useRightHandedSystem;water.enableSpecularAntiAliasing=true;water.maxSimultaneousLights=2;water.transparencyMode=Material.MATERIAL_ALPHABLEND;water.zOffset=-1;water.backFaceCulling=false;
+ let lightMode:CinematicLightingMode='sunset';
+ function setMode(next:CinematicLightingMode){
+  lightMode=next;const day=next==='day';
+  // Keep the same rain layout and reflected scene, but reveal more asphalt
+  // through sunlit shallow water. Avoid white, opaque-looking mirror patches.
+  water.environmentIntensity=day?.85:1.35;water.specularIntensity=day?.65:.85;
+  water.roughness=day?.13:.075;water.alpha=day?.74:1;film.alpha=day?.70:1;
+ }
  const make=(name:string,mat:PBRMaterial,order:number)=>{const m=new Mesh(name,scene);m.material=mat;m.isPickable=false;m.hasVertexAlpha=true;m.useVertexColors=true;m.alphaIndex=order;m.receiveShadows=false;m.freezeWorldMatrix();m.setEnabled(false);return m;};
  const apron=make('rain-road-damp-patches',film,1),puddles=make('rain-road-local-puddles',water,2);
  let lastX=Infinity,lastZ=Infinity,lastMode=-1,lastRebuildMs=0,shown=0,disposed=false,rebuilds=0;let mode: 'driving'|'drone'|'high-overview'='driving';
@@ -204,8 +213,8 @@ export function createRainPuddles(scene:Scene,_data:CityData,_heightAt:(x:number
  const readyPromise=prepared?Promise.resolve(install(prepared)):retry();
  return{
   meshes:[apron,puddles] as const,
-  update,readyPromise,retry,
-  get stats(){return{...layout.stats,status,failure,mode,shown,initMs,lastRebuildMs,rebuilds,visiblePuddleArea,coverageEvidence,drawCalls:puddles.isEnabled()?(apron.isEnabled()?2:1):apron.isEnabled()?1:0,activeTriangles:(apron.isEnabled()?apron.getTotalIndices()/3:0)+(puddles.isEnabled()?puddles.getTotalIndices()/3:0),extraRenderTargets:0,extraLights:0,normalTextureBytesWithMipmaps:Math.round(n*n*3*4/3),reflection:'reuse-existing-road-mirror',placement:'20-minutes-after-rain; five seeded shorelines with irregular road positions',profileVariants:RAIN_PROFILE_COUNT,estimatedWetFraction:layout.stats.estimatedWetArea/Math.max(1,layout.stats.sampledSurfaceArea),estimatedPuddleFraction:layout.stats.estimatedPuddleArea/Math.max(1,layout.stats.sampledSurfaceArea),disposed};},
+  update,readyPromise,retry,setMode,
+  get stats(){return{...layout.stats,status,failure,mode,lightMode,response:{alpha:water.alpha,roughness:water.roughness,specular:water.specularIntensity,environment:water.environmentIntensity},shown,initMs,lastRebuildMs,rebuilds,visiblePuddleArea,coverageEvidence,drawCalls:puddles.isEnabled()?(apron.isEnabled()?2:1):apron.isEnabled()?1:0,activeTriangles:(apron.isEnabled()?apron.getTotalIndices()/3:0)+(puddles.isEnabled()?puddles.getTotalIndices()/3:0),extraRenderTargets:0,extraLights:0,normalTextureBytesWithMipmaps:Math.round(n*n*3*4/3),reflection:'reuse-existing-road-mirror',placement:'20-minutes-after-rain; five seeded shorelines with irregular road positions',profileVariants:RAIN_PROFILE_COUNT,estimatedWetFraction:layout.stats.estimatedWetArea/Math.max(1,layout.stats.sampledSurfaceArea),estimatedPuddleFraction:layout.stats.estimatedPuddleArea/Math.max(1,layout.stats.sampledSurfaceArea),disposed};},
   dispose(){if(disposed)return;disposed=true;if(retryTimer)clearTimeout(retryTimer);apron.dispose(false,false);puddles.dispose(false,false);film.dispose(false,false);water.dispose(false,false);normal.dispose();},
  };
 }

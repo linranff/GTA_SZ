@@ -206,7 +206,8 @@ export function createArchitectureMaterials(scene:Scene){
   // landmark lamp/LED meshes remain outside this controller.
   const slot=profile.texture?textures.get(profile.texture):undefined;
   const aligned=Boolean(slot&&slot.state==='ready'&&slot.maskState==='ready'&&material.albedoTexture===slot.texture&&material.emissiveTexture===slot.mask);
-  material.emissiveIntensity=aligned?(night?2.0:mode==='day'?0:1.5):0;
+  // Dusk keeps direct sun on the walls, so interiors barely register until night.
+  material.emissiveIntensity=aligned?(night?1.35:mode==='day'?0:.45):0;
   material.emissiveColor=aligned?new Color3(1,.94,.83):Color3.Black();
   if(profile.lineEmission){
    material.emissiveColor=new Color3(...profile.lineEmission);

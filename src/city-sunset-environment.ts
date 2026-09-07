@@ -49,10 +49,14 @@ export function gradeSunsetRadiance(data:Float32Array,face?:number,size=Math.sqr
   const cloud=smooth(.56,1.03,r/(b+.0001));
   // Use local exposure only for the cloud mask; retain the original radiance.
   const lit=smooth(.50,1.45,luminance/solarGlare);
-  const fire=hemisphere*cloud*(.06+.94*lit),contrast=.18+1.20*lit;
-  data[i]=((r*.18+b*.09)*(1-fire)+(r*1.72+g*.25)*fire)*contrast;
-  data[i+1]=((g*.22+b*.07)*(1-fire)+(g*.58+r*.10)*fire)*contrast;
-  data[i+2]=((b*.56+r*.12)*(1-fire)+(b*.17+r*.022)*fire)*contrast;
+  // The unlit branch keeps the anti-solar sky a deep indigo about one tenth of
+  // the lit cloud luminance instead of black: a real dusk sky opposite the sun
+  // still glows, and that same energy is the fill that lights the shaded side
+  // of the city. Lit clouds keep their earlier gain (contrast 1.38 at lit=1).
+  const fire=hemisphere*cloud*(.06+.94*lit),contrast=.70+.68*lit;
+  data[i]=((r*.28+b*.11)*(1-fire)+(r*1.72+g*.25)*fire)*contrast;
+  data[i+1]=((g*.32+b*.09)*(1-fire)+(g*.58+r*.10)*fire)*contrast;
+  data[i+2]=((b*.72+r*.15)*(1-fire)+(b*.17+r*.022)*fire)*contrast;
  }
  return data;
 }
@@ -61,6 +65,14 @@ export function gradeSunsetRadiance(data:Float32Array,face?:number,size=Math.sqr
 export function sunsetDisplayScale(peak:number){
  const knee=1.8;
  return peak<=knee?1:(knee+2.5*(peak-knee)/(2.5+peak-knee))/peak;
+}
+
+/** Linear range covered by the RGB8 display cube; restored by texture.level. */
+export const SUNSET_DISPLAY_RANGE=4.3;
+/** Gamma-encode one display value in [0,1] with the same 2.2 power Babylon's
+ * toLinearSpace undoes, so dark sky keeps ~60 steps below 5% instead of 3. */
+export function encodeSunsetDisplayByte(value:number){
+ return Math.round(Math.pow(Math.max(0,Math.min(1,value)),1/2.2)*255);
 }
 
 export class ShenzhenSunsetEnvironment extends HDRCubeTexture{
@@ -72,8 +84,10 @@ export class ShenzhenSunsetEnvironment extends HDRCubeTexture{
   if(internal)cachedDisplayFaces.set(internal,faces);
   // The bounded display cube needs only RGB8; it keeps the 1024px cloud detail
   // with 18 MiB, no second download, reflection probe or per-frame render pass.
+  // Bytes are gamma encoded (see below) so the dark anti-solar sky keeps its
+  // indigo gradient instead of collapsing onto two or three linear steps.
   const texture=new RawCubeTexture(scene,faces,this.getSize().width,Engine.TEXTUREFORMAT_RGB,Engine.TEXTURETYPE_UNSIGNED_BYTE,false,false,Texture.BILINEAR_SAMPLINGMODE);
-  texture.name='sunset-display-only';texture.gammaSpace=false;texture.level=4.3;
+  texture.name='sunset-display-only';texture.gammaSpace=true;texture.level=SUNSET_DISPLAY_RANGE;
   texture.coordinatesMode=Texture.SKYBOX_MODE;texture.rotationY=this.rotationY;
   this.displayFaces=null;
   return texture;
@@ -84,8 +98,8 @@ export class ShenzhenSunsetEnvironment extends HDRCubeTexture{
   for(const [index,face] of (['right','left','up','down','front','back'] as const).entries()){
    const linear=gradeSunsetRadiance(cube[face] as Float32Array,index,size),display=new Uint8Array(linear.length);
    for(let i=0;i<linear.length;i+=3){
-    const scale=sunsetDisplayScale(Math.max(linear[i],linear[i+1],linear[i+2]))*255/4.3;
-    display[i]=Math.round(linear[i]*scale);display[i+1]=Math.round(linear[i+1]*scale);display[i+2]=Math.round(linear[i+2]*scale);
+    const scale=sunsetDisplayScale(Math.max(linear[i],linear[i+1],linear[i+2]))/SUNSET_DISPLAY_RANGE;
+    display[i]=encodeSunsetDisplayByte(linear[i]*scale);display[i+1]=encodeSunsetDisplayByte(linear[i+1]*scale);display[i+2]=encodeSunsetDisplayByte(linear[i+2]*scale);
    }
    this.displayFaces.push(display);
   }

@@ -105,7 +105,8 @@ class MeadowMotion extends MaterialPluginBase {
  override getUniforms(){return {ubo:[{name:'meadowEyeTime',size:4,type:'vec4'}],vertex:'uniform vec4 meadowEyeTime;'};}
  override hardBindForSubMesh(buffer:UniformBuffer,scene:Scene,_engine:AbstractEngine,_subMesh:SubMesh){
   this.eye.copyFrom(scene.activeCamera?.globalPosition??Vector3.ZeroReadOnly);
-  buffer.updateFloat4('meadowEyeTime',this.eye.x,this.eye.y,this.eye.z,(performance.now()-this.start)/1000);
+  const time=scene.metadata?.captureTimeSeconds??(performance.now()-this.start)/1000;
+  buffer.updateFloat4('meadowEyeTime',this.eye.x,this.eye.y,this.eye.z,time);
  }
  override getCustomCode(type:string):Record<string,string>|null {
   if(type!=='vertex')return null;

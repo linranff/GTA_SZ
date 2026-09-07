@@ -1,4 +1,4 @@
-import {Engine,Scene,Vector3,Color3,Color4,FreeCamera,HemisphericLight,DirectionalLight,ShadowGenerator,TransformNode,MeshBuilder,Mesh,StandardMaterial,PBRMaterial,RawCubeTexture,RawTexture,Texture,Effect,ShaderMaterial,Quaternion,PointLight,ImportMeshAsync,DefaultRenderingPipeline,MirrorTexture,Plane,FresnelParameters,SpotLight,MeshoptCompression,SSAO2RenderingPipeline,SceneInstrumentation,EngineInstrumentation,RenderingGroup,Frustum,Matrix,type SubMesh,type AbstractMesh} from '@babylonjs/core';
+import {Engine,Scene,Vector3,Color3,Color4,FreeCamera,HemisphericLight,DirectionalLight,ShadowGenerator,TransformNode,MeshBuilder,Mesh,StandardMaterial,PBRMaterial,RawCubeTexture,RawTexture,Texture,Effect,ShaderMaterial,Quaternion,PointLight,ImportMeshAsync,DefaultRenderingPipeline,MirrorTexture,Plane,FresnelParameters,SpotLight,MeshoptCompression,SSAO2RenderingPipeline,Constants,SceneInstrumentation,EngineInstrumentation,RenderingGroup,Frustum,Matrix,type SubMesh,type AbstractMesh} from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 MeshoptCompression.Configuration={decoder:{url:'/city/meshopt_decoder.js'}};
 import {loadLandmarkDetails,type LandmarkDetailManifest} from './landmark-details.ts';
@@ -11,7 +11,8 @@ import {createFacadeDiversity} from './city-facade-diversity.ts';
 import {CityLandscape,applyLandscapeSurfaces} from './city-landscape.ts';
 import {attachCityBuildingSigns} from './city-building-signs.ts';
 import {loadLandmarkSignage} from './landmark-signage.ts';
-import {createCinematicLook} from './city-cinematic.ts';
+import {createCinematicLook,syncPostChain,applyAntiAliasing} from './city-cinematic.ts';
+import {keepSkyInReflections} from './city-sky-reflection.ts';
 import {applyCinematicRoad} from './city-road-surface.ts';
 import {createRainPuddles} from './city-rain-puddles.ts';
 import {loadCityGroundRelief} from './city-ground-relief.ts';
@@ -34,6 +35,15 @@ import {setLandscapeLightingMode} from './city-landscape-lighting.ts';
 import type {RoadGraph} from './navigation.ts';
 import type {CityData,Landmark,V2} from './city-types.ts';
 import {CityCollision,stepCar,manualSteeringInput,clamp,type CarState} from './driving.ts';
+/** Screen-space contact shading at street level: a tight 2.5 m radius darkens
+ * kerbs, door reveals and wheel wells within 130 m. It reads depth and normals
+ * from a dedicated half-resolution geometry buffer whose render list is only
+ * the meshes within reach; the previous prepass path re-rendered the whole
+ * visible city into a full-resolution MRT. Occlusion is estimated and blurred
+ * at `aoRatio` and multiplied into the full-size scene colour. Aerial views
+ * detach the pass: the facade shader's own sky-visibility ramp grounds the
+ * towers there. `listMargin` covers the 100 m of travel between culls. */
+export const STREET_AO={radius:2.5,maxZ:130,strength:.65,base:.1,bufferRatio:.5,aoRatio:.5,listMargin:100} as const;
 export class DrivingWorld{
  coastal:Awaited<ReturnType<typeof loadCoastalInfrastructure>>|null=null;bayWater:ReturnType<typeof createBayWater>|null=null;publicLighting:ReturnType<typeof createPublicLighting>|null=null;private lampAssignments=[-1,-1];
  coastalHorizon:ReturnType<typeof createCoastalHorizon>[]=[];
@@ -70,7 +80,10 @@ export class DrivingWorld{
   this.sun=new DirectionalLight('sunset',new Vector3(.95,-.22,.18),this.scene);this.sun.diffuse=new Color3(1,.41,.18);this.sun.intensity=3.0;this.sun.shadowMinZ=1;this.sun.shadowMaxZ=1200;this.sun.autoUpdateExtends=false;this.sun.orthoLeft=-260;this.sun.orthoRight=260;this.sun.orthoTop=260;this.sun.orthoBottom=-260;
   this.shadows=new ShadowGenerator(2048,this.sun);this.shadows.usePercentageCloserFiltering=true;this.shadows.filteringQuality=ShadowGenerator.QUALITY_LOW;this.shadows.bias=.0002;this.shadows.normalBias=.10;
   this.pipeline=new DefaultRenderingPipeline('city-optics',true,this.scene,[this.camera]);this.pipeline.samples=1;this.pipeline.fxaaEnabled=true;this.pipeline.bloomEnabled=true;this.pipeline.bloomThreshold=.90;this.pipeline.bloomWeight=.34;this.pipeline.bloomKernel=72;this.pipeline.bloomScale=.5;
-  if(SSAO2RenderingPipeline.IsSupported){const ao=this.ao=new SSAO2RenderingPipeline('contact-shading',this.scene,{ssaoRatio:.5,blurRatio:.5},[this.camera]);ao.radius=2.5;ao.totalStrength=.65;ao.samples=8;ao.expensiveBlur=false;ao.maxZ=130;}
+  // The scene target must be half-float so HDR survives into bloom and ACES;
+  // the default 8-bit pass clipped every highlight when this pipeline owned
+  // the scene. MSAA on that target is applied by `syncPostChain`.
+  if(SSAO2RenderingPipeline.IsSupported){const gbuffer=this.scene.enableGeometryBufferRenderer(STREET_AO.bufferRatio);if(gbuffer){gbuffer.renderList=[];const ao=this.ao=new SSAO2RenderingPipeline('contact-shading',this.scene,{ssaoRatio:STREET_AO.aoRatio,blurRatio:STREET_AO.aoRatio},[this.camera],gbuffer,this.engine.getCaps().textureHalfFloatRender?Constants.TEXTURETYPE_HALF_FLOAT:Constants.TEXTURETYPE_UNSIGNED_INT);ao.radius=STREET_AO.radius;ao.totalStrength=STREET_AO.strength;ao.base=STREET_AO.base;ao.samples=8;ao.expensiveBlur=false;ao.maxZ=STREET_AO.maxZ;}}
   this.sky();this.environment();this.architecture=createArchitectureMaterials(this.scene);this.facadeDiversity=createFacadeDiversity(this.scene);
   this.car=new TransformNode('player-electric-GT',this.scene);
   this.mirror=new MirrorTexture('wet-road-reflection',512,this.scene,true);this.mirror.mirrorPlane=new Plane(0,-1,0,.105);this.mirror.refreshRate=2;this.mirror.blurKernel=7;this.mirror.level=.65;
@@ -150,7 +163,7 @@ export class DrivingWorld{
   float rim=smoothstep(.46,.53,cloud)*(1.-smoothstep(.54,.65,cloud));vec3 cloudColor=mix(cloudDark,cloudLit,rim*.85+.24*west);
   c=mix(c,cloudColor,mask*.85);c=mix(c,c*vec3(.12,.22,.44),night);gl_FragColor=vec4(c,1.);}`;
   this.skyMat=new ShaderMaterial('sky',this.scene,{vertex:'szSky',fragment:'szSky'},{attributes:['position'],uniforms:['worldViewProjection','night']});this.skyMat.backFaceCulling=false;this.skyMat.disableDepthWrite=true;this.skyMat.setFloat('night',0);
-  const sky=MeshBuilder.CreateSphere('atmosphere',{diameter:8000,segments:24},this.scene);sky.material=this.skyMat;sky.infiniteDistance=true;sky.isPickable=false;sky.applyFog=false;
+  const sky=MeshBuilder.CreateSphere('atmosphere',{diameter:8000,segments:24},this.scene);sky.material=this.skyMat;sky.infiniteDistance=true;sky.isPickable=false;sky.applyFog=false;keepSkyInReflections(sky);
  }
  private async load(name:string){const r=await ImportMeshAsync('/city/'+name+'.glb',this.scene);r.meshes[0].rotationQuaternion=Quaternion.Identity();for(const m of r.meshes){m.isPickable=false;m.receiveShadows=true;if(m.material instanceof PBRMaterial){m.material.environmentIntensity=1.0;m.material.forceIrradianceInFragment=true;m.material.maxSimultaneousLights=8;}if(m.getTotalVertices())m.freezeWorldMatrix();}this.architecture.applyMeshes(r.meshes,name);this.facadeDiversity.applyMeshes(r.meshes,name);return r;}
  async init(progress:(s:string)=>void){
@@ -196,7 +209,7 @@ export class DrivingWorld{
   this.observer.begin(focus,distance,m.photoAngle??.65,elevation);this.observer.step(this.keys,0,this.groundHeight,this.data.meta.extent);
   this.cull();this.vegetation();this.onMessage?.('无人机 · WASD 平移 / 方向键转头 / Q E 升降 / 拖动环绕 / Shift 拖移 / G 或 F 返回');
  }
- aerialEffects(active:boolean){if(this.overviewEffects===active)return;this.overviewEffects=active;this.sun.orthoLeft=this.sun.orthoBottom=active?-1050:-260;this.sun.orthoRight=this.sun.orthoTop=active?1050:260;this.sun.shadowMaxZ=active?3200:1200;this.shadows.getShadowMap()!.refreshRate=active?12:1;this.shadows.getShadowMap()!.resetRefreshCounter();if(this.ao){if(active)this.scene.postProcessRenderPipelineManager.detachCamerasFromRenderPipeline('contact-shading',this.camera);else this.scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('contact-shading',this.camera);}this.cull();}
+ aerialEffects(active:boolean){if(this.overviewEffects===active)return;this.overviewEffects=active;this.sun.orthoLeft=this.sun.orthoBottom=active?-1050:-260;this.sun.orthoRight=this.sun.orthoTop=active?1050:260;this.sun.shadowMaxZ=active?3200:1200;this.shadows.getShadowMap()!.refreshRate=active?12:1;this.shadows.getShadowMap()!.resetRefreshCounter();if(this.ao){const manager=this.scene.postProcessRenderPipelineManager;if(active)manager.detachCamerasFromRenderPipeline('contact-shading',this.camera);else manager.attachCamerasToRenderPipeline('contact-shading',this.camera);}applyAntiAliasing(this.pipeline,active);syncPostChain(this.scene,this.pipeline,this.camera);this.cull();}
  toggleAerial(){if(this.observer.active){this.exitPhoto();return;}const s=this.actor;this.enterPhoto({id:'free-camera',name:'自由无人机',x:s.x,z:s.z,height:0,area:'城市全景',excludeRadius:0,arrival:[s.x,s.z],yaw:s.yaw,photoDistance:420,photoElevation:.42,photoAngle:.65,photoTargetHeight:this.groundHeight(s.x,s.z)+15});}
  exitPhoto(){this.aerialEffects(false);this.observer.active=false;this.aerial=false;this.photoTarget=null;this.paused=false;this.keys.clear();
   // Reselect lamps at the returning actor; nearby aerial slots can otherwise
@@ -233,7 +246,15 @@ export class DrivingWorld{
   casters.push(...(this.groundRelief?.shadowMeshes(p.x,p.z,this.overviewEffects?1450:650)??[]));casters.push(...(this.landscape?.casters??[]));for(const m of this.facadeStream?.shadowMeshes??[])casters.push(m);
 
   for(const light of this.windowLights){light.intensity=0;light.setEnabled(false);}
-  this.shadows.getShadowMap()!.renderList=casters;if(this.aerial)this.shadows.getShadowMap()!.resetRefreshCounter();// A detail landmark can contain asphalt: never draw a material into its own texture.
+  this.shadows.getShadowMap()!.renderList=casters;if(this.aerial)this.shadows.getShadowMap()!.resetRefreshCounter();
+  // Contact-shading depth/normal buffer: only meshes whose bounds reach into
+  // the AO range (terrain and roads qualify through their large radii). The
+  // shadow casters' 520 m radius is deliberately not reused: every mesh here
+  // is drawn a second time. Vehicles and pedestrians are thin-instanced with
+  // lagging bounds, so they are always in; the sky never is.
+  const gbuffer=this.scene.geometryBufferRenderer;
+  if(gbuffer){if(this.overviewEffects)gbuffer.renderList=[];else{const reach=STREET_AO.maxZ+STREET_AO.listMargin,near=new Set<AbstractMesh>([...this.carMeshes,...traffic,...(this.pedestrians?.casters??[])]);for(const m of this.scene.meshes){if(near.has(m)||m===sky||!m.isEnabled()||!m.isVisible||!m.subMeshes?.length)continue;const s=m.getBoundingInfo().boundingSphere;if(Math.hypot(s.centerWorld.x-p.x,s.centerWorld.z-p.z)-s.radiusWorld<reach)near.add(m);}gbuffer.renderList=[...near];}}
+  // A detail landmark can contain asphalt: never draw a material into its own texture.
   this.mirror.renderList=reflect.filter(m=>!m.material?.hasTexture(this.mirror));this.waterMirror.renderList=reflect.filter(m=>!m.material?.hasTexture(this.waterMirror));
  }
  localLights(dt:number){
@@ -260,7 +281,7 @@ export class DrivingWorld{
  setLightMode(mode:'sunset'|'night'|'day'){
   this.lightMode=mode;this.night=mode==='night';this.skyMat.setFloat('night',this.night?1:0);
   this.architecture.setMode(mode);this.facadeDiversity.setMode(mode);this.signage?.setMode(mode);this.buildingSigns?.setNight(this.night);
-  this.cinematic?.setMode(mode);this.bayWater?.setNight(this.night);this.publicLighting?.setMode(mode);this.lightTick=0;
+  this.cinematic?.setMode(mode);this.roadSurface?.setMode(mode);this.rainPuddles?.setMode(mode);this.bayWater?.setMode(mode);this.publicLighting?.setMode(mode);this.lightTick=0;
   setLandscapeLightingMode(this.scene,mode);this.sportDetails?.setMode(mode);
   for(const light of this.headlights)light.intensity=mode==='day'?20:250;
   for(const m of this.scene.materials){
@@ -328,6 +349,6 @@ export class DrivingWorld{
  carPaintDiagnostics(){const m=this.carMeshes.map(m=>m.material).find(m=>m instanceof PBRMaterial&&/^carpaint(?:\.\d+)?$/.test(m.name)) as PBRMaterial|undefined;return m?{name:m.name,clearCoat:m.clearCoat.isEnabled,albedo:m.albedoColor.asArray(),environmentIntensity:m.environmentIntensity,roughness:m.roughness}:null;}
 
  profileControls(){const panel=document.createElement('div');panel.id='render-profile';panel.style.cssText='position:fixed;z-index:100;right:12px;top:140px;background:#102029ee;padding:12px;color:white;font:13px sans-serif;pointer-events:auto';for(const [name,change] of Object.entries({facades:(v:boolean)=>{this.debugFacades=v;this.cull();},shadows:(v:boolean)=>{this.scene.shadowsEnabled=v;},reflections:(v:boolean)=>{this.reflectionsEnabled=v;this.mirror.refreshRate=v?1:0;this.waterMirror.refreshRate=v?1:0;},ssao:(v:boolean)=>{if(v)this.scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('contact-shading',this.camera);else this.scene.postProcessRenderPipelineManager.detachCamerasFromRenderPipeline('contact-shading',this.camera);},simulation:(v:boolean)=>{this.debugSimulation=v;}})){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=true;input.dataset.profile=name;input.onchange=()=>change(input.checked);label.append(input,name);label.style.display='block';panel.append(label);}document.body.append(panel);}
- diagnostics(){const i=this.instrumentation;return {depthPrecision:{near:this.camera.minZ,far:this.camera.maxZ,sceneryTop:this.sceneryTop},reflectionFrames:{...this.reflectionFrames,current:this.renderFrames,roadRate:this.mirror.refreshRate,waterRate:this.waterMirror.refreshRate},updateMs:this.updateMs,renderSubmitMs:this.renderMs,gpuMs:this.gpuInstrumentation.gpuFrameTimeCounter.lastSecAverage/1e6,activeEvaluationMs:i.activeMeshesEvaluationTimeCounter.lastSecAverage,renderTargetsMs:i.renderTargetsRenderTimeCounter.lastSecAverage,drawCalls:i.drawCallsCounter.current,instantFps:this.engine.getFps(),renderFrames:this.renderFrames,hidden:document.hidden,facades:this.facadeStream?.stats,coastalHorizon:this.coastalHorizon.map(h=>h.stats),distantCity:{strategy:"original-building-meshes",proxyMeshes:0,extraTextures:0,extraShadowDraws:0,extraReflectionDraws:0},detailFocus:{...this.sceneFocus()},aerial:this.aerial,observer:this.observer.status,loadedMeshes:this.scene.meshes.length,enabledMeshes:this.scene.meshes.filter(m=>m.isEnabled()).length};}
+ diagnostics(){const i=this.instrumentation;return {depthPrecision:{near:this.camera.minZ,far:this.camera.maxZ,sceneryTop:this.sceneryTop},contactShading:{attached:!!this.ao&&this.ao.cameras.includes(this.camera),gbufferMeshes:this.scene.geometryBufferRenderer?.renderList?.length??null,...STREET_AO},reflectionFrames:{...this.reflectionFrames,current:this.renderFrames,roadRate:this.mirror.refreshRate,waterRate:this.waterMirror.refreshRate},updateMs:this.updateMs,renderSubmitMs:this.renderMs,gpuMs:this.gpuInstrumentation.gpuFrameTimeCounter.lastSecAverage/1e6,activeEvaluationMs:i.activeMeshesEvaluationTimeCounter.lastSecAverage,renderTargetsMs:i.renderTargetsRenderTimeCounter.lastSecAverage,drawCalls:i.drawCallsCounter.current,instantFps:this.engine.getFps(),renderFrames:this.renderFrames,hidden:document.hidden,facades:this.facadeStream?.stats,coastalHorizon:this.coastalHorizon.map(h=>h.stats),distantCity:{strategy:"original-building-meshes",proxyMeshes:0,extraTextures:0,extraShadowDraws:0,extraReflectionDraws:0},detailFocus:{...this.sceneFocus()},aerial:this.aerial,observer:this.observer.status,loadedMeshes:this.scene.meshes.length,enabledMeshes:this.scene.meshes.filter(m=>m.isEnabled()).length};}
  performance(){const a=this.samples.slice(120),b=[...a].sort((x,y)=>x-y);const pct=(p:number)=>b[Math.floor((b.length-1)*p)]??0;const mean=a.reduce((s,v)=>s+v,0)/Math.max(1,a.length);return {...this.diagnostics(),samples:a.length,meanFps:a.length?1000/mean:0,p50:pct(.5),p95:pct(.95),p99:pct(.99),over50ms:a.filter(v=>v>50).length,resolution:[this.engine.getRenderWidth(),this.engine.getRenderHeight()],meshes:this.scene.getActiveMeshes().length,triangles:this.scene.getActiveIndices()/3};}
 }
