@@ -1,0 +1,23 @@
+/** Meshopt encode the cleaned, skinned rider; preserve all animation tracks. */
+import {NodeIO} from '@gltf-transform/core';
+import {ALL_EXTENSIONS} from '@gltf-transform/extensions';
+import {weld,meshopt} from '@gltf-transform/functions';
+import {MeshoptEncoder,MeshoptDecoder} from 'meshoptimizer';
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const root=new URL('../public/city/rider/',import.meta.url),path=fileURLToPath(new URL('rider.glb',root));
+const manifest=JSON.parse(await fs.readFile(new URL('manifest.json',root),'utf8'));
+const before=await fs.readFile(path),hash=b=>createHash('sha256').update(b).digest('hex');
+if(manifest.compression&&hash(before)===manifest.sha256)process.exit(0);
+await Promise.all([MeshoptEncoder.ready,MeshoptDecoder.ready]);
+const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'meshopt.encoder':MeshoptEncoder,'meshopt.decoder':MeshoptDecoder});
+const doc=await io.read(path);
+const clips=doc.getRoot().listAnimations().map(a=>a.getName());
+for(const name of ['Rider_Idle','Rider_Walk','Rider_Run'])if(!clips.includes(name))throw Error('Missing animation '+name);
+if(doc.getRoot().listSkins()[0]?.listJoints().length!==17)throw Error('Missing 17-bone rider skeleton');
+await doc.transform(weld(),meshopt({encoder:MeshoptEncoder,level:'high',quantizePosition:16,quantizeNormal:12,quantizeTexcoord:16,quantizationVolume:'mesh'}));
+await io.write(path,doc);const after=await fs.readFile(path);
+manifest.bytes=after.length;manifest.sha256=hash(after);manifest.compression={algorithm:'EXT_meshopt_compression',beforeBytes:before.length};
+await fs.writeFile(new URL('manifest.json',root),JSON.stringify(manifest,null,2)+'\n');
+console.log(JSON.stringify({bytes:after.length,animations:clips,bones:17,triangles:manifest.triangles}));

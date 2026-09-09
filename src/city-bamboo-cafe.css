@@ -1,0 +1,12 @@
+/* Only the current cafe visit suppresses unrelated driving overlays. */
+body.inside-bamboo-cafe #speedometer,
+body.inside-bamboo-cafe #minimap,
+body.inside-bamboo-cafe #career-invitation,
+body.inside-bamboo-cafe #walk-help { display: none; }
+
+body.inside-bamboo-cafe #ride-prompt {
+  bottom: 88px;
+  color: #f2e6cf;
+  background: #201e1beb;
+  border-color: #bfa26b66;
+}

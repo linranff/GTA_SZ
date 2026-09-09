@@ -1,7 +1,7 @@
 """Prepare a runtime coupe from Khronos CarConcept (CC BY 4.0).
 No files outside artifacts/city/vehicle-candidate are modified.
 """
-import bpy, math, json, hashlib
+import bpy, math, json, hashlib, sys
 from pathlib import Path
 from mathutils import Vector, Matrix
 R=Path(__file__).resolve().parents[1]; A=R/'artifacts/city/vehicle-candidate'; A.mkdir(parents=True,exist_ok=True)
@@ -42,6 +42,39 @@ centres={}
 for old,c in source_wheel_centres.items():
  p=xf@Vector(c); k=('l' if p.x<0 else 'r')+('f' if p.y>0 else 'r');centres[k]=list(p)
 for o in source_meshes:o.data.transform(xf)
+# Lower the rear deck with a smooth, baked body deformation. Axles, tyres and
+# brakes stay at their authored positions; the hood and front cockpit stay fixed.
+# Preserve the source split normals using the inverse-transpose Jacobian, so
+# broad paint reflections follow the new curvature without polygon faceting.
+def smooth_profile(value, lo, hi):
+ t=max(0.,min(1.,(value-lo)/(hi-lo)))
+ return t*t*(3-2*t),6*t*(1-t)/(hi-lo) if 0<t<1 else 0.
+rear_drop=.20
+rear_shape_changes=[]
+for o in source_meshes:
+ if o.name in wheel_members:continue
+ original_normals=[n.vector.copy() for n in o.data.corner_normals]
+ derivatives=[];max_drop=0.
+ for v in o.data.vertices:
+  inner,di=smooth_profile(-v.co.y,1.15,2.20)
+  outer,do=smooth_profile(-v.co.y,1.85,2.40)
+  side,ds=smooth_profile(abs(v.co.x),.45,.85)
+  w=inner*(1-side)+outer*side
+  wx=(outer-inner)*ds*(1 if v.co.x>=0 else -1)
+  wy=-(di*(1-side)+do*side)
+  h,dh=smooth_profile(v.co.z,.64,1.10)
+  drop=rear_drop*w*h;max_drop=max(max_drop,drop)
+  derivatives.append((-rear_drop*wx*h,-rear_drop*wy*h,1-rear_drop*w*dh))
+  v.co.z-=drop
+ if max_drop>0:
+  o.data.update()
+  normals=[]
+  for loop,n in zip(o.data.loops,original_normals):
+   slope_x,slope_y,vertical=derivatives[loop.vertex_index]
+   normals.append(Vector((n.x-slope_x*n.z/vertical,n.y-slope_y*n.z/vertical,n.z/vertical)).normalized())
+  o.data.normals_split_custom_set(normals)
+  rear_shape_changes.append({'mesh':o.name,'maxDropMetres':max_drop})
+
 # The source rear-left rotor sits 9 cm outside its own caliper plane. Align
 # only axle offsets over 1.5 cm, without moving tyres or their pivots.
 brake_corrections=[]
@@ -60,7 +93,7 @@ for oldwheel in wheel_roots:
 def mat(name,color,rough=.4,metal=.0,emit=0,coat=0):
  m=bpy.data.materials.new(name);m.use_nodes=True;n=next(n for n in m.node_tree.nodes if n.type=='BSDF_PRINCIPLED');n.inputs['Base Color'].default_value=(*color,1);n.inputs['Roughness'].default_value=rough;n.inputs['Metallic'].default_value=metal;n.inputs['Coat Weight'].default_value=coat;n.inputs['Coat Roughness'].default_value=.10;n.inputs['Emission Color'].default_value=(*color,1);n.inputs['Emission Strength'].default_value=emit;m.use_backface_culling=True;return m
 M={
- 'paint':mat('carpaint',(.035,.095,.32),.27,.45,coat=1),
+ 'paint':mat('carpaint',(.48515,.00972,.01850),.30,.25,coat=1),
  'trim':mat('car_trim',(.032,.039,.052),.37,.25),
  'glass':mat('car_glass',(.075,.14,.20),.10,.50,coat=.5),
  'leather':mat('car_leather',(.29,.20,.12),.68,.02),
@@ -123,7 +156,10 @@ for o in source_meshes:
  # Bake source object splits into material groups, preserving UVs and normals.
  for i,key in enumerate(mapped):o.data.materials[i]=M[key]
  triangles=sum(len(p.vertices)-2 for p in o.data.polygons)
- ratio=.35 if 'Rim' in name else .22 if 'BrakePad' in name else .38 if name.startswith('Interior') else .48 if triangles>4500 else .72 if triangles>1000 else 1
+ # Preserve authored exterior curves and normals: these carry broad reflected
+ # highlights. Spend reductions on concealed mechanical parts and wheel detail.
+ hero_surface=any(m.startswith('Paint 1') for m in original_materials) or name in ('BodyRoofPanel','BodyHoodTopgrill','BodyWindshield')
+ ratio=1 if hero_surface else .35 if 'Rim' in name else .22 if 'BrakePad' in name else .38 if name.startswith('Interior') else .48 if triangles>4500 else .72 if triangles>1000 else 1
  if ratio<1:
   bpy.context.view_layer.objects.active=o;mod=o.modifiers.new('Runtime silhouette budget','DECIMATE');mod.ratio=ratio;mod.use_collapse_triangulate=True;bpy.ops.object.modifier_apply(modifier=mod.name)
  bpy.context.view_layer.objects.active=o;o.select_set(True);bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.mesh.separate(type='MATERIAL');bpy.ops.object.mode_set(mode='OBJECT')
@@ -160,11 +196,12 @@ mins=[min(p[a] for p in allpts) for a in range(3)];maxs=[max(p[a] for p in allpt
 for o in output:o.select_set(True)
 bpy.context.view_layer.objects.active=output[0]
 glb=A/'indigo-gt.glb';bpy.ops.export_scene.gltf(filepath=str(glb),export_format='GLB',use_selection=True,export_animations=False,export_cameras=False,export_lights=False,export_yup=True,export_materials='EXPORT')
-report={'source':'Khronos glTF-Sample-Assets CarConcept','sourceTriangles':source_triangles,'sourceStraightenedBounds':{'min':list(bmin),'max':list(bmax)},'sourceWheelCentresBlender':source_wheel_centres,'modifiedBoundsBlender':{'min':mins,'max':maxs,'size':[maxs[i]-mins[i] for i in range(3)]},'scale':{'x':sx,'y':sy,'z':sz},'wheelCentresBlender':centres,'wheelCentresGltf':{k:[v[0],v[2],-v[1]] for k,v in centres.items()},'wheelRadius':.3838*sz,'brakeCorrections':brake_corrections,'steeringBrakeMeshes':{k:['brake_'+k+'_caliper','brake_'+k+'_darkalloy'] for k in ['lf','rf']},'front':'Blender +Y / GLTF -Z / game after existing root reflection +Z','triangles':sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in output),'meshes':len(output),'materials':sorted({m.name for o in output for m in o.data.materials}),'lights':{'head':'led','tail':'redled','indicator':'amberled'},'textures':[{'name':n.image.name,'size':list(n.image.size)} for m in M.values() for n in m.node_tree.nodes if n.type=='TEX_IMAGE' and n.image],'removedObjects':removed,'glbBytes':glb.stat().st_size,'sha256':hashlib.sha256(glb.read_bytes()).hexdigest()}
+report={'source':'Khronos glTF-Sample-Assets CarConcept','sourceTriangles':source_triangles,'surfacePolicy':'Original Paint 1 exterior, roof, hood grille and windshield retained without decimation; secondary parts keep runtime budget','triangleBudget':110000,'rearProfile':{'maxDropMetres':rear_drop,'longitudinalBlendMetres':[1.15,2.20],'heightBlendMetres':[.64,1.10],'wheelsPreserved':True,'normals':'inverse-transpose deformation Jacobian','changedMeshes':rear_shape_changes},'sourceStraightenedBounds':{'min':list(bmin),'max':list(bmax)},'sourceWheelCentresBlender':source_wheel_centres,'modifiedBoundsBlender':{'min':mins,'max':maxs,'size':[maxs[i]-mins[i] for i in range(3)]},'scale':{'x':sx,'y':sy,'z':sz},'wheelCentresBlender':centres,'wheelCentresGltf':{k:[v[0],v[2],-v[1]] for k,v in centres.items()},'wheelRadius':.3838*sz,'brakeCorrections':brake_corrections,'steeringBrakeMeshes':{k:['brake_'+k+'_caliper','brake_'+k+'_darkalloy'] for k in ['lf','rf']},'front':'Blender +Y / GLTF -Z / game after existing root reflection +Z','triangles':sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in output),'meshes':len(output),'materials':sorted({m.name for o in output for m in o.data.materials}),'lights':{'head':'led','tail':'redled','indicator':'amberled'},'textures':[{'name':n.image.name,'size':list(n.image.size)} for m in M.values() for n in m.node_tree.nodes if n.type=='TEX_IMAGE' and n.image],'removedObjects':removed,'glbBytes':glb.stat().st_size,'sha256':hashlib.sha256(glb.read_bytes()).hexdigest()}
 (A/'vehicle-manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps(report,indent=2),flush=True)
-assert report['triangles']<=85000,report['triangles'];assert report['meshes']<28,report['meshes'];assert report['glbBytes']<=8*1024*1024
+assert report['triangles']<=110000,report['triangles'];assert report['meshes']<28,report['meshes'];assert report['glbBytes']<=8*1024*1024
 # Editable production asset saved before studio scene; no rendering rig exports.
 bpy.ops.wm.save_as_mainfile(filepath=str(A/'indigo-gt.blend'))
+if '--asset-only' in sys.argv:sys.exit(0)
 # Low-cost CPU studio review to verify actual authored mesh, not concept art.
 scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.device='CPU';scene.cycles.samples=24;scene.cycles.use_denoising=True;scene.render.resolution_x=1280;scene.render.resolution_y=800;scene.render.resolution_percentage=100;scene.world=bpy.data.worlds.new('review_world');scene.world.color=(.18,.18,.18)
 bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,-.015));floor=bpy.context.object;floor.data.materials.append(mat('review_floor',(.065,.075,.085),.44,.05))

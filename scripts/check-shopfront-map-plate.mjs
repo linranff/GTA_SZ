@@ -23,7 +23,7 @@ async function orbit(yaw,pitch,distance){
 try{
   if(before)await page.route('**/city/buildings.glb',route=>route.fulfill({path:'artifacts/city/shopfront-repair/buildings-before.glb',contentType:'model/gltf-binary'}));
   await page.goto(process.env.GAME_URL??'http://127.0.0.1:5173/');await page.waitForFunction(()=>window.__SHENCHENGJI_CITY__?.ready,null,{timeout:150000});
-  let s=await read();check('enlarged plate fits the rear surface',s.stats.vehicleFinish.applied&&s.stats.vehicleFinish.width===1.44&&s.stats.vehicleFinish.height===.42,s.stats.vehicleFinish);
+  let s=await read();check('compact plate fits the rear surface',s.stats.vehicleFinish.applied&&s.stats.vehicleFinish.width===.68&&s.stats.vehicleFinish.height===.18,s.stats.vehicleFinish);
   await shot('01-driving');await page.keyboard.press('v');await orbit(s.state.yaw,.08,5.8);await shot('02-plate');await page.keyboard.press('g');
   await openMap();check('requested travel copy visible',(await page.locator('#quick-travel').innerText())==='移动到附近道路');
   const sea=[s.state.x+80,s.state.z-400];await clickWorld(sea);check('open-water point is selectable',await page.locator('#quick-travel').isEnabled()&&await page.locator('#photo-view').isEnabled());await shot('03-open-water-selection');

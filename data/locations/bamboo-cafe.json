@@ -1,0 +1,15 @@
+{
+  "id": "bamboo-cafe",
+  "name": "月白 · 女仆咖啡馆",
+  "subtitle": "MAISON LUNE · COFFEE & PATISSERIE",
+  "basis": "Original fictional game location, not a real business or reconstructed interior.",
+  "site": {"x": -5088, "z": -1304, "heading": 2.605, "arrival": [-5101.077262119414, -1281.9921794843408], "roadYaw": 1.0346452212862278},
+  "scale": {"localUnits": "game metres, matched to the existing 1.68-unit walking eye and life-hub interiors", "geography": "existing east/north city coordinates, WGS84 origin [114.025,22.536], geographic scale 0.60", "fictionalInteriorGameplayScale": 1},
+  "footprint": {"width": 18, "depth": 14, "height": 4.2, "floor": 0.24, "patioDepth": 5},
+  "staff": [
+    {"id": "zhixia", "name": "知夏", "age": 24, "role": "主理人", "outfit": "classic ivory-apron maid uniform", "position": [-2.25, -3.45], "heading": -0.16, "line": "欢迎来到月白。窗边能看见春笋，先坐下来，慢慢喝一杯吧。"},
+    {"id": "wangshu", "name": "望舒", "age": 25, "role": "咖啡师", "outfit": "rose-and-ivory maid uniform", "position": [5.65, 5.0], "heading": 0, "line": "今天的推荐是海盐拿铁和草莓千层。咖啡会替你把这个晚上慢下来。"},
+    {"id": "xiaolan", "name": "小岚", "age": 23, "role": "侍应", "outfit": "JK-inspired adult cafe uniform: navy blazer, ribbon and pleated skirt", "position": [4.0, -0.2], "heading": 0.38, "line": "甜点刚刚做好。我把靠窗的位置留给你，那里看晚霞最好。"}
+  ],
+  "review": {"siteClearance": "sampled existing city collision at 1-unit spacing in a rotated 28 x 26 envelope; 0 blocked samples on 2026-09-09", "source": "user requested original Blender cafe", "notSurveyed": true}
+}

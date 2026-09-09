@@ -1,4 +1,5 @@
 import type {CityData, Road, V2} from './city-types.ts';
+import {roadVicinityName} from './city-road-names.ts';
 import {closest, inRing, type CityCollision} from './driving.ts';
 
 export type ObserverDestination = {
@@ -81,7 +82,7 @@ export function createObserverDestinationResolver({data, collision, groundHeight
       if (distance <= landmarkDistance) { nearbyLandmark = landmark; landmarkDistance = distance; }
     }
     const destination: ObserverDestination = {x: point.x, y: point.y, z: point.z,
-      name: name ?? nearbyLandmark?.name ?? (roads[0]?.segment.road.name ? `${roads[0].segment.road.name}附近` : '城市风景')};
+      name: name ?? nearbyLandmark?.name ?? (roads[0] ? roadVicinityName(roads[0].segment.road) : '城市风景')};
     // A click on the water itself must never move the player onto a nearby shore or an invisible road.
     if (point.y <= waterHeight + .06) return destination;
     for (const {segment, t, length} of roads) {

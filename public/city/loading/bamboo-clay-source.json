@@ -1,0 +1,1420 @@
+{
+  "title": "春笋 · 冷暖光影环绕",
+  "date": "2026-09-09",
+  "source": "Current local game geometry; dedicated offline clay rendering, no live game art changes",
+  "capture": {
+    "info": {
+      "total": 720,
+      "fps": 30,
+      "duration": 24,
+      "seam": {
+        "start": {
+          "eye": [
+            -4897.201852591483,
+            195,
+            -949.5535628610553
+          ],
+          "target": [
+            -5105.757105017297,
+            84.9999967396555,
+            -1254.1101271250193
+          ]
+        },
+        "end": {
+          "eye": [
+            -4897.201852591483,
+            195,
+            -949.5535628610553
+          ],
+          "target": [
+            -5105.757105017297,
+            84.9999967396555,
+            -1254.1101271250193
+          ]
+        }
+      },
+      "waterNames": [
+        "terrain_water",
+        "bay-horizon-water"
+      ],
+      "opacityAudit": [
+        {
+          "name": "terrain_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "terrain_land",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "terrain_park",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "terrain_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-1_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-1_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-1_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-1_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-2_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-2_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-2_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-3_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-3_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-3_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-8_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-1_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-1_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-1_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-1_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-2_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-2_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-2_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-3_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-3_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-3_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-4_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-4_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-9_-4_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-2_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-2_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-2_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-3_asphalt",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-3_pavement",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-3_roadline",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "roads_-10_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "coastal_bridge_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "coastal_bridge_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "coastal_shore_coastal-rock",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "coastal_shore_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "coastal_shore_seawall",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "opposite_shore_terrain",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "opposite_shore_terrain_coastal_horizon",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-1_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-1_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-1_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-1_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-1_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-1_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-2_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-2_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-2_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-2_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-2_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-3_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-3_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-3_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-8_-3_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-1_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-1_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-1_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-1_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-1_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-1_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-2_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-2_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-2_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-2_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-2_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-3_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-3_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-3_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-3_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-3_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-4_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-4_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-4_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-9_-4_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-2_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-2_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-2_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-2_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-2_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-3_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-3_darkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-3_office",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-3_residential",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-3_roof",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "block_-10_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "landmark_bamboo_lampwarm",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "landmark_bamboo_landmarkglass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "landmark_bamboo_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "landmark_bamboo_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "landmark_bamboo_stone",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_brass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_coffee",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_cream",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_glass",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_ink",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_ivory",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_lettering",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_linen",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_marble",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_plaster",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_porcelain",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_velvet_emerald",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_velvet_rose",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "shell_cafe_walnut",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "ground_relief_mountain_near-manifest.json_96-0",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "ground_relief_mountain_near-manifest.json_0-96",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "ground_relief_mountain_near-manifest.json_96-96",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "ground_relief_mountain_near-manifest.json_192-96",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-2_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-2_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-2_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-2_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-3_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-3_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-3_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-1_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-1_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-9_-1_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-1_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-1_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-8_-1_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-10_-2_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-10_-2_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-10_-2_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-10_-3_concrete",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-10_-3_silver",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        },
+        {
+          "name": "facade_-10_-3_steel",
+          "vertexAlpha": false,
+          "visibility": 1,
+          "alpha": 1,
+          "depthWrite": true,
+          "blend": false
+        }
+      ],
+      "inheritedAlpha": [
+        "block_-8_-1_concrete",
+        "block_-8_-1_darkglass",
+        "block_-8_-1_office",
+        "block_-8_-1_residential",
+        "block_-8_-1_roof",
+        "block_-8_-1_steel",
+        "block_-8_-2_concrete",
+        "block_-8_-2_darkglass",
+        "block_-8_-2_office",
+        "block_-8_-2_residential",
+        "block_-8_-2_roof",
+        "block_-8_-2_steel",
+        "block_-8_-3_concrete",
+        "block_-8_-3_darkglass",
+        "block_-8_-3_residential",
+        "block_-8_-3_roof",
+        "block_-9_-1_concrete",
+        "block_-9_-1_darkglass",
+        "block_-9_-1_office",
+        "block_-9_-1_residential",
+        "block_-9_-1_roof",
+        "block_-9_-1_steel",
+        "block_-9_-2_concrete",
+        "block_-9_-2_darkglass",
+        "block_-9_-2_office",
+        "block_-9_-2_residential",
+        "block_-9_-2_roof",
+        "block_-9_-2_steel",
+        "block_-9_-3_concrete",
+        "block_-9_-3_darkglass",
+        "block_-9_-3_office",
+        "block_-9_-3_residential",
+        "block_-9_-3_roof",
+        "block_-9_-3_steel",
+        "block_-9_-4_concrete",
+        "block_-9_-4_darkglass",
+        "block_-9_-4_residential",
+        "block_-9_-4_roof",
+        "block_-10_-2_concrete",
+        "block_-10_-2_darkglass",
+        "block_-10_-2_office",
+        "block_-10_-2_residential",
+        "block_-10_-2_roof",
+        "block_-10_-2_steel",
+        "block_-10_-3_concrete",
+        "block_-10_-3_darkglass",
+        "block_-10_-3_office",
+        "block_-10_-3_residential",
+        "block_-10_-3_roof",
+        "block_-10_-3_steel",
+        "facade_-9_-2_concrete",
+        "facade_-9_-2_silver",
+        "facade_-9_-2_steel",
+        "facade_-8_-2_concrete",
+        "facade_-8_-2_silver",
+        "facade_-8_-2_steel",
+        "facade_-9_-3_concrete",
+        "facade_-9_-3_silver",
+        "facade_-9_-3_steel",
+        "facade_-8_-3_silver",
+        "facade_-8_-3_steel",
+        "facade_-9_-1_concrete",
+        "facade_-9_-1_silver",
+        "facade_-9_-1_steel",
+        "facade_-8_-1_concrete",
+        "facade_-8_-1_silver",
+        "facade_-8_-1_steel",
+        "facade_-10_-2_concrete",
+        "facade_-10_-2_silver",
+        "facade_-10_-2_steel",
+        "facade_-10_-3_concrete",
+        "facade_-10_-3_silver",
+        "facade_-10_-3_steel"
+      ],
+      "occlusionChecks": [
+        {
+          "frame": 0,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1160,
+            450
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 0,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1130,
+            650
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 0,
+          "mesh": "block_-9_-2_residential",
+          "pixel": [
+            1420,
+            620
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 180,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1160,
+            450
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 180,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1130,
+            650
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 180,
+          "mesh": "block_-9_-2_residential",
+          "pixel": [
+            1600,
+            600
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 360,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1160,
+            450
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 360,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1130,
+            650
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 360,
+          "mesh": "block_-9_-2_roof",
+          "pixel": [
+            980,
+            550
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 540,
+          "mesh": "landmark_bamboo_landmarkglass",
+          "pixel": [
+            1160,
+            450
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 540,
+          "mesh": "block_-9_-2_office",
+          "pixel": [
+            1130,
+            650
+          ],
+          "difference": 0,
+          "pass": true
+        },
+        {
+          "frame": 540,
+          "mesh": "block_-9_-3_roof",
+          "pixel": [
+            1420,
+            620
+          ],
+          "difference": 0,
+          "pass": true
+        }
+      ],
+      "visible": 144,
+      "casters": 101
+    },
+    "errors": []
+  },
+  "encoding": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "seconds": 24,
+    "frames": 720,
+    "codec": "H.264",
+    "audio": false,
+    "crf": 23,
+    "preset": "slow",
+    "maxrate": "2200k",
+    "faststart": true,
+    "bytes": 6773529,
+    "sha256": "843bff0d03cc3e10140f4db272602be294a4584247fb640f2976cc87efa688dc"
+  },
+  "loop": {
+    "method": "Constant-speed closed 360-degree camera orbit, static scene, sample [0,T); no crossfade or duplicate terminal frame",
+    "seamChecks": {
+      "decodedFirstStepMAD": 1.6452951388888888,
+      "decodedLastStepMAD": 1.6303645833333333,
+      "decodedLoopStepMAD": 1.7319791666666666,
+      "rawEndpointPixelsIdentical": true,
+      "continuousStep": true
+    }
+  },
+  "assets": {
+    "landmarks.glb": "d3b577efe46500fbfd82b5564fbc545b0ed90f11267843e0fa6d2338da7ed7d9",
+    "terrain.glb": "92825c1dad9afa8fb1da59be9d7dc3a653f3d1aafcb68ff8e47220e8899d6473",
+    "buildings.glb": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb",
+    "landmark-detail.glb": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22"
+  },
+  "scripts": [
+    "scripts/loading-clay-scene.ts",
+    "scripts/record-loading-clay.mjs",
+    "scripts/check-loading-clay.py"
+  ],
+  "poster": {
+    "bytes": 210405,
+    "sha256": "df8d9e280de684e39c79a1e69fc0b8b688da33b44e1e486cc51ce368eef91eff"
+  }
+}

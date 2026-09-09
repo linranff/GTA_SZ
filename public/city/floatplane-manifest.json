@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "id": "shenzhen-bay-floatplane",
+  "name": "湾翼 · 双浮筒观光飞机",
+  "asset": "/city/floatplane.glb",
+  "assetStats": {
+    "file": "floatplane.glb",
+    "bytes": 177916,
+    "triangles": 39312,
+    "meshes": 11,
+    "sha256": "4e54ddba24260c0be42b409f3a2812c15d3cd8486d838397afefd9d048a5e70f"
+  },
+  "license": "Original project-authored geometry and materials; no external model or texture assets.",
+  "reference": "User supplied high-wing twin-float sightseeing aircraft screenshot; visual inspiration only.",
+  "dimensionsAre": "Art-directed gameplay dimensions, not surveyed or airworthiness specifications.",
+  "coordinates": {
+    "blender": {
+      "right": "+X",
+      "forward": "+Y",
+      "up": "+Z"
+    },
+    "gltfRightHanded": {
+      "right": "+X",
+      "forward": "-Z",
+      "up": "+Y"
+    },
+    "units": "metres / game units; scale 1.0",
+    "origin": "approximate centre of gravity"
+  },
+  "boundsBlender": {
+    "min": [
+      -7.0146636962890625,
+      -5.168476104736328,
+      -1.4500000476837158
+    ],
+    "max": [
+      7.0146636962890625,
+      4.37000036239624,
+      2.4000000953674316
+    ]
+  },
+  "dimensionsBlenderXYZ": [
+    14.029327392578125,
+    9.538476467132568,
+    3.8500001430511475
+  ],
+  "propeller": {
+    "node": "floatplane_propeller",
+    "centreBlender": [
+      0,
+      4.09,
+      0
+    ],
+    "centreGltf": [
+      0,
+      0,
+      -4.09
+    ],
+    "axisBlender": [
+      0,
+      1,
+      0
+    ],
+    "axisGltf": [
+      0,
+      0,
+      -1
+    ],
+    "localPivotAtHub": true,
+    "bladeCount": 3,
+    "radius": 1.46
+  },
+  "collisionProxy": {
+    "fuselageRadius": 0.9,
+    "wingHalfSpan": 7,
+    "noseForward": 4.37,
+    "tailBackward": 5.18,
+    "floatHalfWidth": 1.64,
+    "lowestPoint": -1.4500000476837158
+  },
+  "materials": [
+    "fp_alloy",
+    "fp_float",
+    "fp_gasket",
+    "fp_glass",
+    "fp_green",
+    "fp_indigo",
+    "fp_light",
+    "fp_pearl",
+    "fp_prop",
+    "fp_red",
+    "fp_yellow"
+  ],
+  "generator": {
+    "blender": "5.2.0 LTS",
+    "script": "scripts/build_floatplane.py"
+  },
+  "sourceSha256": {
+    "scripts/build_floatplane.py": "1b7b37c6c92c516a7211f0ef4209f36cbdb2555da4a260e5a4e00142907ce333",
+    "scripts/city_mesh.py": "bcc9eb59c5e2d6ca39f61e0b9e39433aa89c85833e72bd3630f3c328ad3cd42a",
+    "scripts/optimize_floatplane.mjs": "5fc7568a6113a68fcc45eb0c9d673e4d670b5cd123b627014700d502c73a0281"
+  },
+  "validation": {
+    "finiteVertices": true,
+    "normalsRecalculatedOutward": true,
+    "dedicatedPropellerPivot": true,
+    "gameVisualReview": {
+      "date": "2026-09-09",
+      "report": "output/playwright/city-flight/report.json",
+      "views": [
+        "01-bank-over-bay.png",
+        "02-daylight-flight.png"
+      ],
+      "noseAlignedWithTravel": true
+    },
+    "decodedPropellerTranslation": [
+      0,
+      0,
+      -4.090000152587891
+    ],
+    "decodedMaterials": 11
+  },
+  "compression": {
+    "before": 920092,
+    "after": 177916,
+    "algorithm": "EXT_meshopt_compression"
+  }
+}

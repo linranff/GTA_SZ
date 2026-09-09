@@ -34,7 +34,7 @@ export function inspectCitySportMounts(sources:SportCarSource[]){
   return furthest;
  }
  const supports=[-.58,.58].map(x=>({x,y:surface(x,rearSign*2.23,true),z:rearSign*2.23}));
- if(supports.some(p=>!Number.isFinite(p.y)||p.y<.9||p.y>1.2))throw new Error('sport-details: rear deck mounting surface is missing');
+ if(supports.some(p=>!Number.isFinite(p.y)||p.y<.80||p.y>1.2))throw new Error('sport-details: rear deck mounting surface is missing');
  const exhaust=[-.715,-.575,.575,.715].map(x=>({x,y:.27,z:rearSign*surface(x,.27,false)}));
  if(exhaust.some(p=>!Number.isFinite(p.z)||Math.abs(p.z)<2.3||Math.abs(p.z)>2.49))throw new Error('sport-details: rear bumper mounting surface is missing');
  const headPaths:Vector3[][]=[];
@@ -48,7 +48,7 @@ export function inspectCitySportMounts(sources:SportCarSource[]){
   if(path.length<5)throw new Error('sport-details: headlight outline is not usable');
   headPaths.push(path);
  }
- return {rearSign,frontSign,bounds,supports,exhaust,headPaths,topAt:(x:number,z:number)=>surface(x,z,true),frontAt:(x:number,y:number)=>frontSign*surface(x,y,false,frontSign),wing:{width:1.78,depth:.35,height:1.385,centreZ:rearSign*2.22},exhaustOuterRadius:.059,exhaustInnerRadius:.044,exhaustTipZ:rearSign*2.487};
+ return {rearSign,frontSign,bounds,supports,exhaust,headPaths,topAt:(x:number,z:number)=>surface(x,z,true),frontAt:(x:number,y:number)=>frontSign*surface(x,y,false,frontSign),rearAt:(x:number,y:number)=>rearSign*surface(x,y,false,rearSign),wing:{width:1.70,depth:.28,height:1.105,centreZ:rearSign*2.22},exhaustOuterRadius:.059,exhaustInnerRadius:.044,exhaustTipZ:rearSign*2.487};
 }
 
 export function createCitySportDetails(scene:Scene,car:TransformNode){
@@ -80,25 +80,63 @@ export function createCitySportDetails(scene:Scene,car:TransformNode){
   const data=new VertexData(),normals:number[]=[];VertexData.ComputeNormals(positions,indices,normals);data.positions=positions;data.normals=normals;data.indices=indices;
   const mesh=new Mesh(name,scene);data.applyToMesh(mesh);return keep(mesh,m);
  }
+ const badges:{face:string;rings:number;centreY:number;width:number;height:number}[]=[];
  let drl:PBRMaterial|null=null,lens:PBRMaterial|null=null,headlightProjectionLift=0;
  if(mount){
   const {rearSign,frontSign,wing}=mount,carbon=material('satin-carbon',new Color3(.027,.034,.045),.38,.32),metal=material('brushed-titanium',new Color3(.52,.58,.65),.94,.23),cavity=material('lamp-and-exhaust-cavity',new Color3(.008,.012,.018),.12,.42);
+  // Five individually readable, interlocking metal rings fitted to each body panel.
+  // Share the existing titanium batch: no additional material or draw call.
+  for(const [face,sign,centreY,sample] of [
+   ['front',frontSign,.60,mount.frontAt],['rear',rearSign,.70,mount.rearAt],
+  ] as const){
+   const radius=.045,spacing=.064,tube=.004,paths:Vector3[][]=[];
+   for(let ring=0;ring<5;ring++){
+    const path:Vector3[]=[];
+    for(let step=0;step<=32;step++){
+     const angle=step/32*Math.PI*2,x=(ring-2)*spacing+Math.cos(angle)*radius,y=centreY+Math.sin(angle)*radius;
+     const depth=sample(x,y);
+     path.push(new Vector3(x,y,depth+sign*(.007+(ring%2)*.001)));
+    }
+    paths.push(path);
+   }
+   if(paths.some(path=>path.some(p=>!Number.isFinite(p.z))))continue;
+   for(const path of paths)keep(MeshBuilder.CreateTube(`sport-${face}-five-ring-badge`,{path,radius:tube,tessellation:6,cap:Mesh.NO_CAP},scene),metal);
+   badges.push({face,rings:5,centreY,width:spacing*4+(radius+tube)*2,height:(radius+tube)*2});
+  }
   carbon.clearCoat.isEnabled=true;carbon.clearCoat.intensity=.35;carbon.clearCoat.roughness=.18;
   drl=material('daytime-running-light',new Color3(.69,.83,.94),.05,.24);
   const profile=[[-.175,-.008],[-.135,.019],[.12,.019],[.175,-.006],[.13,-.029],[-.135,-.026]],vertices:Vector3[]=[];
-  for(const side of [-1,1])for(const [depth,height] of profile)vertices.push(new Vector3(side*wing.width*.5,wing.height+height,wing.centreZ+rearSign*depth));
+  for(const side of [-1,1])for(const [depth,height] of profile)vertices.push(new Vector3(side*wing.width*.5,wing.height+height,wing.centreZ+rearSign*depth*wing.depth/.35));
   const faces:number[][]=[profile.map((_,i)=>i),profile.map((_,i)=>profile.length+i)];for(let i=0;i<profile.length;i++)faces.push([i,(i+1)%profile.length,(i+1)%profile.length+profile.length,i+profile.length]);
   polyhedron('sport-wing-airfoil',vertices,faces,carbon);
   const padFaces=[[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];
   for(const support of mount.supports){
    const pad:Vector3[]=[];for(const offset of [-.005,.013])for(const [dx,dz] of [[-.055,-.075],[.055,-.075],[.055,.075],[-.055,.075]])pad.push(new Vector3(support.x+dx,mount.topAt(support.x+dx,support.z+dz)+offset,support.z+dz));
    polyhedron('sport-wing-deck-foot',pad,padFaces,carbon);
-   const bottom=new Vector3(support.x,support.y+.006,support.z),top=new Vector3(support.x,wing.height-.025,wing.centreZ+rearSign*.045),span=top.subtract(bottom),strut=box('sport-wing-upright',new Vector3(.042,span.length(),.092),Vector3.Center(bottom,top),metal);strut.rotation.x=Math.atan2(span.z,span.y);
+   const bottom=new Vector3(support.x,support.y+.006,support.z),top=new Vector3(support.x,wing.height-.025,wing.centreZ+rearSign*.045),span=top.subtract(bottom),strut=box('sport-wing-upright',new Vector3(.035,span.length(),.065),Vector3.Center(bottom,top),metal);strut.rotation.x=Math.atan2(span.z,span.y);
    for(const dz of [-.044,.044]){const bolt=MeshBuilder.CreateSphere('sport-wing-mount-bolt',{diameter:.018,segments:4},scene);bolt.position.set(support.x,mount.topAt(support.x,support.z+dz)+.018,support.z+dz);keep(bolt,metal);}
   }
   for(const side of [-1,1]){
-   const plate=box('sport-wing-endplate',new Vector3(.022,.13,.365),new Vector3(side*(wing.width*.5-.011),wing.height+.016,wing.centreZ),carbon);plate.rotation.x=rearSign*.045;
-   const highlight=box('sport-wing-endplate-inlay',new Vector3(.024,.016,.22),new Vector3(side*(wing.width*.5-.011),wing.height+.064,wing.centreZ+rearSign*.015),metal);highlight.rotation.x=rearSign*.045;
+   const plate=box('sport-wing-endplate',new Vector3(.020,.080,.295),new Vector3(side*(wing.width*.5-.011),wing.height+.016,wing.centreZ),carbon);plate.rotation.x=rearSign*.045;
+   const highlight=box('sport-wing-endplate-inlay',new Vector3(.022,.012,.19),new Vector3(side*(wing.width*.5-.011),wing.height+.035,wing.centreZ+rearSign*.015),metal);highlight.rotation.x=rearSign*.045;
+  }
+  const valancePositions:number[]=[],valanceIndices:number[]=[],valanceNormals:number[]=[];
+  const rows=16,columns=48;
+  for(let row=0;row<=rows;row++){
+   const v=row/rows,y=.245+v*.365,halfWidth=.74+.085*Math.sin(Math.PI*v);
+   for(let column=0;column<=columns;column++){
+    const x=(column/columns-.5)*halfWidth*2;
+    valancePositions.push(x,y,mount.rearAt(x,y)+rearSign*.012);
+   }
+  }
+  if(valancePositions.every(Number.isFinite)){
+   for(let row=0;row<rows;row++)for(let column=0;column<columns;column++){
+    const a=row*(columns+1)+column,b=a+1,c=a+columns+1,d=c+1;
+    if(rearSign<0)valanceIndices.push(a,b,c,b,d,c);else valanceIndices.push(a,c,b,b,c,d);
+   }
+   VertexData.ComputeNormals(valancePositions,valanceIndices,valanceNormals);
+   const data=new VertexData();data.positions=valancePositions;data.indices=valanceIndices;data.normals=valanceNormals;
+   const panel=new Mesh('sport-rear-carbon-valance',scene);data.applyToMesh(panel);keep(panel,carbon);
   }
   // Four open metal rings. The dark inner discs sit in front of the original bumper,
   // so no transparent fake hole, boolean cut, exhaust particle or extra light is needed.
@@ -134,5 +172,5 @@ export function createCitySportDetails(scene:Scene,car:TransformNode){
  }
  function setMode(next:CinematicLightingMode){mode=next;const factor=next==='night'?4.2:next==='sunset'?2.9:1.55;drl?.emissiveColor.copyFromFloats(.78*factor,.9*factor,factor);const core=next==='night'?2.8:next==='sunset'?1.9:.9;lens?.emissiveColor.copyFromFloats(.75*core,.86*core,core);}
  setMode(mode);
- return {meshes,setMode,get stats(){return {applied:meshes.length>0,skippedReason,mode,meshCount:meshes.length,triangles:meshes.reduce((sum,m)=>sum+m.getTotalIndices()/3,0),rearSign:mount?.rearSign,frontSign:mount?.frontSign,sourceBounds:mount?.bounds,wing:mount?.wing,wingMounts:mount?.supports,exhaustCount:mount?.exhaust.length??0,exhaustMounts:mount?.exhaust,exhaustTipZ:mount?.exhaustTipZ,exhaustDiameter:mount?mount.exhaustOuterRadius*2:0,headlightOutlinePoints:mount?.headPaths.map(p=>p.length),headlightCoreMeshes:originalLenses.size,headlightDrlDiameter:.03,headlightProjectionLift,headlightDrlPeak:drl?.emissiveColor.b??0,headlightCorePeak:lens?.emissiveColor.b??0,additionalLights:0,additionalTextures:0,additionalReflectionPasses:0,collisionChanged:false,disposed};},dispose(){if(disposed)return;disposed=true;for(const [source,original] of originalLenses)if(!source.isDisposed())source.material=original;for(const mesh of meshes)mesh.dispose(false,false);for(const m of materials)m.dispose(false,false);}};
+ return {meshes,setMode,get stats(){return {applied:meshes.length>0,skippedReason,mode,meshCount:meshes.length,triangles:meshes.reduce((sum,m)=>sum+m.getTotalIndices()/3,0),rearSign:mount?.rearSign,frontSign:mount?.frontSign,sourceBounds:mount?.bounds,badges,wing:mount?.wing,wingMounts:mount?.supports,exhaustCount:mount?.exhaust.length??0,exhaustMounts:mount?.exhaust,exhaustTipZ:mount?.exhaustTipZ,exhaustDiameter:mount?mount.exhaustOuterRadius*2:0,headlightOutlinePoints:mount?.headPaths.map(p=>p.length),headlightCoreMeshes:originalLenses.size,headlightDrlDiameter:.03,headlightProjectionLift,headlightDrlPeak:drl?.emissiveColor.b??0,headlightCorePeak:lens?.emissiveColor.b??0,additionalLights:0,additionalTextures:0,additionalReflectionPasses:0,collisionChanged:false,disposed};},dispose(){if(disposed)return;disposed=true;for(const [source,original] of originalLenses)if(!source.isDisposed())source.material=original;for(const mesh of meshes)mesh.dispose(false,false);for(const m of materials)m.dispose(false,false);}};
 }

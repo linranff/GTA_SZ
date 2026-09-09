@@ -60,6 +60,14 @@ test('missing data is explicit and cannot leave placeholder grass in the scene',
  const engine=new NullEngine(),scene=new Scene(engine);const meadow=new CityMeadow(scene,()=>0,{fetcher:async()=>new Response(null,{status:404})});await meadow.init();meadow.update(0,0);assert.equal(meadow.stats.status,'missing-data');assert.equal(meadow.ready,false);assert.match(meadow.stats.error!,/404/);assert.equal(meadow.meshes.length,0);meadow.dispose();scene.dispose();engine.dispose();
 });
 
+test('new interior reservations exclude grass before sampling its floor height',async()=>{
+ const engine=new NullEngine(),scene=new Scene(engine),camera=new FreeCamera('reserved-site',new Vector3(64,3,64),scene);scene.activeCamera=camera;
+ let calls=0;const fetcher:typeof fetch=async url=>String(url).endsWith('meadow.json')?new Response(JSON.stringify(fixture())):new Response(fullMask());
+ const meadow=new CityMeadow(scene,(x,z)=>{if(x!==64||z!==64)calls++;return .24;},{fetcher,excluded:()=>true});await meadow.init();meadow.update(64,64);
+ await new Promise(resolve=>setTimeout(resolve,90));meadow.update(64,64);
+ assert.equal(meadow.stats.status,'ready');assert.equal(meadow.stats.instances,0);assert.equal(calls,0);scene.dispose();engine.dispose();
+});
+
 test('scene disposal aborts pending loads and late responses cannot create grass resources',async()=>{
  const engine=new NullEngine(),scene=new Scene(engine);let release:(response:Response)=>void=()=>{},signal:AbortSignal|null=null;
  const fetcher:typeof fetch=async(_url,options)=>{signal=options?.signal??null;return await new Promise<Response>(resolve=>{release=resolve;});};

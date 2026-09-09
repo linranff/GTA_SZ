@@ -2,14 +2,9 @@ import {Color3,DynamicTexture,Matrix,Mesh,PBRMaterial,Texture,Vector3,VertexBuff
 
 type Triangle = {points:number[];minX:number;maxX:number;minY:number;maxY:number};
 
-/** A source-surface-fitted identity plate for the integrated CarConcept.
- * The original model, materials, wheels and CC BY attribution are untouched.
- * Lettering is 75% of the enlarged version; the fitted backing is unchanged.
- * Its rear-panel surface is GLB Z 2.399–2.500 m at X ±.72, Y .34–.76.
- * Runtime projection below rechecks
- * the actual imported surface in carRoot space, including the existing Z flip.
- * The original taillights are retained: their surrounding surface has a deep
- * discontinuity, so a continuous added strip would not be reliably flush.
+/** Identity plate projected onto the current rear body surface.
+ * Compact proportions leave space for the badge, lamps and carbon valance.
+ * Projection includes the existing GLB root reflection; lenses remain original.
  */
 export function applyCinematicVehicleFinish(scene:Scene,carRoot:TransformNode,carMeshes:readonly AbstractMesh[]) {
   const meshes:Mesh[] = [];
@@ -18,7 +13,7 @@ export function applyCinematicVehicleFinish(scene:Scene,carRoot:TransformNode,ca
   let disposed = false;
   let skippedReason:string|null = null;
   let surfaceRange:number[] = [];
-  const width=1.44,height=.42,centreY=.55,offset=.006,columns=32,rows=12;
+  const width=.68,height=.18,centreY=.49,offset=.024,columns=32,rows=12;
   const inverseRoot=Matrix.Invert(carRoot.computeWorldMatrix(true));
   const tail=carMeshes.find(mesh=>/^car_redled(?:\.\d+)?$/.test(mesh.name));
   let rearSign=-1;

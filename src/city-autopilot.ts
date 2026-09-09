@@ -248,7 +248,11 @@ export class CityAutopilot {
   this.maneuverCursor=near.index;
   const endPoint=this.maneuver[end],endPrevious=end?this.maneuver[end-1]:this.maneuverStart!;
   const pastEnd=(state.x-endPoint.x)*(endPoint.x-endPrevious.x)+(state.z-endPoint.z)*(endPoint.z-endPrevious.z)>0;
-  if(separation(state,endPoint)<.35||(near.index===end&&pastEnd&&near.d<1.3)) {
+  // Search accepts a pose within this terminal tolerance. Tracking must accept
+  // the same pose: otherwise a short recovery can be an empty successful path,
+  // while this follower keeps trying to reach the exact point at a road edge.
+  const terminalPose=end===this.maneuver.length-1&&separation(state,endPoint)<1.8&&Math.abs(wrap(state.yaw-endPoint.yaw))<.3;
+  if(terminalPose||separation(state,endPoint)<.35||(near.index===end&&pastEnd&&near.d<1.3)) {
    if(Math.abs(state.speed)>.15)return this.result(stopped());
    if(end===this.maneuver.length-1){this.maneuver=[];this.stalled=0;this.wait=0;this.phase='driving';return this.result(stopped());}
    this.maneuverCursor=end+1;return this.result(stopped());
@@ -259,8 +263,19 @@ export class CityAutopilot {
   const motionYaw=state.yaw+(gear<0?Math.PI:0),error=wrap(Math.atan2(target.x-state.x,target.z-state.z)-motionYaw);
   const length=Math.max(.7,separation(state,target)),wheel=gear*Math.atan(6.4*Math.sin(error)/length);
   const limit=.48/(1+Math.abs(state.speed)*.026),steer=clamp(wheel/limit,-1,1);
-  const probe={x:state.x+Math.sin(state.yaw)*gear*.4,z:state.z+Math.cos(state.yaw)*gear*.4,yaw:state.yaw};
-  if(!this.poseClear(probe,traffic)) {
+  // At a gear change the real steering rack needs time to cross from one lock
+  // to the other. Set the wheels while stopped before following the next arc.
+  if(Math.abs(state.speed)<.15&&Math.abs(state.steer-steer*limit)>.08)return this.result({...stopped(),steer});
+  // A straight nose probe can reject a safe curved departure at the road edge
+  // forever. Predict the requested arc with the same steering lag and wheelbase
+  // as the actual car, covering at least its braking distance in either gear.
+  const probe={...state,speed:gear*Math.max(.8,Math.abs(state.speed))};let clear=true,moved=0;
+  for(let i=0;i<16&&moved<.4+state.speed*state.speed/20;i++) {
+   const x=probe.x,z=probe.z;stepCar(probe,this.inputFor(probe,gear*Math.max(.8,Math.abs(state.speed)),steer),.05);
+   moved+=Math.hypot(probe.x-x,probe.z-z);
+   if(!this.poseClear(probe,traffic,(i+1)*.05)){clear=false;break;}
+  }
+  if(!clear) {
    this.wait+=dt;
    if(this.wait>1&&Math.abs(state.speed)<.15&&this.maneuverReplans<2) {
     const goal=this.maneuver.at(-1)!,path=this.searchTurn(state,[goal.x,goal.z],goal.yaw,traffic);
@@ -304,7 +319,7 @@ export class CityAutopilot {
   const heading=Math.atan2(guideAfter[0]-guide[0],guideAfter[1]-guide[1]);
   const toGuide=Math.atan2(guide[0]-state.x,guide[1]-state.z),headingError=wrap(toGuide-state.yaw);
   const staticObstruction=this.wait>2&&this.clearance(state,0,[],4)<1.5;
-  if((Math.abs(headingError)>1.75&&this.remaining>4)||staticObstruction) {
+  if((Math.abs(headingError)>1.75&&arrivalDistance>this.arrivalRadius)||staticObstruction) {
    this.phase='maneuvering';
    if(Math.abs(state.speed)>.15)return this.result(stopped());
    if(state.distance-this.lastTurnDistance>35)this.incidentTurns=0;

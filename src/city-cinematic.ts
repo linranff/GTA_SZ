@@ -267,7 +267,8 @@ export async function createCinematicLook(world:CinematicScene){
   // clouds never requires flattening the material response of the entire city.
   if(skyMaterial)skyMaterial.primaryColor.copyFromFloats(.20,.20,.20);
   if(sky)sky.material=night?nightSky.material:day&&daylightStatus==='ready'?daylightMaterial:skyMaterial??fallbackMaterial;
-  if(world.carFill){world.carFill.intensity=night?12:day?3.2:10;world.carFill.diffuse.copyFrom(day?new Color3(.76,.86,1):new Color3(.77,.79,.87));}
+  // Shared sky irradiance and physical scene lamps illuminate the car too.
+  // No camera-following vehicle light: changing the view must not move a lamp.
  }
  function setNight(active:boolean){setMode(active?'night':'sunset');}
  /** Look-dev only: override the current mode's balance and re-apply it. */

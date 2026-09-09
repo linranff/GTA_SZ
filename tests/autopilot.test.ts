@@ -65,6 +65,53 @@ test('opposite initial heading uses bounded real forward/reverse steering and th
  assert(controller.status.maneuvers>0&&controller.status.maneuvers<=3);
 });
 
+test('a destination just behind the parking tolerance triggers a maneuver instead of driving away',()=>{
+ for(const distance of [2.6,3.5,4.1])for(const width of [6,12]) {
+  const {collision,graph}=fixture([[0,-40],[0,160]],width),controller=new CityAutopilot(graph,collision),state=car(0,0,Math.PI),arrival:V2=[0,distance];
+  controller.start({id:'close-behind',name:'Close behind',arrival});
+  const run=drive(controller,state,collision,90);assertArrived(controller,state,arrival);assert.equal(run.hits,0);
+  assert(controller.status.maneuvers>0,'pure pursuit has no steering authority directly behind the car');
+  assert(state.distance<40,'a nearby destination must not drive to the remote road end');
+ }
+});
+
+test('narrow-road turns recover from offset angled starts at a dead end through the real steering rack',()=>{
+ for(const z of [-38,0])for(const yaw of [Math.PI*.75,Math.PI*1.25]) {
+  const {collision,graph}=fixture([[0,-40],[0,160]],4),controller=new CityAutopilot(graph,collision),state=car(.8,z,yaw),arrival:V2=[0,145];
+  controller.start({id:'narrow-turn',name:'Narrow turn',arrival});let hits=0,reverseFrames=0,maxRoadDistance=0;
+  for(let frame=0;frame<120/DT&&controller.status.active;frame++) {
+   const sample=tick(controller,state,collision);hits+=Number(sample.collisionHit);reverseFrames+=Number(state.speed<-.2);
+   maxRoadDistance=Math.max(maxRoadDistance,collision.nearest(state.x,state.z)!.d);
+  }
+  assertArrived(controller,state,arrival);assert.equal(hits,0);assert(reverseFrames>0);
+  assert(maxRoadDistance<2.15,'recovery must not cut across the surrounding ground');
+ }
+});
+
+test('arrival at a walled dead end can reverse the graph edges and drive back out',()=>{
+ const {data}=fixture([[0,-40],[0,110]],6);
+ data.buildings=[
+  {id:'right-wall',height:8,style:'wall',rings:[[[4.2,-45],[20,-45],[20,115],[4.2,115],[4.2,-45]]]},
+  {id:'left-wall',height:8,style:'wall',rings:[[[-4.2,-45],[-20,-45],[-20,115],[-4.2,115],[-4.2,-45]]]},
+ ];
+ const collision=new CityCollision(data),controller=new CityAutopilot(new RoadGraph(data.roads),collision),state=car(),end:V2=[0,108],returnTo:V2=[0,-30];
+ controller.start({id:'dead-end',name:'Dead end',arrival:end});
+ const outward=drive(controller,state,collision,60);assertArrived(controller,state,end);assert.equal(outward.hits,0);
+ controller.start({id:'return',name:'Return along the same road',arrival:returnTo});
+ const back=drive(controller,state,collision,120);assertArrived(controller,state,returnTo);assert.equal(back.hits,0);assert(back.reverseFrames>0);
+ assert(controller.status.maneuvers>0);
+ assert(controller.status.route.at(-1)![1]<controller.status.route[0][1],'the return route follows graph edges in the opposite direction');
+});
+
+test('manual takeover during a reversing maneuver immediately releases all automatic controls',()=>{
+ const {collision,graph}=fixture([[0,-40],[0,160]],6),controller=new CityAutopilot(graph,collision),state=car(0,0,Math.PI);
+ controller.start({id:'turn',name:'Turn',arrival:[0,145]});
+ for(let frame=0;frame<30/DT&&state.speed>-.2;frame++)tick(controller,state,collision);
+ assert(state.speed<-.2);assert.equal(controller.status.phase,'maneuvering');controller.cancel('manual-takeover');
+ for(let i=0;i<30;i++)assert.deepEqual(controller.update(state,[],DT).input,{throttle:0,steer:0,handbrake:false});
+ assert.equal(controller.status.phase,'cancelled');
+});
+
 test('moving traffic is followed and temporary full-width blockage resumes after the vehicle leaves',()=>{
  const {collision,graph}=fixture([[0,-20],[0,230]],6),arrival:V2=[0,160];
  const following=new CityAutopilot(graph,collision),s=car();following.start({id:'follow',name:'Follow',arrival});
@@ -119,6 +166,18 @@ actual.buildings=actual.buildings.filter((b:{id:string})=>!detail.baseBuildingId
 for(const b of detail.collisionFootprints)actual.buildings.push({...b,height:1,style:'detail'});
 for(const m of detail.landmarks) {const index=actual.landmarks.findIndex((p:{id:string})=>p.id===m.id);if(index<0)actual.landmarks.push(m);else actual.landmarks[index]={...actual.landmarks[index],...m};}
 const city=actual as CityData,cityCollision=new CityCollision(city),cityGraph=new RoadGraph(city.roads,JSON.parse(fs.readFileSync('public/city/navigation.json','utf8')));
+test('actual two-way Gaoxin South Ring Road turns toward destinations 3.5 and 40 units behind the car',t=>{
+ const road=city.roads.find(r=>r.id==='way/736676593')!;assert(road&&!road.oneway);assert.equal(road.width,12);
+ const [a,b]=road.points,roadYaw=Math.atan2(b[0]-a[0],b[1]-a[1]),x=(a[0]+b[0])/2,z=(a[1]+b[1])/2;
+ for(const distance of [3.5,40]) {
+  const state=car(x,z,roadYaw+Math.PI),initial={...state},arrival:V2=[x+Math.sin(roadYaw)*distance,z+Math.cos(roadYaw)*distance];
+  assert(!cityCollision.blocked(x,z)&&!cityCollision.blocked(...arrival));
+  const controller=new CityAutopilot(cityGraph,cityCollision);controller.start({id:'real-road-turn',name:road.name,arrival});
+  const run=drive(controller,state,cityCollision,120);assertArrived(controller,state,arrival);assert.equal(run.hits,0);
+  assert(controller.status.maneuvers>0);assert(run.reverseFrames>0);
+  t.diagnostic(JSON.stringify({road:road.name,initial,arrival,maneuvers:controller.status.maneuvers,...run}));
+ }
+});
 for(const [name,start] of [
  ['actual Tencent parking pose',[-5465.953431,-684.687511,-.72075067]],
  ['reported stopped pose',[-5433.89895,-742.56657,-4.69739]],

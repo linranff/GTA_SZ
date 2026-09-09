@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "spec": {
+    "id": "bamboo-cafe",
+    "name": "月白 · 女仆咖啡馆",
+    "subtitle": "MAISON LUNE · COFFEE & PATISSERIE",
+    "basis": "Original fictional game location, not a real business or reconstructed interior.",
+    "site": {
+      "x": -5088,
+      "z": -1304,
+      "heading": 2.605,
+      "arrival": [
+        -5101.077262119414,
+        -1281.9921794843408
+      ],
+      "roadYaw": 1.0346452212862278
+    },
+    "scale": {
+      "localUnits": "game metres, matched to the existing 1.68-unit walking eye and life-hub interiors",
+      "geography": "existing east/north city coordinates, WGS84 origin [114.025,22.536], geographic scale 0.60",
+      "fictionalInteriorGameplayScale": 1
+    },
+    "footprint": {
+      "width": 18,
+      "depth": 14,
+      "height": 4.2,
+      "floor": 0.24,
+      "patioDepth": 5
+    },
+    "staff": [
+      {
+        "id": "zhixia",
+        "name": "知夏",
+        "age": 24,
+        "role": "主理人",
+        "outfit": "classic ivory-apron maid uniform",
+        "position": [
+          -2.25,
+          -3.45
+        ],
+        "heading": -0.16,
+        "line": "欢迎来到月白。窗边能看见春笋，先坐下来，慢慢喝一杯吧。"
+      },
+      {
+        "id": "wangshu",
+        "name": "望舒",
+        "age": 25,
+        "role": "咖啡师",
+        "outfit": "rose-and-ivory maid uniform",
+        "position": [
+          5.65,
+          5
+        ],
+        "heading": 0,
+        "line": "今天的推荐是海盐拿铁和草莓千层。咖啡会替你把这个晚上慢下来。"
+      },
+      {
+        "id": "xiaolan",
+        "name": "小岚",
+        "age": 23,
+        "role": "侍应",
+        "outfit": "JK-inspired adult cafe uniform: navy blazer, ribbon and pleated skirt",
+        "position": [
+          4,
+          -0.2
+        ],
+        "heading": 0.38,
+        "line": "甜点刚刚做好。我把靠窗的位置留给你，那里看晚霞最好。"
+      }
+    ],
+    "review": {
+      "siteClearance": "sampled existing city collision at 1-unit spacing in a rotated 28 x 26 envelope; 0 blocked samples on 2026-09-09",
+      "source": "user requested original Blender cafe",
+      "notSurveyed": true
+    }
+  },
+  "models": [
+    {
+      "id": "exterior",
+      "file": "exterior.glb",
+      "bytes": 638908,
+      "sha256": "66264a1f129e6f966c2a76b8ca33538b5568b4d8882d5640d9e61b8bb8096e47",
+      "triangles": 32014,
+      "meshes": 15,
+      "materials": 15,
+      "compression": {
+        "algorithm": "EXT_meshopt_compression",
+        "beforeBytes": 1470052,
+        "positionBits": 16,
+        "normalBits": 12
+      }
+    },
+    {
+      "id": "interior",
+      "file": "interior.glb",
+      "bytes": 3115156,
+      "sha256": "c580da9ed2ed82cc7d830e3e1b32861f7256f55dc65c8fb0bec899f3b54910ac",
+      "triangles": 293068,
+      "meshes": 48,
+      "materials": 26,
+      "compression": {
+        "algorithm": "EXT_meshopt_compression",
+        "beforeBytes": 10646920,
+        "positionBits": 16,
+        "normalBits": 12
+      }
+    }
+  ],
+  "colliders": [
+    {
+      "x": -6,
+      "z": -7,
+      "width": 4.5,
+      "depth": 0.3
+    },
+    {
+      "x": 6,
+      "z": -7,
+      "width": 4.5,
+      "depth": 0.3
+    },
+    {
+      "x": -8.68,
+      "z": -7,
+      "width": 0.8,
+      "depth": 0.5
+    },
+    {
+      "x": -3,
+      "z": -7,
+      "width": 0.8,
+      "depth": 0.5
+    },
+    {
+      "x": 3,
+      "z": -7,
+      "width": 0.8,
+      "depth": 0.5
+    },
+    {
+      "x": 8.68,
+      "z": -7,
+      "width": 0.8,
+      "depth": 0.5
+    },
+    {
+      "x": -4.6,
+      "z": -9.15,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": -5.55,
+      "z": -9.15,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": -3.6499999999999995,
+      "z": -9.15,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 4.6,
+      "z": -9.15,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": 3.6499999999999995,
+      "z": -9.15,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 5.55,
+      "z": -9.15,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": -7.75,
+      "z": -3.65,
+      "width": 1.45,
+      "depth": 2.75
+    },
+    {
+      "x": -6.25,
+      "z": -3.65,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": -5.25,
+      "z": -3.65,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": -7.75,
+      "z": 0,
+      "width": 1.45,
+      "depth": 2.75
+    },
+    {
+      "x": -6.25,
+      "z": 0,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": -5.25,
+      "z": 0,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": -7.75,
+      "z": 3.55,
+      "width": 1.45,
+      "depth": 2.75
+    },
+    {
+      "x": -6.25,
+      "z": 3.55,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": -5.25,
+      "z": 3.55,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": -2.9,
+      "z": -0.4,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": -1.92,
+      "z": -0.4,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": -3.88,
+      "z": -0.3999999999999999,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 2.1,
+      "z": -3.55,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": 3.08,
+      "z": -3.55,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 1.12,
+      "z": -3.55,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 6.4,
+      "z": -3.5,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": 7.380000000000001,
+      "z": -3.5,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 5.42,
+      "z": -3.5,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 6.5,
+      "z": 0.3,
+      "width": 1.36,
+      "depth": 1.36
+    },
+    {
+      "x": 7.48,
+      "z": 0.3,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 5.52,
+      "z": 0.3000000000000001,
+      "width": 0.78,
+      "depth": 0.78
+    },
+    {
+      "x": 2.3,
+      "z": 3.65,
+      "width": 9.6,
+      "depth": 1.58
+    }
+  ],
+  "lighting": {
+    "interiorPoints": [
+      [
+        -4.2,
+        -2.6,
+        3
+      ],
+      [
+        4.2,
+        -2.6,
+        3
+      ],
+      [
+        0,
+        2,
+        3.2
+      ],
+      [
+        2.5,
+        5.8,
+        2.8
+      ]
+    ],
+    "fixtureEmission": 2.4
+  },
+  "provenance": {
+    "creator": "Original Blender-authored geometry for 深城纪",
+    "realBusiness": false,
+    "allStaffAdults": true,
+    "textures": "Original procedural grain, marble and typeset lettering; no external photographs",
+    "source": "scripts/build_bamboo_cafe.py",
+    "editableBlend": "artifacts/city/bamboo-cafe/maison-lune.blend",
+    "geometryScope": "complete exterior, walkable furnished cafe, three stylized adult staff",
+    "budgetException": "Hero enterable interior and staff, distance-gated; not the 25k landmark exterior budget"
+  }
+}

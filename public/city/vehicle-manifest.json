@@ -1,6 +1,87 @@
 {
   "source": "Khronos glTF-Sample-Assets CarConcept",
   "sourceTriangles": 213347,
+  "surfacePolicy": "Original Paint 1 exterior, roof, hood grille and windshield retained without decimation; secondary parts keep runtime budget",
+  "triangleBudget": 110000,
+  "rearProfile": {
+    "maxDropMetres": 0.2,
+    "longitudinalBlendMetres": [
+      1.15,
+      2.2
+    ],
+    "heightBlendMetres": [
+      0.64,
+      1.1
+    ],
+    "wheelsPreserved": true,
+    "normals": "inverse-transpose deformation Jacobian",
+    "changedMeshes": [
+      {
+        "mesh": "BodyUnderside",
+        "maxDropMetres": 0.05068005730028336
+      },
+      {
+        "mesh": "InteriorCage",
+        "maxDropMetres": 0.008701773390324399
+      },
+      {
+        "mesh": "InteriorFloor",
+        "maxDropMetres": 0.05286220507897406
+      },
+      {
+        "mesh": "InteriorPillar",
+        "maxDropMetres": 0.18977000264039937
+      },
+      {
+        "mesh": "InteriorSeatsColor1",
+        "maxDropMetres": 0.139636235220263
+      },
+      {
+        "mesh": "InteriorSeatsColor2",
+        "maxDropMetres": 0.1193504519198359
+      },
+      {
+        "mesh": "InteriorSeatsFrame1",
+        "maxDropMetres": 0.14795607455108228
+      },
+      {
+        "mesh": "InteriorSeatsFrame2",
+        "maxDropMetres": 0.14287985325664346
+      },
+      {
+        "mesh": "BodyRearPanelsColor1",
+        "maxDropMetres": 0.2
+      },
+      {
+        "mesh": "InteriorRearHatch",
+        "maxDropMetres": 0.19793581561647133
+      },
+      {
+        "mesh": "InteriorRearPanels",
+        "maxDropMetres": 0.19945839812452676
+      },
+      {
+        "mesh": "BodyWindowsRearSides",
+        "maxDropMetres": 0.006322226820746986
+      },
+      {
+        "mesh": "BodyTurnsignalsRear",
+        "maxDropMetres": 0.07727361754319662
+      },
+      {
+        "mesh": "BodyTaillightsPanels",
+        "maxDropMetres": 0.19923210923806423
+      },
+      {
+        "mesh": "BodyTaillights",
+        "maxDropMetres": 0.19757440910142213
+      },
+      {
+        "mesh": "BodyRearwindow",
+        "maxDropMetres": 0.19826866348238237
+      }
+    ]
+  },
   "sourceStraightenedBounds": {
     "min": [
       -1.1689555644989014,
@@ -38,17 +119,17 @@
   "modifiedBoundsBlender": {
     "min": [
       -1.0262340307235718,
-      -2.5000030994415283,
+      -2.5,
       0
     ],
     "max": [
       1.0262342691421509,
-      2.499990940093994,
+      2.5,
       1.3183320760726929
     ],
     "size": [
       2.0524682998657227,
-      4.9999940395355225,
+      5,
       1.3183320760726929
     ]
   },
@@ -120,7 +201,7 @@
     ]
   },
   "front": "Blender +Y / GLTF -Z / game after existing root reflection +Z",
-  "triangles": 78825,
+  "triangles": 99197,
   "meshes": 26,
   "materials": [
     "amberled",
@@ -183,12 +264,12 @@
     "InteriorDoorL06",
     "Axles"
   ],
-  "glbBytes": 3114608,
-  "sha256": "acde675fd1c606413b883981bbaf888f011a2ad70397e1141e25ffdd8de70c2e",
+  "glbBytes": 3656416,
+  "sha256": "10d77ad96f8ecc1d84d19300a62a5d51fa0b4ca4e7432adc064b6d2bf81e1739",
   "delivery": {
-    "bytes": 2143520,
+    "bytes": 2521572,
     "primitives": 26,
-    "triangles": 78825,
+    "triangles": 99197,
     "materials": [
       {
         "name": "car_caliper",
@@ -291,9 +372,9 @@
       {
         "name": "carpaint",
         "color": [
-          0.03500000014901161,
-          0.0949999988079071,
-          0.3199999928474426,
+          0.485150009393692,
+          0.009720000438392162,
+          0.01850000023841858,
           1
         ],
         "emissive": [
@@ -373,7 +454,7 @@
       "KHR_materials_clearcoat",
       "KHR_materials_emissive_strength"
     ],
-    "sha256": "3afa89657aa2af08cebe471b86c3ffb36f0e397d8d842ff5ba48142679a36826"
+    "sha256": "28ef0e15175620c7a308c0eab11cad10ad44f6efdbeafaaa9d944c68fc0a692e"
   },
   "wheelbaseMetres": 3.2116583585739136,
   "frontTrackMetres": 1.7138220071792603,

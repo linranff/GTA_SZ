@@ -24,6 +24,11 @@ test('aerial selection preserves the clicked position and aligns arrival with a 
   assert.equal(selected.name, '海湾路附近');
 });
 
+test('aerial labels use contextual names even when the source name is empty', () => {
+  const data = city({roads: [road(undefined, {name: '', displayName: '后海附近 · 街巷'})]});
+  assert.equal(resolver(data)({x: 42, y: 0, z: 35})!.name, '后海附近 · 街巷');
+});
+
 test('a roof selection names the nearby landmark and arrives outside its building footprint', () => {
   const landmark: Landmark = {id: 'tower', name: '海湾大厦', x: 40, z: 40, height: 80, area: '海湾', excludeRadius: 0, arrival: [40, 0], yaw: 0};
   const data = city({buildings: [{rings: [ring(20, 20, 60, 60)], height: 80, style: 'tower'}], landmarks: [landmark]});

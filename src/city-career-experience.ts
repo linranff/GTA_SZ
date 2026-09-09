@@ -24,7 +24,7 @@ export async function createCareerExperience(world:DrivingWorld,graph:RoadGraph,
  panel.classList.add('career-panel');
  const hud=document.createElement('section');hud.id='career-objective';hud.hidden=true;hud.innerHTML='<div class=career-status></div><button data-hud-auto>自动前往</button><button data-hud-journal>城市手账 <kbd>J</kbd></button><button data-dismiss>收起</button>';host.append(hud);const hudBody=hud.querySelector<HTMLElement>('.career-status')!;
  const walkHelp=document.createElement('div');walkHelp.id='walk-help';walkHelp.hidden=true;host.append(walkHelp);
- const invitation=document.createElement('button');invitation.id='career-invitation';invitation.innerHTML='<small>第一章 · 雨停以后</small><strong>城市这么大，先把今天过好。</strong><span>去一个新的角落 · 认识一个人 · 攒自己的房间 <kbd>J</kbd></span>';invitation.onclick=hooks.open;host.append(invitation);
+ const invitation=document.createElement('button');invitation.id='career-invitation';invitation.innerHTML='<small>雨停以后</small><strong>城市这么大，先把今天过好。</strong><span>去一个新的角落 · 认识一个人 · 攒自己的房间 <kbd>J</kbd></span>';invitation.onclick=hooks.open;host.append(invitation);
  const marker=createObjectiveMarker(world.scene,host,(x,z)=>world.groundHeight(x,z));
  let tab:'jobs'|'growth'|'people'|'stories'='jobs',objectiveKey='',hudTime=0,lastMode=world.lightMode;
  let receipt:{message:string;amount:number}|null=null,dismissed=false;
@@ -88,6 +88,6 @@ export async function createCareerExperience(world:DrivingWorld,graph:RoadGraph,
  // Landmark meshes take part in the existing shadow/reflection lists. No second city scene.
  const hubs:Awaited<ReturnType<typeof import('./city-life-hub.ts')['createCityLifeHub']>>[]=[];
  async function loadHubs(){try{const {createCityLifeHub}=await import('./city-life-hub.ts');for(const s of sites){const h=await createCityLifeHub(world.scene,{x:s.x,z:s.z,heading:s.heading,height:world.groundHeight(s.x,s.z)});h.setMode(world.lightMode);hubs.push(h);world.propObstacles.push(s);world.landmarks.push(...h.meshes);world.cull();}}catch(e){console.error('生活驿站模型载入失败',e);hooks.toast('生活驿站模型暂未载入，合约和存档仍可使用');}}
- void loadHubs();persist();render();
- return {game,render,tick,interact,prompt:()=>game.prompt(frame()),get sites(){return sites;},get hubs(){return hubs.map(h=>({name:h.root.name,position:h.root.position.asArray()}));},creditLegacy(id:string,amount:number){action(game.creditLegacy(id,amount));},dispose(){marker.dispose();hubs.forEach(h=>h.dispose());hud.remove();walkHelp.remove();invitation.remove();}};
+ const ready=loadHubs();persist();render();
+ return {ready,game,render,tick,interact,prompt:()=>game.prompt(frame()),get sites(){return sites;},get hubs(){return hubs.map(h=>({name:h.root.name,position:h.root.position.asArray()}));},creditLegacy(id:string,amount:number){action(game.creditLegacy(id,amount));},dispose(){marker.dispose();hubs.forEach(h=>h.dispose());hud.remove();walkHelp.remove();invitation.remove();}};
 }

@@ -1,4 +1,5 @@
 import type {Landmark, Road, V2} from './city-types.ts';
+import {roadVicinityName} from './city-road-names.ts';
 
 export type MapView = {x: number; z: number; scale: number; width: number; height: number};
 export type MapCategory = 'landmark' | 'district' | 'park' | 'place' | 'transport' | 'road';
@@ -89,12 +90,12 @@ export class MapRoadIndex {
     }
   }
 
-  nearest(point: V2, name?: string): MapRoadPoint | null {
+  nearest(point: V2, name?: string, roadId?: string): MapRoadPoint | null {
     const [x, z] = point, cx = Math.floor(x / this.cellSize), cz = Math.floor(z / this.cellSize);
     let best: MapRoadPoint | null = null;
     const seen = new Set<RoadSegment>();
     const inspect = (segment: RoadSegment): void => {
-      if (seen.has(segment) || (name && segment.road.name !== name)) return;
+      if (seen.has(segment) || (name && segment.road.name !== name) || (roadId && segment.road.id !== roadId)) return;
       seen.add(segment);
       const {a, b, road} = segment, dx = b[0] - a[0], dz = b[1] - a[1];
       const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / (dx * dx + dz * dz || 1)));
@@ -120,7 +121,7 @@ export class MapRoadIndex {
 export function mapPointDestination(point: V2, roads: MapRoadIndex): (Landmark & {category: MapCategory; source: MapPlaceSource}) | null {
   const nearest = roads.nearest(point);
   if (!nearest) return null;
-  return {id: `map-point:${point[0].toFixed(2)}:${point[1].toFixed(2)}`, name: `${nearest.road.name}附近 · 选定位置`,
+  return {id: `map-point:${point[0].toFixed(2)}:${point[1].toFixed(2)}`, name: `${roadVicinityName(nearest.road)} · 选定位置`,
     x: point[0], z: point[1], height: 0, area: '深圳 · 地图选点', excludeRadius: 0,
     arrival: [nearest.x, nearest.z], yaw: nearest.yaw, category: 'place',
     source: {provider: 'OpenStreetMap', id: nearest.road.id, url: `https://www.openstreetmap.org/${nearest.road.id}`, coordinateMethod: 'map_pointer_with_nearest_road_arrival'}};

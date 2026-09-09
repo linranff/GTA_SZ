@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "file": "tank.glb",
+  "provenance": {
+    "providedBy": "User",
+    "sourceFile": "military tank 3d model.glb",
+    "sourceSha256": "5552024cf3453a56d380015dd00774d6b2645fb2c04eebd03e6db2aa7520876e",
+    "sourceBytes": 56588208,
+    "generator": "Tripo",
+    "selection": "Complete middle tank; outside front/back turnaround duplicates removed. Original short/intersecting barrel replaced by an articulated game barrel.",
+    "license": "User-provided asset; no external license claim verified."
+  },
+  "coordinates": {
+    "space": "glTF Y-up",
+    "forward": "+Z",
+    "up": "+Y",
+    "ground": 0,
+    "bodyLength": 6.8,
+    "dimensions": [
+      3.481223702430725,
+      2.7408675206825137,
+      8.305823802947998
+    ],
+    "babylonImport": "Keep default glTF conversion root: rotation Y pi and scaling Z -1. Model forward then remains game +Z; X is mirrored."
+  },
+  "nodes": {
+    "root": "tank_root",
+    "hull": "tank_hull",
+    "turret": "tank_turret",
+    "barrel": "tank_barrel",
+    "muzzle": "tank_muzzle"
+  },
+  "pivots": {
+    "turretLocal": [
+      0,
+      1.9341961913733936,
+      -0.9042107987139155
+    ],
+    "barrelLocal": [
+      0,
+      0.2958038086266064,
+      1.8842107987139154
+    ],
+    "muzzleLocal": [
+      0,
+      0,
+      3.96
+    ],
+    "muzzleRestRoot": [
+      0,
+      2.23,
+      4.94
+    ],
+    "turretRotationAxis": "Y",
+    "barrelRotationAxis": "X"
+  },
+  "limits": {
+    "barrelPitchDegrees": [
+      -8,
+      24
+    ]
+  },
+  "assetStats": {
+    "triangles": 123723,
+    "meshes": 8,
+    "sourceTriangles": 1894004,
+    "bytes": 3132044,
+    "sha256": "09e6672cb603e93957a6f0c5e4d0477c2226de39a44eb9dfce173211ea20747b"
+  },
+  "limitations": [
+    "No tracked suspension simulation or moving track links are authored; runtime may animate whole-vehicle suspension.",
+    "The source is a stylized tank generated from a turnaround; this is a game adaptation, not a surveyed real tank replica."
+  ],
+  "previews": [
+    "output/assets/tank/three-quarter.png",
+    "output/assets/tank/rear.png",
+    "output/assets/tank/turret-turned.png"
+  ],
+  "processor": {
+    "file": "scripts/prepare_tank.py",
+    "sha256": "be6bd1ff7b71875e23070fcc2993c8975c3f364990a00abbd60ff7e49b3b4af7",
+    "optimizerSha256": "10993588d736258c1ac3c9f2a3e0d6817275d4382635bb5b1d798b1bd6b16bb1"
+  },
+  "compression": {
+    "algorithm": "EXT_meshopt_compression",
+    "beforeBytes": 5421376,
+    "positionBits": 16,
+    "normalBits": 12,
+    "uvBits": 16
+  },
+  "validation": {
+    "decodedMuzzleWorld": [
+      0,
+      2.2300000190734863,
+      4.940000057220459
+    ],
+    "decodedNodes": 12,
+    "decodedMaterials": [
+      {
+        "name": "tank_original_olive_pbr",
+        "baseColor": true,
+        "normal": true,
+        "metallicRoughness": true
+      },
+      {
+        "name": "tank_gun_olive",
+        "baseColor": false,
+        "normal": false,
+        "metallicRoughness": false
+      },
+      {
+        "name": "tank_dark_steel",
+        "baseColor": false,
+        "normal": false,
+        "metallicRoughness": false
+      }
+    ],
+    "decodedTextureCount": 3
+  }
+}

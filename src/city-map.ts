@@ -1,4 +1,5 @@
 import './city-map.css';
+import {roadDisplayName,isUnnamedRoad} from './city-road-names.ts';
 import type {CityData, Landmark, Road, V2} from './city-types.ts';
 import type {RoadGraph} from './navigation.ts';
 import {localMapView, rememberLocalMapWidth} from './city-map-view.ts';
@@ -23,6 +24,7 @@ export type CityMapOptions = {
   onAutoDrive: (destination: CityMapDestination, route: V2[]) => void;
   onManualRoute: (destination: CityMapDestination, route: V2[]) => void;
   onPhoto: (destination: CityMapDestination) => void;
+  onVisit?: (destination: CityMapDestination) => void;
   onClose: () => void;
   onDebugTravel?: (destination: CityMapDestination) => void;
 };
@@ -89,7 +91,7 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
             <p id="destination-status">从地图或列表中选择目的地。</p>
             <p id="map-destination-address" hidden></p>
             <div class="atlas-route-actions" hidden><button id="auto-drive" type="button">自动驾驶前往 <span>↗</span></button><button id="drive-route" type="button">自己开过去 <span>→</span></button></div>
-            <div class="atlas-travel-actions"><button id="quick-travel" type="button" disabled>移动到附近道路</button><button id="photo-view" type="button" disabled>俯瞰此处</button></div>
+            <div class="atlas-travel-actions"><button id="quick-travel" type="button" disabled>移动到附近道路</button><button id="photo-view" type="button" disabled>俯瞰此处</button><button id="visit-interior" type="button" hidden>进店看看</button></div>
             <div class="atlas-secondary-actions" hidden><a id="map-place-source" target="_blank" rel="noopener noreferrer" hidden>地点来源 ↗</a></div>
           </div>
         </aside>
@@ -127,9 +129,9 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
     road.points.forEach((point, i) => i ? path.lineTo(...point) : path.moveTo(...point));
     roadsByKind.set(kind, path);
     const anchor = roadLabelAnchor(road);
-    if (!anchor || !road.name || /^(支路|未命名|道路)$/.test(road.name)) continue;
+    if (!anchor) continue;
     const value = {road, ...anchor}; roadAnchors.push(value);
-    if (anchor.length > (roadByName.get(road.name)?.length ?? 0)) roadByName.set(road.name, value);
+    if (anchor.length > (roadByName.get(roadDisplayName(road))?.length ?? 0)) roadByName.set(roadDisplayName(road), value);
   }
   const buildingBounds = data.buildings.map(b => {
     let xmin = Infinity, zmin = Infinity, xmax = -Infinity, zmax = -Infinity;
@@ -143,9 +145,9 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
   }
   catalog = data.landmarks.map(asCatalog);
   for (const {road, point} of roadByName.values()) {
-    const snapped = roadIndex.nearest(point, road.name);
+    const snapped = roadIndex.nearest(point, undefined, road.id);
     if (!snapped) continue;
-    catalog.push({id: `road:${road.name}`, name: road.name, x: point[0], z: point[1], height: 0, area: '深圳 · 道路',
+    catalog.push({id: `road:${roadDisplayName(road)}`, name: roadDisplayName(road), x: point[0], z: point[1], height: 0, area: isUnnamedRoad(road)?'深圳 · 道路方位参考':'深圳 · 道路',
       arrival: [snapped.x, snapped.z], yaw: snapped.yaw, excludeRadius: 0, category: 'road', kind: road.kind,
       rank: 10, source: {provider: 'OpenStreetMap', id: road.id, url: `https://www.openstreetmap.org/${road.id}`, file: 'public/city/city.json', coordinateMethod: 'road_polyline_midpoint'}});
   }
@@ -243,6 +245,7 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
     actions.hidden = secondary.hidden = !selected;
     node<HTMLButtonElement>('#quick-travel').disabled = !selected || !options.onDebugTravel;
     node<HTMLButtonElement>('#photo-view').disabled = !selected;
+    node<HTMLButtonElement>('#visit-interior').hidden = selected?.id !== 'bamboo-cafe' || !options.onVisit;
     if (!selected) {
       writeText(title, '开往你想去的地方'); writeText(destinationStatus, '点击地图任意位置，可移动到附近道路、俯瞰或自动驾驶。');
       writeText(node('#map-selection-category'), '下一站'); writeText(node('#map-selection-visited'), '');
@@ -373,13 +376,13 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
       if (anchor.length * view.scale < 65) continue;
       const p = mapToScreen(view, anchor.point); if (p[0] < 50 || p[0] > view.width - 50 || p[1] < 20 || p[1] > view.height - 20) continue;
       const distance = Math.hypot(p[0] - view.width / 2, p[1] - view.height / 2);
-      if (distance < (roadCandidates.get(anchor.road.name)?.distance ?? Infinity)) roadCandidates.set(anchor.road.name, {anchor, distance});
+      if (distance < (roadCandidates.get(roadDisplayName(anchor.road))?.distance ?? Infinity)) roadCandidates.set(roadDisplayName(anchor.road), {anchor, distance});
     }
     for (const {anchor} of roadCandidates.values()) {
       const p = mapToScreen(view, anchor.point), size = zoom < 3 ? 10 : 11;
       const font = `400 ${size}px 'PingFang SC', system-ui, sans-serif`; ctx.font = font;
-      const width = ctx.measureText(anchor.road.name).width + 16, height = size + 8;
-      labels.push({id: `label-road:${anchor.road.name}`, name: anchor.road.name, x: p[0], y: p[1],
+      const width = ctx.measureText(roadDisplayName(anchor.road)).width + 16, height = size + 8;
+      labels.push({id: `label-road:${roadDisplayName(anchor.road)}`, name: roadDisplayName(anchor.road), x: p[0], y: p[1],
         width: Math.abs(Math.cos(anchor.angle)) * width + Math.abs(Math.sin(anchor.angle)) * height,
         height: Math.abs(Math.sin(anchor.angle)) * width + Math.abs(Math.cos(anchor.angle)) * height,
         priority: ['trunk', 'primary'].includes(anchor.road.kind) ? 300 : 200, font, color: '#cad2c694', angle: anchor.angle});
@@ -491,6 +494,7 @@ export function initializeCityMap(options: CityMapOptions): CityMapController {
   manual.addEventListener('click', () => { if (selected && !manual.disabled) options.onManualRoute(selected, route.map(p => [...p] as V2)); }, {signal});
   auto.addEventListener('click', () => { if (selected && !auto.disabled) options.onAutoDrive(selected, route.map(p => [...p] as V2)); }, {signal});
   node('#photo-view').addEventListener('click', () => { if (selected) options.onPhoto(selected); }, {signal});
+  node('#visit-interior').addEventListener('click', () => { if (selected?.id === 'bamboo-cafe') options.onVisit?.(selected); }, {signal});
   node('#quick-travel').addEventListener('click', () => { if (selected) options.onDebugTravel?.(selected); }, {signal});
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(viewport);
 

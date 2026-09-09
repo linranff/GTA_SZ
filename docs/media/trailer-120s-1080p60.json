@@ -1,0 +1,944 @@
+{
+  "project": "深城纪",
+  "version": 1,
+  "date": "2026-09-07",
+  "status": "planning-and-still-scouting-complete; motion-and-video-pending",
+  "delivery": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "durationSeconds": 120,
+    "totalFrames": 7200,
+    "scan": "progressive",
+    "aspect": "16:9",
+    "color": "SDR / Rec.709",
+    "audioSampleRate": 48000,
+    "audioChannels": 2
+  },
+  "capture": {
+    "mode": "planned-fixed-timestep",
+    "simulationStep": 0.016666666666666666,
+    "headHandleFrames": 60,
+    "tailHandleFrames": 60,
+    "offlineRecorderImplemented": false,
+    "note": "Still scouting is not validation of motion paths, continuous playback, or real-time performance."
+  },
+  "coordinateConvention": {
+    "cameraUnits": "scaled game-world coordinate units, not surveyed metres",
+    "carSpeed": "displayed km/h",
+    "fov": "vertical radians in saved camera anchors; degree ranges in planning prose"
+  },
+  "scout": {
+    "reports": [
+      "../../output/playwright/trailer-scout/report.json",
+      "../../output/playwright/trailer-scout/report-extra.json"
+    ],
+    "captureCount": 21,
+    "errors": [],
+    "resources": [
+      {
+        "url": "http://127.0.0.1:4173/assets/index-pUEpy9TO.js",
+        "sha256": "4070e6e8f2ba8e2159dab8216de667dc41c0ee9b4e6fac6ab2c7ff2c0b82c00e"
+      },
+      {
+        "url": "http://127.0.0.1:4173/assets/pbrMaterialLoadingAdapter-C1jZJqj_.js",
+        "sha256": "dbf924ed878bcb2a8774451e5a61e719da00c62416a920dd15cd0150fbee9d0d"
+      },
+      {
+        "url": "http://127.0.0.1:4173/city/meshopt_decoder.js",
+        "sha256": "fedf06f101ff2ba59d66335578230b7e8f5fac5057dee084be64c67444ac6c12"
+      },
+      {
+        "url": "http://127.0.0.1:4173/assets/city-life-hub-Bd6R0nVg.js",
+        "sha256": "68c12837814526ca21ac19054b9c60e39b8393d9fe4b06f57b1e3a07c1c74624"
+      }
+    ]
+  },
+  "shots": [
+    {
+      "id": "01",
+      "title": "湖面夜色",
+      "durationSeconds": 8,
+      "startFrameInclusive": 0,
+      "endFrameExclusive": 480,
+      "subject": "bamboo",
+      "lighting": "night",
+      "motion": "沿湖横移 5–7 单位/秒；约 49° 垂直视场角",
+      "review": "降低机位调整湖岸遮挡；控制灯带过曝",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "01-bamboo-night-water",
+          "image": "../../output/playwright/trailer-scout/01-bamboo-night-water.png",
+          "capturedLighting": "night",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 1.950000010344927,
+            "position": [
+              -4806.461389361119,
+              66.63067412293134,
+              -1770.42157684767
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -4806.461389361119,
+              "y": 66.63067412293134,
+              "z": -1770.42157684767
+            },
+            "focus": {
+              "x": -5146,
+              "y": 89.37600000000003,
+              "z": -1216.62
+            },
+            "yaw": -0.5499999694824219,
+            "pitch": -0.034999954223632807,
+            "distance": 650.000003448309
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "name": "16-bamboo-reflection-wide",
+          "image": "../../output/playwright/trailer-scout/16-bamboo-reflection-wide.png",
+          "capturedLighting": "night",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 2.3400000143402773,
+            "position": [
+              -4738.813493714649,
+              50.39222395600321,
+              -1880.7581044341791
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -4738.813493714649,
+              "y": 50.39222395600321,
+              "z": -1880.7581044341791
+            },
+            "focus": {
+              "x": -5146,
+              "y": 89.376,
+              "z": -1216.62
+            },
+            "yaw": -0.5499999694824219,
+            "pitch": -0.05000003051757816,
+            "distance": 780.0000047800924
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "title": "春笋升起",
+      "durationSeconds": 7,
+      "startFrameInclusive": 480,
+      "endFrameExclusive": 900,
+      "subject": "bamboo",
+      "lighting": "night",
+      "motion": "推进 10–16、上升 5–8 单位/秒，转向不超过 2°/秒",
+      "review": "参考图为黄昏；本镜夜景与上升轨迹待试拍",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "03-bamboo-sunset-facade",
+          "image": "../../output/playwright/trailer-scout/03-bamboo-sunset-facade.png",
+          "capturedLighting": "sunset",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 1.2000000103041502,
+            "position": [
+              -4848.428105283287,
+              145.1932644683822,
+              -1478.0304114409857
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -4848.428105283287,
+              "y": 145.1932644683822,
+              "z": -1478.0304114409857
+            },
+            "focus": {
+              "x": -5146,
+              "y": 89.37600000000003,
+              "z": -1216.62
+            },
+            "yaw": -0.8499997863769532,
+            "pitch": 0.1400000457763672,
+            "distance": 400.0000034347167
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "title": "同城入昼",
+      "durationSeconds": 8,
+      "startFrameInclusive": 900,
+      "endFrameExclusive": 1380,
+      "subject": "bamboo",
+      "lighting": "day",
+      "motion": "延续上一镜路径，横移 6–9 单位/秒；交界渲染同机位昼夜双版本",
+      "review": "昼夜转换 12–18 帧，保持物体和水纹的时间连续",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "02-bamboo-day-water",
+          "image": "../../output/playwright/trailer-scout/02-bamboo-day-water.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 1.950000010344927,
+            "position": [
+              -4806.461389361119,
+              66.63067412293134,
+              -1770.42157684767
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -4806.461389361119,
+              "y": 66.63067412293134,
+              "z": -1770.42157684767
+            },
+            "focus": {
+              "x": -5146,
+              "y": 89.37600000000003,
+              "z": -1216.62
+            },
+            "yaw": -0.5499999694824219,
+            "pitch": -0.034999954223632807,
+            "distance": 650.000003448309
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "title": "向莲花山靠近",
+      "durationSeconds": 11,
+      "startFrameInclusive": 1380,
+      "endFrameExclusive": 2040,
+      "subject": "lianhua",
+      "lighting": "day",
+      "motion": "距焦点 1450 → 800，平均约 60 单位/秒，保持 FOV",
+      "review": "移动中检查草地条纹闪烁、树冠和地形边缘",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "04-lianhua-wide",
+          "image": "../../output/playwright/trailer-scout/04-lianhua-wide.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 4,
+            "position": [
+              1741.4999149456553,
+              418.7156902372132,
+              -12.030384922031999
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 1741.4999149456553,
+              "y": 418.7156902372132,
+              "z": -12.030384922031999
+            },
+            "focus": {
+              "x": 1741.5,
+              "y": 18,
+              "z": 1381.5
+            },
+            "yaw": 6.103515617916777e-8,
+            "pitch": 0.28,
+            "distance": 1449.999999345945
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "name": "05-lianhua-push",
+          "image": "../../output/playwright/trailer-scout/05-lianhua-push.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 2.399999977431364,
+            "position": [
+              1741.4999523487568,
+              192.58362534611652,
+              600.7820318934636
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 1741.4999523487568,
+              "y": 192.58362534611652,
+              "z": 600.7820318934636
+            },
+            "focus": {
+              "x": 1741.5,
+              "y": 18,
+              "z": 1381.5
+            },
+            "yaw": 6.103515617916777e-8,
+            "pitch": 0.2199999084472657,
+            "distance": 799.9999924771214
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "title": "山与城同框",
+      "durationSeconds": 7,
+      "startFrameInclusive": 2040,
+      "endFrameExclusive": 2460,
+      "subject": "lianhua",
+      "lighting": "day",
+      "motion": "北侧向南，上升与前移各 8–12 单位/秒",
+      "review": "与上一镜剪辑换向，缓升展示市民中心及 CBD",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "17-lianhua-cbd-reveal",
+          "image": "../../output/playwright/trailer-scout/17-lianhua-cbd-reveal.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 2.550000005578277,
+            "position": [
+              1741.5000018257192,
+              236.51844451825446,
+              2202.931489879921
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 1741.5000018257192,
+              "y": 236.51844451825446,
+              "z": 2202.931489879921
+            },
+            "focus": {
+              "x": 1741.5000000000005,
+              "y": 18,
+              "z": 1381.5000000000005
+            },
+            "yaw": -3.141592651367187,
+            "pitch": 0.2599999694824218,
+            "distance": 850.0000018594258
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "title": "腾讯连桥",
+      "durationSeconds": 8,
+      "startFrameInclusive": 2460,
+      "endFrameExclusive": 2940,
+      "subject": "tencent",
+      "lighting": "day",
+      "motion": "距焦点约 340，绕行约 24°，约 3°/秒",
+      "review": "三处连桥保留空间间隔，夜景作为备用版本",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "06-tencent-day",
+          "image": "../../output/playwright/trailer-scout/06-tencent-day.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 1.0199999923614387,
+            "position": [
+              -5573.738447196076,
+              160.9608898924792,
+              -488.92703090184284
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -5573.738447196076,
+              "y": 160.9608898924792,
+              "z": -488.92703090184284
+            },
+            "focus": {
+              "x": -5837.92183,
+              "y": 66.99999999999997,
+              "z": -681.22495
+            },
+            "yaw": -2.1999998779296877,
+            "pitch": 0.2799999084472657,
+            "distance": 339.9999974538129
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "name": "07-tencent-night",
+          "image": "../../output/playwright/trailer-scout/07-tencent-night.png",
+          "capturedLighting": "night",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 1.0199999923614387,
+            "position": [
+              -5573.738447196076,
+              160.9608898924792,
+              -488.92703090184284
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -5573.738447196076,
+              "y": 160.9608898924792,
+              "z": -488.92703090184284
+            },
+            "focus": {
+              "x": -5837.92183,
+              "y": 66.99999999999997,
+              "z": -681.22495
+            },
+            "yaw": -2.1999998779296877,
+            "pitch": 0.2799999084472657,
+            "distance": 339.9999974538129
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "title": "市民中心",
+      "durationSeconds": 6,
+      "startFrameInclusive": 2940,
+      "endFrameExclusive": 3300,
+      "subject": "civic",
+      "lighting": "day",
+      "motion": "横移 8–12 单位/秒，完整保留屋顶轮廓",
+      "review": "屋顶两翼与蓝、红、黄体块作为视觉主体",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "08-civic-day",
+          "image": "../../output/playwright/trailer-scout/08-civic-day.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 0.9299999988295685,
+            "position": [
+              1821.68,
+              89.65116460507193,
+              390.1017869591527
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 1821.68,
+              "y": 89.65116460507193,
+              "z": 390.1017869591527
+            },
+            "focus": {
+              "x": 1821.68,
+              "y": 22,
+              "z": 692.63
+            },
+            "yaw": 0,
+            "pitch": 0.21999993896484377,
+            "distance": 309.99999960985616
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "title": "万象天地塔楼",
+      "durationSeconds": 7,
+      "startFrameInclusive": 3300,
+      "endFrameExclusive": 3720,
+      "subject": "mixc-world",
+      "lighting": "day",
+      "motion": "距离约 430，斜向横移 10–14 单位/秒",
+      "review": "利用多座塔楼产生前中后视差",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "11-mixc-day",
+          "image": "../../output/playwright/trailer-scout/11-mixc-day.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 1.29,
+            "position": [
+              -4166.223384910324,
+              139.1877993808952,
+              516.9506905560132
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -4166.223384910324,
+              "y": 139.1877993808952,
+              "z": 516.9506905560132
+            },
+            "focus": {
+              "x": -4581.520102500645,
+              "y": 53.76000000000002,
+              "z": 588.5797869599352
+            },
+            "yaw": -1.3999998168945311,
+            "pitch": 0.19999996948242185,
+            "distance": 430
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "title": "财富广场弧面",
+      "durationSeconds": 6,
+      "startFrameInclusive": 3720,
+      "endFrameExclusive": 4080,
+      "subject": "fortune-plaza",
+      "lighting": "sunset",
+      "motion": "距离约 140，横移 4–7 单位/秒，转向约 2°/秒",
+      "review": "弧面、顶部格栅和地标字样清楚，压住玻璃亮部",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "09-fortune-sunset",
+          "image": "../../output/playwright/trailer-scout/09-fortune-sunset.png",
+          "capturedLighting": "sunset",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 0.4199999995242754,
+            "position": [
+              -140.3245206506238,
+              47.14413184435827,
+              177.7580486640803
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": -140.3245206506238,
+              "y": 47.14413184435827,
+              "z": 177.7580486640803
+            },
+            "focus": {
+              "x": -218.09733329997766,
+              "y": 22.080000000000002,
+              "z": 291.4382090400059
+            },
+            "yaw": -0.6000001831054688,
+            "pitch": 0.17999993896484376,
+            "distance": 139.99999984142514
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "海湾出发",
+      "durationSeconds": 9,
+      "startFrameInclusive": 4080,
+      "endFrameExclusive": 4620,
+      "subject": "binhai-road",
+      "lighting": "sunset",
+      "motion": "车速 45 → 65 km/h；车后 8–12、路面上方 2–3 单位",
+      "review": "当前参考车静止；移动路线先实跑，保持道路反射稳定",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "22-binhai-drive-sunset",
+          "image": "../../output/playwright/trailer-scout/22-binhai-drive-sunset.png",
+          "capturedLighting": "sunset",
+          "observerActive": false,
+          "camera": {
+            "view": 0,
+            "minZ": 0.75,
+            "position": [
+              -2655.698557736232,
+              2.1900000471669285,
+              -860.9579495184623
+            ],
+            "fov": 0.8
+          },
+          "observer": null,
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "title": "侧前方伴行",
+      "durationSeconds": 8,
+      "startFrameInclusive": 4620,
+      "endFrameExclusive": 5100,
+      "subject": "binhai-road",
+      "lighting": "sunset",
+      "motion": "车速 55–70 km/h；侧前方机位，高 1.2–1.8、侧偏 4–6 单位",
+      "review": "当前参考为车后视角；侧前方构图、碰撞和跟车轨迹待录",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "22-binhai-drive-sunset",
+          "image": "../../output/playwright/trailer-scout/22-binhai-drive-sunset.png",
+          "capturedLighting": "sunset",
+          "observerActive": false,
+          "camera": {
+            "view": 0,
+            "minZ": 0.75,
+            "position": [
+              -2655.698557736232,
+              2.1900000471669285,
+              -860.9579495184623
+            ],
+            "fov": 0.8
+          },
+          "observer": null,
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "夜间疾行",
+      "durationSeconds": 8,
+      "startFrameInclusive": 5100,
+      "endFrameExclusive": 5580,
+      "subject": "binhai-road",
+      "lighting": "night",
+      "motion": "车速 50–65 km/h，后侧跟拍，高 1.5–2.5 单位",
+      "review": "保留车漆暗部、尾灯和湿路反射，动态声音匹配车速",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "14-binhai-drive-night",
+          "image": "../../output/playwright/trailer-scout/14-binhai-drive-night.png",
+          "capturedLighting": "night",
+          "observerActive": false,
+          "camera": {
+            "view": 0,
+            "minZ": 0.75,
+            "position": [
+              -2655.6985577504734,
+              2.190000000000001,
+              -860.9579495206041
+            ],
+            "fov": 0.8
+          },
+          "observer": null,
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "title": "从车到城市",
+      "durationSeconds": 11,
+      "startFrameInclusive": 5580,
+      "endFrameExclusive": 6240,
+      "subject": "binhai-road",
+      "lighting": "night",
+      "motion": "高度约 8 → 160，平均上升 14、后撤 10–18 单位/秒",
+      "review": "参考是道路起景；连续升空终点与相机轨迹待验证",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "14-binhai-drive-night",
+          "image": "../../output/playwright/trailer-scout/14-binhai-drive-night.png",
+          "capturedLighting": "night",
+          "observerActive": false,
+          "camera": {
+            "view": 0,
+            "minZ": 0.75,
+            "position": [
+              -2655.6985577504734,
+              2.190000000000001,
+              -860.9579495206041
+            ],
+            "fov": 0.8
+          },
+          "observer": null,
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "title": "城市全景",
+      "durationSeconds": 10,
+      "startFrameInclusive": 6240,
+      "endFrameExclusive": 6840,
+      "subject": "civic",
+      "lighting": "night",
+      "motion": "高度约 500–750，横移 25–45 单位/秒，转向 2–3°/秒",
+      "review": "微调向下取景避开顶部水平接缝；检查远楼闪烁及暗部层次",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "20-futian-night-aerial",
+          "image": "../../output/playwright/trailer-scout/20-futian-night-aerial.png",
+          "capturedLighting": "night",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 15.200330889191413,
+            "position": [
+              3037.600169320969,
+              715.1928469784774,
+              -272.2648460492801
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 3037.600169320969,
+              "y": 715.1928469784774,
+              "z": -272.2648460492801
+            },
+            "focus": {
+              "x": 1821.68,
+              "y": 22,
+              "z": 692.63
+            },
+            "yaw": -0.8999999999999998,
+            "pitch": 0.42000003051757817,
+            "distance": 1700.0000721165059
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "name": "19-futian-day-aerial",
+          "image": "../../output/playwright/trailer-scout/19-futian-day-aerial.png",
+          "capturedLighting": "day",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 15.200330889191413,
+            "position": [
+              3037.600169320969,
+              715.1928469784774,
+              -272.2648460492801
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 3037.600169320969,
+              "y": 715.1928469784774,
+              "z": -272.2648460492801
+            },
+            "focus": {
+              "x": 1821.68,
+              "y": 22,
+              "z": 692.63
+            },
+            "yaw": -0.8999999999999998,
+            "pitch": 0.42000003051757817,
+            "distance": 1700.0000721165059
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "name": "21-futian-sunset-aerial",
+          "image": "../../output/playwright/trailer-scout/21-futian-sunset-aerial.png",
+          "capturedLighting": "sunset",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 15.200330889191413,
+            "position": [
+              3037.600169320969,
+              715.1928469784774,
+              -272.2648460492801
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 3037.600169320969,
+              "y": 715.1928469784774,
+              "z": -272.2648460492801
+            },
+            "focus": {
+              "x": 1821.68,
+              "y": 22,
+              "z": 692.63
+            },
+            "yaw": -0.8999999999999998,
+            "pitch": 0.42000003051757817,
+            "distance": 1700.0000721165059
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "title": "片名落幕",
+      "durationSeconds": 6,
+      "startFrameInclusive": 6840,
+      "endFrameExclusive": 7200,
+      "subject": "civic",
+      "lighting": "night",
+      "motion": "延续全景缓慢后撤并减速，约 4 秒片名阅读时间",
+      "review": "片名“深城纪”；末尾 0.5 秒淡出含在总时长内",
+      "motionValidated": false,
+      "status": "planned-after-still-scouting",
+      "references": [
+        {
+          "name": "20-futian-night-aerial",
+          "image": "../../output/playwright/trailer-scout/20-futian-night-aerial.png",
+          "capturedLighting": "night",
+          "observerActive": true,
+          "camera": {
+            "view": 0,
+            "minZ": 15.200330889191413,
+            "position": [
+              3037.600169320969,
+              715.1928469784774,
+              -272.2648460492801
+            ],
+            "fov": 0.85
+          },
+          "observer": {
+            "active": true,
+            "position": {
+              "x": 3037.600169320969,
+              "y": 715.1928469784774,
+              "z": -272.2648460492801
+            },
+            "focus": {
+              "x": 1821.68,
+              "y": 22,
+              "z": 692.63
+            },
+            "yaw": -0.8999999999999998,
+            "pitch": 0.42000003051757817,
+            "distance": 1700.0000721165059
+          },
+          "renderResolution": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    }
+  ]
+}

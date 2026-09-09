@@ -1,0 +1,7 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {stepTank,tankFootprintClear,advanceTankShell,TANK_LIMITS} from '../src/city-tank-simulation.ts';
+import {FlightCityCollision} from '../src/city-flight-collision.ts';
+import type {CityData} from '../src/city-types.ts';
+test('tank moves, pivots while stopped, brakes and respects reverse speed',()=>{const s={x:0,z:0,yaw:0,speed:0,steer:0,distance:0};for(let i=0;i<600;i++)stepTank(s,{throttle:1,steer:0,handbrake:false},1/60);assert.equal(s.speed,TANK_LIMITS.forward);assert.ok(s.z>80);for(let i=0;i<200;i++)stepTank(s,{throttle:0,steer:1,handbrake:true},1/60);assert.equal(s.speed,0);assert.ok(s.yaw>1);for(let i=0;i<600;i++)stepTank(s,{throttle:-1,steer:0,handbrake:false},1/60);assert.equal(s.speed,-TANK_LIMITS.reverse);});
+test('tank clearance includes both tread edges and ends',()=>{assert.equal(tankFootprintClear(0,0,0,(x,z)=>x>1.5&&z>3),false);assert.equal(tankFootprintClear(0,0,Math.PI/2,(x,z)=>x>3&&z< -1.5),false);assert.equal(tankFootprintClear(0,0,0,()=>false),true);});
+test('fast shell sweep hits a thin building rather than tunnelling',()=>{const data={buildings:[{height:20,rings:[[[-5,3],[5,3],[5,3.4],[-5,3.4],[-5,3]]]}]} as unknown as CityData;const collision=new FlightCityCollision(data,()=>0);const start={x:0,y:2,z:0},velocity={x:0,y:0,z:145},end=advanceTankShell(start,velocity,.05),hit=collision.sweep(start,end);assert.equal(hit?.kind,'building');assert.ok(Math.abs(hit!.point.z-3)<.001);assert.ok(end.y<start.y);});

@@ -19,6 +19,7 @@ export class CityAudio {
  private sources:AudioScheduledSourceNode[]=[];private notes=new Set<AudioScheduledSourceNode>();
  private prefs:AudioPreferences={...defaults};private timer=0;private step=0;private nextNote=0;
  private scoreNotes=0;private lastSpeed=0;private lastPaused=false;private panel:HTMLElement|null=null;
+ private lastImpact=-Infinity;private impactCount=0;
  private destroyed=false;private unlockError:string|null=null;private suspendedByVisibility=false;
  private unlock=()=>{void this.start();};
  private visibility=()=>{if(!this.context)return;if(document.hidden){this.suspendedByVisibility=true;void this.context.suspend();}else if(this.suspendedByVisibility){this.suspendedByVisibility=false;void this.context.resume().catch(()=>{});}};
@@ -93,6 +94,28 @@ export class CityAudio {
   const slipping=state.braking&&speed>8?clamp((speed-8)/26)*.055:Math.max(0,Math.abs(state.steer)*speed-6)*.004;
   set(this.skid!.gain,active*clamp(slipping,0,.09)*attenuation,.06);
  }
+ /** Short speed-dependent bodywork thud, on the existing effects/mute bus. */
+ impact(speed:number){
+  const c=this.context;if(!c||c.state!=='running'||c.currentTime-this.lastImpact<.09)return;
+  this.lastImpact=c.currentTime;this.impactCount++;
+  const at=c.currentTime,osc=c.createOscillator(),gain=c.createGain();osc.type='triangle';
+  osc.frequency.setValueAtTime(135+clamp(speed/45)*65,at);osc.frequency.exponentialRampToValueAtTime(38,at+.16);
+  gain.gain.setValueAtTime(.00001,at);gain.gain.exponentialRampToValueAtTime(.035+clamp(speed/40)*.09,at+.006);gain.gain.exponentialRampToValueAtTime(.00001,at+.2);
+  osc.connect(gain).connect(this.effects!);osc.start(at);osc.stop(at+.22);this.notes.add(osc);
+  osc.onended=()=>{this.notes.delete(osc);osc.disconnect();gain.disconnect();};
+ }
+ /** Synthesized blast uses the same effects gain and mute preferences. */
+ explosion(){
+  const c=this.context;if(!c||c.state!=='running'||!this.effects)return;
+  const at=c.currentTime,source=c.createBufferSource(),filter=c.createBiquadFilter(),gain=c.createGain();
+  const buffer=c.createBuffer(1,Math.ceil(c.sampleRate*2.2),c.sampleRate),samples=buffer.getChannelData(0);let seed=7151;
+  for(let i=0;i<samples.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;samples[i]=seed/2147483648-1;}
+  source.buffer=buffer;filter.type='lowpass';filter.frequency.setValueAtTime(2900,at);filter.frequency.exponentialRampToValueAtTime(350,at+.30);filter.frequency.setValueAtTime(1700,at+.34);filter.frequency.exponentialRampToValueAtTime(250,at+.8);filter.frequency.setValueAtTime(1100,at+.85);filter.frequency.exponentialRampToValueAtTime(100,at+2.15);
+  gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(.75,at+.012);gain.gain.exponentialRampToValueAtTime(.08,at+.30);gain.gain.exponentialRampToValueAtTime(.50,at+.36);gain.gain.exponentialRampToValueAtTime(.04,at+.80);gain.gain.exponentialRampToValueAtTime(.38,at+.87);gain.gain.exponentialRampToValueAtTime(.0001,at+2.18);
+  source.connect(filter).connect(gain).connect(this.effects);source.start(at);source.stop(at+2.2);this.notes.add(source);
+  source.onended=()=>{this.notes.delete(source);source.disconnect();filter.disconnect();gain.disconnect();};
+  this.tone(28,at,.8,.26,'sine',this.effects);this.tone(25,at+.34,1.1,.20,'sine',this.effects);this.tone(23,at+.85,1.2,.16,'sine',this.effects);
+ }
  cue(kind:'arrival'|'engage'|'cancel'|'horn'){
   const c=this.context;if(!c||c.state!=='running')return;
   const notes=kind==='arrival'?[69,73,76]:kind==='engage'?[64,71]:kind==='cancel'?[67,62]:[55,59];
@@ -110,6 +133,6 @@ export class CityAudio {
   panel.addEventListener('keydown',event=>{if(event.key!=='Escape')event.stopPropagation();});host.append(panel);this.refreshControls();
  }
  private refreshControls(){if(!this.panel)return;const button=this.panel.querySelector('button')!;button.textContent=this.prefs.muted?'开启声音':'静音';button.setAttribute('aria-pressed',String(this.prefs.muted));for(const input of Array.from(this.panel.querySelectorAll<HTMLInputElement>('input')))input.value=String(this.prefs[input.dataset.audio as 'effects'|'music']*100);this.panel.querySelector('small')!.textContent=this.unlockError?'点击开启声音重试':this.context?.state==='running'?'原创氛围音乐 · 电驱 / 胎噪 / 风噪 · H 鸣笛':'点击游戏后启用声音';}
- get stats(){let rms=0;if(this.meter){this.meter.getFloatTimeDomainData(this.meterSamples);for(const n of this.meterSamples)rms+=n*n;rms=Math.sqrt(rms/this.meterSamples.length);}return {state:this.context?.state??'locked',...this.prefs,score:'海湾晚风',scoreNotes:this.scoreNotes,activeNotes:this.notes.size,continuousSources:this.sources.length,speed:this.lastSpeed,rms,unlockError:this.unlockError};}
+ get stats(){let rms=0;if(this.meter){this.meter.getFloatTimeDomainData(this.meterSamples);for(const n of this.meterSamples)rms+=n*n;rms=Math.sqrt(rms/this.meterSamples.length);}return {state:this.context?.state??'locked',impactCount:this.impactCount,...this.prefs,score:'海湾晚风',scoreNotes:this.scoreNotes,activeNotes:this.notes.size,continuousSources:this.sources.length,speed:this.lastSpeed,rms,unlockError:this.unlockError};}
  dispose(){this.destroyed=true;window.clearInterval(this.timer);window.removeEventListener('pointerdown',this.unlock);window.removeEventListener('keydown',this.unlock);document.removeEventListener('visibilitychange',this.visibility);for(const source of [...this.sources,...this.notes]){try{source.stop();}catch{}source.disconnect();}void this.context?.close();this.panel?.remove();}
 }

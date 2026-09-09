@@ -12,7 +12,7 @@ export type MeadowManifest = {
 };
 export type MeadowPatch = {x:number;z:number;soil:number;slope:number;seed:number;safeRadius:number};
 export type MeadowClump = {x:number;z:number;height:number;width:number;yaw:number;soil:number;seed:number;range:number};
-export type MeadowOptions = {manifestURL?:string;maxClumps?:number;maxMeshes?:number;cacheTiles?:number;fetcher?:typeof fetch};
+export type MeadowOptions = {manifestURL?:string;maxClumps?:number;maxMeshes?:number;cacheTiles?:number;fetcher?:typeof fetch;excluded?:(x:number,z:number)=>boolean};
 export const MEADOW_LIMITS = Object.freeze({clumps:2304,meshes:8,radius:28,rebuildDistance:3,blades:7,clumpsPerPatch:48,leafMargin:.20,highCamera:16});
 const clamp=(n:number,a:number,b:number)=>Math.max(a,Math.min(b,n));
 const hash=(n:number)=>{n=Math.imul(n^(n>>>16),0x7feb352d);n=Math.imul(n^(n>>>15),0x846ca68b);return ((n^(n>>>16))>>>0)/4294967296;};
@@ -163,7 +163,7 @@ export class CityMeadow {
  private lastX=Infinity;private lastZ=Infinity;private lastMode='';private lastCameraY=Infinity;private lastAerial=false;private lastRebuildTime=-Infinity;
  private dirty=true;private disposed=false;private revision=0;private initPromise:Promise<void>|null=null;
  private current={instances:0,drawCalls:0,triangles:0,patches:0,rejectedHeight:0,rebuilds:0,lastRebuildMs:0,mode:'driving',clamped:false};
- constructor(private scene:Scene,private heightAt:HeightAt=()=>0,options:MeadowOptions={}){
+ constructor(private scene:Scene,private heightAt:HeightAt=()=>0,private options:MeadowOptions={}){
   this.url=options.manifestURL??'/city/grassland-v2/meadow.json';this.fetcher=options.fetcher??((input,init)=>fetch(input,init));
   this.maxClumps=Math.round(clamp(options.maxClumps??MEADOW_LIMITS.clumps,1,2500));
   this.maxMeshes=Math.round(clamp(options.maxMeshes??MEADOW_LIMITS.meshes,1,8));
@@ -240,7 +240,7 @@ export class CityMeadow {
    if(Math.hypot(patch.x-x,patch.z-z)>radius)continue;patchCount++;
    let samples=tile.samples.get(patch);
    if(!samples){samples=createMeadowPatch(patch).map(clump=>({clump}));tile.samples.set(patch,samples);}
-   for(const sample of samples){const d=Math.hypot(sample.clump.x-x,sample.clump.z-z);if(d<=sample.clump.range+MEADOW_LIMITS.rebuildDistance)selected.push({tile:tile.tile.id,sample,priority:d/sample.clump.range});}
+   for(const sample of samples){if(this.options.excluded?.(sample.clump.x,sample.clump.z))continue;const d=Math.hypot(sample.clump.x-x,sample.clump.z-z);if(d<=sample.clump.range+MEADOW_LIMITS.rebuildDistance)selected.push({tile:tile.tile.id,sample,priority:d/sample.clump.range});}
   }
   // Keep all visible LODs ahead of the invisible 3m movement guard. In a very
   // dense mask the hard cap trims the furthest, already shrunken blades first.

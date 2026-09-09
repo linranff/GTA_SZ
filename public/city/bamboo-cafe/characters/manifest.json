@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "scope": "Only the three existing Maison Lune cafe staff; not pedestrians or the player.",
+  "provenance": {
+    "providedBy": "User",
+    "toolLabelInInput": "Tripo",
+    "license": "User-provided asset; no external commercial-license claim has been verified.",
+    "derivation": "Extract complete front-facing figure, remove bad side-view and reversed duplicate, normalize height, reduce triangles, retain original UVs and PBR textures.",
+    "limitations": "Lightweight authored service rig: idle, short-step walk and one-hand greeting. No finger, facial or cloth simulation; original static scan is retained underneath the skin."
+  },
+  "staffAssignments": {
+    "zhixia": "maid",
+    "wangshu": "maid",
+    "xiaolan": "jk"
+  },
+  "models": [
+    {
+      "id": "maid",
+      "file": "maid.glb",
+      "sourceFile": "maid outfit 3d model.glb",
+      "sourceSha256": "d21da4793c4dd37357e6b9b191c9957a228e8dff350d0460fe009845760ec9ad",
+      "sourceBytes": 58080888,
+      "sourceTriangles": 1910908,
+      "retainedBeforeSimplification": 637207,
+      "sourceSelection": {
+        "axis": "Blender X",
+        "keepLessThan": -0.16,
+        "reason": "Left complete front-facing figure, with its own usable back. Middle malformed side-view and right reversed duplicate removed."
+      },
+      "height": 1.69,
+      "dimensions": [
+        0.7760159969329834,
+        0.5119533538818359,
+        1.6899957656860352
+      ],
+      "triangles": 110000,
+      "meshes": 1,
+      "materials": 1,
+      "rigged": true,
+      "bytes": 3594504,
+      "sha256": "7dd8e5cabf80136b24870d30710d0d2954f6098cc9a32cdb172b8e0beef4cbb1",
+      "preview": [
+        "output/playwright/cafe-characters/maid-front.png",
+        "output/playwright/cafe-characters/maid-back.png",
+        "output/playwright/cafe-characters/maid-three-quarter.png"
+      ],
+      "bones": 16,
+      "animations": [
+        "CafeIdle",
+        "CafeWalk",
+        "CafeWave"
+      ],
+      "compression": {
+        "algorithm": "EXT_meshopt_compression",
+        "beforeBytes": 7887912,
+        "positionBits": 16,
+        "normalBits": 12,
+        "uvBits": 16
+      }
+    },
+    {
+      "id": "jk",
+      "file": "jk.glb",
+      "sourceFile": "anime schoolgirl 3d model.glb",
+      "sourceSha256": "f658a41da7ed55255089b02cf53b0e7cde37e151295ef000c3a6edb890a33c85",
+      "sourceBytes": 59477592,
+      "sourceTriangles": 1970991,
+      "retainedBeforeSimplification": 658580,
+      "sourceSelection": {
+        "axis": "Blender X",
+        "keepLessThan": -0.1,
+        "reason": "Left complete front-facing figure, with its own usable back. Middle malformed side-view and right reversed duplicate removed."
+      },
+      "height": 1.67,
+      "dimensions": [
+        0.828514814376831,
+        0.3472737669944763,
+        1.669940710067749
+      ],
+      "triangles": 110000,
+      "meshes": 1,
+      "materials": 1,
+      "rigged": true,
+      "bytes": 3356808,
+      "sha256": "2a0ecdfda0bf185147faff6300eeeb150eaa9736e2939a71f42a21a982732629",
+      "preview": [
+        "output/playwright/cafe-characters/jk-front.png",
+        "output/playwright/cafe-characters/jk-back.png",
+        "output/playwright/cafe-characters/jk-three-quarter.png"
+      ],
+      "bones": 16,
+      "animations": [
+        "CafeIdle",
+        "CafeWalk",
+        "CafeWave"
+      ],
+      "compression": {
+        "algorithm": "EXT_meshopt_compression",
+        "beforeBytes": 7567740,
+        "positionBits": 16,
+        "normalBits": 12,
+        "uvBits": 16
+      }
+    }
+  ],
+  "processor": {
+    "file": "scripts/prepare_cafe_characters.py",
+    "sha256": "a3c536186e5f43dd13e148de03d7fa0f1713142d57b78a4deabe01effdea0c6e"
+  },
+  "animationProcessor": {
+    "file": "scripts/rig_cafe_characters.py",
+    "sha256": "1dd1c5ddc94d2c2ea589399511b1ac09de3b91441d61e9f1a6d23d2f6bec642d"
+  }
+}

@@ -1,0 +1,36 @@
+/** Optimize only the prepared tank, preserving turret/barrel/muzzle pivots. */
+import {NodeIO} from '@gltf-transform/core';
+import {ALL_EXTENSIONS} from '@gltf-transform/extensions';
+import {dedup,weld,meshopt} from '@gltf-transform/functions';
+import {MeshoptEncoder,MeshoptDecoder} from 'meshoptimizer';
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const dir=new URL('../public/city/tank/',import.meta.url);
+const path=fileURLToPath(new URL('tank.glb',dir));
+const manifestPath=new URL('manifest.json',dir);
+const manifest=JSON.parse(await fs.readFile(manifestPath,'utf8'));
+const hash=buffer=>createHash('sha256').update(buffer).digest('hex');
+const before=await fs.readFile(path);
+if(manifest.compression&&hash(before)===manifest.assetStats.sha256){console.log('Tank asset already optimized.');process.exit(0);}
+await Promise.all([MeshoptEncoder.ready,MeshoptDecoder.ready]);
+const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'meshopt.encoder':MeshoptEncoder,'meshopt.decoder':MeshoptDecoder});
+const doc=await io.read(path);
+for(const name of Object.values(manifest.nodes))if(!doc.getRoot().listNodes().some(n=>n.getName()===name))throw new Error(`Tank node missing: ${name}`);
+await doc.transform(dedup(),weld(),meshopt({encoder:MeshoptEncoder,level:'high',quantizePosition:16,quantizeNormal:12,quantizeTexcoord:16,quantizationVolume:'mesh'}));
+await io.write(path,doc);
+const bytes=await fs.readFile(path),roundtrip=await io.read(path);
+const node=name=>roundtrip.getRoot().listNodes().find(n=>n.getName()===name);
+const muzzle=node(manifest.nodes.muzzle);
+const matrix=muzzle.getWorldMatrix();
+const muzzleWorld=matrix.slice(12,15);
+if(muzzleWorld.some((value,i)=>Math.abs(value-manifest.pivots.muzzleRestRoot[i])>.002))throw new Error('Tank muzzle pivot moved after export/compression: '+muzzleWorld);
+if(bytes.length>10_000_000)throw new Error('Tank exceeds 10MB game asset budget.');
+const materialTextures=roundtrip.getRoot().listMaterials().map(m=>({name:m.getName(),baseColor:!!m.getBaseColorTexture(),normal:!!m.getNormalTexture(),metallicRoughness:!!m.getMetallicRoughnessTexture()}));
+if(!materialTextures.some(m=>m.baseColor&&m.normal&&m.metallicRoughness))throw new Error('Original tank PBR textures were lost.');
+manifest.assetStats.bytes=bytes.length;manifest.assetStats.sha256=hash(bytes);
+manifest.compression={algorithm:'EXT_meshopt_compression',beforeBytes:before.length,positionBits:16,normalBits:12,uvBits:16};
+manifest.validation={decodedMuzzleWorld:muzzleWorld,decodedNodes:roundtrip.getRoot().listNodes().length,decodedMaterials:materialTextures,decodedTextureCount:roundtrip.getRoot().listTextures().length};
+manifest.processor.optimizerSha256=hash(await fs.readFile(new URL('./optimize_tank.mjs',import.meta.url)));
+await fs.writeFile(manifestPath,JSON.stringify(manifest,null,2)+'\n');
+console.log(JSON.stringify({bytes:bytes.length,triangles:manifest.assetStats.triangles,muzzle:muzzleWorld,dimensions:manifest.coordinates.dimensions,materials:materialTextures}));

@@ -8,6 +8,7 @@ export type CinematicHudState = {
   distance: number;
   roadName: string;
   district?: string;
+  flight?: boolean;
   night?: boolean;
   lightMode?: 'sunset'|'night'|'day';
   walking?:boolean;
@@ -176,7 +177,7 @@ export function updateCinematicHud(state: CinematicHudState): void {
   if (hud.roadEnglish.hidden !== !english) hud.roadEnglish.hidden = !english;
   const district = state.district || '深圳湾';
   const areaLabel = district.split(/\s*·\s*/).filter(Boolean).at(-1) || district;
-  const mode = state.observer ? '无人机观景' : state.navigation ? '沿途导航' : state.walking?'步行探索':'自由驾驶';
+  const mode = state.flight ? '海湾飞行' : state.observer ? '无人机观景' : state.navigation ? '沿途导航' : state.walking?'步行探索':'自由驾驶';
   writeText(hud.subtitle, `${areaLabel} · ${mode}`);
   writeText(hud.district, district);
   writeText(hud.clock, state.lightMode==='day' ? '14:20' : state.night ? '20:10' : '18:25');

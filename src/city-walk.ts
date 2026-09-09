@@ -4,16 +4,16 @@ import {clamp} from './driving.ts';
 export class CityWalk {
  active=false;x=0;z=0;yaw=0;pitch=0;distance=0;moving=false;speed=0;
  constructor(private blocked:(x:number,z:number)=>boolean,private heightAt:(x:number,z:number)=>number){}
- exitCar(car:{x:number;z:number;yaw:number;speed:number}){
+ exitCar(car:{x:number;z:number;yaw:number;speed:number},doorOffset=1.9){
   if(Math.abs(car.speed)>1)return false;
-  for(const offset of [1.9,-1.9,2.8,-2.8]){
+  for(const offset of [doorOffset,-doorOffset,doorOffset+.9,-doorOffset-.9]){
    const x=car.x+Math.cos(car.yaw)*offset,z=car.z-Math.sin(car.yaw)*offset;
    if(this.blocked(x,z))continue;
    this.x=x;this.z=z;this.yaw=car.yaw;this.pitch=0;this.active=true;return true;
   }
   return false;
  }
- canEnter(car:{x:number;z:number}){return Math.hypot(this.x-car.x,this.z-car.z)<5;}
+ canEnter(car:{x:number;z:number},radius=5){return Math.hypot(this.x-car.x,this.z-car.z)<radius;}
  look(dx:number,dy:number){this.yaw+=dx*.004;this.pitch=clamp(this.pitch+dy*.003,-1.15,1.15);}
  step(keys:Set<string>,dt:number){
   if(!this.active)return;
