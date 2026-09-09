@@ -37,6 +37,33 @@ def reset(rig):
     for pb in rig.pose.bones:
         pb.rotation_mode='QUATERNION';pb.rotation_quaternion=Quaternion();pb.location=(0,0,0);pb.scale=(1,1,1)
 
+def relaxed_arms(rig,swings=None,elbows=None):
+    """Replace the scan's wide A-pose with shoulders down and palms at sides.
+
+    A small outfit-specific clearance keeps gloves outside the jacket and
+    palms outside the flared skirt. Directions are anatomical/world-space;
+    the authored bone roll and the label-to-X convention may differ by rig.
+    """
+    rider='calf_L' in rig.pose.bones
+    if rider:slopes=(.14,.10,.04)
+    elif rig.name.endswith('_jk'):slopes=(.18,.16,.04)
+    else:slopes=(.28,.28,.08)
+    swings=swings or {};elbows=elbows or {}
+    bpy.context.view_layer.update()
+    for side in ('L','R'):
+        upper=rig.pose.bones['upper_arm_'+side]
+        sign=1 if upper.bone.head_local.x>0 else -1
+        body=upper.parent.matrix.to_quaternion() @ upper.parent.bone.matrix_local.to_quaternion().inverted()
+        swing=swings.get(side,0);elbow=elbows.get(side,.09 if rider else .07)
+        for i,prefix in enumerate(('upper_arm_','forearm_','hand_')):
+            pb=rig.pose.bones[prefix+side]
+            neutral=Vector((sign*slopes[i],-.025,-1)).normalized()
+            rest_direction=pb.bone.tail_local-pb.bone.head_local
+            neutral_rotation=rest_direction.rotation_difference(neutral) @ pb.bone.matrix_local.to_quaternion()
+            desired=body @ Quaternion(Vector((1,0,0)),swing-(elbow if i>0 else 0)) @ neutral_rotation
+            set_world_rotation(pb,desired)
+            bpy.context.view_layer.update()
+
 def leg_context(rig,mesh,scale=1):
     result={}
     lower='calf' if 'calf_L' in rig.pose.bones else 'shin'
@@ -91,10 +118,9 @@ def pose_gait(rig,context,phase,profile,scale=1):
     rotate_world(rig.pose.bones['pelvis'],(0,0,1),.025*math.sin(t))
     upper=rig.pose.bones.get('chest') or rig.pose.bones['spine']
     rotate_world(upper,(1,0,0),profile['lean'])
-    for side,shift in [('L',0),('R',.5)]:
-        p=(phase+shift)%1;arm=profile['arm']*math.cos(p*math.tau)
-        rotate_world(rig.pose.bones['upper_arm_'+side],(1,0,0),arm)
-        rotate_world(rig.pose.bones['forearm_'+side],(1,0,0),-profile['elbow']-.10*math.sin(p*math.tau))
+    relaxed_arms(rig,
+        {side:profile['arm']*math.cos((phase+shift)*math.tau) for side,shift in [('L',0),('R',.5)]},
+        {side:profile['elbow']+.10*math.sin((phase+shift)*math.tau) for side,shift in [('L',0),('R',.5)]})
     bpy.context.view_layer.update()
     for side,shift in [('L',0),('R',.5)]:
         leg=context[side];p=(phase+shift)%1
@@ -130,11 +156,33 @@ def bake_rider_idle(rig):
         bpy.context.scene.frame_set(frame);reset(rig);t=frame/60*math.tau
         rotate_world(rig.pose.bones['chest'],(1,0,0),.006*math.sin(t))
         rotate_world(rig.pose.bones['head'],(0,0,1),.015*math.sin(t))
+        relaxed_arms(rig)
         for pb in rig.pose.bones:
             pb.keyframe_insert(data_path='rotation_quaternion',frame=frame,group=pb.name)
             pb.keyframe_insert(data_path='location',frame=frame,group=pb.name)
             pb.keyframe_insert(data_path='scale',frame=frame,group=pb.name)
     action=rig.animation_data.action;action.name='Rider_Idle';action.use_fake_user=True
+    return action
+
+def bake_cafe_rest(rig,name):
+    """Idle or greeting; the inactive hand stays at the skirt side."""
+    wave=name=='CafeWave';end=90 if wave else 120
+    rig.animation_data_create();rig.animation_data.action=None
+    for frame in range(0,end+1,3):
+        bpy.context.scene.frame_set(frame);reset(rig);phase=frame/end*math.tau
+        rotate_world(rig.pose.bones['spine'],(0,1,0),.006*math.sin(phase))
+        rotate_world(rig.pose.bones['head'],(0,1,0),.012*math.sin(phase+.8))
+        relaxed_arms(rig)
+        if wave:
+            rotate_world(rig.pose.bones['upper_arm_R'],(0,1,0),-1.01)
+            rotate_world(rig.pose.bones['forearm_R'],(0,1,0),-1.38+.055*math.sin(phase*3))
+            rotate_world(rig.pose.bones['hand_R'],(0,1,0),.26*math.sin(phase*3))
+            rotate_world(rig.pose.bones['head'],(0,1,0),-.035+.012*math.sin(phase))
+        for pb in rig.pose.bones:
+            pb.keyframe_insert(data_path='rotation_quaternion',frame=frame,group=pb.name)
+            pb.keyframe_insert(data_path='location',frame=frame,group=pb.name)
+            pb.keyframe_insert(data_path='scale',frame=frame,group=pb.name)
+    action=rig.animation_data.action;action.name=name;action.use_fake_user=True
     return action
 
 def gait_metadata(profile_name,scale=1):

@@ -4,7 +4,7 @@ import sys, json, hashlib, math, shutil
 import bpy
 from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from character_gait import bake_gait, bake_rider_idle, reset, gait_metadata
+from character_gait import bake_gait, bake_rider_idle, bake_cafe_rest, reset, gait_metadata
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'output/character-gaits';OUT.mkdir(parents=True,exist_ok=True)
 REPORT=ROOT/'artifacts/city/gaits';REPORT.mkdir(parents=True,exist_ok=True)
@@ -20,7 +20,7 @@ for kind in ['rider','maid','jk']:
     mesh=next(o for o in bpy.context.scene.objects if o.type=='MESH')
     scene=bpy.context.scene;scene.render.fps=30
     scale=1 if rider else max(v.co.z for v in mesh.data.vertices)/1.69
-    names=['Rider_Idle','Rider_Walk','Rider_Run'] if rider else ['CafeWalk']
+    names=['Rider_Idle','Rider_Walk','Rider_Run'] if rider else ['CafeIdle','CafeWalk','CafeWave']
     rig.animation_data.action=None
     for track in list(rig.animation_data.nla_tracks):
         if any(strip.action.name in names for strip in track.strips):rig.animation_data.nla_tracks.remove(track)
@@ -28,6 +28,8 @@ for kind in ['rider','maid','jk']:
         if action.name in names:bpy.data.actions.remove(action)
     actions={}
     if rider:actions['Rider_Idle']=bake_rider_idle(rig)
+    else:
+        for name in ['CafeIdle','CafeWave']:actions[name]=bake_cafe_rest(rig,name)
     for name,profile in ([('Rider_Walk','walk'),('Rider_Run','run')] if rider else [('CafeWalk','cafe')]):
         actions[name]=bake_gait(rig,mesh,name,profile,scale)
     rig.animation_data.action=None;reset(rig);scene.frame_set(0);bpy.context.view_layer.update()
@@ -50,7 +52,7 @@ for kind in ['rider','maid','jk']:
     # point forwards, lift the heel and avoid punching the shoe through ground.
     kind_reports=[]
     for name,action in actions.items():
-        if 'Idle' in name:continue
+        if not any(word in name for word in ('Walk','Run')):continue
         rig.animation_data.action=action;frames=int(action.frame_range.y)
         flex=[];forward=[];ground=[]
         lower='calf' if rider else 'shin'
@@ -83,10 +85,19 @@ for kind in ['rider','maid','jk']:
     d=bpy.data.cameras.new('Gait camera');cam=bpy.data.objects.new(d.name,d);scene.collection.objects.link(cam);scene.camera=cam
     d.type='ORTHO';d.ortho_scale=2.02;cam.location=(4,-.6,.85);cam.rotation_euler=(Vector((0,0,.85))-cam.location).to_track_quat('-Z','Y').to_euler()
     for name,action in actions.items():
-        if 'Idle' in name:continue
+        if not any(word in name for word in ('Walk','Run')):continue
         rig.animation_data.action=action
         for i,fraction in enumerate([.03,.22,.47,.80]):
             scene.frame_set(round(action.frame_range.y*fraction))
             scene.render.filepath=str(OUT/(kind+'-'+name+'-'+str(i)+'.png'))
             bpy.ops.render.render(write_still=True)
+    idle=actions['Rider_Idle' if rider else 'CafeIdle']
+    rig.animation_data.action=idle;scene.frame_set(15)
+    for label,position in [('front',(0,-4,.87)),('rear',(0,4,.87))]:
+        cam.location=position;cam.rotation_euler=(Vector((0,0,.87))-cam.location).to_track_quat('-Z','Y').to_euler()
+        scene.render.filepath=str(OUT/(kind+'-relaxed-'+label+'.png'));bpy.ops.render.render(write_still=True)
+    if not rider:
+        rig.animation_data.action=actions['CafeWave'];scene.frame_set(15)
+        cam.location=(.5,-4,.97);cam.rotation_euler=(Vector((0,0,.9))-cam.location).to_track_quat('-Z','Y').to_euler()
+        scene.render.filepath=str(OUT/(kind+'-relaxed-wave.png'));bpy.ops.render.render(write_still=True)
 (REPORT/'bake-validation.json').write_text(json.dumps(reports,indent=2)+'\n')

@@ -37,8 +37,8 @@
       "meshes": 1,
       "materials": 1,
       "rigged": true,
-      "bytes": 3597024,
-      "sha256": "0ac27488e02acd7a8eeae3f94a74a611fec2e8f29bdca0d929ece470275329e3",
+      "bytes": 3597240,
+      "sha256": "92bf7483ee3f61e6b6ae0fef79b0aadff33547dd871d0f0faad8d8b3c9a5fead",
       "preview": [
         "output/playwright/cafe-characters/maid-front.png",
         "output/playwright/cafe-characters/maid-back.png",
@@ -59,7 +59,7 @@
       },
       "compression": {
         "algorithm": "EXT_meshopt_compression",
-        "beforeBytes": 7889808,
+        "beforeBytes": 7890084,
         "positionBits": 16,
         "normalBits": 12,
         "uvBits": 16
@@ -88,8 +88,8 @@
       "meshes": 1,
       "materials": 1,
       "rigged": true,
-      "bytes": 3359444,
-      "sha256": "6f54b81e446f2171278c659593d0e58167e1749f926f3b7a085279490a69fa6e",
+      "bytes": 3359564,
+      "sha256": "e46b7f13f91529b153dd90eeffb84ae49fd35bdd81b66a3bc1c7f3564d77a959",
       "preview": [
         "output/playwright/cafe-characters/jk-front.png",
         "output/playwright/cafe-characters/jk-back.png",
@@ -110,7 +110,7 @@
       },
       "compression": {
         "algorithm": "EXT_meshopt_compression",
-        "beforeBytes": 7569772,
+        "beforeBytes": 7569908,
         "positionBits": 16,
         "normalBits": 12,
         "uvBits": 16
@@ -127,7 +127,7 @@
   },
   "gaitProcessor": {
     "file": "scripts/character_gait.py",
-    "sha256": "bdc0e3b5aefbf121c472eb40dac76ecc7b6b71b264e634b8ae8055d27107c54f",
+    "sha256": "3227e33b0a5309e6a896a375b872eca841f2177aee3aa47c5d7e5312541d91ac",
     "rebake": "scripts/rebake_character_gaits.py"
   }
 }

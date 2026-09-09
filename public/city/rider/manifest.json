@@ -30,8 +30,8 @@
       "seconds": 0.7333333333333333
     }
   ],
-  "bytes": 2967452,
-  "sha256": "9c96f87c3174b018cc770054302278848f410c18f4ab878100c4f03254ff4911",
+  "bytes": 2967904,
+  "sha256": "7e1f3d5b4f23e3b2f235e3a7807a383ba1105d5bed7c9ce4703320ba7208c72c",
   "limitations": "Simple scan-derived rig: no fingers, facial blend shapes, runtime terrain foot IK or cloth simulation. Helmet ears included in total 1.78m display height.",
   "selection": {
     "BlenderXLessThan": -0.16
@@ -53,13 +53,13 @@
       "method": "baked two-bone IK with forward knee poles and sole contacts"
     }
   },
-  "compression": {
-    "algorithm": "EXT_meshopt_compression",
-    "beforeBytes": 4827724
-  },
   "gaitProcessor": {
     "file": "scripts/character_gait.py",
-    "sha256": "bdc0e3b5aefbf121c472eb40dac76ecc7b6b71b264e634b8ae8055d27107c54f",
+    "sha256": "3227e33b0a5309e6a896a375b872eca841f2177aee3aa47c5d7e5312541d91ac",
     "rebake": "scripts/rebake_character_gaits.py"
+  },
+  "compression": {
+    "algorithm": "EXT_meshopt_compression",
+    "beforeBytes": 4828280
   }
 }

@@ -6,9 +6,9 @@ and source height; runtime continues to fit each employee to 1.93–1.96 units.
 Run Blender --background --factory-startup --python scripts/rig_cafe_characters.py.
 """
 from pathlib import Path
-import bpy, math, json, hashlib, sys
+import bpy, json, hashlib, sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from character_gait import bake_gait, gait_metadata
+from character_gait import bake_gait, bake_cafe_rest, gait_metadata
 from mathutils import Vector, Quaternion
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -21,10 +21,6 @@ manifest=json.loads((OUT/'manifest.json').read_text())
 def smooth(a,b,t):
     x=max(0,min(1,(t-a)/(b-a)))
     return x*x*(3-2*x)
-
-def rotate(pb,axis,angle):
-    basis=pb.bone.matrix_local.to_quaternion()
-    pb.rotation_quaternion=basis.inverted() @ Quaternion(Vector(axis),angle) @ basis
 
 for kind in ['maid','jk']:
     bpy.ops.wm.open_mainfile(filepath=str(ART/(kind+'.blend')))
@@ -101,25 +97,8 @@ for kind in ['maid','jk']:
     for pb in rig.pose.bones:pb.rotation_mode='QUATERNION'
     scene=bpy.context.scene;scene.render.fps=30;scene.frame_start=0
     actions={}
-    for clip,end in [('CafeIdle',120),('CafeWalk',36),('CafeWave',90)]:
-        if clip=='CafeWalk':
-            actions[clip]=bake_gait(rig,ob,clip,'cafe',factor)
-            continue
-        rig.animation_data_create();rig.animation_data.action=None
-        for frame in range(0,end+1,3):
-            scene.frame_set(frame);phase=frame/end*math.tau
-            for pb in rig.pose.bones:pb.rotation_quaternion=Quaternion();pb.location=(0,0,0)
-            rotate(rig.pose.bones['spine'],(0,1,0),.006*math.sin(phase))
-            rotate(rig.pose.bones['head'],(0,1,0),.012*math.sin(phase+.8))
-            if clip=='CafeWave':
-                rotate(rig.pose.bones['upper_arm_R'],(0,1,0),-1.01)
-                rotate(rig.pose.bones['forearm_R'],(0,1,0),-1.38+.055*math.sin(phase*3))
-                rotate(rig.pose.bones['hand_R'],(0,1,0),.26*math.sin(phase*3))
-                rotate(rig.pose.bones['head'],(0,1,0),-.035+.012*math.sin(phase))
-            for pb in rig.pose.bones:
-                pb.keyframe_insert(data_path='rotation_quaternion',frame=frame,group=pb.name)
-                pb.keyframe_insert(data_path='location',frame=frame,group=pb.name)
-        action=rig.animation_data.action;action.name=clip;action.use_fake_user=True;actions[clip]=action
+    for clip in ['CafeIdle','CafeWalk','CafeWave']:
+        actions[clip]=bake_gait(rig,ob,clip,'cafe',factor) if clip=='CafeWalk' else bake_cafe_rest(rig,clip)
     rig.animation_data.action=None
     for name,action in actions.items():
         track=rig.animation_data.nla_tracks.new();track.name=name
