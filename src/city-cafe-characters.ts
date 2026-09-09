@@ -2,10 +2,10 @@ import {ImportMeshAsync,Matrix,PBRMaterial,Quaternion,Vector3,type AbstractMesh,
 import type {CafeSpec} from './city-cafe-layout.ts';
 import type {CafeStaffPose} from './city-cafe-staff-motion.ts';
 
-type CharacterManifest={schemaVersion:number;staffAssignments:Record<string,string>;models:{id:string;file:string;triangles:number;bytes:number;height:number;rigged:boolean}[]};
+type CharacterManifest={schemaVersion:number;staffAssignments:Record<string,string>;models:{id:string;file:string;triangles:number;bytes:number;height:number;rigged:boolean;gait:{authoredSpeed:number}}[]};
 type CharacterFit={sourceHeight:number;displayHeight:number;verticalScale:number;horizontalScale:number;footOffset:number};
 export type CafeCharacterStatus={loaded:boolean;error:string|null;assignments:Record<string,string>;triangles:number;source:'user-provided Tripo GLBs';proportions?:Record<string,CharacterFit>;animation?:{rigged:boolean;bones:number;clips:string[];independentSkeletons:number}};
-type AnimatedStaff={id:string;anchor:TransformNode;groups:Record<'idle'|'walk'|'wave',AnimationGroup>;started:boolean;playing:boolean};
+type AnimatedStaff={id:string;anchor:TransformNode;groups:Record<'idle'|'walk'|'wave',AnimationGroup>;started:boolean;playing:boolean;authoredSpeed:number};
 
 // Art-directed DISPLAY heights in this cafe, not claims about real people.
 // These large-headed models had eyes well below the 1.68-unit player eye and
@@ -84,7 +84,7 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
      return [name,group];
     })) as AnimatedStaff['groups'];
     if(!result.skeletons.length)throw Error('Cafe character skeleton missing: '+kind);
-    staffAnimations.push({id:target.staff.id,anchor:target.root!,groups,started:false,playing:false});
+    staffAnimations.push({id:target.staff.id,anchor:target.root!,groups,started:false,playing:false,authoredSpeed:model.gait.authoredSpeed*proportions[target.staff.id].horizontalScale});
    }
   }
   // Commit only after BOTH outfits loaded, retaining original characters as a
@@ -106,7 +106,7 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
     if(!active)continue;
     const wave=pose.wave,walk=Math.min(1-wave,pose.walk);
     staff.groups.idle.setWeightForAllAnimatables(Math.max(0,1-walk-wave));
-    staff.groups.walk.setWeightForAllAnimatables(walk);staff.groups.walk.speedRatio=Math.max(.25,pose.speed/.52);
+    staff.groups.walk.setWeightForAllAnimatables(walk);staff.groups.walk.speedRatio=Math.max(0,pose.speed/staff.authoredSpeed);
     staff.groups.wave.setWeightForAllAnimatables(wave);
    }
   };

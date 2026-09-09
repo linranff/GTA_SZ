@@ -37,8 +37,8 @@
       "meshes": 1,
       "materials": 1,
       "rigged": true,
-      "bytes": 3594504,
-      "sha256": "7dd8e5cabf80136b24870d30710d0d2954f6098cc9a32cdb172b8e0beef4cbb1",
+      "bytes": 3597024,
+      "sha256": "0ac27488e02acd7a8eeae3f94a74a611fec2e8f29bdca0d929ece470275329e3",
       "preview": [
         "output/playwright/cafe-characters/maid-front.png",
         "output/playwright/cafe-characters/maid-back.png",
@@ -50,9 +50,16 @@
         "CafeWalk",
         "CafeWave"
       ],
+      "gait": {
+        "cycleSeconds": 1.2,
+        "stanceFraction": 0.66,
+        "authoredSpeed": 0.410350886258212,
+        "swingLift": 0.09999935443584736,
+        "method": "baked two-bone IK with forward knee poles and sole contacts"
+      },
       "compression": {
         "algorithm": "EXT_meshopt_compression",
-        "beforeBytes": 7887912,
+        "beforeBytes": 7889808,
         "positionBits": 16,
         "normalBits": 12,
         "uvBits": 16
@@ -81,8 +88,8 @@
       "meshes": 1,
       "materials": 1,
       "rigged": true,
-      "bytes": 3356808,
-      "sha256": "2a0ecdfda0bf185147faff6300eeeb150eaa9736e2939a71f42a21a982732629",
+      "bytes": 3359444,
+      "sha256": "6f54b81e446f2171278c659593d0e58167e1749f926f3b7a085279490a69fa6e",
       "preview": [
         "output/playwright/cafe-characters/jk-front.png",
         "output/playwright/cafe-characters/jk-back.png",
@@ -94,9 +101,16 @@
         "CafeWalk",
         "CafeWave"
       ],
+      "gait": {
+        "cycleSeconds": 1.2,
+        "stanceFraction": 0.66,
+        "authoredSpeed": 0.4054786291526285,
+        "swingLift": 0.09881202285811747,
+        "method": "baked two-bone IK with forward knee poles and sole contacts"
+      },
       "compression": {
         "algorithm": "EXT_meshopt_compression",
-        "beforeBytes": 7567740,
+        "beforeBytes": 7569772,
         "positionBits": 16,
         "normalBits": 12,
         "uvBits": 16
@@ -110,5 +124,10 @@
   "animationProcessor": {
     "file": "scripts/rig_cafe_characters.py",
     "sha256": "1dd1c5ddc94d2c2ea589399511b1ac09de3b91441d61e9f1a6d23d2f6bec642d"
+  },
+  "gaitProcessor": {
+    "file": "scripts/character_gait.py",
+    "sha256": "bdc0e3b5aefbf121c472eb40dac76ecc7b6b71b264e634b8ae8055d27107c54f",
+    "rebake": "scripts/rebake_character_gaits.py"
   }
 }

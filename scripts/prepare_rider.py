@@ -3,7 +3,9 @@ Run: Blender --background --factory-startup --python scripts/prepare_rider.py
 The original is never modified. Blender -Y front becomes glTF +Z front.
 """
 from pathlib import Path
-import bpy, bmesh, hashlib, json, math
+import bpy, bmesh, hashlib, json, math, sys
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from character_gait import bake_gait, bake_rider_idle, reset, gait_metadata
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'public/city/rider';ART=ROOT/'artifacts/city/rider';REVIEW=ROOT/'output/rider'
@@ -87,45 +89,12 @@ for v in ob.data.vertices:
  for name,weight in items:ob.vertex_groups[name].add([v.index],weight/total,'REPLACE')
 modifier=ob.modifiers.new('Delivery rider skeletal deformation','ARMATURE');modifier.object=rig
 ob.parent=rig
-for pb in rig.pose.bones:pb.rotation_mode='XYZ'
 scene=bpy.context.scene;scene.render.fps=30
 rig.animation_data_create()
-clips=[]
-for label,frames in [('Idle',60),('Walk',32),('Run',22)]:
- action=bpy.data.actions.new('Rider_'+label);rig.animation_data.action=action
- for frame in range(frames+1):
-  t=frame/frames*2*math.pi
-  for pb in rig.pose.bones:pb.rotation_euler=(0,0,0);pb.location=(0,0,0)
-  pelvis=rig.pose.bones['pelvis'];chest=rig.pose.bones['chest']
-  if label=='Idle':
-   chest.rotation_euler.x=.008*math.sin(t);chest.scale=(1+math.sin(t)*.005,1,1)
-   rig.pose.bones['head'].rotation_euler.z=.022*math.sin(t*.999)
-  else:
-   run=label=='Run';thigh=.68 if run else .34;knee=1.12 if run else .52;arm=.53 if run else .24
-   pelvis.location.y=(.035 if run else .018)*(1-math.cos(2*t))
-   pelvis.rotation_euler.x=-.09 if run else -.015
-   pelvis.rotation_euler.z=.027*math.sin(t)
-   chest.rotation_euler.y=.032*math.sin(t)
-   for side,phase in [('L',t),('R',t+math.pi)]:
-    swing=math.sin(phase)
-    rig.pose.bones[f'thigh_{side}'].rotation_euler.x=thigh*swing
-    rig.pose.bones[f'calf_{side}'].rotation_euler.x=-knee*max(0,-swing)
-    rig.pose.bones[f'foot_{side}'].rotation_euler.x=-.18*swing
-    rig.pose.bones[f'upper_arm_{side}'].rotation_euler.x=-arm*swing
-    rig.pose.bones[f'forearm_{side}'].rotation_euler.x=-((.88 if run else .20)+.16*max(0,swing))
-  for pb in rig.pose.bones:
-   pb.keyframe_insert(data_path='rotation_euler',frame=frame)
-   pb.keyframe_insert(data_path='location',frame=frame)
-  chest.keyframe_insert(data_path='scale',frame=frame)
- action.use_fake_user=True
- slot=rig.animation_data.action_slot
- track=rig.animation_data.nla_tracks.new();track.name='Rider_'+label
- strip=track.strips.new('Rider_'+label,0,action)
- if slot:strip.action_slot=slot
- track.mute=True
- clips.append({'name':'Rider_'+label,'frames':frames,'seconds':frames/30})
+actions=[bake_rider_idle(rig),bake_gait(rig,ob,'Rider_Walk','walk'),bake_gait(rig,ob,'Rider_Run','run')]
+clips=[{'name':a.name,'frames':int(a.frame_range.y),'seconds':a.frame_range.y/30} for a in actions]
 rig.animation_data.action=None
-for pb in rig.pose.bones:pb.rotation_euler=(0,0,0);pb.location=(0,0,0);pb.scale=(1,1,1)
+reset(rig)
 scene.frame_set(0)
 bpy.ops.object.select_all(action='DESELECT');ob.select_set(True);rig.select_set(True);bpy.context.view_layer.objects.active=rig
 # Blender 5 action mode exports the three independent armature actions.
@@ -139,8 +108,8 @@ manifest={'schemaVersion':1,'file':'rider.glb','sourceFile':SOURCE.name,'sourceS
  'derivation':'Complete left front-facing figure with its own back retained. Side-view and reversed duplicate removed. Silhouette reduction, deterministic 17-bone soft weights, in-place Idle/Walk/Run skeletal animation.',
  'license':'User-supplied Tripo asset; no independent external licence assertion.','height':HEIGHT,'units':'metres',
  'forward':'glTF +Z; Blender -Y','floor':0,'triangles':sum(len(p.vertices)-2 for p in ob.data.polygons),'bones':len(bones),
- 'sourceTriangles':source_triangles,'animations':clips,'bytes':path.stat().st_size,'sha256':sha(path),
- 'limitations':'Simple scan-derived rig: no fingers, facial blend shapes, foot IK or cloth simulation. Helmet ears included in total 1.78m display height.',
+ 'sourceTriangles':source_triangles,'animations':clips,'gait':{key:gait_metadata(key) for key in ['walk','run']},'bytes':path.stat().st_size,'sha256':sha(path),
+ 'limitations':'Simple scan-derived rig: no fingers, facial blend shapes, runtime terrain foot IK or cloth simulation. Helmet ears included in total 1.78m display height.',
  'selection':{'BlenderXLessThan':-.16},'preview':'output/rider/rider-contact-sheet.png'}
 (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 # Named front/back and moving limb poses give reviewable geometry evidence.
@@ -152,7 +121,7 @@ scene.world.node_tree.nodes['Background'].inputs['Strength'].default_value=.45
 for pos,energy in [((-2,-3,4),450),((3,-1,2),250),((0,3,3),380)]:
  d=bpy.data.lights.new('Rider review light','AREA');d.energy=energy;d.size=3;o=bpy.data.objects.new(d.name,d);scene.collection.objects.link(o);o.location=pos;o.rotation_euler=(Vector((0,0,.9))-o.location).to_track_quat('-Z','Y').to_euler()
 d=bpy.data.cameras.new('Rider review camera');cam=bpy.data.objects.new(d.name,d);scene.collection.objects.link(cam);scene.camera=cam;d.type='ORTHO';d.ortho_scale=2.0
-for name,action,frame,pos in [('front','Idle',0,(0,-4,.9)),('back','Idle',0,(0,4,.9)),('walk','Walk',8,(2,-4,1)),('run','Run',5,(2,-4,1))]:
+for name,action,frame,pos in [('front','Idle',0,(0,-4,.9)),('back','Idle',0,(0,4,.9)),('walk','Walk',24,(4,-1,1)),('run','Run',15,(4,-1,1))]:
  rig.animation_data.action=bpy.data.actions['Rider_'+action];scene.frame_set(frame)
  cam.location=pos;cam.rotation_euler=(Vector((0,0,.87))-cam.location).to_track_quat('-Z','Y').to_euler()
  scene.render.filepath=str(REVIEW/('rider-'+name+'.png'));bpy.ops.render.render(write_still=True)

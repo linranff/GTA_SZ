@@ -185,7 +185,7 @@ export class DrivingWorld{
  }
  private async load(name:string){const r=await ImportMeshAsync('/city/'+name+'.glb',this.scene);r.meshes[0].rotationQuaternion=Quaternion.Identity();for(const m of r.meshes){m.isPickable=false;m.receiveShadows=true;if(m.material instanceof PBRMaterial){m.material.environmentIntensity=1.0;m.material.forceIrradianceInFragment=true;m.material.maxSimultaneousLights=8;}if(m.getTotalVertices())m.freezeWorldMatrix();}this.architecture.applyMeshes(r.meshes,name);this.facadeDiversity.applyMeshes(r.meshes,name);return r;}
  async init(progress:(s:string)=>void){
-  progress('正在展开深圳地图');const response=await fetch('/city/city.json');if(!response.ok)throw Error('地图加载失败');this.data=await response.json();await loadRoadDisplayNames(this.data);const detail=await loadLandmarkDetails(this.data);if(detail){this.groundHeight=detail.heightAt;this.detailManifest=detail.manifest;}progress('正在展开深圳山脊');this.mountains=await loadCityMountains(this.groundHeight);this.groundHeight=this.mountains.heightAt;progress('正在铺设公园缓坡');this.groundRelief=await loadCityGroundRelief(this.groundHeight,undefined,false);this.groundHeight=this.groundRelief.heightAt;progress('正在架设跨水桥梁');this.coastal=await loadCoastalInfrastructure(this.data,this.groundHeight);this.groundHeight=this.coastal.heightAt;this.collision=new CityCollision(this.data);this.walk=new CityWalk((x,z)=>this.collision.blocked(x,z)||this.propBlocked(x,z)||this.parkedVehicleBlocks(x,z),(x,z)=>this.groundHeight(x,z));this.windowSources=[];this.state={...this.data.spawn,speed:0,steer:0,distance:0};
+  progress('正在展开深圳地图');const response=await fetch('/city/city.json');if(!response.ok)throw Error('地图加载失败');this.data=await response.json();await loadRoadDisplayNames(this.data);const detail=await loadLandmarkDetails(this.data);if(detail){this.groundHeight=detail.heightAt;this.detailManifest=detail.manifest;}progress('正在展开深圳山脊');this.mountains=await loadCityMountains(this.groundHeight);this.groundHeight=this.mountains.heightAt;progress('正在铺设公园缓坡');this.groundRelief=await loadCityGroundRelief(this.groundHeight,undefined,false);this.groundHeight=this.groundRelief.heightAt;progress('正在架设跨水桥梁');this.coastal=await loadCoastalInfrastructure(this.data,this.groundHeight);this.groundHeight=this.coastal.heightAt;this.collision=new CityCollision(this.data);this.walk=new CityWalk((x,z)=>this.collision.blocked(x,z)||this.propBlocked(x,z)||this.parkedVehicleBlocks(x,z),(x,z)=>this.walkingSurfaceHeight(x,z));this.windowSources=[];this.state={...this.data.spawn,speed:0,steer:0,distance:0};
   progress('正在铺设海岸线和城市道路');await this.load('terrain');const roads=await this.load('roads');this.mountains?.drapePaths(roads.meshes);for(const name of ['coastal-bridges','coastal-shoreline','opposite-shore']){const part=await this.load(name);for(const mesh of part.meshes.filter(m=>m.getTotalVertices()>0)){mesh.receiveShadows=name!=='opposite-shore';if(name==='opposite-shore'){mesh.applyFog=true;if(mesh.material instanceof PBRMaterial){mesh.material.albedoColor.set(.10,.15,.14);mesh.material.environmentIntensity=.35;}this.coastalHorizon.push(createCoastalHorizon(this.scene,mesh,this.coastal!.manifest.waterHeight));}if(name==='coastal-shoreline'&&mesh.material)mesh.material.backFaceCulling=false;this.landmarks.push(mesh);}}
   progress('正在载入南山、福田、罗湖建筑');const buildings=await this.load('buildings');this.facadeStream=new CityFacadeStream(this.scene,()=>this.cull(),(meshes,name)=>this.architecture.applyMeshes(meshes,name));await this.facadeStream.init(this.state.x,this.state.z);
   for(const mesh of [...roads.meshes,...buildings.meshes]){const m=mesh.name.match(/(?:block|roads)_(-?\d+)_(-?\d+)_/);if(m)this.blocks.push({mesh,x:(Number(m[1])+.5)*640,z:(Number(m[2])+.5)*640,road:mesh.name.startsWith('roads')});}
@@ -233,6 +233,17 @@ export class DrivingWorld{
   return Math.abs(dx*c-dz*s)<(this.tank?.active?1.94:1.18)&&Math.abs(dx*s+dz*c)<(this.tank?.active?3.55:2.7);
  }
  get vehicleMeshes(){return this.tank?.active?this.tank.meshes:this.carMeshes;}
+ walkingSurfaceHeight(x:number,z:number){
+  const height=this.groundHeight(x,z);
+  if(Number.isFinite(this.bambooCafe?.layout.floorAt(x,z,NaN)))return height;
+  const n=this.collision.nearest(x,z);if(!n)return height;
+  // The authored road/pavement meshes sit above the terrain sampler. Place
+  // the shoe sole on those surfaces, as the vehicle already does for wheels.
+  const edge=n.d-n.road.width/2;
+  if(edge<=0)return height+.105;
+  const pavement=['trunk','primary','secondary','tertiary'].includes(n.road.kind)?2.4:1.2;
+  return height+(edge<pavement?.065:0);
+ }
  async toggleTank(){
   if(!this.ready||!this.tank||this.tank.loading||(this.paused&&!this.observer.active))return;
   if(this.walk?.active){this.onMessage?.('先走回车辆旁按 F 上车，再按 T 切换坦克');return;}
@@ -395,7 +406,7 @@ export class DrivingWorld{
   this.time+=dt;if(!this.paused)this.tank?.step(dt);
   if(this.flight?.active){const result=this.flight.step(this.keys,dt,performance.now());if(result==='recovered'||result==='boundary')this.returnFromFlight(result);else if(result==='crashed'){this.keys.clear();this.onMessage?.('飞机撞毁 · 3 秒后返回无人机');}}
   this.localLights(dt);const oldCarX=this.car.position.x,oldCarZ=this.car.position.z;if(!this.paused&&this.walk?.active){const before={x:this.walk.x,z:this.walk.z};this.walk.step(this.keys,dt);if(this.walk.moving)this.riderYaw=Math.atan2(this.walk.x-before.x,this.walk.z-before.z);}
-  if(this.walk&&this.rider){this.rider.setEnabled(this.walk.active&&(!this.walkFirstPerson||this.observer.active));this.rider.setPose({x:this.walk.x,y:this.groundHeight(this.walk.x,this.walk.z),z:this.walk.z,yaw:this.riderYaw,speed:this.paused?0:this.walk.speed},dt);}
+  if(this.walk&&this.rider){this.rider.setEnabled(this.walk.active&&(!this.walkFirstPerson||this.observer.active));this.rider.setPose({x:this.walk.x,y:this.walkingSurfaceHeight(this.walk.x,this.walk.z),z:this.walk.z,yaw:this.riderYaw,speed:this.paused?0:this.walk.speed},dt);}
   if(!this.paused&&!this.walk?.active){const n=this.collision.nearest(this.state.x,this.state.z);this.offroad=!n||n.d>n.road.width/2+1;if(n&&n.d<40)this.roadName=roadDisplayName(n.road);
    const throttle=(this.keys.has('KeyW')||this.keys.has('ArrowUp')?1:0)-(this.keys.has('KeyS')||this.keys.has('ArrowDown')?1:0),steer=(this.keys.has('KeyD')||this.keys.has('ArrowRight')?1:0)-(this.keys.has('KeyA')||this.keys.has('ArrowLeft')?1:0);
    const manual={throttle,steer:this.tank?.active?steer:manualSteeringInput(steer,this.state.speed),handbrake:this.keys.has(this.tank?.active?'KeyX':'Space')};const status=this.autopilot?.status;

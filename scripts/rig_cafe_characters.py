@@ -6,7 +6,9 @@ and source height; runtime continues to fit each employee to 1.93–1.96 units.
 Run Blender --background --factory-startup --python scripts/rig_cafe_characters.py.
 """
 from pathlib import Path
-import bpy, math, json, hashlib
+import bpy, math, json, hashlib, sys
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from character_gait import bake_gait, gait_metadata
 from mathutils import Vector, Quaternion
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -100,23 +102,15 @@ for kind in ['maid','jk']:
     scene=bpy.context.scene;scene.render.fps=30;scene.frame_start=0
     actions={}
     for clip,end in [('CafeIdle',120),('CafeWalk',36),('CafeWave',90)]:
+        if clip=='CafeWalk':
+            actions[clip]=bake_gait(rig,ob,clip,'cafe',factor)
+            continue
         rig.animation_data_create();rig.animation_data.action=None
         for frame in range(0,end+1,3):
             scene.frame_set(frame);phase=frame/end*math.tau
             for pb in rig.pose.bones:pb.rotation_quaternion=Quaternion();pb.location=(0,0,0)
             rotate(rig.pose.bones['spine'],(0,1,0),.006*math.sin(phase))
             rotate(rig.pose.bones['head'],(0,1,0),.012*math.sin(phase+.8))
-            if clip=='CafeWalk':
-                root_bone=rig.pose.bones['root']
-                root_bone.location=root_bone.bone.matrix_local.to_quaternion().inverted() @ Vector((0,0,.008*factor*(1-math.cos(phase*2))))
-                for side,label in [(-1,'L'),(1,'R')]:
-                    swing=math.sin(phase)*side;thigh=.225*swing;knee=.34*max(0,-swing)
-                    rotate(rig.pose.bones['thigh_'+label],(1,0,0),thigh)
-                    rotate(rig.pose.bones['shin_'+label],(1,0,0),-knee)
-                    rotate(rig.pose.bones['foot_'+label],(1,0,0),-thigh*.55+knee*.7)
-                    rotate(rig.pose.bones['upper_arm_'+label],(1,0,0),-.105*swing)
-                    rotate(rig.pose.bones['forearm_'+label],(1,0,0),-.06*max(0,swing))
-                rotate(rig.pose.bones['pelvis'],(0,0,1),.018*math.sin(phase))
             if clip=='CafeWave':
                 rotate(rig.pose.bones['upper_arm_R'],(0,1,0),-1.01)
                 rotate(rig.pose.bones['forearm_R'],(0,1,0),-1.38+.055*math.sin(phase*3))
@@ -140,7 +134,7 @@ for kind in ['maid','jk']:
         export_frame_range=False,export_force_sampling=True,export_cameras=False,export_lights=False,
         export_materials='EXPORT',export_extras=True,export_optimize_animation_size=True)
     model=next(m for m in manifest['models'] if m['id']==kind)
-    model.update(rigged=True,bones=len(definitions),animations=list(actions),bytes=path.stat().st_size,
+    model.update(rigged=True,bones=len(definitions),animations=list(actions),gait=gait_metadata('cafe',factor),bytes=path.stat().st_size,
         sha256=hashlib.sha256(path.read_bytes()).hexdigest())
     model.pop('compression',None)
     bpy.ops.wm.save_as_mainfile(filepath=str(ART/(kind+'-animated.blend')))

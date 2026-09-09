@@ -21,8 +21,8 @@
     },
     {
       "name": "Rider_Walk",
-      "frames": 32,
-      "seconds": 1.0666666666666667
+      "frames": 30,
+      "seconds": 1
     },
     {
       "name": "Rider_Run",
@@ -30,15 +30,36 @@
       "seconds": 0.7333333333333333
     }
   ],
-  "bytes": 2967556,
-  "sha256": "95c96fa50543b9e9bd35091379cfa5d37147f233ba4440da1951253f930eacb2",
-  "limitations": "Simple scan-derived rig: no fingers, facial blend shapes, foot IK or cloth simulation. Helmet ears included in total 1.78m display height.",
+  "bytes": 2967452,
+  "sha256": "9c96f87c3174b018cc770054302278848f410c18f4ab878100c4f03254ff4911",
+  "limitations": "Simple scan-derived rig: no fingers, facial blend shapes, runtime terrain foot IK or cloth simulation. Helmet ears included in total 1.78m display height.",
   "selection": {
     "BlenderXLessThan": -0.16
   },
   "preview": "output/rider/rider-contact-sheet.png",
+  "gait": {
+    "walk": {
+      "cycleSeconds": 1,
+      "stanceFraction": 0.62,
+      "authoredSpeed": 1.032258064516129,
+      "swingLift": 0.115,
+      "method": "baked two-bone IK with forward knee poles and sole contacts"
+    },
+    "run": {
+      "cycleSeconds": 0.7333333333333333,
+      "stanceFraction": 0.4,
+      "authoredSpeed": 2.590909090909091,
+      "swingLift": 0.34,
+      "method": "baked two-bone IK with forward knee poles and sole contacts"
+    }
+  },
   "compression": {
     "algorithm": "EXT_meshopt_compression",
-    "beforeBytes": 4830180
+    "beforeBytes": 4827724
+  },
+  "gaitProcessor": {
+    "file": "scripts/character_gait.py",
+    "sha256": "bdc0e3b5aefbf121c472eb40dac76ecc7b6b71b264e634b8ae8055d27107c54f",
+    "rebake": "scripts/rebake_character_gaits.py"
   }
 }

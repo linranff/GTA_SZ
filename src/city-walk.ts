@@ -1,4 +1,6 @@
 import {clamp} from './driving.ts';
+export const WALK_SPEED=1.6;
+export const RUN_SPEED=4.2;
 
 /** First-person street exploration. The parked car keeps its own state/odometer. */
 export class CityWalk {
@@ -22,7 +24,7 @@ export class CityWalk {
   this.pitch=clamp(this.pitch+((keys.has('ArrowDown')?1:0)-(keys.has('ArrowUp')?1:0))*dt,-1.15,1.15);
   let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);
   const length=Math.hypot(f,s);this.moving=length>0;if(!length)return;f/=length;s/=length;
-  const speed=keys.has('ShiftLeft')||keys.has('ShiftRight')?5.3:2.7;
+  const speed=keys.has('ShiftLeft')||keys.has('ShiftRight')?RUN_SPEED:WALK_SPEED;
   const dx=(Math.sin(this.yaw)*f+Math.cos(this.yaw)*s)*speed*dt,dz=(Math.cos(this.yaw)*f-Math.sin(this.yaw)*s)*speed*dt;
   const clear=(x:number,z:number)=>!this.blocked(x,z)&&Math.abs(this.heightAt(x,z)-this.heightAt(this.x,this.z))<.55;
   const oldX=this.x,oldZ=this.z;
