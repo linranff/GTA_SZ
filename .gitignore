@@ -6,6 +6,7 @@ data/raw/*.part
 data/cache/
 *.blend1
 node_modules/
+local-only/
 dist/
 .npm-cache/
 test-results/

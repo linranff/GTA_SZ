@@ -59,7 +59,7 @@ export const STREET_AO={radius:2.5,maxZ:130,strength:.65,base:.1,bufferRatio:.5,
 export const TANK_HEADLIGHT_ANCHORS:[number,number,number][]=[[-1.15,1.35,3.4],[1.15,1.35,3.4]];
 export class DrivingWorld{
  flight:CityFlight|null=null;private flightRequest=0;
- tank:CityTank|null=null;rider:CityRider|null=null;riderLoading=false;walkFirstPerson=false;private riderYaw=0;private tankRequest=0;
+ tank:CityTank|null=null;rider:CityRider|null=null;riderLoading=false;walkFirstPerson=false;private riderYaw=0;private riderPending:Promise<boolean>|null=null;private walkingTransition=false;private tankRequest=0;
  coastal:Awaited<ReturnType<typeof loadCoastalInfrastructure>>|null=null;bayWater:ReturnType<typeof createBayWater>|null=null;publicLighting:ReturnType<typeof createPublicLighting>|null=null;private lampAssignments=[-1,-1];
  coastalHorizon:ReturnType<typeof createCoastalHorizon>[]=[];
  propObstacles:{x:number;z:number;heading:number}[]=[];
@@ -149,7 +149,7 @@ export class DrivingWorld{
   this.vehicleLightRig=new TransformNode('vehicle-light-rig',this.scene);
   for(const side of [-1,1]){const light=new SpotLight('headlight',new Vector3(side*.6,0.82,2.25),new Vector3(0,-.055,1),Math.PI/3,4,this.scene);light.parent=this.vehicleLightRig;light.diffuse=new Color3(.78,.87,1);light.intensity=250;light.range=65;this.headlights.push(light);}
   window.addEventListener('resize',()=>{this.resize();this.engine.resize();});
-  window.addEventListener('keydown',e=>{if(e.target instanceof HTMLElement&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Tab'].includes(e.code))e.preventDefault();this.keys.add(e.code);if(!this.paused&&['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))this.cancelAutoDrive('manual-takeover');if(e.repeat)return;if(e.code==='KeyB')void this.toggleFlight();if(e.code==='KeyT')void this.toggleTank();if(e.code==='Space'&&this.flight?.active)this.flight.fire();else if((e.code==='Enter'||e.code==='Space')&&this.tank?.active&&!this.paused&&!this.walk?.active)this.tank.fire();if(e.code==='KeyH')this.audio.cue('horn');if(e.code==='KeyG')this.toggleAerial();if(e.code==='KeyR'&&!this.observer.active)this.resetRoad();if(e.code==='KeyC'&&!this.observer.active&&this.walk?.active){this.walkFirstPerson=!this.walkFirstPerson;this.onMessage?.(this.walkFirstPerson?'步行 · 第一人称':'步行 · 第三人称');}else if(e.code==='KeyC'&&!this.observer.active){this.view=(this.view+1)%3;this.onMessage?.(['追踪镜头','驾驶舱镜头','远景镜头'][this.view]);}if(e.code==='KeyL')this.toggleLight();if(e.code==='KeyV'){if(this.observer.active)this.exitPhoto();else this.enterPhoto({id:'car',name:'绯红海湾 GT',x:this.state.x,z:this.state.z,height:1.45,area:'车辆',excludeRadius:0,arrival:[this.state.x,this.state.z],yaw:this.state.yaw,photoDistance:7.7,photoElevation:.18,photoAngle:this.state.yaw+Math.PI+.65,photoTargetHeight:this.groundHeight(this.state.x,this.state.z)+.65});}if(e.code==='KeyF'){if(this.observer.active)this.exitPhoto();else if(!this.paused)void this.toggleWalking();}});
+  window.addEventListener('keydown',e=>{if(e.target instanceof HTMLElement&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Tab'].includes(e.code))e.preventDefault();this.keys.add(e.code);if(!this.paused&&['KeyW','KeyS','KeyA','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))this.cancelAutoDrive('manual-takeover');if(e.repeat)return;if(e.code==='KeyB')void this.toggleFlight();if(e.code==='KeyT')void this.toggleTank();if(e.code==='Space'&&this.flight?.active)this.flight.fire();else if((e.code==='Enter'||e.code==='Space')&&this.controlMode==='tank'&&!this.paused)this.tank?.fire();if(e.code==='KeyH')this.audio.cue('horn');if(e.code==='KeyG')this.toggleAerial();if(e.code==='KeyR'&&!this.observer.active)this.resetRoad();if(e.code==='KeyC'&&!this.observer.active&&this.walk?.active){this.walkFirstPerson=!this.walkFirstPerson;this.onMessage?.(this.walkFirstPerson?'步行 · 第一人称':'步行 · 第三人称');}else if(e.code==='KeyC'&&!this.observer.active){this.view=(this.view+1)%3;this.onMessage?.(['追踪镜头','驾驶舱镜头','远景镜头'][this.view]);}if(e.code==='KeyL')this.toggleLight();if(e.code==='KeyV'){if(this.observer.active)this.exitPhoto();else this.enterPhoto({id:'car',name:'绯红海湾 GT',x:this.state.x,z:this.state.z,height:1.45,area:'车辆',excludeRadius:0,arrival:[this.state.x,this.state.z],yaw:this.state.yaw,photoDistance:7.7,photoElevation:.18,photoAngle:this.state.yaw+Math.PI+.65,photoTargetHeight:this.groundHeight(this.state.x,this.state.z)+.65});}if(e.code==='KeyF'){if(this.observer.active)this.exitPhoto();else if(!this.paused)void this.toggleWalking();}});
   window.addEventListener('keyup',e=>this.keys.delete(e.code));window.addEventListener('blur',()=>{this.keys.clear();this.drag=false;});
   let dragPointer:number|null=null,touchCentroid:{x:number;y:number}|null=null;
   const endDrag=()=>{this.drag=false;dragPointer=null;touchCentroid=null;this.viewReturn=2;};
@@ -162,7 +162,7 @@ export class DrivingWorld{
   canvas.addEventListener('touchstart',e=>{if(e.touches.length){touchCentroid=touchPosition(e.touches);e.preventDefault();}},{passive:false});
   canvas.addEventListener('touchmove',e=>{if(!touchCentroid||!e.touches.length)return;e.preventDefault();const next=touchPosition(e.touches),dx=next.x-touchCentroid.x,dy=next.y-touchCentroid.y;if(this.observer.active){if(!this.flight?.active){if(e.shiftKey)this.observer.pan(dx,dy,canvas.clientHeight);else this.observer.rotate(dx,dy);}}else if(this.walk?.active){this.walk.look(dx,dy);}else{this.cameraYaw+=dx*.005;this.cameraPitch=clamp(this.cameraPitch+dy*.002,.02,.8);}touchCentroid=next;},{passive:false});
   canvas.addEventListener('touchend',e=>{touchCentroid=e.touches.length?touchPosition(e.touches):null;});canvas.addEventListener('touchcancel',endDrag);
-  canvas.addEventListener('wheel',e=>{if(this.observer.active){e.preventDefault();if(!this.flight?.active)this.observer.zoom(e.deltaY);}},{passive:false});
+  canvas.addEventListener('wheel',e=>{if(this.observer.active){e.preventDefault();if(!this.flight?.active)this.observer.zoom(e.deltaY);}else if(this.walk?.active&&!this.paused){e.preventDefault();this.walk.zoom(e.deltaY);}},{passive:false});
   this.engine.runRenderLoop(()=>{if(document.hidden||!this.ready)return;const raw=this.engine.getDeltaTime(),dt=Math.min(raw/1000,.05);const begin=performance.now();if(this.ready){if(this.debugSimulation)this.update(dt);if(this.samples.length<36000)this.samples.push(raw);}this.updateMs=this.updateMs*.9+(performance.now()-begin)*.1;const render=performance.now();this.scene.render();this.renderFrames++;this.renderMs=this.renderMs*.9+(performance.now()-render)*.1;});
   document.addEventListener('visibilitychange',()=>{this.keys.clear();this.drag=false;this.engine.getDeltaTime();});
   if(new URLSearchParams(location.search).has('profile'))this.profileControls();
@@ -224,13 +224,14 @@ export class DrivingWorld{
   this.vehicleReflections=createVehicleReflections(this.scene,this.car,this.carMeshes,this.camera,()=>this.mirror.renderList??[]);this.scene.onDisposeObservable.addOnce(()=>this.vehicleReflections?.dispose());
   this.flight=new CityFlight(this.scene,this.data,this.groundHeight,this.landmarks,()=>this.audio.explosion());this.scene.onDisposeObservable.addOnce(()=>this.flight?.dispose());
   this.tank=new CityTank(this.scene,this.data,this.groundHeight,()=>this.landmarks,()=>this.audio.explosion());this.scene.onDisposeObservable.addOnce(()=>{this.tank?.dispose();this.rider?.dispose();});
-  this.ready=true;this.car.position.set(this.state.x,.12,this.state.z);this.car.rotation.y=this.state.yaw;this.cameraYaw=this.state.yaw;
+  this.ready=true;void this.ensureRider();this.car.position.set(this.state.x,.12,this.state.z);this.car.rotation.y=this.state.yaw;this.cameraYaw=this.state.yaw;
   this.camera.position.set(this.state.x-Math.sin(this.state.yaw)*8,3.7,this.state.z-Math.cos(this.state.yaw)*8);this.camera.setTarget(new Vector3(this.state.x,1.1,this.state.z));this.cull();this.vegetation();
  }
  startTraffic(graph:RoadGraph){this.autopilot=new CityAutopilot(graph,this.collision);this.traffic=new CityTraffic(graph,this.trafficSources,this.scene,this.groundHeight,(a,b)=>{const p=graph.nodes[a],q=graph.nodes[b],n=this.collision.nearest((p[0]+q[0])/2,(p[1]+q[1])/2);return !n?.road.oneway||(q[0]-p[0])*Math.sin(n.yaw)+(q[1]-p[1])*Math.cos(n.yaw)>0;});this.traffic.place(this.state.x,this.state.z);this.cull();}
  startAutoDrive(destination:Landmark){if(this.tank?.active){this.onMessage?.('坦克使用手动驾驶，按 T 换回轿车可自动导航');return;}if(this.walk?.active){this.onMessage?.('走回车旁，按 F 上车后开始驾驶');return;}if(!this.autopilot)return;if(this.observer.active)this.exitPhoto();this.keys.clear();this.paused=false;this.autopilot.start(destination);this.previousAutoPhase='driving';this.audio.cue('engage');this.onMessage?.('自动驾驶 · '+destination.name+' · 方向键 / WASD 随时接管');}
  cancelAutoDrive(reason='manual-takeover'){const status=this.autopilot?.status;if(!status||['idle','cancelled'].includes(status.phase))return;this.autopilot!.cancel(reason);if(reason==='manual-takeover'){this.audio.cue('cancel');this.onMessage?.('已切换为手动驾驶');}}
  propBlocked(x:number,z:number){return !!this.bambooCafe?.layout.blocked(x,z)||this.propObstacles.some(p=>{const dx=x-p.x,dz=z-p.z,c=Math.cos(p.heading),s=Math.sin(p.heading),lx=dx*c-dz*s,lz=dx*s+dz*c;return Math.abs(lx)<6.1&&lz> -2.4&&lz<3.3;});}
+ get controlMode():'car'|'tank'|'walking'|'observer'|'aircraft'{return this.flight?.active?'aircraft':this.observer.active?'observer':this.walk?.active?'walking':this.tank?.active?'tank':'car';}
  get actor(){return this.walk?.active?{x:this.walk.x,z:this.walk.z,yaw:this.walk.yaw,speed:this.walk.speed}:this.state;}
  // Detail and lighting belong to the subject being viewed. Throttle costly
  // updates while turning the drone, without moving that detail to the eye.
@@ -280,24 +281,31 @@ export class DrivingWorld{
   this.vehicleReflections?.setEnabled(!active&&this.reflectionsEnabled);this.keys.clear();this.cull();
   this.onMessage?.(active?'坦克 · WASD 驾驶 · Q/E 炮塔 · 空格开炮 · T 换回轿车':'已换回轿车 · F 下车 / T 坦克');
  }
- async ensureRider(){
-  if(this.rider)return true;if(this.riderLoading)return false;
-  this.riderLoading=true;try{this.rider=await createCityRider(this.scene);return true;}
-  catch(error){console.error('Rider asset:',error);this.onMessage?.('骑手素材加载失败，按 F 重试');return false;}
-  finally{this.riderLoading=false;}
+ async ensureRider():Promise<boolean>{
+  if(this.rider)return true;if(this.riderPending)return this.riderPending;
+  this.riderLoading=true;
+  this.riderPending=(async()=>{try{
+   const rider=await createCityRider(this.scene);
+   if(this.scene.isDisposed){rider.dispose();return false;}
+   this.rider=rider;return true;
+  }catch(error){console.error('Rider asset:',error);this.onMessage?.('角色加载失败，仍可驾驶；按 F 或“重试角色”重试');return false;}
+  finally{this.riderLoading=false;this.riderPending=null;}})();
+  return this.riderPending;
  }
  async toggleWalking(){
-  if(!this.walk||this.riderLoading)return;
-  if(this.walk.active){if(!this.walk.canEnter(this.state,this.tank?.active?7:5)){this.onMessage?.('走回车辆旁，按 F 上车');return;}this.walk.active=false;this.rider?.setEnabled(false);this.cameraYaw=this.state.yaw;this.onMessage?.('已上车 · C 切换驾驶镜头');}
+  if(!this.walk||this.walkingTransition)return;
+  this.walkingTransition=true;try{
+  if(this.walk.active){if(!this.walk.canEnter(this.state,this.tank?.active?7:5,this.tank?.active?3:1.9)){this.onMessage?.('走回车辆旁，按 F 上车');return;}this.walk.active=false;this.rider?.setEnabled(false);this.cameraYaw=this.state.yaw;this.onMessage?.('已上车 · C 切换驾驶镜头');}
   else{
    if(Math.abs(this.state.speed)>1){this.onMessage?.('先停稳，再按 F 下车');return;}
-   if(!this.rider){this.onMessage?.('正在准备外卖骑手');if(!await this.ensureRider())return;}
+   if(!this.rider){this.onMessage?.('正在准备步行角色');if(!await this.ensureRider())return;}
    if(this.scene.isDisposed||this.observer.active||this.paused)return;
    if(!this.walk.exitCar(this.state,this.tank?.active?3:1.9)){this.onMessage?.('车门旁需要留出空间，请到开阔处下车');return;}
    this.cancelAutoDrive('exit-car');this.state.speed=0;this.state.steer=0;this.drivingInput={throttle:0,steer:0,handbrake:false};this.walkFirstPerson=false;this.riderYaw=this.walk.yaw;
-   this.onMessage?.('骑手探索 · WASD 行走 / Shift 跑步 / C 人称 / F 上车');
+   this.onMessage?.(`${this.rider?.name??'角色'} · WASD 行走 / Shift 跑步 / 拖动环视 / 滚轮远近 / F 上车`);
   }
   this.keys.clear();this.cull();this.vegetation();
+  }finally{this.walkingTransition=false;}
  }
  enterPhoto(m:Landmark){
   this.flightRequest++;this.flight?.stop();
@@ -421,7 +429,7 @@ export class DrivingWorld{
  update(dt:number){
   this.time+=dt;if(!this.paused)this.tank?.step(dt);
   if(this.flight?.active){const result=this.flight.step(this.keys,dt,performance.now());if(result==='recovered'||result==='boundary')this.returnFromFlight(result);else if(result==='crashed'){this.keys.clear();this.onMessage?.('飞机撞毁 · 3 秒后返回无人机');}}
-  this.localLights(dt);const oldCarX=this.car.position.x,oldCarZ=this.car.position.z;if(!this.paused&&this.walk?.active){const before={x:this.walk.x,z:this.walk.z};this.walk.step(this.keys,dt);if(this.walk.moving)this.riderYaw=Math.atan2(this.walk.x-before.x,this.walk.z-before.z);}
+  this.localLights(dt);const oldCarX=this.car.position.x,oldCarZ=this.car.position.z;if(!this.paused&&this.controlMode==='walking'&&this.walk){const before={x:this.walk.x,z:this.walk.z};this.walk.step(this.keys,dt);if(this.walk.moving){const target=Math.atan2(this.walk.x-before.x,this.walk.z-before.z),delta=Math.atan2(Math.sin(target-this.riderYaw),Math.cos(target-this.riderYaw));this.riderYaw+=delta*(1-Math.exp(-dt*16));}}
   if(this.walk&&this.rider){this.rider.setEnabled(this.walk.active&&(!this.walkFirstPerson||this.observer.active));this.rider.setPose({x:this.walk.x,y:this.walkingSurfaceHeight(this.walk.x,this.walk.z),z:this.walk.z,yaw:this.riderYaw,speed:this.paused?0:this.walk.speed},dt);}
   if(!this.paused&&!this.walk?.active){const n=this.collision.nearest(this.state.x,this.state.z);this.offroad=!n||n.d>n.road.width/2+1;if(n&&n.d<40)this.roadName=roadDisplayName(n.road);
    const throttle=(this.keys.has('KeyW')||this.keys.has('ArrowUp')?1:0)-(this.keys.has('KeyS')||this.keys.has('ArrowDown')?1:0),steer=(this.keys.has('KeyD')||this.keys.has('ArrowRight')?1:0)-(this.keys.has('KeyA')||this.keys.has('ArrowLeft')?1:0);
@@ -450,9 +458,9 @@ export class DrivingWorld{
    this.aerialEffects(p.y-this.groundHeight(p.x,p.z)>(this.overviewEffects?125:165));
   }else if(this.walk?.active){
    const e=this.walk.eye,direction=new Vector3(Math.sin(this.walk.yaw)*Math.cos(this.walk.pitch),-Math.sin(this.walk.pitch),Math.cos(this.walk.yaw)*Math.cos(this.walk.pitch));
-   const eye=new Vector3(e.x,e.y,e.z),desired=eye.subtract(direction.scale(3.7)).addInPlaceFromFloats(.35,.4,0);
+   const eye=new Vector3(e.x,e.y,e.z),desired=eye.subtract(direction.scale(this.walk.cameraDistance)).addInPlaceFromFloats(.35,.4,0);
    if(this.walkFirstPerson){this.camera.position.copyFrom(eye);this.camera.setTarget(eye.add(direction));}
-   else{let distance=1;for(let t=.15;t<=1;t+=.07){const p=Vector3.Lerp(eye,desired,t);if(this.collision.blocked(p.x,p.z)||this.propBlocked(p.x,p.z)){distance=Math.max(.12,t-.1);break;}}this.camera.position.copyFrom(Vector3.Lerp(eye,desired,distance));this.camera.position.y=Math.max(this.camera.position.y,this.groundHeight(this.camera.position.x,this.camera.position.z)+.3);this.camera.setTarget(eye.add(direction.scale(.7)));}this.camera.minZ=.12;this.camera.fov=.88;
+   else{let distance=1;for(let t=.15;t<=1;t+=.07){const p=Vector3.Lerp(eye,desired,t);if(this.collision.blocked(p.x,p.z)||this.propBlocked(p.x,p.z)){distance=Math.max(.12,t-.1);break;}}this.camera.position.copyFrom(Vector3.Lerp(eye,desired,distance));this.camera.position.y=Math.max(this.camera.position.y,this.groundHeight(this.camera.position.x,this.camera.position.z)+.3);this.camera.setTarget(eye.add(direction.scale(.7)).addInPlaceFromFloats(0,-.55,0));}this.camera.minZ=.12;this.camera.fov=.88;
   }else if(this.view===1&&this.cockpit&&!this.tank?.active){
    const transform=this.car.computeWorldMatrix(true);this.camera.position.copyFrom(Vector3.TransformCoordinates(Vector3.FromArray(CITY_DRIVER_POSE.position),transform));this.camera.setTarget(Vector3.TransformCoordinates(Vector3.FromArray(CITY_DRIVER_POSE.lookAhead),transform));this.camera.minZ=CITY_DRIVER_POSE.nearZ;this.camera.fov=CITY_DRIVER_POSE.fov;
   }else this.camera.minZ=.75;

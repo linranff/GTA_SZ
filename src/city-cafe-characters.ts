@@ -1,10 +1,11 @@
+import {LOCAL_CHARACTERS,localCharacterManifest,loadLocalCharacter,characterProgress,type LocalCharacter} from './city-local-characters.ts';
 import {ImportMeshAsync,Matrix,PBRMaterial,Quaternion,Vector3,type AbstractMesh,type AnimationGroup,type Scene,type Skeleton,type TransformNode} from '@babylonjs/core';
 import type {CafeSpec} from './city-cafe-layout.ts';
 import type {CafeStaffPose} from './city-cafe-staff-motion.ts';
 
-type CharacterManifest={schemaVersion:number;staffAssignments:Record<string,string>;models:{id:string;file:string;triangles:number;bytes:number;height:number;rigged:boolean;gait:{authoredSpeed:number}}[]};
+type CharacterManifest={schemaVersion:number;staffAssignments:Record<string,string>;models:{id:string;file:string;triangles:number;bytes:number;height:number;rigged:boolean;gait:{authoredSpeed:number};local?:LocalCharacter}[]};
 type CharacterFit={sourceHeight:number;displayHeight:number;verticalScale:number;horizontalScale:number;footOffset:number};
-export type CafeCharacterStatus={loaded:boolean;error:string|null;assignments:Record<string,string>;triangles:number;source:'user-provided Tripo GLBs';proportions?:Record<string,CharacterFit>;animation?:{rigged:boolean;bones:number;clips:string[];independentSkeletons:number}};
+export type CafeCharacterStatus={loaded:boolean;error:string|null;assignments:Record<string,string>;triangles:number;source:'user-provided Tripo GLBs'|'local MMD / miHoYo / 观海';proportions?:Record<string,CharacterFit>;animation?:{rigged:boolean;bones:number;clips:string[];independentSkeletons:number}};
 type AnimatedStaff={id:string;anchor:TransformNode;groups:Record<'idle'|'walk'|'wave',AnimationGroup>;started:boolean;playing:boolean;authoredSpeed:number};
 
 // Art-directed DISPLAY heights in this cafe, not claims about real people.
@@ -41,6 +42,12 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
  const response=await fetch('/city/bamboo-cafe/characters/manifest.json');
  if(!response.ok)throw Error('Cafe character manifest is unavailable');
  const manifest=await response.json() as CharacterManifest;
+ if(LOCAL_CHARACTERS){
+  characterProgress('cafe','loading',0,'夜兰 · 正在准备两位咖啡馆角色');
+  const local=(await localCharacterManifest()).models.find(m=>m.id==='yelan')!;
+  manifest.models.push({id:'yelan',file:local.file,triangles:local.triangles,bytes:local.bytes,height:local.displayHeight,rigged:true,gait:{authoredSpeed:local.gait.walk.authoredSpeed},local});
+  manifest.staffAssignments={...manifest.staffAssignments,zhixia:'yelan',wangshu:'yelan'};
+ }
  const owners=spec.staff.map(staff=>({staff,root:scene.getTransformNodeByName('staff_'+staff.id),kind:manifest.staffAssignments[staff.id]}));
  if(manifest.schemaVersion!==1||owners.some(o=>!o.root||!manifest.models.some(m=>m.id===o.kind)))throw Error('Cafe character assignment does not match the existing staff');
  const imported:AbstractMesh[]=[];
@@ -53,7 +60,7 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
    const kind=target.kind;
    const model=manifest.models.find(m=>m.id===kind)!;
    if(!/^[a-z-]+\.glb$/.test(model.file))throw Error('Invalid cafe character asset path');
-   const result=await ImportMeshAsync('/city/bamboo-cafe/characters/'+model.file,scene);
+   const result=model.local?await loadLocalCharacter(scene,model.local,n=>characterProgress('cafe','loading',(owners.indexOf(target)+n)/owners.length,'夜兰 · '+target.staff.name+' '+Math.round(n*100)+'%')):await ImportMeshAsync('/city/bamboo-cafe/characters/'+model.file,scene);
    imported.push(...result.meshes);
    allGroups.push(...result.animationGroups);skeletons.push(...result.skeletons);
    for(const group of result.animationGroups)group.stop();
@@ -67,11 +74,11 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
     root.name='staff_user_'+target.staff.id;root.parent=target.root!;root.setEnabled(false);newRoots.push(root);
     const meshes=root.getChildMeshes(false).filter(m=>m.getTotalVertices()>0);
     if(!meshes.length)throw Error('Empty cafe character mesh');
-    proportions[target.staff.id]=fitCharacter(root,meshes,CAFE_DISPLAY_HEIGHT[target.staff.id]??1.94);
+    proportions[target.staff.id]=fitCharacter(root,meshes,model.local?.displayHeight??CAFE_DISPLAY_HEIGHT[target.staff.id]??1.94);
     for(const mesh of meshes){
      mesh.name='staff_user_'+target.staff.id+'_'+kind;mesh.isPickable=false;mesh.receiveShadows=true;mesh.alwaysSelectAsActiveMesh=true;
      const material=mesh.material;
-     if(material instanceof PBRMaterial){
+     if(material instanceof PBRMaterial&&!model.local){
       material.maxSimultaneousLights=6;material.environmentIntensity=.72;
       material.forceIrradianceInFragment=true;material.enableSpecularAntiAliasing=true;
       for(const texture of material.getActiveTextures())texture.anisotropicFilteringLevel=8;
@@ -110,13 +117,15 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
     staff.groups.wave.setWeightForAllAnimatables(wave);
    }
   };
+  if(LOCAL_CHARACTERS)characterProgress('cafe','ready',1,'咖啡馆夜兰角色已就绪');
   return {meshes:newMeshes,update,dispose:()=>{for(const a of allGroups)a.dispose();for(const s of skeletons)s.dispose();},status:{loaded:true,error:null,assignments:manifest.staffAssignments,
-   triangles:owners.reduce((sum,o)=>sum+manifest.models.find(m=>m.id===o.kind)!.triangles,0),source:'user-provided Tripo GLBs',proportions,
+   triangles:owners.reduce((sum,o)=>sum+manifest.models.find(m=>m.id===o.kind)!.triangles,0),source:LOCAL_CHARACTERS?'local MMD / miHoYo / 观海':'user-provided Tripo GLBs',proportions,
    animation:{rigged:true,bones:skeletons.reduce((n,s)=>n+s.bones.length,0),clips:['idle','walk','wave'],independentSkeletons:skeletons.length}} satisfies CafeCharacterStatus};
  }catch(error){
   for(const a of allGroups)a.dispose();for(const s of skeletons)s.dispose();
-  for(const root of newRoots)if(!root.isDisposed())root.dispose(false);
+  for(const root of newRoots)if(!root.isDisposed())root.dispose(false,true);
   for(const mesh of imported)if(!mesh.isDisposed())mesh.dispose(false,false);
+  if(LOCAL_CHARACTERS)characterProgress('cafe','error',0,'咖啡馆角色加载失败，可重试');
   throw error;
  }
 }

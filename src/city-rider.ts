@@ -1,27 +1,36 @@
 import {AbstractMesh,Animation,AnimationGroup,ImportMeshAsync,PBRMaterial,TransformNode,type Scene} from '@babylonjs/core';
+import {LOCAL_CHARACTERS,localCharacterManifest,loadLocalCharacter,characterProgress} from './city-local-characters.ts';
 import {WALK_SPEED,RUN_SPEED} from './city-walk.ts';
 
 export type RiderPose={x:number;y:number;z:number;yaw:number;speed:number};
 export type CityRider={
  meshes:AbstractMesh[];
+ name:string;
  setEnabled(enabled:boolean):void;
  setPose(pose:RiderPose,dt:number):void;
  dispose():void;
 };
 
-/** User-supplied Tripo rider, prepared at 1.78 metres with in-place skeletal
- * walk/run loops. The loader's handedness root is retained under our anchor. */
+/** Local PMX-derived avatar in development, existing rider in published builds.
+ * Native, in-place skeletal clips share a contact clock. Preserve glTF handedness. */
 export async function createCityRider(scene:Scene):Promise<CityRider>{
- const manifest=await fetch('/city/rider/manifest.json').then(r=>{if(!r.ok)throw Error('Rider gait manifest unavailable');return r.json();}) as {gait:{walk:{cycleSeconds:number;authoredSpeed:number};run:{cycleSeconds:number;authoredSpeed:number}}};
- const result=await ImportMeshAsync('/city/rider/rider.glb',scene);
- const anchor=new TransformNode('player-delivery-rider',scene);
+ characterProgress('player','loading',0,'久岐忍 · 正在读取角色');
+ let local:Awaited<ReturnType<typeof localCharacterManifest>>['models'][number]|undefined;
+ try{if(LOCAL_CHARACTERS)local=(await localCharacterManifest()).models.find(m=>m.id==='kuki');}
+ catch(e){characterProgress('player','error',0,String((e as Error).message));throw e;}
+ const manifest=local??await fetch('/city/rider/manifest.json').then(r=>{if(!r.ok)throw Error('Rider gait manifest unavailable');return r.json();}) as {gait:{walk:{cycleSeconds:number;authoredSpeed:number};run:{cycleSeconds:number;authoredSpeed:number}}};
+ let owned:Awaited<ReturnType<typeof loadLocalCharacter>>|undefined;
+ let result;
+ try{result=local?(owned=await loadLocalCharacter(scene,local,n=>characterProgress('player','loading',n,'久岐忍 · 贴图与骨骼 '+Math.round(n*100)+'%'))):await ImportMeshAsync('/city/rider/rider.glb',scene);}
+ catch(e){characterProgress('player','error',0,'久岐忍加载失败，仍可驾驶 · '+(e as Error).message);throw e;}
+ const anchor=new TransformNode(local?'player-kuki-shinobu':'player-delivery-rider',scene);
  const source=result.meshes[0];source.parent=anchor;
  const meshes=result.meshes.filter(m=>m.getTotalVertices()>0);
  for(const mesh of meshes){
   mesh.isPickable=false;mesh.receiveShadows=true;mesh.alwaysSelectAsActiveMesh=true;
   mesh.doNotSyncBoundingInfo=false;
   const material=mesh.material;
-  if(material instanceof PBRMaterial){
+  if(material instanceof PBRMaterial&&!local){
    material.maxSimultaneousLights=6;material.environmentIntensity=.85;
    material.enableSpecularAntiAliasing=true;material.forceIrradianceInFragment=true;
    for(const texture of material.getActiveTextures())texture.anisotropicFilteringLevel=8;
@@ -29,6 +38,7 @@ export async function createCityRider(scene:Scene):Promise<CityRider>{
  }
  const find=(name:string)=>result.animationGroups.find(a=>a.name.toLowerCase().includes(name));
  const idle=find('idle'),walk=find('walk'),run=find('run');
+ if(!idle||!walk||!run){owned?.dispose();anchor.dispose();characterProgress('player','error',0,'角色待机 / 行走 / 奔跑动画不完整，可重试');throw Error('角色待机 / 行走 / 奔跑动画不完整');}
  const groups=[idle,walk,run].filter((g):g is AnimationGroup=>!!g);
  for(const group of groups){group.start(true);group.setWeightForAllAnimatables(group===idle?1:0);}
  // One neutral phase clock keeps left/right contacts aligned while blending
@@ -50,7 +60,8 @@ export async function createCityRider(scene:Scene):Promise<CityRider>{
   if(value)for(const group of groups)group.play(true);
   else for(const group of groups)group.pause();
  }
- return {meshes,setEnabled,setPose(pose,dt){
+ characterProgress('player','ready',1,'久岐忍已就绪');
+ return {meshes,name:local?.name??'外卖骑手',setEnabled,setPose(pose,dt){
   if(disposed)return;
   anchor.position.set(pose.x,pose.y,pose.z);anchor.rotation.y=pose.yaw;
   if(!enabled)return;
@@ -66,6 +77,7 @@ export async function createCityRider(scene:Scene):Promise<CityRider>{
  },dispose(){
   if(disposed)return;disposed=true;
   phaseClock.stop();
+  if(owned){owned.dispose();anchor.dispose();return;}
   for(const group of result.animationGroups)group.dispose();
   for(const skeleton of result.skeletons)skeleton.dispose();
   anchor.dispose(false,true);

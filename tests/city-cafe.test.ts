@@ -28,7 +28,8 @@ test('real city footprint and road frontage are clear; walkable door and furnitu
  }
  const walk=new CityWalk((x,z)=>collision.blocked(x,z)||layout.blocked(x,z),(x,z)=>layout.floorAt(x,z,0));
  const start=layout.world(0,-21);Object.assign(walk,{active:true,x:start.x,z:start.z,yaw:spec.site.heading});
- const forward=new Set(['KeyW']);for(let i=0;i<130;i++)walk.step(forward,.05);
+ const forward=new Set(['KeyW']);// At the current 1.6 m/s gait, cover the 14 m path to the open door.
+ const forwardSteps=Math.ceil(14.5/(1.6*.05));for(let i=0;i<forwardSteps;i++)walk.step(forward,.05);
  assert(layout.inside(walk.x,walk.z),'walk through the open front door without teleporting');
  for(let i=0;i<120;i++)walk.step(forward,.05);
  assert(layout.local(walk.x,walk.z).z<2.63,'solid counter stops the walker');

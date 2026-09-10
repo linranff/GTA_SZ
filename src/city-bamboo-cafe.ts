@@ -1,3 +1,4 @@
+import {characterProgress,LOCAL_CHARACTERS} from './city-local-characters.ts';
 import {Color3,ImportMeshAsync,PBRMaterial,PointLight,Quaternion,ShadowGenerator,SpotLight,TransformNode,Vector3,type AbstractMesh,type AnimationGroup,type Scene} from '@babylonjs/core';
 import {cafeLayout,type CafeSpec,type CafeCollider} from './city-cafe-layout.ts';
 import {replaceCafeCharacters,type CafeCharacterStatus} from './city-cafe-characters.ts';
@@ -58,11 +59,11 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
  // Room lights stay enabled and go dark by intensity when the player is far:
  // enabling/disabling a light recompiles every cafe material it touches.
  function applyLightPower(){for(const light of lights)light.intensity=active?(mode==='day'?12:mode==='sunset'?19:25)*(light instanceof SpotLight?1.25:1):0;}
- async function ensureInterior(){
-  if(loaded||disposed)return;
-  if(pending)return pending;
-  pending=(async()=>{
-   await loadPart('interior');if(disposed)return;
+ let characterPending:Promise<void>|null=null;
+ async function retryCharacters(){
+  if(disposed||staffRig||!interior.length)return;
+  if(characterPending)return characterPending;
+  characterPending=(async()=>{
    try{
     const replacement=await replaceCafeCharacters(scene,spec,interior,()=>disposed);
     if(disposed){replacement.dispose();return;}
@@ -78,7 +79,19 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
      for(const light of scene.lights)if(!lights.includes(light as PointLight)&&!/^(sunset|sky-bounce)$/.test(light.name))light.excludedMeshes.push(mesh);
     }
     onMeshes(replacement.meshes);
-   }catch(e){characterStatus.error=String(e);onMeshes(interior.filter(m=>m.name.startsWith('staff_')));console.error('Cafe character replacement:',e);}
+   }catch(e){characterStatus.error=String(e);if(LOCAL_CHARACTERS)characterProgress('cafe','error',0,'夜兰加载失败 · 可重试');onMeshes(interior.filter(m=>m.name.startsWith('staff_')));console.error('Cafe character replacement:',e);}
+
+   for(const light of lights)light.includedOnlyMeshes=[...interior,...exterior];
+   if(shadow)shadow.getShadowMap()!.renderList=interior.filter(m=>!m.material?.name.includes('glass'));
+  })().finally(()=>{characterPending=null;});
+  return characterPending;
+ }
+ async function ensureInterior(){
+  if(loaded||disposed)return;
+  if(pending)return pending;
+  pending=(async()=>{
+   await loadPart('interior');if(disposed)return;
+   await retryCharacters();
    for(const [i,p]of manifest.lighting.interiorPoints.entries()){
     const light=i===2?new SpotLight('cafe-key-light',Vector3.Zero(),new Vector3(0,-1,0),2.5,.9,scene):new PointLight('cafe-room-light-'+i,Vector3.Zero(),scene);
     light.parent=root;light.position.set(p[0],p[2],p[1]);light.diffuse=new Color3(1,.90,.77);light.range=15;light.radius=.62;light.includedOnlyMeshes=[...interior,...exterior];lights.push(light);
@@ -144,5 +157,5 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
  }
  function dispose(){if(disposed)return;disposed=true;document.body.classList.remove('inside-bamboo-cafe');shadow?.dispose();for(const l of lights)l.dispose();for(const a of animations)a.dispose();staffRig?.dispose();root.dispose(false);for(const m of materials)m.dispose(false,true);}
  scene.onDisposeObservable.addOnce(dispose);
- return {layout,exterior,interior,enter,interact,prompt,update,setMode,dispose,ensureInterior,get stats(){return {name:spec.name,fictional:true,loaded,loading:!!pending&&!loaded,active,error,site:spec.site,entry:layout.entry,floorBase,models:manifest.models,characters:{...characterStatus,activity:staffMotion.agents.map(({id,x,z,speed,greeting,wave,walk})=>({id,x,z,speed,greeting,wave,walk})),meshes:interior.filter(m=>m.name.startsWith('staff_user_')).map(m=>({name:m.name,enabled:m.isEnabled(),bounds:[m.getBoundingInfo().boundingBox.minimumWorld.asArray(),m.getBoundingInfo().boundingBox.maximumWorld.asArray()]}))},visibleInteriorMeshes:interior.filter(m=>m.isEnabled()).length,localLights:lights.filter(l=>l.isEnabled()).length,staff:spec.staff.map(({id,name,age,role,outfit,position})=>({id,name,age,role,outfit,position:layout.world(position[0],position[1])})),mode};}};
+ return {retryCharacters,layout,exterior,interior,enter,interact,prompt,update,setMode,dispose,ensureInterior,get stats(){return {name:spec.name,fictional:true,loaded,loading:!!pending&&!loaded,active,error,site:spec.site,entry:layout.entry,floorBase,models:manifest.models,characters:{...characterStatus,activity:staffMotion.agents.map(({id,x,z,speed,greeting,wave,walk})=>({id,x,z,speed,greeting,wave,walk})),meshes:interior.filter(m=>m.name.startsWith('staff_user_')).map(m=>({name:m.name,enabled:m.isEnabled(),bounds:[m.getBoundingInfo().boundingBox.minimumWorld.asArray(),m.getBoundingInfo().boundingBox.maximumWorld.asArray()]}))},visibleInteriorMeshes:interior.filter(m=>m.isEnabled()).length,localLights:lights.filter(l=>l.isEnabled()).length,staff:spec.staff.map(({id,name,age,role,outfit,position})=>({id,name,age,role,outfit,position:layout.world(position[0],position[1])})),mode};}};
 }
