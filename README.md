@@ -1,41 +1,116 @@
 # GTA_SZ · 深城纪
 
-**A browser city-driving and everyday-life prototype set in Shenzhen.**
+**Building a playable Shenzhen in the browser with GPT-6 Astra and Fable 5.1.**
 
 **English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-[Latest source](https://github.com/linranff/GTA_SZ/tree/main) · [v0.2 archive](https://github.com/linranff/ShenChengJi/releases/tag/v0.2) · Babylon.js · TypeScript · Blender
+**[Play the demo — desktop browser](https://gtasz.vercel.app/)**
 
-Drive an indigo concept GT along the bay, walk through the city, take a small job, or fly above the skyline. ShenChengJi brings selected parts of Shenzhen Bay, Nanshan, Futian and Luohu into a compressed, playable city corridor.
+[Source](https://github.com/linranff/GTA_SZ) · [Implementation and checks](docs/characters/local-mmd.md)
 
-The game UI is currently primarily in Simplified Chinese. These three language editions cover the documentation; they are not in-game language packs.
+Drive along Shenzhen Bay, walk through a neighborhood, take a small job, or fly above the skyline. ShenChengJi combines open map data, Blender assets and Babylon.js into a compressed, explorable interpretation of parts of Shenzhen Bay, Nanshan, Futian and Luohu. The prototype includes cars, a tank, walking, drone and aircraft modes, with daylight, sunset and night lighting.
 
-## Latest updates on main
+This README is also a learning guide: which AI models participated, how map data becomes game assets, and how disappearing vehicles, delayed reflections and rendering stalls were investigated. The game UI is primarily Simplified Chinese; the three language editions cover documentation, not in-game localization.
 
-- Warmer daylight with controlled solar highlights on glass and car paint.
-- Continuous northern mountain ridges, raised park terrain and gentle lawns, with preserved road and building bases.
-- Improved distant-water stability, plus long-press light pillars in drone mode to save a place or travel to a suitable nearby road.
+![Shenzhen Bay night drive: historical v0.2 gameplay capture](docs/images/v0.2-night-driving.png)
 
-The latest build passed **117 tests**. See [daylight and mountain checks](docs/graphics/daylight-mountains-2026-09-06.md), [water depth fixes](docs/graphics/sea-depth-2026-09-06.md) and [drone markers](docs/graphics/water-observer-beacons-2026-09-06.md). The screenshots below document the earlier v0.2 release.
+*This v0.2 capture illustrates the visual direction. Use the demo and corresponding code for the latest implementation.*
 
-![Night driving in the current game](docs/images/v0.2-night-driving.png)
+## AI models and the development workflow
 
-## What's in v0.2
+| Contributor | Main work in this project | How the result is checked |
+| --- | --- | --- |
+| **GPT-6 Astra** | Breaking down city and gameplay work, Blender Python modeling and asset processing, material and lighting iteration, character integration, browser checks | Inspect scripts, GLB/JSON manifests, actual viewpoints and interactions; evaluate the running game rather than generated images alone |
+| **Fable 5.1** | Code changes, performance investigation and fixes; one focused pass addressed shader recompilation during driving and vehicle switches | Inspect [7ebf1d6](https://github.com/linranff/GTA_SZ/commit/7ebf1d6) and the [before/after record](docs/性能修复-2026-09-09-着色器重编译.md): long frames, compilation counts and skipped draws |
+| **Project author** | Choosing the setting and mechanics, supplying references, reporting gameplay issues, making tradeoffs and integrating versions | Drive, walk, inspect landmarks and switch modes to check that changes solve the reported problem |
 
-- **Three lighting modes:** blue skies with sparse clouds, a photographic sunset, and a night sky with a Milky Way and softly lit thin clouds. Bay water and roadside puddles reflect the environment.
-- **A more coherent city:** original building facades and materials remain visible in aerial views; detail and local lighting follow the area being viewed. Dark floors, individual windows and restrained colored accents preserve the night skyline's depth.
-- **The hero GT:** an added rear wing, four metal exhaust outlets and cold-white HDR headlights, alongside the existing cockpit, working instruments and brake-light reflections.
-- **Explore your way:** driving, walking, drone viewing, a searchable map, route previews, navigation and an autopilot with manual takeover.
-- **Everyday work:** repeatable delivery, passenger and maintenance contracts, upgrades, character conversations and choices, and a room-savings goal. Progress is saved in the current browser; an unfinished contract needs to be accepted again after a page reload.
-- **A city built in layers:** OSM-derived roads and footprints, selected landmark models, coastal terrain, bridges, vegetation, street furniture, traffic and pedestrians.
+Model names follow the project author's confirmed usage records. These are project responsibilities, not a model ranking. AI is part of the development workflow: playing the game requires no language-model API key, and gameplay does not depend on per-frame model requests.
 
-![The GT's rear wing and four exhaust outlets](docs/images/v0.2-sport-gt.png)
+The loop is: **define one issue → locate the responsible code → generate or modify the implementation → reproduce it in the game → keep evidence and commit**. Independent landmarks or assets can be developed separately; shared rendering code, manifests and final assets have one integration owner to avoid overwrites.
 
-These are unedited screenshots from the running game. This is still a prototype: traffic and collisions are simplified, building heights and facades include artistic estimates, and the room-savings goal does not unlock a modeled apartment. It is not a survey-accurate reconstruction of all Shenzhen.
+An example task brief:
 
-## Run locally
+```text
+Goal: fix water reflections lagging behind buildings during fast camera turns.
+Read: src/city-world.ts, src/city-bay-water.ts and existing reflection notes.
+Preserve: the city, coast, materials and reduced refresh rate when stationary.
+Deliver: a cause-specific change, a same-viewpoint check and remaining limitations.
+Check: fast left/right turns; hold still; repeat in day, sunset and night modes.
+```
 
-Use **Node.js 24**, npm, Git LFS and a desktop browser with WebGL2. The current visual checks use Chrome on macOS.
+Turn “this looks wrong” into a reproducible action and a defined inspection area. A model loading successfully, a passing build or one attractive screenshot does not establish that the whole feature works.
+
+## Technology stack
+
+| Technology | Responsibility | Starting point |
+| --- | --- | --- |
+| **Babylon.js 8.56.2 / WebGL2** | Real-time browser scene, PBR materials, lights, mirrors, skeletons and cameras | [city-world.ts](src/city-world.ts) |
+| **TypeScript 5.9.3 + Vite 7.3.6** | Gameplay state, UI, modules, development and production builds | [main.ts](src/main.ts), [package.json](package.json) |
+| **Blender + Python** | Landmark, vehicle and vegetation processing; character rigs and baked animation | [city_mesh.py](scripts/city_mesh.py), [character_gait.py](scripts/character_gait.py) |
+| **OpenStreetMap, Copernicus and other inputs** | Roads, footprints, terrain and provenance | [Data attribution](data/ATTRIBUTION.md), [landmark delivery](docs/landmarks/delivery.md) |
+| **GLB / glTF Transform / meshoptimizer** | Asset interchange, geometry processing and optimization; JSON stores positions, parameters and hashes | [Asset build workflow](docs/资产重建与交付保护.md) |
+| **Git LFS + Node tests + Playwright** | Large-file versioning, rule checks and real browser interaction | [.gitattributes](.gitattributes), [tests](tests), [scripts](scripts) |
+
+Versions come from the current `package-lock.json`. Start with `npm ci` rather than upgrading every dependency. Blender is an offline authoring tool; Babylon.js renders the player's real-time view.
+
+## From data to a playable city
+
+```mermaid
+flowchart LR
+  A[Map data and references] --> B[Python preparation]
+  B --> C[Blender geometry and animation]
+  C --> D[GLB assets and JSON manifests]
+  D --> E[Babylon.js runtime]
+  E --> F[Driving, walking and city life]
+  E --> G[Browser checks and feedback]
+  G --> B
+  G --> E
+```
+
+**1. Establish positions and label estimates.** A map footprint is not a finished facade. Landmarks need photographs and other references; measured values, source claims and artistic estimates are recorded separately. The game uses local origin `[114.025, 22.536]` and a uniform `0.60` scale. Follow [AGENTS.md](AGENTS.md) for coordinate and root-transform conventions; do not mix early research coordinates into the runtime scene.
+
+**2. Add detail incrementally.** The base city is `public/city/city.json`; selected landmarks are integrated through `landmark-detail.json` and `landmark-detail.glb`. `baseBuildingIds` and exclusion manifests remove duplicate base buildings. Read [build_landmark_details.py](scripts/build_landmark_details.py) and [scripts/landmarks](scripts/landmarks), then change one object. Playing the game or editing browser logic does not require rebuilding these assets.
+
+**3. Check materials in the runtime.** Glass and car paint need suitable environment lighting and reflections, not just brighter base colors. Lit windows also depend on emission, exposure and post-processing. Road puddles and the bay have separate mirror and material controls. Compare the same viewpoint in daylight, sunset and night instead of masking an issue with another lighting preset.
+
+**4. Integrate animation with the controller.** PMX models are converted and their skeletons adapted in Blender, then idle, walk, run or wave clips are baked into GLB. Locomotion uses offline two-bone IK, with runtime animation timing matched to movement speed. Vehicle entry/exit, surface height and camera obstruction are part of the same integration. Inspect textures, scale, arms and knees in motion. [Character notes](docs/characters/local-mmd.md) cover current limits: no hair/cloth physics or runtime per-foot terrain IK.
+
+## Performance: problems, fixes and tradeoffs
+
+### Case study: why did vehicles and city meshes disappear?
+
+An investigation of `3104cdf` found that vehicle switches, local lighting changes and asynchronous GLB loads changed the light configuration of existing materials. Many PBR shaders recompiled; submeshes whose materials were not ready were skipped, revealing sky through the gaps.
+
+The fix kept the vehicle lights on an independent, continuously enabled rig, retained stable local-light configurations and used intensity for on/off appearance. GLB loading preserves existing material light budgets. MSAA/FXAA changes are applied together to avoid unnecessary invalidation of materials across the city.
+
+| Historical A/B check | Baseline `3104cdf` | Recorded fix |
+| --- | ---: | ---: |
+| Frame intervals above 80 ms | 31 | 3 |
+| Long tasks | 49 | 12 |
+| Shader compilations over the sequence | 650 | 198 |
+| Leaving tank mode | Two frames around 1066 / 1074 ms | No frame above 80 ms; 0 compilations |
+
+These are historical measurements using the same scripted sequence at 1920×1080 in Chrome / Metal, **not a city-wide performance promise for every current feature**. Steady-state performance in that dense route remained about 54–55 FPS; the improvement was fewer transition stalls and skipped draws. First-time asset parsing can still stall. The [full record](docs/性能修复-2026-09-09-着色器重编译.md) includes the method, exceptions and limitations.
+
+Parts of the guards in [city-gltf-streaming.ts](src/city-gltf-streaming.ts) and [city-cinematic.ts](src/city-cinematic.ts) depend on the current Babylon version's internals. Revalidate them when upgrading the engine; they are not universal patches to copy into every project.
+
+### Other techniques worth studying
+
+| Problem | Current approach | Cost or limitation |
+| --- | --- | --- |
+| Loading all detailed facades at once | 640 m tiles; prefetch within roughly 1050 m of a tile center, display within 700 m, unload beyond 1500 m; sequential loading queue | The base city still loads as a whole; distant views omit nearby detail. [Code](src/city-facade-stream.ts) |
+| Repeated vegetation geometry | Prototypes + thin instances; rebuild instance buffers after a movement threshold; budget nearby detail | Instances still cost triangles and transparent leaf overdraw. [Code](src/city-landscape.ts) |
+| Reflections lag during fast camera movement | Refresh mirrors every frame while moving, then every 2/3 frames for road/water when stationary | Uses 512×512 planar targets; frequent refresh still costs extra rendering. [Code](src/city-world.ts) |
+| An arc-shaped break across distant water | Correct sky clipping against the water reflection plane | A correctness fix without adding another expensive reflection pass. [Record](docs/graphics/sea-reflection-continuity-2026-09-07.md) |
+| Repeated missile/explosion allocations | Pre-create and reuse pools, with bounded counts and lifetimes | Currently up to 6 aircraft missiles and 2 missile-impact explosion groups. [Record](docs/graphics/flight-missiles-2026-09-10.md) |
+| Street and aerial views need different budgets | Adjust view distance, shadows and SSAO; detail follows the actual observation focus | Transitions themselves need shader-variant and missing-draw checks. [Code](src/city-world.ts) |
+| Development tooling consumes CPU | Disable Vite polling and HMR; exclude large asset/output directories | Refresh manually after edits. [Config](vite.config.ts) |
+
+A useful investigation order: **reproduce → inspect frame times, compilations and resources in the same scene → test one hypothesis → recheck gameplay and visuals**. Average FPS does not explain every hitch. CPU submission and GPU time overlap, so adding them does not give total frame time. Start with `window.__SHENCHENGJI_CITY__.world.diagnostics()` and the checks under `scripts/`.
+
+## Run and build
+
+Use Node.js 24, npm, Git LFS and a desktop browser with WebGL2. Most current visual checks use Chrome on macOS.
 
 ```sh
 git lfs install
@@ -46,86 +121,60 @@ npm ci
 npm run dev
 ```
 
-Open the address printed by Vite, usually `http://127.0.0.1:5173/`. Large models, HDR environments and images are stored in **Git LFS**; a source download containing only LFS pointers is not a runnable game. Repository access is required while the repository is private.
-
-For a production preview:
+Open the Vite URL, usually `http://127.0.0.1:5173/`. Access is required while the repository is private. LFS pointers without their binary contents are not a runnable asset checkout.
 
 ```sh
 npm run build
 npm run preview -- --port 4173
 ```
 
-The Kuki/Yelan runtime GLBs are versioned with Git LFS. After `git lfs pull`, the standard `npm run build` includes their models, textures and animations without a local conversion directory. `npm run build:characters` remains a compatibility alias. See [character setup and deployment](docs/characters/local-mmd.md).
+The standard build copies `public/` assets into `dist/`, including runtime characters in `public/characters/`. `prebuild` checks their size, hashes, GLB format and gait parameters; `build:characters` remains an alias for the same build. CI must fetch Git LFS files too. Original PMX files, local Blender projects and language-model API keys are not required.
 
-### Third-party character attribution and terms
+## Controls at a glance
 
-This project is a noncommercial game prototype. **Kuki Shinobu and Yelan: models provided by miHoYo; MMD model adaptation by 观海 (Guanhai).** [Original distribution page](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [Original Kuki archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [Original Yelan archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip).
-
-Project changes include PMX-to-GLB conversion, skeleton compatibility, scale adjustments, animation baking and material adaptation. The source readmes permit limited modifications and prohibit commercial use, redistribution, extracting parts for other models and listed inappropriate uses. Free distribution is not an open-source license; attribution or noncommercial use does not grant additional permission. This project is not affiliated with or endorsed by miHoYo / HoYoverse and does not claim permission beyond the original terms. Model rights remain with their respective holders; any project code license does not cover these assets. Provenance and hashes are recorded in `public/characters/manifest.json`.
-
-
-The development server has hot reload and polling disabled to keep long play sessions steady. Refresh manually after editing. Playing the existing assets does **not** require Blender or the original terrain downloads.
-
-## Controls
-
-| Input | Action |
+| Mode / input | Action |
 | --- | --- |
-| W A S D / arrow keys | Drive: accelerate, steer, brake/reverse |
-| Space | Handbrake |
-| C | Cycle chase, cockpit and distant driving cameras |
-| F | Exit/enter the car when nearby and stopped; leave an observation view |
-| V | Inspect the car; press again to return |
-| G | Enter/leave drone viewing |
-| Mouse drag / wheel | Orbit / zoom in observation views |
-| Drone: W A S D / arrow keys | Move / turn the view |
-| Drone: Q / E / Shift | Descend / ascend / move faster |
-| Drone: Shift + drag | Pan the view |
-| M / Tab | Map: search, select a place and choose navigation or a viewing action |
-| L | Cycle sunset → night → day |
-| J / E | Open the city journal / interact at a nearby objective while stopped |
-| H | Horn |
-| R | Return the car to a nearby road |
-| Esc / P | Close a menu or pause / show the frame-rate overlay |
+| Car: WASD / arrows, Space | Drive, handbrake |
+| F / T | Enter/exit a stopped nearby vehicle; switch car/tank while driving |
+| Walking: WASD, Shift, C | Walk, run, first/third person |
+| G / B | Drone observation; switch between drone and aircraft |
+| Drone: WASD / arrows, Q/E | Translate / look, descend / ascend |
+| Drag, Shift + drag, wheel | Orbit, pan, zoom in observation mode |
+| Tank: Q/E, PageUp/PageDown, Space, X | Turret, barrel, fire, brake |
+| Aircraft: Space, X | Missiles, slow down; no aiming reticle |
+| M / L / J | Map, lighting preset, city journal |
+| P | Frame-rate information |
 
-On foot, use W A S D to move, drag or use the arrow keys to look, and hold Shift to walk faster. In autopilot, driving inputs or Space take control back. The pause menu contains sound and music settings; audio starts after the first click or keypress.
+See [tank/walking notes](docs/graphics/tank-rider-rendering-2026-09-09.md) and [aircraft missiles](docs/graphics/flight-missiles-2026-09-10.md) for details. Projectile impacts and explosions exist; a complete structural building-destruction system does not.
 
-## Development and checks
+## Learn, change, verify
+
+Suggested reading order: `src/main.ts` → `src/city-world.ts` → a subsystem that interests you, then its scripts, tests and records. Place names, mission text, reproducible camera issues or one material parameter are good first changes.
 
 ```sh
 npm test
 npm run build
+node scripts/check-character-assets.mjs
+# With development running on 5173:
+node scripts/check-local-characters.mjs
+node scripts/check-character-surfaces.mjs
+# With production preview running on 4174:
+node scripts/check-character-deployment.mjs
 ```
 
-The v0.2 candidate passed **90 tests** and a production build. Current screenshots and short performance runs are documented in [city quality and the GT sport kit](docs/graphics/city-quality-sport-2026-09-06.md). These measurements do not establish a stable frame rate on every computer or throughout the whole city.
+Latest recorded functional checks (2026-09-10): 218 automated tests passed; character integration had 18 browser checks and 4 surface/camera checks; the standard production build had 5 additional character-deployment checks. These are completed check records, not a fresh performance benchmark conducted for this README. Browser scripts currently include a macOS Chrome path; adapt it for other systems. Outputs under `output/` and `artifacts/` are ignored by Git.
 
-With a local server running, the latest visual checks can be repeated with:
+A full asset rebuild is different from `npm run build`. Read the [asset workflow](docs/资产重建与交付保护.md) first; `npm run assets -- --plan` lists stages and missing inputs. The complete source-data rebuild has not been verified end to end. Importing [city_mesh.py](scripts/city_mesh.py) initializes a Blender scene, so do not import it for ordinary Python data inspection.
 
-```sh
-node scripts/check-distant-city.mjs http://127.0.0.1:5173/
-node scripts/check-city-sport-details.mjs http://127.0.0.1:5173/
-```
+## Data, models and licensing
 
-These scripts currently use the macOS Chrome executable path. Captures and full diagnostics are generated under `output/playwright/` and are not part of the source checkout.
+This is currently a noncommercial game prototype. **Publicly readable files do not automatically share one open-source license.** Code, geographic data and third-party assets have separate terms; a project notice cannot replace another rights holder's license.
 
-| Area | Entry point |
-| --- | --- |
-| Browser app and scene | `src/main.ts`, `src/city-world.ts` |
-| Driving and city-life rules | `src/driving.ts`, `src/city-career.ts` |
-| Base city and landmark additions | `public/city/city.json`, `public/city/landmark-detail.json` |
-| Nearby facade streaming | `src/city-facade-stream.ts` |
-| GT sport details | `src/city-sport-details.ts` |
-| Blender mesh helpers | `scripts/city_mesh.py` |
+- Roads and footprints: © OpenStreetMap contributors, ODbL; see [data attribution](data/ATTRIBUTION.md).
+- Hero vehicle: Khronos CarConcept, DGG / Eric Chadwick, CC BY 4.0; see [vehicle credits](public/licenses/carconcept-CC-BY-4.0.md).
+- Selected skies, trees and seating: Poly Haven / OpenGameArt; see [asset credits](public/licenses/open-city-assets.md) and [daylight environment](public/licenses/daylight-environment.md).
+- Terrain and landmarks: [coastal terrain](public/licenses/coastal-terrain.md), [landmark attribution](public/city/LANDMARK_ATTRIBUTION.md).
+- Kuki Shinobu / Yelan: **models provided by miHoYo; MMD adaptation by 观海 (Guanhai).** [Distribution page](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [Original Kuki archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [Original Yelan archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip). Project changes include format conversion, skeleton compatibility, scaling, animation baking and material adaptation. Original terms prohibit commercial use, redistribution, extracting parts for other models and listed inappropriate uses. Attribution and noncommercial use grant no additional permission. The project does not claim permission beyond those terms and is not affiliated with or endorsed by miHoYo / HoYoverse. [Provenance and hashes](public/characters/manifest.json).
+- Other assets and dependencies: retain the notices in [public/licenses](public/licenses). User-supplied or AI-processed assets are not automatically licensed for open redistribution.
 
-Fine facades stream in 640 m tiles: prefetch within 1,050 m, display within 700 m and unload beyond 1,500 m. Base buildings and roads are loaded as complete assets. Aerial views retain the original building meshes and use view-frustum culling, while expensive local updates are throttled during movement.
-
-Asset rebuilding is a separate workflow. Read [asset build and delivery](docs/资产重建与交付保护.md), [landmark delivery](docs/landmarks/delivery.md) and [coastal implementation](docs/coastal/implementation.md) before regenerating assets. `npm run assets -- --plan` prints the proposed build plan; the full clean rebuild has not yet been validated end to end. `scripts/city_mesh.py` initializes a Blender scene when imported, so do not import it for ordinary data inspection.
-
-## Data, assets and credits
-
-- Roads, footprints and geographic features: **© OpenStreetMap contributors**; see [data attribution](data/ATTRIBUTION.md).
-- Hero vehicle: derived from **Khronos CarConcept**, with [CC BY 4.0 credits](public/licenses/carconcept-CC-BY-4.0.md).
-- Daylight HDR: **Rustig Koppie (Pure Sky)** from Poly Haven; see [environment credits](public/licenses/daylight-environment.md).
-- Terrain and landmarks: [coastal terrain credits](public/licenses/coastal-terrain.md) and [landmark attribution](public/city/LANDMARK_ATTRIBUTION.md).
-- Other assets and runtime dependencies: [open asset credits](public/licenses/open-city-assets.md) and the notices in [public/licenses](public/licenses/).
-
-Code, third-party art and geographic data have separate provenance; the asset notices are not a blanket license for the repository. Geographic inputs, inferred dimensions and artistic changes are documented separately. Most detailed development notes are currently in Chinese.
+The city is compressed, with artistic changes to building heights, facades and terrain. It is not a survey-accurate digital twin of all Shenzhen. A full release still requires a separate decision on the code license and each asset category's distribution scope.
