@@ -19,7 +19,7 @@ try{
   const response=await context.request.get(base+'/characters/'+model.file);assert.equal(response.status(),200);
   const bytes=await response.body();assert.equal(bytes.length,model.bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),model.sha256);
-  assert.ok(bytes.equals(await readFile('local-only/characters/'+model.file)));
+  assert.ok(bytes.equals(await readFile('public/characters/'+model.file)));
  }
  check('production HTTP serves both complete GLBs; bundle contains no source PMX, ZIP or blend');
  let rejectPlayer=true;

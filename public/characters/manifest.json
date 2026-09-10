@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "credit": "模型提供 miHoYo · MMD 模型改造 观海",
+  "physics": false,
+  "usage": {
+    "preparedFor": "non-commercial game prototype",
+    "publicReleaseAuthorization": "not verified",
+    "source": "https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html"
+  },
+  "models": [
+    {
+      "id": "kuki",
+      "name": "久岐忍",
+      "file": "kuki.glb",
+      "displayHeight": 1.72,
+      "bytes": 12378524,
+      "triangles": 29693,
+      "bones": 271,
+      "morphs": 65,
+      "textures": [
+        "spa_h.png",
+        "体.png",
+        "肌.png",
+        "颜.png",
+        "髪.png"
+      ],
+      "sha256": "370c548273a7ca7ea8bfb5fec17283421657b2b1bb1c9f4ab8ee83b8230b8963",
+      "sourceZipSha256": "fa933da52a854632bf3abd8732d5a15ae20aad62d0b6c80b037f911742f07777",
+      "gait": {
+        "walk": {
+          "cycleSeconds": 1,
+          "stanceFraction": 0.62,
+          "authoredSpeed": 1.032258064516129,
+          "swingLift": 0.115,
+          "method": "baked two-bone IK with forward knee poles and sole contacts"
+        },
+        "run": {
+          "cycleSeconds": 0.7333333333333333,
+          "stanceFraction": 0.4,
+          "authoredSpeed": 2.590909090909091,
+          "swingLift": 0.34,
+          "method": "baked two-bone IK with forward knee poles and sole contacts"
+        }
+      },
+      "sourceUrl": "https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip"
+    },
+    {
+      "id": "yelan",
+      "name": "夜兰",
+      "file": "yelan.glb",
+      "displayHeight": 1.72,
+      "bytes": 12670020,
+      "triangles": 25275,
+      "bones": 400,
+      "morphs": 62,
+      "textures": [
+        "spa_h.png",
+        "体.png",
+        "肌.png",
+        "颜.png",
+        "髪.png"
+      ],
+      "sha256": "2a6f58e382ca658890fd612db7c7c1e16f55dfceace76bc834f209e6195553ea",
+      "sourceZipSha256": "73e011c4ad3d68303afd01f4572717f03e1eb5f422fcc8840abbd5c496df421e",
+      "gait": {
+        "walk": {
+          "cycleSeconds": 1.2,
+          "stanceFraction": 0.66,
+          "authoredSpeed": 0.41035353535353536,
+          "swingLift": 0.1,
+          "method": "baked two-bone IK with forward knee poles and sole contacts"
+        },
+        "run": {
+          "cycleSeconds": 0.7333333333333333,
+          "stanceFraction": 0.4,
+          "authoredSpeed": 2.590909090909091,
+          "swingLift": 0.34,
+          "method": "baked two-bone IK with forward knee poles and sole contacts"
+        }
+      },
+      "sourceUrl": "https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip"
+    }
+  ]
+}

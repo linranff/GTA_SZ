@@ -17,57 +17,52 @@
 
 2026-09-10 读取了两个包各自的 `readme【一定要看】.txt`。说明允许有限修改，禁止商业用途、二次配布、拆取部件改造其他模型，以及列出的不当作品用途。免费配布不是开源授权，也不能由本次本地转换推导出公开游戏、Steam 或模型再发布授权。
 
-原包在 `data/raw/local-mmd/`，转换后的 GLB、可编辑 Blender 文件及骨架记录在 `local-only/characters/`。两者均被 Git 忽略。**Git 是否跟踪资产，与部署包是否包含资产相互独立。** Vite 的开发中间件只向本机回环连接提供 `manifest.json`、`kuki.glb`、`yelan.glb`，拒绝提供原 PMX、ZIP 和 Blender 文件。
+项目目前为非商业游戏原型，与 miHoYo / HoYoverse 无隶属或官方合作关系。仓库中的代码许可不覆盖这些第三方模型；本项目没有取得或宣称获得超出原包说明的额外许可。署名、非商业用途和私有仓库均不改写原条款。
 
-生产加载器也支持新角色，不再用 `import.meta.env.DEV` 禁止角色接入。下面的构建步骤在本机生成部署产物，不上传资源，也不代表已获得公开使用授权。公开使用与发布方式仍需核实。
+## 正常检出、运行和构建
 
-## 带角色的完整构建
-
-本机已准备过角色资源时，运行：
+运行时资产已纳入 `public/characters/`：两个 GLB 由 Git LFS 管理，清单和署名说明由普通 Git 管理。开发与生产均默认读取 `/characters/`，不再依赖本机忽略目录或开发专用中间件。
 
 ```sh
-npm run build:characters
+git lfs install
+git lfs pull
+npm ci
+npm run dev -- --port 5173 --strictPort
+```
+
+正常生产构建即可带上角色：
+
+```sh
+npm run build
 npm run preview -- --port 4173 --strictPort
 ```
 
-打开 `http://127.0.0.1:4173/`。生成的 `dist/` 是完整游戏构建，新增目录只含：
+`npm run build:characters` 保留为普通构建的兼容别名。Vite 会把 `public/characters/` 原样复制到 `dist/characters/`，不需要额外的本机模型目录或 Blender。CI 在安装依赖和构建前也必须拉取 Git LFS 文件；例如 GitHub Actions 的 `actions/checkout` 设置 `lfs: true`。
 
 ```text
-dist/characters/
+public/characters/ → dist/characters/
   kuki.glb
   yelan.glb
   manifest.json
   CREDITS.txt
 ```
 
-这两个 GLB 合计约 24 MiB，已嵌入贴图、骨架和动画。原始 ZIP、PMX、Blender 工程不会进入部署包。部署时必须提供整个 `dist/`，不能只提供 Git 仓库里的文件；干净的 CI 工作区需先通过单独的资产存储提供 `local-only/characters/` 中的清单和两个 GLB。构建脚本先验证文件大小、SHA256、GLB 格式和步态参数，缺少资产时明确失败，不会悄悄产出没有新角色的版本。
+两个 GLB 合计约 24 MiB，已嵌入贴图、骨架和动画。`prebuild` 自动检查文件大小、SHA256、GLB 格式和步态参数；遇到缺失文件或仅有 LFS 指针时明确失败。部署使用整个 `dist/`。原始 ZIP、PMX 与可编辑 Blender 工程继续保留在忽略目录，运行与构建不需要它们。
 
-`npm run build:characters` 将运行地址设为 `/characters`，适用于当前游戏的站点根目录部署。`dist/` 仍被 Git 忽略，这是构建产物的正常处理。**后续再运行普通 `npm run build` 会清理并覆盖 `dist/`**；普通构建没有配置角色资源地址时沿用原有模型，因此验收、部署新角色版本应使用 `build:characters`。
+可通过 `VITE_CHARACTER_ASSET_BASE` 覆盖运行时资源目录，默认不需要设置。如果使用跨域资源服务器，应配置 CORS；`VITE_*` 会进入客户端，不可填写私钥或长期访问令牌。当前仓库为私有，推送到仓库并不等于已发布到公共网站。
 
-## 单独存放角色资源
+正式构建验证：预览启动在 `4174` 时执行 `node scripts/check-character-deployment.mjs`。该脚本检查静态构建实际加载、完整模型哈希、失败后仍可驾驶、重试后久岐忍下车，以及两个夜兰独立骨架。结果保存在 `output/playwright/character-deployment/`。
 
-若服务器或对象存储已提供上述运行文件，也可以构建一个不重复打包 GLB 的客户端：
+## 重新制作角色资产
 
-```sh
-VITE_CHARACTER_ASSET_BASE=https://你的资产域名/characters npm run build
-```
-
-也可在 `.env.production.local` 设置此变量，示例见 `.env.example`。该地址是**目录地址**，清单和两个 GLB 应处于同一目录；跨域服务器须允许游戏域名的 CORS 请求。推荐同源 `/characters` 路径，方便服务器统一控制访问。`VITE_*` 会进入客户端，不可填写私钥或长期访问令牌。
-
-私人部署若要限制访问，应在服务器保护整个游戏及 `/characters/`，并校验会话；本地预览命令、忽略目录、难猜 URL 或 CORS 本身都不是访问控制。当前没有配置远程服务器，也没有上传这些角色。
-
-正式构建验证：预览启动在 `4174` 时执行 `node scripts/check-character-deployment.mjs`。该脚本检查静态构建实际加载、完整模型哈希、失败后仍可驾驶、重试后久岐忍下车，以及两个夜兰独立骨架，不使用开发资源接口。结果保存在 `output/playwright/character-deployment/`。
-
-## 本地准备
-
-本机已经生成资产，不需重新执行。干净检出不携带模型，需从作者原地址下载：
+正常检出无需重新转换。需要编辑模型时，可执行：
 
 ```sh
 python3 scripts/fetch_local_mmd.py
-# 阅读命令打印的原包使用说明后，仅作本地非商业验证：
 /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python scripts/prepare_local_mmd.py
-npm run dev -- --port 5173 --strictPort
 ```
+
+原包在 `data/raw/local-mmd/`，转换输出和可编辑文件在 `local-only/characters/`。更新发布资产时只替换 `public/characters/` 中相应的 GLB 与清单字段，并保留来源和署名记录；SHA256、文件大小、步态参数必须与输出一致。运行 `node scripts/check-character-assets.mjs` 验证后再构建。
 
 转换使用 Blender 5.2 和 [MMD Tools](https://github.com/MMD-Blender/blender_mmd_tools) 4.5.14，固定提交 `29d1478cf4385945b1c011d4c1e6adda7ad7cf70`。工具及其依赖只解压到项目忽略目录，不安装系统插件。原包、转换结果的 SHA256 记录在本地 manifest 中。
 
@@ -81,8 +76,8 @@ npm run dev -- --port 5173 --strictPort
 - `src/city-local-characters.ts`：可配置资源地址、载入进度、材质和资源生命周期。
 - `src/city-rider.ts` / `src/city-cafe-characters.ts`：主角和两个咖啡馆外观替换。
 - `src/city-walk.ts` / `src/city-world.ts`：角色与车辆状态、出口、移动、跟随镜头。
-- `src/city-character-hud.ts`：加载与重试；`vite.config.ts`：本地资源服务。
-- `scripts/build_character_deployment.mjs`：校验运行资产并生成带角色的部署构建。
+- `src/city-character-hud.ts`：加载与重试；`public/characters/`：已纳入版本管理的运行资源。
+- `scripts/check-character-assets.mjs`：普通构建前自动校验角色文件与清单。
 
 运行 `npm test`、`npm run build`、`node scripts/check-local-characters.mjs`、`node scripts/check-character-surfaces.mjs`。
 

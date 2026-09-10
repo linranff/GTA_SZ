@@ -4,8 +4,8 @@ const out='output/playwright/local-characters';await fs.mkdir(out,{recursive:tru
 const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--use-angle=metal']});
 const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],checks=[];
 let rejectPlayer=true,rejectCafe=true,playerLoads=0;
-await page.route('**/__local-characters/kuki.glb',route=>{playerLoads++;return rejectPlayer?route.fulfill({status:503,body:'Injected model failure'}):route.continue();});
-await page.route('**/__local-characters/yelan.glb',route=>rejectCafe?route.fulfill({status:503,body:'Injected cafe failure'}):route.continue());
+await page.route('**/characters/kuki.glb',route=>{playerLoads++;return rejectPlayer?route.fulfill({status:503,body:'Injected model failure'}):route.continue();});
+await page.route('**/characters/yelan.glb',route=>rejectCafe?route.fulfill({status:503,body:'Injected cafe failure'}):route.continue());
 const check=(name,pass,data)=>{checks.push({name,pass,data});console.log(JSON.stringify(checks.at(-1)));if(!pass)throw Error(name);};
 page.on('pageerror',e=>errors.push(String(e)));
 page.on('console',m=>{if(m.type()==='error'&&/character|local_|rider|cafe|GLTF/.test(m.text()))console.log('CONSOLE',m.text());});

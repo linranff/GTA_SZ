@@ -3,7 +3,7 @@ import {Color3,Constants,LoadAssetContainerAsync,PBRMaterial,type AssetContainer
 // Asset location is a deployment setting, independent of whether Vite is in DEV.
 // No source archives or Blender authoring files are needed by the browser.
 const configuredBase=import.meta.env.VITE_CHARACTER_ASSET_BASE?.trim();
-export const CHARACTER_ASSET_BASE=(configuredBase|| (import.meta.env.DEV?'/__local-characters':'')).replace(/\/+$/,'');
+export const CHARACTER_ASSET_BASE=(configuredBase||'/characters').replace(/\/+$/,'');
 export const CHARACTERS_ENABLED=!!CHARACTER_ASSET_BASE;
 export const CHARACTER_CREDIT='模型 miHoYo · MMD 改造 观海';
 export type LocalCharacter={id:'kuki'|'yelan';name:string;file:string;displayHeight:number;bytes:number;triangles:number;gait:{walk:{cycleSeconds:number;authoredSpeed:number};run:{cycleSeconds:number;authoredSpeed:number}}};

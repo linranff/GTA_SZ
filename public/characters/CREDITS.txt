@@ -1,0 +1,9 @@
+久岐忍 / 夜兰：模型提供 miHoYo，MMD 模型改造 观海。
+配布来源：https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html
+
+本项目为非商业游戏原型，与 miHoYo / HoYoverse 无隶属或官方合作关系。
+本项目修改：PMX 转 GLB、骨架兼容、角色尺寸调整、待机/行走/奔跑/招手动作烘焙、材质适配。
+原包说明允许有限修改，禁止商业用途、二次配布、拆取部件改造其他模型，以及所列不当用途。
+署名和非商业用途不构成额外授权。本项目未取得或宣称已取得超出原包说明的许可。
+原始 ZIP、PMX 和 Blender 工程不在此运行目录中。
+原始下载地址及模型 SHA256 见 manifest.json，详情见项目 README 及 docs/characters/local-mmd.md。

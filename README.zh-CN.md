@@ -55,7 +55,14 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-本机准备过久岐忍 / 夜兰资源后，使用 `npm run build:characters` 代替上面的 `npm run build`，即可生成包含这两个角色的完整 `dist/`。原始模型不进 Git，运行时 GLB 会进入该部署构建；命令不会上传文件。资源准备、独立托管和使用范围见[角色接入与部署](docs/characters/local-mmd.md)。
+久岐忍 / 夜兰的运行时 GLB 已纳入 Git LFS，正常 `git lfs pull` 与 `npm run build` 即可带上模型、贴图和动画。无需本机转换目录；`npm run build:characters` 仍可作为兼容别名。详情见[角色接入与部署](docs/characters/local-mmd.md)。
+
+### 第三方角色来源与使用说明
+
+本项目为非商业游戏原型。**久岐忍、夜兰：模型提供 miHoYo，MMD 模型改造 观海。** [原配布页面](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [久岐忍原始下载](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [夜兰原始下载](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip)。
+
+本项目进行了 PMX 转 GLB、骨架兼容、尺寸调整、动作烘焙和材质适配。原包说明允许有限修改，禁止商业用途、二次配布、拆取部件改造其他模型，以及所列不当用途。免费配布不等于开源；非商业用途或署名不授予额外许可。本项目与 miHoYo / HoYoverse 无隶属或官方合作关系，未取得或宣称取得超出原包说明的授权。模型权利归相应权利人，项目代码许可不覆盖这些模型。来源和文件哈希另见 `public/characters/manifest.json`。
+
 
 开发服务器关闭了热更新与轮询，以保持长时间游玩的稳定性。修改后请手动刷新。使用现有资产游玩**不需要** Blender，也不需要下载原始地形数据。
 

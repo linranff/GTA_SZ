@@ -55,7 +55,14 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-With the local Kuki/Yelan runtime assets prepared, use `npm run build:characters` instead of `npm run build` to include them in `dist/`. Source archives remain outside Git and the deployment artifact; this command does not upload anything. See [character setup and deployment](docs/characters/local-mmd.md) for asset hosting and usage restrictions.
+The Kuki/Yelan runtime GLBs are versioned with Git LFS. After `git lfs pull`, the standard `npm run build` includes their models, textures and animations without a local conversion directory. `npm run build:characters` remains a compatibility alias. See [character setup and deployment](docs/characters/local-mmd.md).
+
+### Third-party character attribution and terms
+
+This project is a noncommercial game prototype. **Kuki Shinobu and Yelan: models provided by miHoYo; MMD model adaptation by 观海 (Guanhai).** [Original distribution page](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [Original Kuki archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [Original Yelan archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip).
+
+Project changes include PMX-to-GLB conversion, skeleton compatibility, scale adjustments, animation baking and material adaptation. The source readmes permit limited modifications and prohibit commercial use, redistribution, extracting parts for other models and listed inappropriate uses. Free distribution is not an open-source license; attribution or noncommercial use does not grant additional permission. This project is not affiliated with or endorsed by miHoYo / HoYoverse and does not claim permission beyond the original terms. Model rights remain with their respective holders; any project code license does not cover these assets. Provenance and hashes are recorded in `public/characters/manifest.json`.
+
 
 The development server has hot reload and polling disabled to keep long play sessions steady. Refresh manually after editing. Playing the existing assets does **not** require Blender or the original terrain downloads.
 

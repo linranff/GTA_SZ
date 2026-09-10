@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
+    "prebuild": "node scripts/check-character-assets.mjs",
     "build": "tsc --noEmit && vite build",
-    "build:characters": "node scripts/build_character_deployment.mjs",
+    "build:characters": "npm run build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --experimental-transform-types --test tests/*.test.ts",
     "assets": "node scripts/rebuild_city_assets.mjs",
