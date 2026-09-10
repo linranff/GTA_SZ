@@ -3,12 +3,13 @@ import {Color3,Matrix,PBRMaterial,SpotLight,Vector3,VertexBuffer,type AbstractMe
 /** Rear illumination has a physical light receiver, independently of emissive
  * lenses/bloom. One bounded cone covers both lamps; no extra shadow map or
  * full-screen reflection pass. Braking changes lenses and road light together. */
-export function createCityTailLights(scene:Scene,car:TransformNode,carMeshes:readonly AbstractMesh[]){
+export function createCityTailLights(scene:Scene,car:TransformNode,carMeshes:readonly AbstractMesh[],rig:TransformNode=car){
  const tail=carMeshes.find(m=>/^car_redled(?:\.\d+)?$/.test(m.name));
  const inverse=Matrix.Invert(car.computeWorldMatrix(true));let rear=-1;
  if(tail){const positions=tail.getVerticesData(VertexBuffer.PositionKind);if(positions){const transform=tail.computeWorldMatrix(true).multiply(inverse);let z=0;for(let i=0;i<positions.length;i+=3)z+=Vector3.TransformCoordinates(Vector3.FromArray(positions,i),transform).z;rear=Math.sign(z/(positions.length/3))||-1;}}
  const light=new SpotLight('vehicle-rear-road-light',new Vector3(0,.68,rear*2.25),new Vector3(0,-.52,rear).normalize(),2.35,2,scene);
- light.parent=car;light.diffuse=new Color3(1,.014,.004);light.specular=new Color3(1,.023,.008);light.range=8;light.intensity=0;light.renderPriority=14;
+ // The rig (default: the car) must never be disabled; see city-world vehicleLightRig.
+ light.parent=rig;light.diffuse=new Color3(1,.014,.004);light.specular=new Color3(1,.023,.008);light.range=8;light.intensity=0;light.renderPriority=14;
  const receivers=scene.meshes.filter(m=>m.getTotalVertices()>0&&/asphalt|roadline|sidewalk|kerb|puddle|rain_.*(?:water|film)|terrain_land|terrain_park/i.test(m.name+' '+(m.material?.name??''))&&!carMeshes.includes(m));
  light.includedOnlyMeshes=receivers;
  const budgets=new Map<PBRMaterial,number>();

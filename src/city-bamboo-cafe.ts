@@ -53,8 +53,11 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
  function setMode(next:Mode){
   mode=next;
   for(const [mat,color]of lampMaterials){mat.emissiveColor.copyFrom(color);mat.emissiveIntensity=next==='day'?.8:next==='sunset'?1.6:2.4;}
-  for(const light of lights)light.intensity=(next==='day'?12:next==='sunset'?19:25)*(light instanceof SpotLight?1.25:1);
+  applyLightPower();
  }
+ // Room lights stay enabled and go dark by intensity when the player is far:
+ // enabling/disabling a light recompiles every cafe material it touches.
+ function applyLightPower(){for(const light of lights)light.intensity=active?(mode==='day'?12:mode==='sunset'?19:25)*(light instanceof SpotLight?1.25:1):0;}
  async function ensureInterior(){
   if(loaded||disposed)return;
   if(pending)return pending;
@@ -82,7 +85,7 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
     if(light instanceof SpotLight){shadow=new ShadowGenerator(1024,light);shadow.useBlurExponentialShadowMap=true;shadow.blurKernel=16;shadow.bias=.0003;shadow.normalBias=.012;shadow.getShadowMap()!.renderList=interior.filter(m=>!m.material?.name.includes('glass'));}
    }
    loaded=true;setMode(mode);
-   for(const m of interior)m.setEnabled(active);for(const light of lights)light.setEnabled(active);
+   for(const m of interior)m.setEnabled(active);
    if(active)for(const animation of animations)animation.start(true,.65);
   })().catch(e=>{error=String(e);console.error('Cafe interior:',e);pending=null;throw e;});
   return pending;
@@ -94,7 +97,7 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
   const d=Math.hypot(x-spec.site.x,z-spec.site.z);
   if(d<260&&!loaded&&!pending&&!error)void ensureInterior().catch(()=>{});
   const near=d<120;
-  if(active!==near){active=near;for(const m of interior)m.setEnabled(near);for(const light of lights)light.setEnabled(near);for(const a of animations){if(near)a.start(true,.65);else a.pause();}}
+  if(active!==near){active=near;for(const m of interior)m.setEnabled(near);applyLightPower();for(const a of animations){if(near)a.start(true,.65);else a.pause();}}
   // Newly loaded parts also need the current visibility state applied.
   for(const m of exterior)if(m.isEnabled()!==(d<1400))m.setEnabled(d<1400);
   const animate=near&&d<65&&!!camera&&Math.abs(camera.position.y-floorBase)<16;

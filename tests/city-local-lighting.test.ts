@@ -6,6 +6,9 @@ import {createLocalLighting,LOCAL_LIGHTING} from '../src/city-local-lighting.ts'
 const center=LOCAL_LIGHTING.regions[0],eye={x:center.x,y:2,z:center.z};
 function box(scene:Scene,name:string,x=0,z=0){const m=MeshBuilder.CreateBox(name,{size:2},scene);m.position.set(center.x+x,1,center.z+z);m.material=new PBRMaterial(name+'-material',scene);m.computeWorldMatrix(true);return m;}
 function tick(local:ReturnType<typeof createLocalLighting>,p=eye,seconds=.6){for(let t=0;t<seconds;t+=.05)local.update(.05,p);}
+/** The shader-stability contract: nothing that feeds Babylon's light defines may change at run time. */
+function layout(scene:Scene){return scene.lights.filter(l=>/^sample-local-lamp/.test(l.name)).map(l=>({on:l.isEnabled(),shadow:l.shadowEnabled,included:[...l.includedOnlyMeshes]}));}
+function sameLayout(a:ReturnType<typeof layout>,b:ReturnType<typeof layout>){assert.equal(a.length,b.length);for(let i=0;i<a.length;i++){assert.equal(a[i].on,b[i].on);assert.equal(a[i].shadow,b[i].shadow);assert.deepEqual(a[i].included,b[i].included);}}
 
 test('camera Vector3 getters satisfy the update contract and activate nearby night lighting',()=>{
  const engine=new NullEngine(),scene=new Scene(engine),wall=box(scene,'landmark_vector_wall');
@@ -22,6 +25,7 @@ test('local sample owns two lamps and one reusable shadow map; empty receivers a
  atmosphere.material=new PBRMaterial('directional-night-environment',scene);
  const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0],[center.x+14,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>[wall,water,mountain,atmosphere]});
  const textures=scene.textures.filter(t=>t.isRenderTarget);assert.equal(textures.length,1);assert.equal(scene.lights.length,2);
+ const initial=layout(scene);
  local.setMode('night');tick(local);let s=local.stats();assert.equal(s.activeLights,2);assert.equal(s.activeShadowMaps,1);assert.equal(s.casters,1);
  for(const light of scene.lights){assert(light.includedOnlyMeshes.includes(wall));assert(!light.includedOnlyMeshes.includes(water));assert(!light.includedOnlyMeshes.includes(mountain));assert(!light.includedOnlyMeshes.includes(atmosphere),'mesh name must exclude atmosphere even when its night material has no sky token');assert.equal(light.falloffType,Light.FALLOFF_GLTF);assert.equal((light as SpotLight).innerAngle,1.5);assert.equal((light as SpotLight).angle,2.6);}
  scene.shadowsEnabled=false;assert.equal(local.stats().activeShadowMaps,0);scene.shadowsEnabled=true;assert.equal(local.stats().activeShadowMaps,1);
@@ -29,6 +33,7 @@ test('local sample owns two lamps and one reusable shadow map; empty receivers a
  wall.setEnabled(true);local.update(.05,eye,true);tick(local);assert.equal(local.stats().activeLights,2);
  local.setMode('day');assert.equal(local.stats().activeLights,0);assert.equal(local.stats().activeShadowMaps,0);
  local.setMode('night');tick(local);local.setEnabled(false);assert.equal(local.stats().activeLights,0);local.setEnabled(true);tick(local);
+ sameLayout(layout(scene),initial);
  assert.equal(scene.textures.filter(t=>t.isRenderTarget)[0],textures[0],'mode and A/B reuse the original shadow texture');
  local.dispose();local.dispose();assert.equal(scene.lights.length,0);assert.equal(scene.textures.filter(t=>t.isRenderTarget).length,0);scene.dispose();engine.dispose();
 });
@@ -42,27 +47,28 @@ test('fixture changes reach zero before repositioning and use existing road offs
  let moved=false;
  for(let i=0;i<25;i++){
   const prior=local.stats().slots[0];local.update(.025,next);const now=local.stats().slots[0];
-  if(prior.fixtureId!==now.fixtureId){assert.equal(now.intensity,0);assert.equal(now.enabled,false);moved=true;}
+  if(prior.fixtureId!==now.fixtureId){assert.equal(now.intensity,0);assert.equal(now.enabled,true,'a lamp is never disabled; zero intensity stands in for off');moved=true;}
   const ids=local.stats().slots.map(s=>s.fixtureId).filter(Boolean);assert.equal(new Set(ids).size,ids.length);
  }
  assert(moved);const park=local.stats().slots.find(s=>s.fixtureId==='park-test');assert(park);assert.equal(park.position[1],14.56);
  local.dispose();scene.dispose();engine.dispose();
 });
 
-test('new and mode-restored receiver materials gain actual bounded light slots and recover on disable',()=>{
+test('receiver materials gain bounded light slots once; later mode/A-B changes leave them alone',()=>{
  const engine=new NullEngine(),scene=new Scene(engine),wall=box(scene,'landmark_test_stone');
  const material=wall.material as PBRMaterial;material.maxSimultaneousLights=3;
  for(let i=0;i<7;i++)new PointLight('existing-'+i,Vector3.Zero(),scene);
  const car=box(scene,'hero-car'),carMaterial=car.material as PBRMaterial;carMaterial.maxSimultaneousLights=3;
- const fill=new PointLight('soft-vehicle-fill',Vector3.Zero(),scene);fill.includedOnlyMeshes=[car];
- const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0],[center.x+12,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>[wall]});
+ const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0],[center.x+12,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>[wall],stableReceivers:[car]});
+ assert.equal(material.maxSimultaneousLights,9,'raised at classification, before any lamp is lit');assert.equal(carMaterial.maxSimultaneousLights,10);
  local.setMode('night');tick(local);assert.equal(material.maxSimultaneousLights,9);assert.equal(carMaterial.maxSimultaneousLights,10);
- material.maxSimultaneousLights=6;local.setMode('night');local.update(.05,eye,true);assert.equal(material.maxSimultaneousLights,9);
- local.setEnabled(false);assert.equal(material.maxSimultaneousLights,6,'restores the most recent external mode baseline');assert.equal(carMaterial.maxSimultaneousLights,3);
+ local.setEnabled(false);assert.equal(material.maxSimultaneousLights,9,'A/B off must not change shader light counts');
  local.setEnabled(true);tick(local);const replacement=new PBRMaterial('later-local-plugin-material',scene);replacement.maxSimultaneousLights=4;wall.material=replacement;
- local.update(.05,eye,true);assert.equal(replacement.maxSimultaneousLights,9);assert.equal(material.maxSimultaneousLights,6);
- local.setMode('day');assert.equal(replacement.maxSimultaneousLights,4);
- local.dispose();scene.dispose();engine.dispose();
+ local.update(.05,eye,true);assert.equal(replacement.maxSimultaneousLights,4,'a mesh is classified once; a later material owner keeps its own cap');
+ local.setMode('day');assert.equal(material.maxSimultaneousLights,9);
+ const oversized=box(scene,'landmark_oversized_wall',4).material as PBRMaterial;oversized.maxSimultaneousLights=15;local.update(.05,eye,true);
+ assert.equal(oversized.maxSimultaneousLights,15,'caps are only ever raised, never lowered');
+ local.dispose();assert.equal(material.maxSimultaneousLights,3);assert.equal(carMaterial.maxSimultaneousLights,3);assert.equal(oversized.maxSimultaneousLights,15);scene.dispose();engine.dispose();
 });
 
 test('caster budget keeps material parts together and region/height transitions fully release local resources',()=>{
@@ -73,7 +79,8 @@ test('caster budget keeps material parts together and region/height transitions 
  const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>parts});
  local.setMode('night');tick(local);let s=local.stats();assert.equal(s.casters,47);assert.equal(s.skippedCasterGroups,1);
  const map=scene.lights.find(l=>l.name==='sample-local-lamp-0')!.getShadowGenerator()!.getShadowMap()!;
- assert(!map.renderList!.includes(stone));assert(!map.renderList!.includes(glass));assert(!map.renderList!.includes(floor));
+ const drawn=map.getCustomRenderList!(0,map.renderList!,map.renderList!.length)!;
+ assert(!drawn.includes(stone));assert(!drawn.includes(glass));assert(!drawn.includes(floor));
  tick(local,{...eye,y:121});s=local.stats();assert.equal(s.regionWeight,0);assert.equal(s.activeLights,0);assert.equal(s.activeShadowMaps,0);
  tick(local);assert.equal(local.stats().activeLights,1);
  tick(local,{...eye,x:center.x+221});assert.equal(local.stats().activeLights,0);assert.equal(local.stats().activeShadowMaps,0);
@@ -87,33 +94,41 @@ test('vertical coastal walls cast local shadows while ground paving only receive
  local.setMode('night');tick(local);
  const light=scene.lights.find(l=>l.name==='sample-local-lamp-0')!,map=light.getShadowGenerator()!.getShadowMap()!;
  assert(light.includedOnlyMeshes.includes(wall));assert(light.includedOnlyMeshes.includes(paving));
- assert(map.renderList!.includes(wall),'the existing vertical seawall must occlude the new lamp');
- assert(!map.renderList!.includes(paving),'flat paving receives illumination without spending a caster draw');
+ const drawn=map.getCustomRenderList!(0,map.renderList!,map.renderList!.length)!;
+ assert(drawn.includes(wall),'the existing vertical seawall must occlude the new lamp');
+ assert(!drawn.includes(paving),'flat paving receives illumination without spending a caster draw');
  assert.equal(local.stats().casters,1);assert.equal(local.stats().activeShadowMaps,1);
  local.dispose();scene.dispose();engine.dispose();
 });
 
-test('receiver shader guards survive A/B, mode and region removal, and restore only owned settings on disposal',()=>{
+test('receiver materials keep shader hot swapping so a recompile never leaves holes',()=>{
  const engine=new NullEngine(),scene=new Scene(engine),wall=box(scene,'landmark_guard_wall'),other=box(scene,'landmark_original_guard',3);
  const material=wall.material as PBRMaterial,originallyGuarded=other.material as PBRMaterial;originallyGuarded.allowShaderHotSwapping=false;
- const unrelated=box(scene,'distant-building',1000).material as PBRMaterial;
  const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>[wall,other]});
- local.setMode('night');tick(local);assert.equal(material.allowShaderHotSwapping,false);assert.equal(originallyGuarded.allowShaderHotSwapping,false);assert.equal(unrelated.allowShaderHotSwapping,true);
- local.setEnabled(false);assert.equal(material.allowShaderHotSwapping,false,'A/B removal is itself a sampler transition');
- local.setEnabled(true);tick(local);local.setMode('day');assert.equal(material.allowShaderHotSwapping,false);
- local.setMode('night');tick(local,{...eye,y:121});assert.equal(material.allowShaderHotSwapping,false);
- originallyGuarded.allowShaderHotSwapping=true; // A later owner changes its original false setting.
- local.dispose();assert.equal(material.allowShaderHotSwapping,true);assert.equal(originallyGuarded.allowShaderHotSwapping,true);assert.equal(unrelated.allowShaderHotSwapping,true);
- assert.equal(local.stats().hotSwapGuardMaterials,0);scene.dispose();engine.dispose();
+ local.setMode('night');tick(local);assert.equal(material.allowShaderHotSwapping,true);assert.equal(originallyGuarded.allowShaderHotSwapping,false,'other owners keep their setting');
+ assert.equal(local.stats().hotSwapGuardMaterials,0);assert.equal(local.stats().shaderStable,true);
+ local.dispose();scene.dispose();engine.dispose();
 });
 
-test('historical material light caps are bounded locally and restored after region exit',()=>{
- const engine=new NullEngine(),scene=new Scene(engine),wall=box(scene,'landmark_oversized_wall');
- const material=wall.material as PBRMaterial;material.maxSimultaneousLights=15;
- const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>[wall]});
- local.setMode('night');tick(local);assert.equal(material.maxSimultaneousLights,9);assert.equal(local.stats().maxReceiverLightCapacity,9);
- tick(local,{...eye,x:center.x+221});assert.equal(material.maxSimultaneousLights,15);assert.equal(local.stats().maxReceiverLightCapacity,0);
- local.dispose();assert.equal(material.maxSimultaneousLights,15);scene.dispose();engine.dispose();
+test('driving through fixtures, region exit, day mode and A/B never change any light define input',()=>{
+ const engine=new NullEngine(),scene=new Scene(engine);
+ const walls=Array.from({length:6},(_,i)=>box(scene,'landmark_row_'+i,i*30));
+ const far=box(scene,'landmark_far_wall',400);
+ const local=createLocalLighting({scene,lamps:[[center.x,center.z,0,0],[center.x+40,center.z,0,0],[center.x+90,center.z,0,0],[center.x+150,center.z,0,0]],parkLights:[],heightAt:()=>0,casters:()=>walls});
+ const initial=layout(scene);
+ for(const l of initial){assert.equal(l.on,true);for(const w of walls)assert(l.included.includes(w),'static geometry near any fixture is a receiver from the start');assert(!l.included.includes(far),'geometry out of reach of every fixture is not');}
+ assert.equal(initial[0].shadow,true);assert.equal(initial[1].shadow,false);
+ local.setMode('night');
+ let lit=0;for(let i=0;i<120;i++){local.update(.05,{x:center.x+i*1.5,y:2,z:center.z});sameLayout(layout(scene),initial);lit=Math.max(lit,local.stats().activeLights);}
+ assert.equal(lit,2,'both lamps served fixtures along the drive');assert(local.stats().activeLights>=1);
+ tick(local,{...eye,x:center.x+700},1);assert.equal(local.stats().activeLights,0);sameLayout(layout(scene),initial);
+ local.setMode('day');sameLayout(layout(scene),initial);local.setEnabled(false);sameLayout(layout(scene),initial);
+ local.setEnabled(true);local.setMode('night');tick(local);assert(local.stats().activeLights>0);sameLayout(layout(scene),initial);
+ // A mesh streamed in later joins once and is then left alone too.
+ const streamed=box(scene,'detail_block_1_1_facade',20);local.update(.05,eye,true);
+ const grown=layout(scene);for(const l of grown)assert(l.included.includes(streamed));
+ for(let i=0;i<40;i++){local.update(.05,{x:center.x+i*2,y:2,z:center.z});sameLayout(layout(scene),grown);}
+ local.dispose();scene.dispose();engine.dispose();
 });
 
 test('moving hero retains the same light, PCF and material slots through fixture, region and day transitions',()=>{

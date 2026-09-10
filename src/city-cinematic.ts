@@ -51,7 +51,18 @@ export function applyModeFinish(pipeline:DefaultRenderingPipeline,ip:ImageProces
 export const AERIAL_FINISH={msaa:1,fxaa:true} as const;
 export function applyAntiAliasing(pipeline:DefaultRenderingPipeline,aerial:boolean){
  const {msaa,fxaa}=aerial?AERIAL_FINISH:CINEMATIC_FINISH;
- if(pipeline.samples!==msaa)pipeline.samples=msaa;if(pipeline.fxaaEnabled!==fxaa)pipeline.fxaaEnabled=fxaa;
+ if(pipeline.samples===msaa&&pipeline.fxaaEnabled===fxaa)return false;
+ // Each property change rebuilds the whole post chain, and every rebuild flips
+ // imageProcessingConfiguration.applyByPostProcess off and back on. Each flip
+ // marks every material dirty (~35 ms per call on this city, four calls per
+ // toggle) and re-keys every submesh's defines in the next frame. The end
+ // state is identical, so suppress that storm and rebuild once for both
+ // properties.
+ const scene=pipeline.scene as Scene&{_forceBlockMaterialDirtyMechanism(value:boolean):void},blocked=scene.blockMaterialDirtyMechanism,automatic=pipeline.automaticBuild;
+ scene._forceBlockMaterialDirtyMechanism(true);
+ try{pipeline.automaticBuild=false;pipeline.samples=msaa;pipeline.fxaaEnabled=fxaa;pipeline.automaticBuild=automatic;pipeline.prepare();}
+ finally{scene._forceBlockMaterialDirtyMechanism(blocked);}
+ return true;
 }
 /** Per-mode lighting balance. Direct sun against total fill (hemisphere +
  * HDR irradiance) is kept near 4–5:1 so lit and shaded faces read as different
