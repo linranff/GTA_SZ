@@ -2,6 +2,7 @@ import {ImportMeshAsync,TransformNode,Quaternion,Vector3,Ray,Matrix,PBRMaterial,
 import type {CityData} from './city-types.ts';
 import {FlightExplosion} from './city-flight-explosion.ts';
 import {FlightCityCollision} from './city-flight-collision.ts';
+import {FlightMissiles} from './city-flight-missiles.ts';
 import {FlightSimulation,flightPoint,flightBasis,type FlightPoint,type FlightHit} from './city-flight-simulation.ts';
 
 const vector=(p:FlightPoint)=>new Vector3(p.x,p.y,p.z);
@@ -12,13 +13,13 @@ function boxInterval(a:FlightPoint,b:FlightPoint,min:Vector3,max:Vector3){
  return true;
 }
 
-/** One reusable aircraft and one short-lived explosion. No extra render loop. */
+/** One aircraft with pooled missiles and crash FX. No extra render loop. */
 export class CityFlight{
  readonly sim=new FlightSimulation();readonly root:TransformNode;
  meshes:AbstractMesh[]=[];loading=false;loaded=false;
  private loadPromise:Promise<void>|null=null;private propeller:TransformNode|null=null;
  private collision:FlightCityCollision;private colliders:MeshCollider[]=[];
- private explosion:FlightExplosion|null=null;private impactEye=Vector3.Zero();
+ private explosion:FlightExplosion|null=null;private missiles:FlightMissiles|null=null;private impactEye=Vector3.Zero();
  private eye=Vector3.Zero();private target=Vector3.Zero();private crashPoint=Vector3.Zero();private dead=false;
  constructor(private scene:Scene,private data:CityData,private heightAt:(x:number,z:number)=>number,landmarks:AbstractMesh[],private onExplosion:()=>void){
   this.root=new TransformNode('bay-flight',scene);this.root.setEnabled(false);
@@ -32,7 +33,7 @@ export class CityFlight{
   }
  }
  get active(){return this.sim.active;}
- get stats(){return {...this.sim.status,loading:this.loading,loaded:this.loaded,altitude:Math.max(0,this.sim.pose.y-this.heightAt(this.sim.pose.x,this.sim.pose.z)),meshCount:this.meshes.length,landmarkColliders:this.colliders.length,explosionParticles:this.explosion?.stats.particles??0,explosion:this.explosion?.stats??null};}
+ get stats(){return {...this.sim.status,loading:this.loading,loaded:this.loaded,altitude:Math.max(0,this.sim.pose.y-this.heightAt(this.sim.pose.x,this.sim.pose.z)),meshCount:this.meshes.length,landmarkColliders:this.colliders.length,explosionParticles:this.explosion?.stats.particles??0,explosion:this.explosion?.stats??null,missiles:this.missiles?.stats??null};}
  async load(){
   if(this.loaded)return;if(this.loadPromise)return this.loadPromise;
   this.loading=true;
@@ -47,9 +48,10 @@ export class CityFlight{
    this.propeller=result.transformNodes.find(n=>n.name==='floatplane_propeller')??null;
    if(this.propeller)this.propeller.rotationQuaternion=null;
    this.explosion??=new FlightExplosion(this.scene);
+   this.missiles??=new FlightMissiles(this.scene,this.sweep,this.onExplosion);
    // Compile the small effect shaders before takeoff, not during the 3-second
    // explosion. The burst never adds a light that recompiles the whole city.
-   for(let i=0;i<100&&!this.explosion.isReady();i++)await new Promise(resolve=>setTimeout(resolve,20));
+   for(let i=0;i<100&&(!this.explosion.isReady()||!this.missiles.isReady());i++)await new Promise(resolve=>setTimeout(resolve,20));
    this.loaded=true;
   })().finally(()=>{this.loading=false;this.loadPromise=null;});
   return this.loadPromise;
@@ -79,9 +81,12 @@ export class CityFlight{
   const camera=this.chase();this.eye.copyFrom(camera.eye);this.target.copyFrom(camera.target);return true;
  }
  stop(){this.sim.stop();this.root.setEnabled(false);this.clearEffects();}
+ fire(){return this.loaded&&this.sim.phase==='flying'&&!this.dead?this.missiles?.fire(this.sim.pose,this.sim.speed)??false:false;}
  step(keys:ReadonlySet<string>,dt:number,now:number){
+  if(this.sim.phase==='flying'&&keys.has('Space'))this.fire();
   const result=this.sim.step(keys,dt,now,this.sweep,this.data.meta.extent);
-  if(result==='crashed'){this.root.setEnabled(false);this.burst(vector(this.sim.hit!.point));this.onExplosion();}
+  if(result==='crashed'){this.missiles?.clear();this.root.setEnabled(false);this.burst(vector(this.sim.hit!.point));this.onExplosion();}
+  if(this.sim.phase==='flying')this.missiles?.step(dt);
   if(this.sim.phase==='flying')this.syncModel(dt);
   if(this.sim.phase==='exploding'){
    const seconds=(now-this.sim.crashedAt)/1000;this.explosion?.step(seconds);
@@ -102,6 +107,6 @@ export class CityFlight{
  private burst(position:Vector3){
   this.crashPoint.copyFrom(position);this.impactEye.copyFrom(this.eye);this.explosion?.burst(position,this.sim.pose.yaw);
  }
- private clearEffects(){this.explosion?.reset();}
- dispose(){this.dead=true;this.stop();this.explosion?.dispose();this.explosion=null;this.root.dispose(false,true);}
+ private clearEffects(){this.explosion?.reset();this.missiles?.clear();}
+ dispose(){this.dead=true;this.stop();this.explosion?.dispose();this.explosion=null;this.missiles?.dispose();this.missiles=null;this.root.dispose(false,true);}
 }

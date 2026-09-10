@@ -37,7 +37,8 @@ export class CityPedestrians{
   }
   this.people=next;this.update(0,x,z);
  }
- collideVehicle(before:ImpactCarPose,after:ImpactCarPose){
+ collideVehicle(before:ImpactCarPose,after:ImpactCarPose,vehicle:'sports-car'|'tank'='sports-car'){
+  if(vehicle!=='sports-car')return {hits:0,peakSpeed:0};
   let active=this.people.filter(p=>p.body&&p.body.phase!=='recovering').length,hits=0,peakSpeed=0;
   if(Math.hypot(after.x-before.x,after.z-before.z)<.001)return {hits,peakSpeed};
   for(const p of this.people){

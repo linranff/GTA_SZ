@@ -25,7 +25,7 @@ export class FlightSimulation{
   if(this.phase==='exploding'){if(now-this.crashedAt>=FLIGHT_RECOVERY_MS){this.phase='idle';return 'recovered';}return null;}
   const axis=(pos:string[],neg:string[])=>Number(pos.some(k=>keys.has(k)))-Number(neg.some(k=>keys.has(k)));
   const pitch=axis(['KeyW','ArrowUp'],['KeyS','ArrowDown']),roll=axis(['KeyD','ArrowRight'],['KeyA','ArrowLeft']);
-  const rudder=axis(['KeyE'],['KeyQ']),thrust=axis(['ShiftLeft','ShiftRight'],['Space']);
+  const rudder=axis(['KeyE'],['KeyQ']),thrust=axis(['ShiftLeft','ShiftRight'],['KeyX']);
   let left=clamp(dt,0,.1);
   while(left>1e-7){
    const h=Math.min(left,1/120);left-=h;const before={...this.pose},p=this.pose;

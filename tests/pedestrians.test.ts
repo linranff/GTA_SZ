@@ -58,6 +58,15 @@ function fixture(t:TestContext,paths:number[][]=[[-10,0,10,0],[-10,18,10,18]],he
  return {pedestrians,scene,buffers,templates,matrix,finiteMatrices};
 }
 function pose(x:number,z:number,speed=12,yaw=0,groundY=0):ImpactCarPose{return {x,z,speed,yaw,groundY};}
+test('tank crossings leave pedestrians upright; the same sports-car crossing still launches them',t=>{
+ const {pedestrians}=fixture(t),person=pedestrians.people[0];
+ const before=pose(person.x,person.z-4,18),after=pose(person.x,person.z+4,18);
+ const original=structuredClone(person),stats={...pedestrians.stats};
+ assert.deepEqual(pedestrians.collideVehicle(before,after,'tank'),{hits:0,peakSpeed:0});
+ assert.deepEqual(person,original);assert.deepEqual(pedestrians.stats,stats);
+ assert.ok(pedestrians.collideVehicle(before,after,'sports-car').hits>0);
+ assert.equal(person.body?.phase,'airborne');assert.ok(person.body!.vy>0);
+});
 function hit(pedestrians:CityPedestrians,person:Walker,speed=12){
  return pedestrians.collideVehicle(pose(person.x,person.z-4,speed,0,pedestrians.heightAt(person.x,person.z)),
   pose(person.x,person.z+4,speed,0,pedestrians.heightAt(person.x,person.z)));
