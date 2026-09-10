@@ -1,5 +1,5 @@
 import {AbstractMesh,Animation,AnimationGroup,ImportMeshAsync,PBRMaterial,TransformNode,type Scene} from '@babylonjs/core';
-import {LOCAL_CHARACTERS,localCharacterManifest,loadLocalCharacter,characterProgress} from './city-local-characters.ts';
+import {CHARACTERS_ENABLED,localCharacterManifest,loadLocalCharacter,characterProgress} from './city-local-characters.ts';
 import {WALK_SPEED,RUN_SPEED} from './city-walk.ts';
 
 export type RiderPose={x:number;y:number;z:number;yaw:number;speed:number};
@@ -11,12 +11,12 @@ export type CityRider={
  dispose():void;
 };
 
-/** Local PMX-derived avatar in development, existing rider in published builds.
+/** Configured PMX-derived avatar; existing rider when no asset source is configured.
  * Native, in-place skeletal clips share a contact clock. Preserve glTF handedness. */
 export async function createCityRider(scene:Scene):Promise<CityRider>{
  characterProgress('player','loading',0,'久岐忍 · 正在读取角色');
  let local:Awaited<ReturnType<typeof localCharacterManifest>>['models'][number]|undefined;
- try{if(LOCAL_CHARACTERS)local=(await localCharacterManifest()).models.find(m=>m.id==='kuki');}
+ try{if(CHARACTERS_ENABLED)local=(await localCharacterManifest()).models.find(m=>m.id==='kuki');}
  catch(e){characterProgress('player','error',0,String((e as Error).message));throw e;}
  const manifest=local??await fetch('/city/rider/manifest.json').then(r=>{if(!r.ok)throw Error('Rider gait manifest unavailable');return r.json();}) as {gait:{walk:{cycleSeconds:number;authoredSpeed:number};run:{cycleSeconds:number;authoredSpeed:number}}};
  let owned:Awaited<ReturnType<typeof loadLocalCharacter>>|undefined;

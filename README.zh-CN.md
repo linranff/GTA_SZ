@@ -55,6 +55,8 @@ npm run build
 npm run preview -- --port 4173
 ```
 
+本机准备过久岐忍 / 夜兰资源后，使用 `npm run build:characters` 代替上面的 `npm run build`，即可生成包含这两个角色的完整 `dist/`。原始模型不进 Git，运行时 GLB 会进入该部署构建；命令不会上传文件。资源准备、独立托管和使用范围见[角色接入与部署](docs/characters/local-mmd.md)。
+
 开发服务器关闭了热更新与轮询，以保持长时间游玩的稳定性。修改后请手动刷新。使用现有资产游玩**不需要** Blender，也不需要下载原始地形数据。
 
 ## 操作

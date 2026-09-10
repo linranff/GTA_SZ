@@ -1,11 +1,11 @@
-import {LOCAL_CHARACTERS,localCharacterManifest,loadLocalCharacter,characterProgress,type LocalCharacter} from './city-local-characters.ts';
+import {CHARACTERS_ENABLED,localCharacterManifest,loadLocalCharacter,characterProgress,type LocalCharacter} from './city-local-characters.ts';
 import {ImportMeshAsync,Matrix,PBRMaterial,Quaternion,Vector3,type AbstractMesh,type AnimationGroup,type Scene,type Skeleton,type TransformNode} from '@babylonjs/core';
 import type {CafeSpec} from './city-cafe-layout.ts';
 import type {CafeStaffPose} from './city-cafe-staff-motion.ts';
 
 type CharacterManifest={schemaVersion:number;staffAssignments:Record<string,string>;models:{id:string;file:string;triangles:number;bytes:number;height:number;rigged:boolean;gait:{authoredSpeed:number};local?:LocalCharacter}[]};
 type CharacterFit={sourceHeight:number;displayHeight:number;verticalScale:number;horizontalScale:number;footOffset:number};
-export type CafeCharacterStatus={loaded:boolean;error:string|null;assignments:Record<string,string>;triangles:number;source:'user-provided Tripo GLBs'|'local MMD / miHoYo / 观海';proportions?:Record<string,CharacterFit>;animation?:{rigged:boolean;bones:number;clips:string[];independentSkeletons:number}};
+export type CafeCharacterStatus={loaded:boolean;error:string|null;assignments:Record<string,string>;triangles:number;source:'user-provided Tripo GLBs'|'MMD / miHoYo / 观海';proportions?:Record<string,CharacterFit>;animation?:{rigged:boolean;bones:number;clips:string[];independentSkeletons:number}};
 type AnimatedStaff={id:string;anchor:TransformNode;groups:Record<'idle'|'walk'|'wave',AnimationGroup>;started:boolean;playing:boolean;authoredSpeed:number};
 
 // Art-directed DISPLAY heights in this cafe, not claims about real people.
@@ -42,7 +42,7 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
  const response=await fetch('/city/bamboo-cafe/characters/manifest.json');
  if(!response.ok)throw Error('Cafe character manifest is unavailable');
  const manifest=await response.json() as CharacterManifest;
- if(LOCAL_CHARACTERS){
+ if(CHARACTERS_ENABLED){
   characterProgress('cafe','loading',0,'夜兰 · 正在准备两位咖啡馆角色');
   const local=(await localCharacterManifest()).models.find(m=>m.id==='yelan')!;
   manifest.models.push({id:'yelan',file:local.file,triangles:local.triangles,bytes:local.bytes,height:local.displayHeight,rigged:true,gait:{authoredSpeed:local.gait.walk.authoredSpeed},local});
@@ -117,15 +117,15 @@ export async function replaceCafeCharacters(scene:Scene,spec:CafeSpec,oldMeshes:
     staff.groups.wave.setWeightForAllAnimatables(wave);
    }
   };
-  if(LOCAL_CHARACTERS)characterProgress('cafe','ready',1,'咖啡馆夜兰角色已就绪');
+  if(CHARACTERS_ENABLED)characterProgress('cafe','ready',1,'咖啡馆夜兰角色已就绪');
   return {meshes:newMeshes,update,dispose:()=>{for(const a of allGroups)a.dispose();for(const s of skeletons)s.dispose();},status:{loaded:true,error:null,assignments:manifest.staffAssignments,
-   triangles:owners.reduce((sum,o)=>sum+manifest.models.find(m=>m.id===o.kind)!.triangles,0),source:LOCAL_CHARACTERS?'local MMD / miHoYo / 观海':'user-provided Tripo GLBs',proportions,
+   triangles:owners.reduce((sum,o)=>sum+manifest.models.find(m=>m.id===o.kind)!.triangles,0),source:CHARACTERS_ENABLED?'MMD / miHoYo / 观海':'user-provided Tripo GLBs',proportions,
    animation:{rigged:true,bones:skeletons.reduce((n,s)=>n+s.bones.length,0),clips:['idle','walk','wave'],independentSkeletons:skeletons.length}} satisfies CafeCharacterStatus};
  }catch(error){
   for(const a of allGroups)a.dispose();for(const s of skeletons)s.dispose();
   for(const root of newRoots)if(!root.isDisposed())root.dispose(false,true);
   for(const mesh of imported)if(!mesh.isDisposed())mesh.dispose(false,false);
-  if(LOCAL_CHARACTERS)characterProgress('cafe','error',0,'咖啡馆角色加载失败，可重试');
+  if(CHARACTERS_ENABLED)characterProgress('cafe','error',0,'咖啡馆角色加载失败，可重试');
   throw error;
  }
 }

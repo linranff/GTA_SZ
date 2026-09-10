@@ -55,6 +55,8 @@ npm run build
 npm run preview -- --port 4173
 ```
 
+With the local Kuki/Yelan runtime assets prepared, use `npm run build:characters` instead of `npm run build` to include them in `dist/`. Source archives remain outside Git and the deployment artifact; this command does not upload anything. See [character setup and deployment](docs/characters/local-mmd.md) for asset hosting and usage restrictions.
+
 The development server has hot reload and polling disabled to keep long play sessions steady. Refresh manually after editing. Playing the existing assets does **not** require Blender or the original terrain downloads.
 
 ## Controls

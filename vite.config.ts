@@ -2,8 +2,8 @@ import {defineConfig} from 'vite';
 import {createReadStream,existsSync,statSync} from 'node:fs';
 import {resolve} from 'node:path';
 
-// Restricted character derivatives are served ONLY by loopback development.
-// They are outside public/, never imported, and never copied into dist/.
+// Loopback source for development only. Production uses VITE_CHARACTER_ASSET_BASE;
+// build:characters copies only runtime GLBs + manifest, never the source archives.
 const localCharacters=resolve('local-only/characters');
 export default defineConfig({
   plugins:[{name:'local-character-validation',apply:'serve',configureServer(server){

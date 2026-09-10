@@ -1,4 +1,4 @@
-import {characterProgress,LOCAL_CHARACTERS} from './city-local-characters.ts';
+import {characterProgress,CHARACTERS_ENABLED} from './city-local-characters.ts';
 import {Color3,ImportMeshAsync,PBRMaterial,PointLight,Quaternion,ShadowGenerator,SpotLight,TransformNode,Vector3,type AbstractMesh,type AnimationGroup,type Scene} from '@babylonjs/core';
 import {cafeLayout,type CafeSpec,type CafeCollider} from './city-cafe-layout.ts';
 import {replaceCafeCharacters,type CafeCharacterStatus} from './city-cafe-characters.ts';
@@ -79,7 +79,7 @@ export async function createBambooCafe(scene:Scene,heightAt:(x:number,z:number)=
      for(const light of scene.lights)if(!lights.includes(light as PointLight)&&!/^(sunset|sky-bounce)$/.test(light.name))light.excludedMeshes.push(mesh);
     }
     onMeshes(replacement.meshes);
-   }catch(e){characterStatus.error=String(e);if(LOCAL_CHARACTERS)characterProgress('cafe','error',0,'夜兰加载失败 · 可重试');onMeshes(interior.filter(m=>m.name.startsWith('staff_')));console.error('Cafe character replacement:',e);}
+   }catch(e){characterStatus.error=String(e);if(CHARACTERS_ENABLED)characterProgress('cafe','error',0,'夜兰加载失败 · 可重试');onMeshes(interior.filter(m=>m.name.startsWith('staff_')));console.error('Cafe character replacement:',e);}
 
    for(const light of lights)light.includedOnlyMeshes=[...interior,...exterior];
    if(shadow)shadow.getShadowMap()!.renderList=interior.filter(m=>!m.material?.name.includes('glass'));
