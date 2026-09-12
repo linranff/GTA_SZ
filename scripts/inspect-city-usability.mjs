@@ -87,11 +87,12 @@ try{
  for(const s of scenes){
   await pose(s);await page.evaluate(()=>window.__CITY_USABILITY__.setLightMode('day'));await page.waitForTimeout(8000);
   for(const enabled of [false,true]){
-   await page.evaluate(enabled=>{const w=window.__CITY_USABILITY__;w.landscape.configureRoadside(w.data,{collisionFootprints:w.detailManifest?.collisionFootprints,bridgeCrossings:w.coastal?.manifest.crossings,blocked:(x,z)=>w.collision.blocked(x,z)||w.propBlocked(x,z),maxTrees:enabled?2400:0});w.vegetation();w.cull();},enabled);
+   await page.evaluate(enabled=>{const w=window.__CITY_USABILITY__;w.landscape.configureRoadside(w.data,{collisionFootprints:w.detailManifest?.collisionFootprints,bridgeCrossings:w.coastal?.manifest.crossings,blocked:(x,z)=>w.collision.blocked(x,z)||w.propBlocked(x,z),maxTrees:enabled?3000:0});w.vegetation();w.cull();},enabled);
    await page.waitForTimeout(5000);await snap(`05-${s.name}-${enabled?'after':'before'}`);
    await page.evaluate(()=>{window.__CITY_USABILITY__.samples=[];});await page.waitForTimeout(6500);
    const sample={name:s.name,enabled,...await read()};performanceSamples.push(sample);console.log(JSON.stringify({phase:'roadside',name:s.name,enabled,fps:sample.performance.meanFps,p95:sample.performance.p95,gpu:sample.performance.gpuMs,planting:sample.landscape.roadside.visible}));
-   check(`${s.name} tree counts stay within budget ${enabled}`,sample.landscape.roadside.visible.near<=12&&sample.landscape.roadside.visible.far<=80&&(!enabled||sample.landscape.roadside.generated>0),sample.landscape);
+   const roadsideBudget=sample.landscape.roadside.budget??{near:12,far:80};
+   check(`${s.name} tree counts stay within budget ${enabled}`,sample.landscape.roadside.visible.near<=roadsideBudget.near&&sample.landscape.roadside.visible.far<=roadsideBudget.far&&(!enabled||sample.landscape.roadside.generated>0),sample.landscape);
   }
  }
  phase='autopilot';

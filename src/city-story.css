@@ -1,0 +1,36 @@
+/* Left mid-upper strip. Dialog stays above tips / minimap / speedo. */
+.story-entry,.story-hud,.story-dialog{position:absolute;pointer-events:auto;color:#edf0e2;border:1px solid #c4d6cc3d;background:#152c35ee;box-shadow:0 16px 48px #03101655}
+.story-entry,.story-hud,.story-dialog{font:12px/1.6 'PingFang SC','Noto Sans SC',system-ui,sans-serif}
+.story-entry,.story-hud{top:clamp(170px,28vh,340px);left:var(--hud-edge,30px);width:min(236px,calc(100vw - 64px));z-index:2;border-left:2px solid #c7d4a7}
+.story-entry{text-align:left;padding:11px 14px;cursor:pointer}
+.story-hud{padding:14px 15px}
+.story-entry small,.story-hud small,.story-dialog small{display:block;font:10px system-ui;letter-spacing:.14em;color:#b4c8b0}
+.story-entry strong,.story-hud strong{display:block;font:19px/1.3 'Songti SC','Noto Serif SC',serif;font-weight:400;margin:7px 0 5px}
+.story-entry span,.story-hud span{display:block;color:#b7cfc1}
+.story-hud-actions,.story-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.story-entry button,.story-hud button,.story-dialog button{font:11px/1.4 system-ui,sans-serif;padding:7px 10px;color:#e8f0e6;background:#6caa9b24;border:1px solid #b7d4cd40;border-radius:3px}
+.story-hud button.quiet,.story-dialog button.quiet{background:transparent;color:#a9bdb5}
+.story-warning{margin:10px 0 0;color:#e7b681}
+.story-dialog{top:14%;left:50%;transform:translateX(-50%);width:min(520px,calc(100vw - 48px));max-height:calc(100% - 220px);overflow:auto;padding:22px 24px 18px;z-index:6;border-top:1px solid #d5e5d445}
+.story-dialog strong{display:block;font:24px/1.35 'Songti SC','Noto Serif SC',serif;font-weight:400;margin:10px 0 4px}
+.story-role{margin:0 0 12px;font-size:11px;color:#9db9b8}
+.story-dialog blockquote{margin:0 0 16px;font:18px/1.85 'Songti SC','Noto Serif SC',serif;color:#ede8d7}
+.story-choices{display:grid;gap:8px;margin-bottom:8px}
+.story-choices button{display:block;width:100%;text-align:left;padding:11px 13px}
+.story-choices strong{display:block;font:13px/1.5 system-ui,sans-serif;margin:0 0 6px}
+.story-choices span{display:block;font-size:11px;color:#9fbbb3}
+.story-choices kbd{margin-right:6px}
+.story-entry[hidden],.story-hud[hidden],.story-dialog[hidden]{display:none!important}
+#ui.story-modal-open #career-objective,
+#ui.story-modal-open #career-invitation,
+#ui.story-modal-open #journal-button,
+#ui.story-modal-open #route-hud,
+#ui.story-modal-open #ride-prompt,
+#ui.story-modal-open #walk-help,
+#ui.story-modal-open .city-graphics-panel,
+#ui.story-modal-open .intro{display:none!important}
+@media(max-width:800px){
+  .story-entry,.story-hud{top:clamp(120px,22vh,220px);width:min(220px,calc(100vw - 36px))}
+  .story-dialog{top:10%;max-height:calc(100% - 200px);padding:16px}
+  .story-dialog strong{font-size:20px}.story-dialog blockquote{font-size:16px}
+}

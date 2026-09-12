@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "caiwuwei",
+  "name": "蔡屋围",
+  "kind": "district",
+  "status": "street_block_marker_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "京基100 或地王的复制品",
+  "anchor": {
+    "lon": 114.102637,
+    "lat": 22.5436,
+    "source": "artifacts/landmark-research/unknown-centers-followup.json",
+    "basis": "estimated",
+    "role": "蔡屋围丽晶大厦与蔡屋围大酒店足印中点"
+  },
+  "street": {"width_m": 180, "depth_m": 16, "basis": "estimated"},
+  "blocks": [
+    {"east_m": -62, "north_m": 28, "width_m": 40, "depth_m": 28, "height_m": 42, "material": "stone"},
+    {"east_m": -8, "north_m": 32, "width_m": 48, "depth_m": 30, "height_m": 28, "material": "concrete"},
+    {"east_m": 58, "north_m": 26, "width_m": 36, "depth_m": 26, "height_m": 38, "material": "landmarkglass"},
+    {"east_m": -40, "north_m": -30, "width_m": 52, "depth_m": 24, "height_m": 22, "material": "stone"},
+    {"east_m": 36, "north_m": -28, "width_m": 44, "depth_m": 22, "height_m": 24, "material": "concrete"}
+  ],
+  "blocks_basis": "estimated street context; kk100 and diwang stay independent ids"
+}

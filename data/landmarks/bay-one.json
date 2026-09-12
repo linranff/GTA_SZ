@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "bay-one",
+  "name": "深圳湾一号",
+  "status": "wikipedia_anchor_cluster_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 113.93722,
+    "lat": 22.50861,
+    "source": "https://en.wikipedia.org/wiki/One_Shenzhen_Bay",
+    "basis": "reported",
+    "role": "Wikipedia coordinate for Tower 7, not the whole estate centroid"
+  },
+  "towers": [
+    {"id": "t7", "height_m": 341.4, "east_m": 0, "north_m": 0, "width_m": 32, "depth_m": 28, "basis": "height reported; plan estimated"},
+    {"id": "t5", "height_m": 196, "east_m": 48, "north_m": -36, "width_m": 28, "depth_m": 24, "basis": "height reported; offset estimated"},
+    {"id": "t6", "height_m": 136, "east_m": -42, "north_m": -28, "width_m": 26, "depth_m": 22, "basis": "height reported; offset estimated"},
+    {"id": "t8", "height_m": 125.4, "east_m": 22, "north_m": 40, "width_m": 24, "depth_m": 22, "basis": "height reported; offset estimated"}
+  ],
+  "notes": ["Must remain a cluster. Offsets are estimated so four heights read as a group, not a surveyed site plan."]
+}

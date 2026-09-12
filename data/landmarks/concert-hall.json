@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "concert-hall",
+  "name": "深圳音乐厅",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Shenzhen Concert Hall / 深圳音乐厅",
+    "paired_with": "library-center",
+    "not": ["深圳图书馆北馆", "深圳图书馆中心馆", "南山文体中心"],
+    "address": "深圳市福田区福中一路2016号"
+  },
+  "anchor": {
+    "lon": 114.05194,
+    "lat": 22.55,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Cultural_Center",
+    "basis": "reported",
+    "note": "English Wikipedia 22°33′0″N 114°3′7″E for Shenzhen Cultural Center. Concert Hall has no separate EN Wikipedia coordinate. Official page gives address only, no WGS84."
+  },
+  "site": {
+    "area_m2": 26345,
+    "basis": "reported",
+    "source": "https://www.sz.gov.cn/szzt2010/szwtt/wtcg/whcg/content/post_11634263.html"
+  },
+  "gfa": {
+    "area_m2": 41423,
+    "basis": "reported",
+    "source": "https://www.sz.gov.cn/szzt2010/szwtt/wtcg/whcg/content/post_11634263.html"
+  },
+  "height": {
+    "value": 36,
+    "basis": "estimated",
+    "uncertainty": "金色主厅通高按矶崎新体块照片推算，不是测绘；市政府页未给建筑高度。"
+  },
+  "gold_hall": {
+    "width_m": 72,
+    "depth_m": 48,
+    "height_m": 36,
+    "east_m": 6,
+    "north_m": 8,
+    "basis": "estimated",
+    "uncertainty": "金色主演奏厅平面按占地与常见立面比例，不是测绘。"
+  },
+  "red_volume": {
+    "width_m": 34,
+    "depth_m": 28,
+    "height_m": 22,
+    "east_m": -30,
+    "north_m": -18,
+    "basis": "estimated",
+    "uncertainty": "彩色附属体块位置按成组照片，不是测绘。"
+  },
+  "glass_lobby": {
+    "width_m": 40,
+    "depth_m": 20,
+    "height_m": 14,
+    "east_m": 24,
+    "north_m": -16,
+    "basis": "estimated"
+  },
+  "fins": {
+    "count": 16,
+    "basis": "estimated",
+    "uncertainty": "竖向韵律用通高金属肋表达，不逐窗。"
+  },
+  "notes": [
+    "Must stay a colorful-block hall with vertical fins, not the library glass book.",
+    "Anchor is the Cultural Center encyclopedia pin; library-center uses its own Wikipedia coordinate."
+  ]
+}

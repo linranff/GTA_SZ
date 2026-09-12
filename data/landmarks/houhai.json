@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "houhai",
+  "name": "后海 / 深圳湾超级总部基地",
+  "kind": "district",
+  "status": "waterfront_block_marker_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "春笋、湾一号或人才公园的替身；不是北京后海",
+  "anchor": {
+    "lon": 113.941,
+    "lat": 22.513352,
+    "source": "artifacts/landmark-research/unknown-centers-followup.json",
+    "basis": "estimated",
+    "role": "春笋 / 人才公园 / 湾一号 T7 三点平均，只作片区锚"
+  },
+  "water": {"width_m": 220, "depth_m": 70, "south_m": -80, "basis": "estimated"},
+  "blocks": [
+    {"east_m": -70, "north_m": 20, "width_m": 36, "depth_m": 28, "height_m": 48, "material": "landmarkglass"},
+    {"east_m": -18, "north_m": 28, "width_m": 30, "depth_m": 24, "height_m": 36, "material": "darkglass"},
+    {"east_m": 40, "north_m": 16, "width_m": 42, "depth_m": 30, "height_m": 54, "material": "silver"},
+    {"east_m": 92, "north_m": 24, "width_m": 28, "depth_m": 22, "height_m": 32, "material": "concrete"}
+  ],
+  "blocks_basis": "estimated generic midrise; do not read as bamboo / bay-one / talent"
+}

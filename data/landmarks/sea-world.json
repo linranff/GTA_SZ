@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "sea-world",
+  "name": "海上世界明华轮",
+  "status": "outside_bbox_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "coverage": "outside",
+  "anchor": {
+    "lon": 113.911667,
+    "lat": 22.486389,
+    "source": "https://en.wikipedia.org/wiki/Minghua_(ship)",
+    "basis": "reported",
+    "uncertainty": "Wikipedia 船体点。当前游戏裁切南侧之外，不能塞进深圳湾公园。"
+  },
+  "hull": {
+    "length_m": 168,
+    "beam_m": 22,
+    "height_m": 28,
+    "basis": "estimated ocean-liner proportions, not a survey"
+  }
+}

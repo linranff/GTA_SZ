@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "grand-theater",
+  "name": "深圳大剧院",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 114.10047,
+    "lat": 22.545244,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Grand_Theater",
+    "basis": "reported"
+  },
+  "form": {
+    "note": "1989 折立方玻璃幕墙文化设施，不是塔",
+    "width_m": 72,
+    "depth_m": 58,
+    "height_m": 32,
+    "basis": "estimated from public description of folded cubic glass; site area 43700m2 is reported but not the envelope"
+  }
+}

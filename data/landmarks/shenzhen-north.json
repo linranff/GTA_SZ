@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "shenzhen-north",
+  "name": "深圳北站",
+  "status": "outside_bbox_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "coverage": "outside",
+  "not": "福田站地下枢纽",
+  "anchor": {
+    "lon": 114.023889,
+    "lat": 22.611944,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_North_railway_station",
+    "basis": "reported",
+    "uncertainty": "纬度 22.6119 超出当前裁切北界 22.575。不编游戏坐标。"
+  },
+  "shed": {
+    "width_m": 220,
+    "depth_m": 140,
+    "height_m": 36,
+    "basis": "estimated",
+    "uncertainty": "特大型站房按东广场照片折成长跨屋盖，不是测绘柱网。"
+  },
+  "plaza": {
+    "width_m": 180,
+    "depth_m": 90,
+    "east_m": 160,
+    "basis": "estimated"
+  }
+}

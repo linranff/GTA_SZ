@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "futian-axis",
+  "name": "福田中心区中轴线",
+  "kind": "district",
+  "status": "lawn_axis_marker_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "市民中心、音乐厅、图书馆或会展的替身",
+  "anchor": {
+    "lon": 114.054634,
+    "lat": 22.539908,
+    "source": "artifacts/landmark-research/unknown-centers-followup.json",
+    "basis": "estimated",
+    "role": "市民中心与福田会展已确认点的中点，不是测绘轴心"
+  },
+  "axis": {
+    "length_m": 720,
+    "width_m": 86,
+    "axis": "south-north",
+    "basis": "estimated",
+    "uncertainty": "只做中轴绿地/铺装示意。两侧建筑保持独立 id。"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "youth-palace",
+  "name": "深圳市少年宫",
+  "status": "photo_guided_color_volumes_v3",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Shenzhen Children's Palace / 少年宫",
+    "not": ["少年宫地铁站", "市民中心大屋盖", "音乐厅金色大厅"],
+    "address": "深圳市福田区福中一路2002号"
+  },
+  "anchor": {
+    "lon": 114.0567306,
+    "lat": 22.5502639,
+    "source": "https://zh.wikipedia.org/wiki/深圳市少年宫",
+    "basis": "reported"
+  },
+  "photo_note": "Commons 误标为 CIVIC CENTER, SHENZHEN 的一组图，实为少年宫：白拱、红折块、黄圆筒，背景可见平安。不是市民中心浮顶。",
+  "red_volume": {
+    "east_m": -28,
+    "north_m": 6,
+    "width_m": 42,
+    "depth_m": 36,
+    "height_m": 28,
+    "basis": "estimated from Commons plaza photos"
+  },
+  "yellow_volume": {
+    "east_m": 30,
+    "north_m": 4,
+    "rx_m": 20,
+    "ry_m": 18,
+    "height_m": 26,
+    "basis": "estimated"
+  },
+  "arch": {
+    "height_m": 22,
+    "span_m": 86,
+    "thickness_m": 16,
+    "basis": "estimated",
+    "uncertainty": "白拱按广场轴线照片做成宽扁屋盖，不是测绘跨度。"
+  }
+}

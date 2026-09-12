@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "happy-harbor",
+  "name": "欢乐港湾 / 湾区之光",
+  "status": "outside_bbox_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "coverage": "outside",
+  "not": "整片欢乐港湾商场；不是 DC Happy Harbor",
+  "anchor": {
+    "lon": 113.883,
+    "lat": 22.5441,
+    "source": "https://en.wikipedia.org/wiki/Bay_Glory",
+    "basis": "reported",
+    "uncertainty": "摩天轮点。中文维基 22.541373,113.887673 记冲突。地图外，不编游戏坐标。"
+  },
+  "wheel": {
+    "height_m": 128,
+    "diameter_m": 113.3,
+    "gondolas": 28,
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Bay_Glory"
+  },
+  "pad": {
+    "width_m": 90,
+    "depth_m": 70,
+    "basis": "estimated"
+  }
+}

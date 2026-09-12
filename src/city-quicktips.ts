@@ -5,7 +5,7 @@ export type CityQuickTipsState={mode:CityQuickTipsMode;menuOpen?:boolean;hidden?
 type KeyTip={key:string;label:string;secondary?:boolean;action?:'flight'};
 const QUICK:Record<CityQuickTipsMode,readonly KeyTip[]>={
  tank:[{key:'WASD',label:'驾驶'},{key:'Q E',label:'炮塔'},{key:'空格',label:'开炮'},{key:'T',label:'轿车'},{key:'F',label:'下车'},{key:'C',label:'镜头',secondary:true}],
- driving:[{key:'WASD',label:'驾驶'},{key:'T',label:'坦克'},{key:'空格',label:'手刹'},{key:'C',label:'镜头',secondary:true},{key:'F',label:'下车'},{key:'G',label:'观景',secondary:true}],
+ driving:[{key:'WASD',label:'驾驶'},{key:'T',label:'坦克'},{key:'空格',label:'手刹'},{key:'C',label:'镜头',secondary:true},{key:'F',label:'下车'},{key:'G',label:'观景',secondary:true},{key:'Y',label:'雨天',secondary:true}],
  walking:[{key:'WASD',label:'行走'},{key:'滚轮',label:'远近',secondary:true},{key:'C',label:'人称',secondary:true},{key:'Shift',label:'跑步'},{key:'拖动',label:'看向',secondary:true},{key:'F',label:'上车'},{key:'E',label:'互动',secondary:true}],
  observer:[{key:'WASD',label:'平移'},{key:'Q E',label:'升降'},{key:'拖动',label:'环绕',secondary:true},{key:'B',label:'飞机',action:'flight'},{key:'G / F',label:'返回'},{key:'滚轮',label:'远近',secondary:true}],
 };
@@ -15,7 +15,7 @@ const HELP:Record<CityQuickTipsMode,readonly KeyTip[]>={
  walking:[{key:'WASD',label:'前后左右行走'},{key:'C',label:'第一人称 / 第三人称'},{key:'Shift',label:'按住跑步'},{key:'拖动 / 方向键',label:'转头看向'},{key:'滚轮',label:'拉近 / 拉远跟随镜头'},{key:'F',label:'走到车辆门旁上车'},{key:'E',label:'在互动地点交谈 / 接活'},{key:'G',label:'进入无人机观景'}],
  observer:[{key:'WASD',label:'平移观察位置'},{key:'Q / E',label:'降低 / 升高'},{key:'方向键',label:'原地转头'},{key:'Shift',label:'按住加速移动'},{key:'拖动',label:'围绕目标环绕'},{key:'Shift + 拖动',label:'平移视点'},{key:'滚轮',label:'拉近 / 拉远'},{key:'长按地点',label:'标记 / 收藏 / 移动'},{key:'B',label:'切换飞机',action:'flight'},{key:'G / F',label:'退出观景，返回原位置'}],
 };
-const COMMON:readonly KeyTip[]=[{key:'M / Tab',label:'城市地图'},{key:'J',label:'城市生活'},{key:'L',label:'日落 / 夜色 / 晴日'},{key:'K',label:'隐藏 / 显示鼠标'},{key:'Esc',label:'返回 / 暂停'},{key:'?',label:'展开 / 收起操作说明'}];
+const COMMON:readonly KeyTip[]=[{key:'M / Tab',label:'城市地图'},{key:'J',label:'城市生活'},{key:'L',label:'日落 / 夜色 / 晴日'},{key:'Y',label:'雨天 / 雨后'},{key:'K',label:'隐藏 / 显示鼠标'},{key:'Esc',label:'返回 / 暂停'},{key:'?',label:'展开 / 收起操作说明'}];
 const LABELS:Record<CityQuickTipsMode,string>={driving:'驾驶',walking:'步行',observer:'观景',tank:'坦克'};
 let serial=0;
 

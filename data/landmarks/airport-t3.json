@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "airport-t3",
+  "name": "深圳宝安国际机场 T3",
+  "status": "outside_bbox_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "coverage": "outside",
+  "not": "整座机场跑道或卫星厅质心",
+  "anchor": {
+    "lon": 113.810833,
+    "lat": 22.639444,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Bao%27an_International_Airport",
+    "basis": "reported",
+    "uncertainty": "机场 ARP，不是单独测绘的 T3 质心。地图外，不编游戏坐标。"
+  },
+  "identity_features": [
+    "Fuksas 有机蜂窝长厅",
+    "白色网壳，不是方盒子航站"
+  ],
+  "tube": {
+    "length_m": 240,
+    "width_m": 72,
+    "height_m": 42,
+    "basis": "estimated",
+    "uncertainty": "真航站远长于此；本轮缩短成长厅剪影，避免预览里铺满机场。"
+  }
+}

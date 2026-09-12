@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "xiangmi",
+  "name": "香蜜湖 / 香蜜公园",
+  "kind": "park",
+  "status": "first_pass_lake_only_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a single merged park-and-lake solid",
+  "scope": "本轮只做湖面范围。香蜜公园与香蜜湖未拆清，公园地块不建模。",
+  "anchor": {
+    "lon": 114.02683,
+    "lat": 22.55057,
+    "source": "public/city/city.json landmark xiangmi",
+    "basis": "reported",
+    "role": "game marker is the lake, not 香蜜公园 centroid"
+  },
+  "park_point_not_used": {
+    "lon": 114.01661818403397,
+    "lat": 22.54984555,
+    "source": "https://www.openstreetmap.org/way/540340500",
+    "basis": "estimated",
+    "note": "OSM 香蜜公园 point-on-surface，在湖西侧；本轮不用作锚点"
+  },
+  "identity_features": [
+    "南北向城市湖泊",
+    "公园在西、湖在东，本轮只画湖",
+    "不建度假村、过山车或婚庆建筑"
+  ],
+  "reported": {
+    "lake_kind": "小型水库 / 景观湖兼行洪",
+    "park_area_m2": 424000,
+    "park_green_m2": 330000,
+    "park_source": "https://cgj.sz.gov.cn/xsmh/gysz/twf/qsyq/content/post_10841328.html",
+    "lake_source": "https://zh.wikipedia.org/wiki/香蜜湖"
+  },
+  "lake": {
+    "east_m": 90,
+    "north_m": -10,
+    "rx_m": 250,
+    "ry_m": 340,
+    "basis": "estimated",
+    "uncertainty": "椭圆按 city.json 水面「香蜜湖」约 696×882 m、约 27 ha 折算，不是测绘。百科水库点 22.553559, 114.038599 与游戏湖心相差约 1.2 km，不采用。"
+  },
+  "unresolved": [
+    "香蜜公园（农园路，城管 42.4 ha）与香蜜湖（city.json / 水库）边界未拆清",
+    "规划中的「香蜜湖公园」水域口径与现状湖面不同，本轮不跟规划蓝图"
+  ],
+  "sources": [
+    {
+      "id": "city-json",
+      "url": "public/city/city.json",
+      "supports": ["game marker 114.02683, 22.55057 named 香蜜湖"]
+    },
+    {
+      "id": "cgj-xiangmi",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/twf/qsyq/content/post_10841328.html",
+      "supports": ["香蜜公园 42.4 ha, east of 香蜜湖"]
+    },
+    {
+      "id": "zhwiki-xiangmi-lake",
+      "url": "https://zh.wikipedia.org/wiki/香蜜湖",
+      "supports": ["reservoir / scenic lake identity; coordinate not used for this pass"]
+    }
+  ]
+}

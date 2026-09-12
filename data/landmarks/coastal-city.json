@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "coastal-city",
+  "name": "海岸城",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 113.937886,
+    "lat": 22.517971,
+    "source": "https://en.wikipedia.org/wiki/Coastal_City",
+    "basis": "reported",
+    "note": "Wikipedia 文心五路点；Wikidata 偏西约 750m 已弃"
+  },
+  "blocks": [
+    {"id": "mall", "east_m": 0, "north_m": 0, "width_m": 160, "depth_m": 90, "height_m": 24, "material": "stone"},
+    {"id": "office-a", "east_m": -70, "north_m": 40, "width_m": 36, "depth_m": 28, "height_m": 98, "material": "landmarkglass"},
+    {"id": "office-b", "east_m": 80, "north_m": 30, "width_m": 32, "depth_m": 26, "height_m": 86, "material": "darkglass"}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "mixc-luohu",
+  "name": "万象城（罗湖）",
+  "status": "street_photo_massing_v2",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 114.105656,
+    "lat": 22.542347,
+    "source": "https://www.wikidata.org/wiki/Q18785890",
+    "basis": "reported",
+    "note": "罗湖万象城，不是南山万象天地"
+  },
+  "mall": {"width_m": 180, "depth_m": 120, "height_m": 28, "basis": "estimated"},
+  "office": {"width_m": 42, "depth_m": 32, "height_m": 118, "east_m": 70, "north_m": 20, "basis": "estimated"}
+}

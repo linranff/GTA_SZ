@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "tech-park",
+  "name": "科技园",
+  "kind": "district",
+  "status": "street_block_marker_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "腾讯滨海或万象天地塔楼的替身",
+  "anchor": {
+    "lon": 113.9475,
+    "lat": 22.5425,
+    "source": "data/landmarks/priority-places.json",
+    "basis": "estimated",
+    "role": "高新区南区研究框中心，须再拆街段"
+  },
+  "blocks": [
+    {"east_m": -80, "north_m": 18, "width_m": 70, "depth_m": 28, "height_m": 36, "material": "landmarkglass"},
+    {"east_m": 10, "north_m": 22, "width_m": 56, "depth_m": 26, "height_m": 28, "material": "silver"},
+    {"east_m": 86, "north_m": 16, "width_m": 48, "depth_m": 24, "height_m": 32, "material": "darkglass"},
+    {"east_m": -40, "north_m": -36, "width_m": 64, "depth_m": 22, "height_m": 18, "material": "stone"},
+    {"east_m": 50, "north_m": -32, "width_m": 58, "depth_m": 20, "height_m": 16, "material": "concrete"}
+  ],
+  "blocks_basis": "estimated Hi-Tech Park south blocks; Tencent and MixC World stay independent"
+}

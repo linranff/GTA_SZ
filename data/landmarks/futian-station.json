@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "id": "futian-station",
+  "name": "福田站地面广场",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Futian station ground plaza and entrances",
+    "not": ["整座地下高铁站", "福田地铁站厅", "深圳北站"],
+    "address": "深南大道与益田路",
+    "scope": "地面广场、下沉庭院与出入口亭，不包括地下站台与轨行区"
+  },
+  "anchor": {
+    "lon": 114.05667,
+    "lat": 22.53833,
+    "source": "https://en.wikipedia.org/wiki/Futian_station",
+    "basis": "reported",
+    "note": "English Wikipedia 22°32′18″N 114°03′24″E. Photo caption on that page is the sunken plaza, which is this object's scope."
+  },
+  "plaza": {
+    "width_m": 140,
+    "depth_m": 90,
+    "basis": "estimated",
+    "uncertainty": "地面广场外包按深南/益田口照片，不是测绘。"
+  },
+  "sink": {
+    "width_m": 48,
+    "depth_m": 32,
+    "down_m": 6,
+    "basis": "estimated",
+    "uncertainty": "下沉庭院按维基首页图，不是地下站体。"
+  },
+  "pavilions": {
+    "count": 5,
+    "width_m": 10,
+    "depth_m": 7,
+    "height_m": 8,
+    "spacing_m": 24,
+    "basis": "estimated",
+    "uncertainty": "出入口玻璃亭数量与间距按地面照片节奏，不是完整出入口普查。"
+  },
+  "canopy": {
+    "length_m": 128,
+    "width_m": 14,
+    "height_m": 10,
+    "basis": "estimated",
+    "uncertainty": "长雨篷只表达地面标识，不代表站房屋盖。"
+  },
+  "notes": [
+    "Do not extrude the underground high-speed station as a solid box.",
+    "Wikipedia structure type is underground; this candidate is plaza-only."
+  ]
+}

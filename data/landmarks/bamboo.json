@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "bamboo",
+  "name": "中国华润大厦「春笋」",
+  "status": "photo_and_reported_massing_v1",
+  "detail_level": "reported-height + secondary-diameter + photo-taper",
+  "units": "real_world_metres",
+  "coordinate_frame": "local east,north,up; circular plan, no yaw",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 113.94161,
+    "lat": 22.517785,
+    "source": "city-json",
+    "role": "current game landmark marker; not a surveyed centroid"
+  },
+  "height": {
+    "value": 392.5,
+    "basis": "reported",
+    "source": "CTBUH / Wikipedia architectural height",
+    "note": "不是实测；游戏 city.json height 235.2 已含 0.60 缩放"
+  },
+  "occupied_top": {
+    "value": 345,
+    "basis": "reported",
+    "source": "CTBUH occupied height"
+  },
+  "profile": {
+    "basis": "estimated",
+    "uncertainty": "直径来自二次 BIM 叙述：底约 60m、中约 68m、上约 35m；收分对照 Commons 阴天/晴空照片，不是测绘。",
+    "rings": [
+      {"z": 0, "radius": 26.0},
+      {"z": 10, "radius": 29.5},
+      {"z": 28, "radius": 33.8},
+      {"z": 70, "radius": 34.2},
+      {"z": 140, "radius": 31.5},
+      {"z": 220, "radius": 27.0},
+      {"z": 290, "radius": 21.5},
+      {"z": 340, "radius": 15.5},
+      {"z": 365, "radius": 9.6},
+      {"z": 382, "radius": 4.0},
+      {"z": 390, "radius": 1.3},
+      {"z": 392.5, "radius": 0.32}
+    ]
+  },
+  "mullions": {
+    "count": 28,
+    "basis": "estimated",
+    "uncertainty": "KPF/二次来源写 56 柱在中段、底顶收成 28；本轮用 28 根通高竖肋表达密竖挺，不逐窗。"
+  },
+  "lobby": {
+    "height_m": 16,
+    "basis": "estimated",
+    "note": "照片可见底段更通透；开口位置未配准，只做深色玻璃带，不编门厅平面"
+  },
+  "sources": [
+    {
+      "id": "ctbuh-crhq",
+      "url": "https://www.skyscrapercenter.com/building/china-resources-headquarters/14589",
+      "supports": ["architectural height 392.5m", "occupied 345m", "68 floors"]
+    },
+    {
+      "id": "kpf-crhq",
+      "url": "https://www.kpf.com/project/china-resources-tower",
+      "supports": ["bamboo-shoot form", "columns converge at peak and open at base"]
+    },
+    {
+      "id": "commons-bamboo-pilot",
+      "url": "artifacts/landmark-references/bamboo/observations.md",
+      "supports": ["continuous taper", "dense verticals", "silver-white metal", "needle tip"]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "guanshanyue",
+  "name": "关山月美术馆",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Guan Shanyue Art Museum / 关山月美术馆",
+    "not": ["深圳市当代艺术与城市规划馆", "深圳美术馆新馆"],
+    "address": "深圳市福田区红荔路6026号",
+    "role": "中轴线北段、莲花山南麓"
+  },
+  "anchor": {
+    "lon": 114.05889,
+    "lat": 22.55194,
+    "source": "https://zh.wikipedia.org/wiki/关山月美术馆",
+    "basis": "reported",
+    "note": "Chinese Wikipedia 22°33′07″N 114°03′32″E."
+  },
+  "site": {
+    "area_m2": 8000,
+    "basis": "reported",
+    "source": "https://www.szft.gov.cn/en/life/cultural/mseums/content/post_11511564.html"
+  },
+  "gfa": {
+    "area_m2": 16000,
+    "basis": "reported",
+    "source": "https://www.szft.gov.cn/en/life/cultural/mseums/content/post_11511564.html"
+  },
+  "height": {
+    "value": 16,
+    "basis": "estimated",
+    "uncertainty": "福田区政府页给占地/建筑面积与圆形中央展厅，未给通高；按两层展馆估计。"
+  },
+  "body": {
+    "width_m": 68,
+    "depth_m": 46,
+    "basis": "estimated",
+    "uncertainty": "矩形馆身体块按 8,000 m² 地块切出，不是测绘。"
+  },
+  "round_hall": {
+    "radius_m": 14,
+    "height_m": 18,
+    "basis": "estimated",
+    "uncertainty": "政府页写 one round central exhibition hall；半径与高出屋面不是测绘。"
+  },
+  "notes": [
+    "North-axis stone museum with a round hall. Not the MOCAPE black stones."
+  ]
+}

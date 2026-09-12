@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "central-park",
+  "name": "深圳中心公园",
+  "kind": "park",
+  "status": "first_pass_north_south_belt_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a single civic lawn or a tower",
+  "anchor": {
+    "lon": 114.07,
+    "lat": 22.542,
+    "source": "https://zh.wikipedia.org/wiki/深圳市中心公园",
+    "basis": "reported",
+    "role": "Wikipedia WGS84, two-decimal precision only"
+  },
+  "identity_features": [
+    "南北带状绿地，被城市道路切开",
+    "沿福田河，北接笔架山、南临滨河",
+    "首轮用几段绿地表达带状，不填满 800 m 全宽"
+  ],
+  "reported": {
+    "length_km": 2.5,
+    "max_width_m": 800,
+    "area_ha_body": 123,
+    "area_ha_infobox": 135.5,
+    "zones": ["深南园区", "振华园区", "红荔园区", "福华园区", "笋岗园区"],
+    "note": "正文 123 ha 与资料框 135.5 ha 并存；城管页正文为图，未采面积"
+  },
+  "belt": {
+    "basis": "estimated",
+    "uncertainty": "2.5 km×800 m 是百科外包；本轮用四段 420×280 m 绿地沿北向排列，中间留路缝，不宣称完整五园区。",
+    "segment_count": 4,
+    "segment_width_m": 280,
+    "segment_depth_m": 420,
+    "gap_m": 80,
+    "yaw_deg": 8
+  },
+  "sources": [
+    {
+      "id": "zhwiki-central-park",
+      "url": "https://zh.wikipedia.org/wiki/深圳市中心公园",
+      "supports": ["22.542, 114.070", "2.5 km N-S", "max ~800 m", "123 / 135.5 ha"]
+    },
+    {
+      "id": "cgj-central-park",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/csgy/content/post_10774634.html",
+      "supports": ["municipal identity; page body is image-led"]
+    }
+  ]
+}

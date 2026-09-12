@@ -49,19 +49,19 @@ export function applyModeFinish(pipeline:DefaultRenderingPipeline,ip:ImageProces
  * ~7 ms of GPU at 1080p against ~1 ms for FXAA, so the aerial view trades
  * multisampling for FXAA and the street keeps MSAA for crisp near edges. */
 export const AERIAL_FINISH={msaa:1,fxaa:true} as const;
-export function applyAntiAliasing(pipeline:DefaultRenderingPipeline,aerial:boolean){
- const {msaa,fxaa}=aerial?AERIAL_FINISH:CINEMATIC_FINISH;
- if(pipeline.samples===msaa&&pipeline.fxaaEnabled===fxaa)return false;
+export function applyAntiAliasing(pipeline:DefaultRenderingPipeline,aerial:boolean,override?:{msaa:number;fxaa:boolean;grain?:boolean;chromaticAberration?:boolean;bloomScale?:number}){
+ const {msaa,fxaa}=override??(aerial?AERIAL_FINISH:CINEMATIC_FINISH);
+ const grain=override?.grain??pipeline.grainEnabled,chromatic=override?.chromaticAberration??pipeline.chromaticAberrationEnabled,bloomScale=override?.bloomScale??pipeline.bloomScale;
+ if(pipeline.samples===msaa&&pipeline.fxaaEnabled===fxaa&&pipeline.grainEnabled===grain&&pipeline.chromaticAberrationEnabled===chromatic&&pipeline.bloomScale===bloomScale)return false;
  // Each property change rebuilds the whole post chain, and every rebuild flips
  // imageProcessingConfiguration.applyByPostProcess off and back on. Each flip
  // marks every material dirty (~35 ms per call on this city, four calls per
  // toggle) and re-keys every submesh's defines in the next frame. The end
- // state is identical, so suppress that storm and rebuild once for both
- // properties.
+ // state is identical, so batch AA and optional quality effects in one rebuild.
  const scene=pipeline.scene as Scene&{_forceBlockMaterialDirtyMechanism(value:boolean):void},blocked=scene.blockMaterialDirtyMechanism,automatic=pipeline.automaticBuild;
  scene._forceBlockMaterialDirtyMechanism(true);
- try{pipeline.automaticBuild=false;pipeline.samples=msaa;pipeline.fxaaEnabled=fxaa;pipeline.automaticBuild=automatic;pipeline.prepare();}
- finally{scene._forceBlockMaterialDirtyMechanism(blocked);}
+ try{pipeline.automaticBuild=false;pipeline.samples=msaa;pipeline.fxaaEnabled=fxaa;pipeline.grainEnabled=grain;pipeline.chromaticAberrationEnabled=chromatic;pipeline.bloomScale=bloomScale;pipeline.automaticBuild=automatic;pipeline.prepare();}
+ finally{pipeline.automaticBuild=automatic;scene._forceBlockMaterialDirtyMechanism(blocked);}
  return true;
 }
 /** Per-mode lighting balance. Direct sun against total fill (hemisphere +

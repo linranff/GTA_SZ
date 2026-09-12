@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "kk100",
+  "name": "京基100",
+  "status": "photo_and_reported_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {"lon": 114.101581, "lat": 22.545734, "source": "city-json"},
+  "height": {"value": 441.8, "basis": "reported", "source": "深圳市人民政府京基100页 / CTBUH"},
+  "profile": {
+    "basis": "estimated",
+    "uncertainty": "深色圆角缓收分+曲顶；半宽按瘦高比约 9.5:1 反推，不是测绘。",
+    "power": 0.72,
+    "rings": [
+      {"z": 0, "radius": 23.5},
+      {"z": 20, "radius": 23.5},
+      {"z": 120, "radius": 22.4},
+      {"z": 240, "radius": 20.8},
+      {"z": 340, "radius": 19.0},
+      {"z": 400, "radius": 16.5},
+      {"z": 420, "radius": 12.5},
+      {"z": 432, "radius": 7.2},
+      {"z": 438, "radius": 2.4}
+    ],
+    "mast_top_m": 441.8
+  },
+  "bands": {"count": 18, "basis": "estimated", "note": "东南高位可见密横缝，竖挺弱；商场图不当塔"},
+  "lobby": {"height_m": 18, "basis": "estimated"}
+}

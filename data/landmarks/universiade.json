@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "universiade",
+  "name": "深圳大运中心",
+  "status": "outside_bbox_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "coverage": "outside",
+  "not": "宝安体育场；不是办公塔",
+  "anchor": {
+    "lon": 114.212194,
+    "lat": 22.697139,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Universiade_Sports_Centre",
+    "basis": "reported",
+    "uncertainty": "龙岗场馆群 Wikipedia 点。地图外，不编游戏坐标。"
+  },
+  "stadium": {
+    "east_m": 0,
+    "north_m": 0,
+    "rx_m": 155,
+    "ry_m": 145,
+    "height_m": 65,
+    "height_basis": "reported",
+    "plan_basis": "reported",
+    "source": "https://www.dezeen.com/2011/08/16/universiade-2011-sports-centre-by-gmp-architekten/",
+    "note": "gmp：屋盖纵向约 310 m、横向约 290 m，屋盖上凸约 65 m。"
+  },
+  "gym": {
+    "east_m": 210,
+    "north_m": -30,
+    "rx_m": 77,
+    "ry_m": 77,
+    "height_m": 42,
+    "plan_basis": "reported diameter 155 m from sbp",
+    "height_basis": "estimated"
+  },
+  "pool": {
+    "east_m": -200,
+    "north_m": -50,
+    "rx_m": 88,
+    "ry_m": 46,
+    "height_m": 36,
+    "plan_basis": "reported 176 x 92 m from sbp",
+    "height_basis": "estimated"
+  },
+  "lake": {"east_m": 10, "north_m": 90, "rx_m": 90, "ry_m": 55, "basis": "estimated"}
+}

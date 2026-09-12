@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "oct-harbour",
+  "name": "欢乐海岸",
+  "kind": "mixed_use_district",
+  "status": "first_pass_lake_and_blocks_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "one mall box or a tower cluster",
+  "anchor": {
+    "lon": 113.9830035,
+    "lat": 22.5259532,
+    "source": "https://www.openstreetmap.org/way/322631274",
+    "basis": "estimated",
+    "role": "OSM landuse=retail named OCT Harbour"
+  },
+  "identity_features": [
+    "人工内湖",
+    "岸线拆成几块低中层商业体量",
+    "不是单一体块或摩天楼"
+  ],
+  "reported": {
+    "area_km2": 1.25,
+    "opened": 2011,
+    "address": "8 Baishi Road, Nanshan",
+    "features": ["manmade lake", "canals", "hotels", "shopping mall"],
+    "source": "https://en.wikipedia.org/wiki/OCT_Harbour"
+  },
+  "lake": {
+    "east_m": -40,
+    "north_m": -30,
+    "rx_m": 150,
+    "ry_m": 95,
+    "basis": "estimated",
+    "uncertainty": "对照 OSM 锚点附近无名水面约 821×606 m、约 24 ha，缩成可读内湖，不是测绘。"
+  },
+  "blocks": [
+    {"id": "north-mall", "east_m": 10, "north_m": 90, "width_m": 90, "depth_m": 36, "height_m": 18, "material": "landmarkglass"},
+    {"id": "east-hotel", "east_m": 140, "north_m": 10, "width_m": 48, "depth_m": 28, "height_m": 24, "material": "darkglass"},
+    {"id": "west-retail", "east_m": -140, "north_m": 16, "width_m": 70, "depth_m": 26, "height_m": 15, "material": "stone"},
+    {"id": "south-low", "east_m": 8, "north_m": -55, "width_m": 110, "depth_m": 32, "height_m": 26, "material": "concrete"}
+  ],
+  "blocks_basis": "estimated",
+  "blocks_uncertainty": "拆块只为岸线商业体量可读；足印、层数、店名均未配准。高度按低中层商业估计，不是塔。",
+  "sources": [
+    {
+      "id": "enwiki-oct",
+      "url": "https://en.wikipedia.org/wiki/OCT_Harbour",
+      "supports": ["~1.25 km²", "manmade lake and canals", "opened 2011"]
+    },
+    {
+      "id": "osm-oct",
+      "url": "https://www.openstreetmap.org/way/322631274",
+      "supports": ["WGS84 22.5259532, 113.9830035", "bbox 22.5234–22.5297, 113.9780–113.9882"]
+    }
+  ]
+}

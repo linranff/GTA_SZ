@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "mocata",
+  "name": "深圳市当代艺术与城市规划馆",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "MOCAPE / MOCAUP / 当代艺术与城市规划馆",
+    "aliases": ["两馆", "城市巨石"],
+    "not": ["深圳美术馆新馆", "关山月美术馆"],
+    "address": "深圳市福田区福中路184号"
+  },
+  "anchor": {
+    "lon": 114.05667,
+    "lat": 22.54861,
+    "source": "https://en.wikipedia.org/wiki/MOCAUP",
+    "basis": "reported",
+    "note": "English Wikipedia 22°32′55″N 114°3′24″E. Architect text places it south of the Youth Palace and east of the cultural pair."
+  },
+  "height": {
+    "value": 40,
+    "basis": "reported",
+    "source": "https://www.e-architect.com/hong-kong/museum-of-contemporary-art-planning-exhibition-in-shenzhen"
+  },
+  "envelope": {
+    "length_m": 160,
+    "width_m": 140,
+    "basis": "reported",
+    "source": "Coop Himmelb(l)au project data 40 / 160 / 140 m"
+  },
+  "main_level_m": {
+    "value": 10,
+    "basis": "reported",
+    "source": "https://coop-himmelblau.at/projects/museum-of-contemporary-art-planning-exhibition-mocape/"
+  },
+  "site": {
+    "wikipedia_m2": 29688,
+    "architect_m2": 21688,
+    "basis": "reported",
+    "uncertainty": "维基 29,688 与建筑师 21,688 冲突，均非测绘；模型用 160×140 外包。"
+  },
+  "gfa": {
+    "wikipedia_m2": 88185,
+    "architect_m2": 80000,
+    "basis": "reported",
+    "uncertainty": "维基与建筑师项目数据不一致。"
+  },
+  "west_stone": {
+    "east_m": -36,
+    "north_m": 8,
+    "rx_m": 42,
+    "ry_m": 36,
+    "basis": "estimated",
+    "uncertainty": "当代馆石体按双石照片切开，不是测绘。"
+  },
+  "east_stone": {
+    "east_m": 38,
+    "north_m": -8,
+    "rx_m": 32,
+    "ry_m": 20,
+    "basis": "estimated",
+    "uncertainty": "规划馆石体；两馆一体靠中部银云连接。"
+  },
+  "notes": [
+    "Two black stones plus a shared silver cloud, not a single civic box.",
+    "Not Guan Shanyue and not a tower."
+  ]
+}

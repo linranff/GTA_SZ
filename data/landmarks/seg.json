@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "seg",
+  "name": "赛格广场",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 114.08111,
+    "lat": 22.54361,
+    "source": "https://en.wikipedia.org/wiki/SEG_Plaza",
+    "basis": "reported"
+  },
+  "height": {"value": 291.6, "basis": "reported", "source": "Wikipedia architectural height after antenna removal"},
+  "profile": {
+    "basis": "estimated",
+    "power": 0.92,
+    "rings": [
+      {"z": 0, "radius": 18.0},
+      {"z": 42, "radius": 18.0},
+      {"z": 160, "radius": 17.5},
+      {"z": 250, "radius": 17.0},
+      {"z": 280, "radius": 16.0},
+      {"z": 291.6, "radius": 15.0}
+    ]
+  },
+  "podium": {"height_m": 36, "width_m": 108, "depth_m": 86, "basis": "estimated", "note": "2021 航拍：白色商场裙楼，八角暗玻塔，顶两根短桅"}
+}

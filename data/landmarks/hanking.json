@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "hanking",
+  "name": "汉京中心",
+  "status": "identity_confirmed_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Hanking Center / 汉京中心",
+    "not": "汉国城市商业中心",
+    "source": "https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_Shenzhen"
+  },
+  "anchor": {
+    "lon": 113.93164,
+    "lat": 22.54348,
+    "source": "Wikipedia list of tallest buildings in Shenzhen",
+    "basis": "reported"
+  },
+  "height": {"value": 358.9, "basis": "reported"},
+  "shaft": {
+    "rx_m": 18,
+    "ry_m": 14,
+    "sides": 6,
+    "basis": "estimated",
+    "note": "Commons 2021 高位图：单根多边玻璃筒，顶部微折。I♥SZ 是临时点阵，不进模型。"
+  },
+  "podium": {
+    "width_m": 52,
+    "depth_m": 36,
+    "height_m": 18,
+    "basis": "estimated",
+    "note": "照片里的晶体斜裙，不是测绘。"
+  },
+  "core_note": "Wikipedia/CTBUH 写外置核心。这批 Commons 正面/深大远景都看不见，本版不编造一根并排银芯。"
+}

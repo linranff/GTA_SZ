@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "stock-exchange",
+  "name": "深圳证券交易所营运中心",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 114.04883,
+    "lat": 22.54426,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Stock_Exchange",
+    "basis": "reported",
+    "note": "English Wikipedia 22.54426N 114.04883E. Wikidata 114.10852E conflicts and is rejected as Luohu-like."
+  },
+  "height": {"value": 245.8, "basis": "reported", "source": "Wikipedia SZSE building height"},
+  "tower": {"width_m": 42, "depth_m": 42, "basis": "estimated"},
+  "platform": {
+    "z0": 24,
+    "thickness_m": 14,
+    "width_m": 148,
+    "depth_m": 86,
+    "basis": "estimated",
+    "uncertainty": "悬挑平台尺度按照片与公开叙述，不是测绘"
+  }
+}

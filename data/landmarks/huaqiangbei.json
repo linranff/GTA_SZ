@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "huaqiangbei",
+  "name": "华强北",
+  "kind": "district",
+  "status": "market_street_marker_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "赛格广场塔楼",
+  "anchor": {
+    "lon": 114.087,
+    "lat": 22.54565,
+    "source": "https://en.wikipedia.org/wiki/Huaqiangbei",
+    "basis": "reported",
+    "role": "English Wikipedia / Wikidata Q983005 片区代表点"
+  },
+  "street": {"length_m": 260, "width_m": 18, "axis": "south-north", "basis": "estimated"},
+  "blocks": [
+    {"east_m": -38, "north_m": 70, "width_m": 48, "depth_m": 36, "height_m": 42, "material": "stone"},
+    {"east_m": 40, "north_m": 64, "width_m": 46, "depth_m": 34, "height_m": 38, "material": "concrete"},
+    {"east_m": -36, "north_m": 8, "width_m": 50, "depth_m": 40, "height_m": 34, "material": "landmarkglass"},
+    {"east_m": 42, "north_m": 4, "width_m": 48, "depth_m": 38, "height_m": 30, "material": "silver"},
+    {"east_m": -34, "north_m": -60, "width_m": 46, "depth_m": 32, "height_m": 28, "material": "stone"},
+    {"east_m": 40, "north_m": -58, "width_m": 44, "depth_m": 30, "height_m": 26, "material": "concrete"}
+  ],
+  "blocks_basis": "estimated electronics-market midrise; SEG Plaza stays independent"
+}

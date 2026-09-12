@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "diwang",
+  "name": "地王大厦",
+  "status": "photo_and_reported_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {"lon": 114.105523, "lat": 22.545342, "source": "city-json"},
+  "height": {"value": 384, "basis": "reported", "source": "Wikipedia / CTBUH Shun Hing Square architectural height"},
+  "tubes": {
+    "basis": "estimated",
+    "uncertainty": "青绿双筒间距与直径按同跨照片估计，不是测绘。",
+    "offset_m": 8.6,
+    "radius_m": 13.2,
+    "shaft_top_m": 338,
+    "crown_top_m": 352,
+    "mast_top_m": 384,
+    "base_dark_m": 22
+  }
+}

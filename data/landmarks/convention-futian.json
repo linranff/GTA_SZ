@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "convention-futian",
+  "name": "深圳会展中心（福田）",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Shenzhen Convention and Exhibition Center / 福田会展中心",
+    "not": ["宝安国际会展中心", "Shenzhen World Exhibition & Convention Center", "深圳国际会展中心"],
+    "address": "深圳市福田区福华三路111号"
+  },
+  "anchor": {
+    "lon": 114.054748,
+    "lat": 22.533445,
+    "source": "https://www.wikidata.org/wiki/Q16926203",
+    "basis": "reported",
+    "note": "Wikidata P625 22°32′0.402″N 114°3′17.093″E for the Futian hall. English Wikipedia describes this building, not the Bao'an new complex."
+  },
+  "length_m": {
+    "value": 540,
+    "axis": "east-west",
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Convention_and_Exhibition_Center"
+  },
+  "width_m": {
+    "value": 282,
+    "axis": "south-north",
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Convention_and_Exhibition_Center"
+  },
+  "height_m": {
+    "value": 60,
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Convention_and_Exhibition_Center"
+  },
+  "roof": {
+    "thickness_m": 8,
+    "overhang_m": 8,
+    "basis": "estimated",
+    "uncertainty": "超长屋盖厚度与出挑按 gmp 长跨照片，不是测绘。"
+  },
+  "halls": {
+    "count": 8,
+    "height_m": 22,
+    "basis": "estimated",
+    "uncertainty": "展厅分仓按长屋盖节奏切开，不是测绘柱网。"
+  },
+  "notes": [
+    "The identifying move is the 540 m roof. Do not substitute the Bao'an World Expo halls."
+  ]
+}

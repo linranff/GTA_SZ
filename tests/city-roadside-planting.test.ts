@@ -60,6 +60,15 @@ test('unusable strips, raised roads, props and steep terrain fail closed',()=>{
  for(const p of plan.points)assert.ok(Math.abs(p.plant[1]-15)>p.radius+B.coastPromenade);
 });
 
+test('roadside canopy mixes species and reserves a tall skyline tier',()=>{
+ const plan=planRoadsidePlanting(fixture(),[]);
+ const species=new Set(plan.points.map(({plant})=>plant[2]));
+ assert.ok(species.size>=2,'long verges should contain companion species');
+ assert.ok(plan.stats.tallTrees>0&&plan.stats.tallRatio>.1,'some trees should reach the multi-storey tier');
+ assert.ok(plan.stats.scaleRange.max>1.1&&plan.stats.scaleRange.min>.5,'instance scales should expose a useful height range');
+ assert.equal(plan.stats.generated,plan.points.length);
+});
+
 test('supplemental thin instances retain source planting and the existing near/far budgets',()=>{
  const engine=new NullEngine(),scene=new Scene(engine),landscape=new CityLandscape(scene,(x,z)=>.001*x+.002*z);
  try{

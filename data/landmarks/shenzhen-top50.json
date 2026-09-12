@@ -1,0 +1,2025 @@
+{
+  "schemaVersion": 1,
+  "id": "shenzhen-top50",
+  "title": "深圳广为人知的建筑、片区与公园制作清单",
+  "createdAt": "2026-09-12",
+  "disclaimer": "选题与制作队列，不是官方排名，也不是已完成高精度建模。高度、层数、足印未填的条目保持 unknown，不能把游戏里已缩放的 height 当成实测米。",
+  "coordinatePolicy": {
+    "canonical": "EPSG:4326",
+    "projectOrigin": [
+      114.025,
+      22.536
+    ],
+    "horizontalScale": 0.6,
+    "verticalScale": 0.6,
+    "mapBboxWGS84": [
+      113.915,
+      22.497,
+      114.135,
+      22.575
+    ],
+    "note": "中心仅在已有 city.json / priority-places 或公开来源可追溯时填写。GCJ-02 / BD-09 不得直接写入 center。"
+  },
+  "collaboration": {
+    "thisConversation": "深圳 50 地标清单",
+    "peerConversations": [
+      {
+        "title": "Tencent Binhai building upgrade",
+        "owns": [
+          "artifacts/landmark-candidates/tencent-visual-v1/",
+          "腾讯外观候选"
+        ]
+      },
+      {
+        "title": "Fortune Plaza documentation review",
+        "owns": [
+          "财富广场 evidence，不改模型"
+        ]
+      },
+      {
+        "title": "Cursor candidate export project",
+        "owns": [
+          "scripts/landmark_candidate.py",
+          "预览工具"
+        ]
+      }
+    ],
+    "doNotWrite": [
+      "scripts/landmarks/tencent.py",
+      "scripts/landmarks/priority.py",
+      "src/city-world.ts",
+      "public/city/landmark-detail.glb",
+      "artifacts/landmark-candidates/tencent-visual-v1/",
+      "artifacts/landmark-candidates/tencent-runner-pilot/"
+    ]
+  },
+  "sources": [
+    {
+      "id": "sz-quality-buildings",
+      "title": "深圳：将城市品质镌刻进每一座建筑",
+      "url": "https://www.sz.gov.cn/cn/xxgk/zfxxgj/zwdt/content/post_12162544.html",
+      "publisher": "深圳特区报 / 深圳市人民政府门户网站",
+      "accessedAt": "2026-09-12",
+      "use": "选题：国贸、地王、京基100、平安、春笋及中轴线文化建筑"
+    },
+    {
+      "id": "sz-reading-spirit",
+      "title": "在建筑中阅读城市精神",
+      "url": "https://www.sz.gov.cn/cn/xxgk/zfxxgj/zwdt/content/post_12080423.html",
+      "publisher": "深圳市人民政府门户网站",
+      "accessedAt": "2026-09-12",
+      "use": "选题：市民中心中轴线、书城、两馆、证交所、赛格、国贸"
+    },
+    {
+      "id": "sz-diwang-story",
+      "title": "20世纪的深圳最高楼——地王大厦",
+      "url": "https://www.sz.gov.cn/szstory/202302/content/post_10421146.html",
+      "publisher": "深圳市人民政府门户网站",
+      "accessedAt": "2026-09-12",
+      "use": "选题与历史地位，不是测绘尺寸"
+    },
+    {
+      "id": "sz-kk100-park",
+      "title": "京基100-现代服务业总部园区",
+      "url": "https://www.sz.gov.cn/szzt2010/yhyshj/zdyq/lhq/content/post_12428213.html",
+      "publisher": "深圳市人民政府门户网站",
+      "accessedAt": "2026-09-12",
+      "use": "选题；报道高度 441.8m 记为 reported"
+    },
+    {
+      "id": "southcn-landmark-poll",
+      "title": "三维对决，谁是深圳的地标之王？",
+      "url": "https://static.nfapp.southcn.com/content/202309/01/c8053838.html",
+      "publisher": "南方+",
+      "accessedAt": "2026-09-12",
+      "use": "人气地标候选交叉，不是官方名录"
+    },
+    {
+      "id": "cgj-lianhua",
+      "title": "莲花山公园",
+      "url": "http://cgj.sz.gov.cn/xsmh/gysz/twf/zpq/content/post_10840227.html",
+      "publisher": "深圳市城市管理和综合执法局",
+      "accessedAt": "2026-09-12",
+      "use": "公园身份与约 181 公顷、主峰约 100m"
+    },
+    {
+      "id": "cgj-baypark",
+      "title": "深圳湾公园",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/twf/bhxx/content/post_10841320.html",
+      "publisher": "深圳市城市管理和综合执法局",
+      "accessedAt": "2026-09-12",
+      "use": "滨海公园范围，约 13 公里岸线"
+    },
+    {
+      "id": "cgj-talent",
+      "title": "深圳人才公园",
+      "url": "http://cgj.sz.gov.cn/xsmh/gysz/csgy/content/post_10774672.html",
+      "publisher": "深圳市城市管理和综合执法局",
+      "accessedAt": "2026-09-12",
+      "use": "后海人才主题市政公园"
+    },
+    {
+      "id": "cgj-xiangmi",
+      "title": "香蜜公园",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/twf/qsyq/content/post_10841328.html",
+      "publisher": "深圳市城市管理和综合执法局",
+      "accessedAt": "2026-09-12",
+      "use": "香蜜公园市政页；与 city.json 的香蜜湖相邻但不自动等同"
+    },
+    {
+      "id": "cgj-central-park",
+      "title": "深圳中心公园",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/csgy/content/post_10774634.html",
+      "publisher": "深圳市城市管理和综合执法局",
+      "accessedAt": "2026-09-12",
+      "use": "福田南北绿化隔离带改建市政公园"
+    },
+    {
+      "id": "cgj-lizhi",
+      "title": "荔枝公园",
+      "url": "http://cgj.sz.gov.cn/xsmh/gysz/csgy/content/post_10775287.html",
+      "publisher": "深圳市城市管理和综合执法局",
+      "accessedAt": "2026-09-12",
+      "use": "红岭中路市政公园"
+    },
+    {
+      "id": "city-json",
+      "title": "当前游戏具名地标",
+      "url": "public/city/city.json",
+      "publisher": "本项目",
+      "accessedAt": "2026-09-12",
+      "use": "10 个已具名对象的 id / WGS84 / 游戏坐标"
+    },
+    {
+      "id": "priority-places",
+      "title": "重点对象总清单",
+      "url": "data/landmarks/priority-places.json",
+      "publisher": "本项目",
+      "accessedAt": "2026-09-12",
+      "use": "腾讯、莲花山、科技园、万象天地、财富广场、七街公馆"
+    },
+    {
+      "id": "wikipedia-wgs84",
+      "title": "English Wikipedia coordinates",
+      "url": "https://en.wikipedia.org/",
+      "publisher": "Wikimedia Foundation",
+      "accessedAt": "2026-09-12",
+      "use": "reported WGS84 only; not a survey. Conflicting Wikidata values are recorded in notes."
+    },
+    {
+      "id": "city-json-osm-named",
+      "title": "Named OSM features already in public/city/city.json",
+      "url": "public/city/city.json",
+      "publisher": "OpenStreetMap contributors / this project",
+      "accessedAt": "2026-09-12",
+      "use": "estimated WGS84 by inverting the game east/north of named green or building rings; not a survey"
+    }
+  ],
+  "overflowNotIn50": [
+    "前海石 / 桂湾",
+    "梧桐山",
+    "仙湖植物园",
+    "大梅沙 / 小梅沙",
+    "南头古城",
+    "大鹏所城",
+    "盐田港",
+    "蛇口 / 赤湾作业港区"
+  ],
+  "places": [
+    {
+      "id": "tencent",
+      "order": 1,
+      "name": "腾讯滨海大厦",
+      "aliases": [
+        "Tencent Seafront Towers"
+      ],
+      "kind": "building_complex",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "tencent",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.93108,
+          22.525955
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "科技园双塔地标；本项目已有独立模块与候选精修",
+      "sourceIds": [
+        "priority-places",
+        "city-json",
+        "southcn-landmark-poll"
+      ],
+      "owner": "tencent-visual",
+      "nextStage": "wait_peer_candidate",
+      "commonsFiles": [],
+      "notes": [
+        "其他对话正在做外观候选，本清单不改其文件"
+      ]
+    },
+    {
+      "id": "bamboo",
+      "order": 2,
+      "name": "中国华润大厦「春笋」",
+      "aliases": [
+        "春笋",
+        "China Resources Headquarters",
+        "China Resources Tower"
+      ],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "bamboo",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.94161,
+          22.517785
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "市政府报道中的华润春笋；后海天际线主塔",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "city-json",
+        "southcn-landmark-poll"
+      ],
+      "owner": "top50-photo-pilot",
+      "nextStage": "candidate_v2_preview",
+      "commonsFiles": [
+        "File:China Resources Headquarters Nanshan Shenzhen China.jpg",
+        "File:China Resources Headquarters by the side of shenzhen bay2020.jpg",
+        "File:China Resources Headquarters 2019 july.jpg"
+      ],
+      "notes": [
+        "路线图第 02；腾讯候选接入前不改共享模块"
+      ]
+    },
+    {
+      "id": "pingan",
+      "order": 3,
+      "name": "平安金融中心",
+      "aliases": [
+        "平安国际金融中心",
+        "Ping An Finance Center"
+      ],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "pingan",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.050355,
+          22.53664
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "当代深圳第一高楼；四代第一高楼序列的最新一座",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "city-json"
+      ],
+      "owner": "top50-photo-pilot",
+      "nextStage": "candidate_exporting",
+      "commonsFiles": [
+        "File:PING AN FINANCE CENTER, SHENZHEN.jpg",
+        "File:PING AN FINANCE CENTER, SHENZHEN (3).jpg",
+        "File:Pingan International Finance Center2020.jpg"
+      ],
+      "notes": [
+        "报道高度约 599m 只作 reported，不写入模型尺寸"
+      ]
+    },
+    {
+      "id": "civic",
+      "order": 4,
+      "name": "深圳市民中心",
+      "aliases": [],
+      "kind": "building_complex",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "civic",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.05452,
+          22.54637
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "中轴线市政主楼；本项目已有对象模块",
+      "sourceIds": [
+        "sz-reading-spirit",
+        "city-json"
+      ],
+      "owner": "existing-module",
+      "nextStage": "photo_compare_later",
+      "commonsFiles": [
+        "File:Civic Center Shenzhen(south)2021.jpg",
+        "File:CIVIC CENTER, SHENZHEN.jpg",
+        "File:深圳市民中心 西面 Civic Center - panoramio.jpg",
+        "File:市民中心 东面 Civic Center - panoramio.jpg",
+        "File:Civic Center, Shenzhen Lianhuashan Park (2018.9) Daytime.jpg",
+        "File:Civic Center from the C-E Center Shenzhen (20160811173423).jpg"
+      ],
+      "notes": [
+        "已有 civic.py；本轮不重写。",
+        "File:CIVIC CENTER, SHENZHEN (3–8).jpg 是少年宫。现用南望/莲花山/东西翼外景，来自 commons-candidates.json。"
+      ]
+    },
+    {
+      "id": "kk100",
+      "order": 5,
+      "name": "京基100",
+      "aliases": [
+        "KK100",
+        "京基100大厦"
+      ],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "kk100",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.101581,
+          22.545734
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "罗湖第三代第一高楼；政府页记 441.8m",
+      "sourceIds": [
+        "sz-kk100-park",
+        "sz-quality-buildings",
+        "city-json"
+      ],
+      "owner": "wave2-photo",
+      "nextStage": "candidate_exporting",
+      "commonsFiles": [
+        "File:KK100 exterior southeast.jpg",
+        "File:KINGKEY 100 KK MALL SHENZHEN.jpg",
+        "File:KINGKEY 100 KK MALL SHENZHEN (2).jpg"
+      ]
+    },
+    {
+      "id": "diwang",
+      "order": 6,
+      "name": "地王大厦",
+      "aliases": [
+        "信兴广场",
+        "Shun Hing Square"
+      ],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "diwang",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.105523,
+          22.545342
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "90 年代深圳封面；已列入历史建筑相关叙述",
+      "sourceIds": [
+        "sz-diwang-story",
+        "sz-quality-buildings",
+        "city-json"
+      ],
+      "owner": "wave2-photo",
+      "nextStage": "candidate_exporting",
+      "commonsFiles": [
+        "File:Shun Hing Square exterior southwest2021.jpg",
+        "File:DIWANG BUILDING (33).jpg",
+        "File:DIWANG BUILDING AND KINGKEY 100(12).jpg"
+      ]
+    },
+    {
+      "id": "guomao",
+      "order": 7,
+      "name": "深圳国贸大厦",
+      "aliases": [
+        "国际贸易中心大厦",
+        "国贸旋转餐厅"
+      ],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.114662,
+          22.543038
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Guomao_Building"
+      },
+      "whyKnown": "三天一层楼；改革开放象征",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:Guomao Building in Shenzhen2021.jpg",
+        "File:INTERNATIONAL FOREIGN TRADE CENTER (GUOMAO BUILDING).jpg",
+        "File:GouMou 20061222 large.jpg",
+        "File:INTERNATIONAL FOREIGN TRADE CENTER (GUOMAO BUILDING) (10).jpg",
+        "File:INTERNATIONAL FOREIGN TRADE CENTER (GUOMAO BUILDING) (11).jpg",
+        "File:INTERNATIONAL FOREIGN TRADE CENTER (GUOMAO BUILDING) (12).jpg"
+      ],
+      "notes": [
+        "须先配准人民南 / 嘉宾路地块，不能摆到蔡屋围",
+        "沿用已确认 English Wikipedia / Wikidata Q11153008。人民南 / 嘉宾路，不是蔡屋围。"
+      ]
+    },
+    {
+      "id": "seg",
+      "order": 8,
+      "name": "赛格广场",
+      "aliases": [
+        "SEG Plaza"
+      ],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.08111,
+          22.54361
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/SEG_Plaza"
+      },
+      "whyKnown": "华强北地标塔；市民常与电子市场连称",
+      "sourceIds": [
+        "sz-reading-spirit",
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:SEG Plaza Shenzhen.jpg",
+        "File:Huaqiangbei&Shennan Cross2021.jpg",
+        "File:SEG Plaza in Shenzhen2021.jpg",
+        "File:深圳赛格广场 - panoramio.jpg",
+        "File:SEG Plaza (32464784147).jpg",
+        "File:Inside SEG Plaza (Bobbie Johnson) - Flickr.jpg"
+      ],
+      "notes": [
+        "沿用已确认 English Wikipedia 22.54361,114.08111。Wikidata 约偏东北 160m，记冲突，不改用。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "stock-exchange",
+      "order": 9,
+      "name": "深圳证券交易所营运中心",
+      "aliases": [
+        "深交所",
+        "悬浮平台"
+      ],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.04883,
+          22.54426
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Stock_Exchange"
+      },
+      "whyKnown": "中轴线悬挑裙楼，辨识度高",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "wave2-photo",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:Shenzhen Stock Exchange Building in Futian Shenzhen China designed by Dutch architect Rem Koolhaas.jpg",
+        "File:Shenzhen Stock Exchange Building 20160307.jpg",
+        "File:Shenzhen Stock Exchange Building 20160307-2.jpg",
+        "File:Bear sculpture outside Shenzhen Stock Exchange, around the cow sculpture 2 (28014364148).jpg",
+        "File:Cow sculpture outside Shenzhen Stock Exchange 1 (27015443817).jpg",
+        "File:Cow sculpture outside Shenzhen Stock Exchange 2 (40076741420).jpg"
+      ],
+      "notes": [
+        "English Wikipedia 114.04883E; Wikidata 114.10852E rejected as Luohu-like conflict",
+        "沿用已确认 English Wikipedia 福田中轴营运中心。Wikidata 22.5409,114.10852 落在罗湖一带，已视为冲突并丢弃。API 查询当日无独立 P625，页面仍显示该坐标。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "concert-hall",
+      "order": 10,
+      "name": "深圳音乐厅",
+      "aliases": [],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.051862,
+          22.550348
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q85800789"
+      },
+      "whyKnown": "中轴线文化对；与图书馆成组",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "module_in_progress",
+      "commonsFiles": [
+        "File:Shenzhen Concert Hall (2).jpg",
+        "File:SHENZHEN CONCERT HALL.jpg",
+        "File:音乐厅和图书馆 - panoramio.jpg",
+        "File:SZ 深圳音樂廳 Shenzhen Concert Hall facade night Dec-2017 IX1 01.jpg",
+        "File:SHENZHEN LIBRARY & SHENZHEN CONCERT HALL (12).jpg",
+        "File:SHENZHEN LIBRARY & SHENZHEN CONCERT HALL (13).jpg"
+      ],
+      "notes": [
+        "Shared Cultural Center pin with the library; do not treat as a unique surveyed centroid",
+        "English Wikipedia Shenzhen Concert Hall 无坐标。Wikidata Q85800789 P625。相邻 Shenzhen Cultural Center 页 22.55000,114.05194 是音乐厅+图书馆对，不是单独馆心，未当作冲突替代。"
+      ]
+    },
+    {
+      "id": "library-center",
+      "order": 11,
+      "name": "深圳图书馆（中心馆）",
+      "aliases": [
+        "深圳图书馆"
+      ],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.05202,
+          22.54857
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Library"
+      },
+      "whyKnown": "中轴线文化对的另一座",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "module_in_progress",
+      "commonsFiles": [
+        "File:Shenzhen Library outside view.JPG",
+        "File:深圳图书馆 - panoramio.jpg",
+        "File:SHENZHEN LIBRARY & SHENZHEN CONCERT HALL.jpg",
+        "File:音乐厅和图书馆 - panoramio.jpg",
+        "File:SHENZHEN LIBRARY & SHENZHEN CONCERT HALL (10).jpg",
+        "File:SHENZHEN LIBRARY & SHENZHEN CONCERT HALL (12).jpg"
+      ],
+      "notes": [
+        "Shared Cultural Center pin with the concert hall",
+        "English Wikipedia / Wikidata Q38773376 一致。中心馆，不是北馆或其他分馆。"
+      ]
+    },
+    {
+      "id": "mocata",
+      "order": 12,
+      "name": "深圳市当代艺术与城市规划馆",
+      "aliases": [
+        "两馆",
+        "城市巨石"
+      ],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.056667,
+          22.548611
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/MOCAUP"
+      },
+      "whyKnown": "中轴线黑色巨石体量",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:SZ 深圳 Shenzhen Futian Fuzhong Road MOCAPE Museum of Contemporary Art & Planning Exhibition facade Sept 2017 IX1 01.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 福中一路 Fuzhong 1st Road 深圳市少年宮 Children's Palace view MOCAPE facade Sept 2017 IX1.jpg",
+        "File:01 The Museum of Contemporary Art & Planning Exhibition in 2025.jpg",
+        "File:02 The Museum of Contemporary Art & Planning Exhibition in 2025.jpg",
+        "File:03 The Museum of Contemporary Art & Planning Exhibition in 2025.jpg",
+        "File:04 The Museum of Contemporary Art & Planning Exhibition in 2025.jpg"
+      ],
+      "notes": [
+        "English Wikipedia MOCAUP 22°32′55″N 114°3′24″E。Wikidata 约偏 45m，记冲突，取 Wikipedia。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "convention-futian",
+      "order": 13,
+      "name": "深圳会展中心（福田）",
+      "aliases": [
+        "福田会展中心"
+      ],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.054748,
+          22.533445
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Convention_and_Exhibition_Center"
+      },
+      "whyKnown": "中轴线南端长跨展馆",
+      "sourceIds": [
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:深圳会展中心南侧.jpg",
+        "File:Shenzhen Convention & Exhibition Center.jpg",
+        "File:North gate of Convention & Exhibition Center (20160810190141).jpg",
+        "File:MTR Fare Saver at Convention & Exhibition Center Station, Shenzhen Metro 202607.jpg",
+        "File:Shenzhen Convention & Exhibition Center (10).jpg",
+        "File:Shenzhen Convention & Exhibition Center (16).jpg"
+      ],
+      "notes": [
+        "明确不是宝安国际会展中心",
+        "福田会展，不是宝安国际会展。Wikipedia / Wikidata Q16926203 一致。会展中心地铁站 22.53750,114.05472 是北端车站，不是展馆中心，未采用。"
+      ]
+    },
+    {
+      "id": "book-mall",
+      "order": 14,
+      "name": "深圳书城中心城",
+      "aliases": [
+        "中心书城"
+      ],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.05444,
+          22.54952
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q11152855"
+      },
+      "whyKnown": "中轴线上的下沉书城与屋顶绿地",
+      "sourceIds": [
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:SZ 深圳市 Shenzhen 福田區 Futian 市民中心 Civic Center 深圳中心書城 CBD Book Mall October 2019 SS2 01.jpg",
+        "File:Shenzhen Book City Centre City.jpg",
+        "File:CBD SHENZHEN BOOK CITY (10).jpg",
+        "File:CBD SHENZHEN BOOK CITY (12).jpg",
+        "File:CBD SHENZHEN BOOK CITY (14).jpg",
+        "File:CBD SHENZHEN BOOK CITY (16).jpg"
+      ],
+      "notes": [
+        "English Wikipedia Shenzhen Book City 是书城集团/多店，无坐标。Q11152855 是中心城（莲花街道、黑川纪章、Centre City 图），22°32′58.272″N 114°3′15.984″E。市政府页无 WGS84。"
+      ]
+    },
+    {
+      "id": "youth-palace",
+      "order": 15,
+      "name": "深圳市少年宫",
+      "aliases": [
+        "水晶石少年宫"
+      ],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.057019,
+          22.550169
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q11153053"
+      },
+      "whyKnown": "市民中心北侧晶状体公共建筑",
+      "sourceIds": [
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:SHENZHEN CITY CHILDREN'S PALACE.jpg",
+        "File:SHENZHEN CITY CHILDREN'S PALACE (2).jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 福中一路 Fuzhong 1st Road 深圳市少年宮 Children's Palace thetre facade Sept 2017 IX1.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 紅荔路 Hongli Road 金田路 Jintian Road Children's Palace facade Sept 2017 IX1.jpg",
+        "File:深圳市少年宫.jpg"
+      ],
+      "notes": [
+        "无 English Wikipedia 条目。Wikidata Q11153053 22°33′0.61″N 114°3′25.27″E。中文维基 22°33′0.95″N 114°3′24.23″E 约差 30m。少年宫地铁站 22.55028,114.055 不是建筑，未采用。高德坐标是 GCJ-02，未写入。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json",
+        "Commons 文件名 CIVIC CENTER, SHENZHEN 实为少年宫：白拱、红折块、黄圆筒，背景平安。地铁站 AED 图已丢弃。"
+      ]
+    },
+    {
+      "id": "bay-sports",
+      "order": 16,
+      "name": "深圳湾体育中心「春茧」",
+      "aliases": [
+        "春茧"
+      ],
+      "kind": "building_complex",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.94583,
+          22.52083
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Bay_Sports_Center"
+      },
+      "whyKnown": "网架屋盖体育综合体，常与春笋同框",
+      "sourceIds": [
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "wave2-photo",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:Shenzhen Bay Sports Center202012fromsouth.jpg",
+        "File:SHENZHEN BAY SPORTS CENTER (3).jpg",
+        "File:Shenzhen Bay Sports Center 20160305.jpg",
+        "File:SHENZHEN BAY SPORTS CENTER (2).jpg",
+        "File:SHENZHEN BAY SPORTS CENTER (4).jpg",
+        "File:SHENZHEN BAY SPORTS CENTER (5).jpg"
+      ],
+      "notes": [
+        "沿用已确认 English Wikipedia / Wikidata Q3271638。"
+      ]
+    },
+    {
+      "id": "bay-one",
+      "order": 17,
+      "name": "深圳湾一号",
+      "aliases": [
+        "One Shenzhen Bay"
+      ],
+      "kind": "building_complex",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.93722,
+          22.50861
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/One_Shenzhen_Bay"
+      },
+      "whyKnown": "后海多塔楼群，常与春笋同看",
+      "sourceIds": [
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:MFG No1 Shenzhen Bay in Weilanhaian District2020.jpg",
+        "File:One Shenzhen Bay 7 03-10-2018.jpg",
+        "File:One Shenzhen Bay a 03-10-2018.jpg",
+        "File:One Shenzhen Bay b 03-10-2018.jpg",
+        "File:One Shenzhen Bay c 03-10-2018.jpg"
+      ],
+      "notes": [
+        "Must split towers; Wikipedia coordinate is Tower 7, not estate centroid",
+        "沿用已确认 Wikipedia Tower 7 点，不是整盘质心。必须拆塔。"
+      ]
+    },
+    {
+      "id": "mixc-world",
+      "order": 18,
+      "name": "万象天地",
+      "aliases": [
+        "华润城万象天地",
+        "Dachong MixC World"
+      ],
+      "kind": "mixed_use_district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.95075725,
+          22.54481213
+        ],
+        "status": "from_priority_places"
+      },
+      "whyKnown": "科技园生活商业锚点；本项目已有退台塔楼",
+      "sourceIds": [
+        "priority-places"
+      ],
+      "owner": "shared-priority",
+      "nextStage": "wait_serial_module",
+      "commonsFiles": [],
+      "notes": [
+        "塔楼改善不等于 mall / 高街完成；勿并行改 priority.py"
+      ]
+    },
+    {
+      "id": "fortune-plaza",
+      "order": 19,
+      "name": "财富广场",
+      "aliases": [
+        "浩铭财富广场"
+      ],
+      "kind": "building_complex",
+      "group": "user_priority",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.02146577,
+          22.54036337
+        ],
+        "status": "from_priority_places"
+      },
+      "whyKnown": "用户指定重点，不是官方全市地标榜",
+      "sourceIds": [
+        "priority-places"
+      ],
+      "owner": "fortune-evidence",
+      "nextStage": "wait_peer_evidence",
+      "commonsFiles": [],
+      "notes": [
+        "资料对话仍有高度 / 背面 blockers"
+      ]
+    },
+    {
+      "id": "qijie-gongguan",
+      "order": 20,
+      "name": "七街公馆 / 哈尔滨大厦",
+      "aliases": [
+        "七街公馆",
+        "哈尔滨大厦"
+      ],
+      "kind": "building_complex",
+      "group": "user_priority",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.02751878,
+          22.56047975
+        ],
+        "status": "from_priority_places"
+      },
+      "whyKnown": "用户指定重点，不是官方全市地标榜",
+      "sourceIds": [
+        "priority-places"
+      ],
+      "owner": "shared-priority",
+      "nextStage": "wait_serial_module",
+      "commonsFiles": []
+    },
+    {
+      "id": "hanking",
+      "order": 21,
+      "name": "汉京中心",
+      "aliases": [
+        "汉京金融中心"
+      ],
+      "kind": "building_complex",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.93164,
+          22.54348
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Hanking_Center"
+      },
+      "whyKnown": "后海可见双塔；路线图曾写汉国城市商业中心，须先核身份",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:Hanking Center.jpg",
+        "File:Hanking Center2021.jpg",
+        "File:Hanking Center2021 (edited).jpg",
+        "File:Hanking Center & Tencent Tower from SZU2021.jpg"
+      ],
+      "notes": [
+        "Resolved as Hanking Center / 汉京中心, not 汉国城市商业中心",
+        "沿用已确认 Hanking Center / 汉京中心。不是汉国城市商业中心。Wikipedia 本页与 Wikidata Q18348250 一致。",
+        "Commons 自动命中 Hank Phillippi Ryan 已丢弃。"
+      ]
+    },
+    {
+      "id": "coco-park",
+      "order": 22,
+      "name": "COCO Park",
+      "aliases": [
+        "购物公园",
+        "福田 COCO Park"
+      ],
+      "kind": "mixed_use_district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.048874,
+          22.536429
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q65055965"
+      },
+      "whyKnown": "福田中心区开放式商业街区",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:SZ 深圳 Shenzhen 福田 Futian 福華一路 Fuhua 1st Road n ZhongXin 2nd Road CoCo Shopping Park June 2025 R12S 01.jpg",
+        "File:Coco Park Shenzhen.jpg",
+        "File:COCO ParkOutside.jpg",
+        "File:COCO ParkOutside1.jpg",
+        "File:COCO Park Enterance.jpg",
+        "File:SKY PLAZA IN COCO PARK, SHENZHEN (44).jpg"
+      ],
+      "notes": [
+        "English Wikipedia COCO Park 是连锁、无坐标。取福田店 Wikidata Q65055965 22°32′11.144″N 114°2′55.946″E，不是龙华 COCO City / 龙岗店。购物公园地铁站 22.53444,114.05472 未采用。"
+      ]
+    },
+    {
+      "id": "mixc-luohu",
+      "order": 23,
+      "name": "万象城（罗湖）",
+      "aliases": [
+        "深圳万象城"
+      ],
+      "kind": "mixed_use_district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.105656,
+          22.542347
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q18785890"
+      },
+      "whyKnown": "罗湖早期综合体，须与南山万象天地分开",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:Mixc Shenzhen Phase 2 2010.jpg",
+        "File:Shenzhen MIXC (18).jpg",
+        "File:Shenzhen MIXC (10).jpg",
+        "File:SZ 深圳 Shenzhen 羅湖 Luohu 嘉賓路 Jiabin Road August 2018 SSG 03.jpg",
+        "File:Shenzhen MIXC (11).jpg",
+        "File:Shenzhen MIXC (135).jpg"
+      ],
+      "notes": [
+        "English Wikipedia MixC Shenzhen 无坐标。Wikidata Q18785890 罗湖万象城。不是南山万象天地。MixC 重定向到华润万象生活公司页，已丢弃。"
+      ]
+    },
+    {
+      "id": "coastal-city",
+      "order": 24,
+      "name": "海岸城",
+      "aliases": [
+        "Coastal City"
+      ],
+      "kind": "mixed_use_district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.937886,
+          22.517971
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Coastal_City"
+      },
+      "whyKnown": "后海 / 科技园生活圈商业综合体",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:深圳海岸城.jpg",
+        "File:海岸城 Coastal City, Shenzhen - panoramio.jpg",
+        "File:Coastal City, Shenzhen.jpg",
+        "File:Shenzhen 14.jpg",
+        "File:Shenzhen Coastal City - panoramio.jpg",
+        "File:Shenzhen Coastal City at dusk 1.jpg"
+      ],
+      "notes": [
+        "English Wikipedia 隐藏 Coord 22.5179712,113.9378863（文心五路）。Wikidata 偏西约 750m，记冲突，取 Wikipedia。页面无对外显示坐标模板。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "oct-harbour",
+      "order": 25,
+      "name": "欢乐海岸",
+      "aliases": [
+        "OCT Harbour"
+      ],
+      "kind": "mixed_use_district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.9830035,
+          22.5259532
+        ],
+        "status": "osm_named_way"
+      },
+      "whyKnown": "深圳湾内侧湖区商业与演出岸线",
+      "sourceIds": [
+        "city-json-osm-named"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [
+        "File:OCT HARBOUR, SHENZHEN.jpg",
+        "File:欢乐海岸 (正门) huan le hai an - panoramio.jpg",
+        "File:深圳欢乐海岸 OCT Harbour - panoramio.jpg",
+        "File:OCT HARBOUR, SHENZHEN (10).jpg",
+        "File:OCT HARBOUR, SHENZHEN (11).jpg",
+        "File:OCT HARBOUR, SHENZHEN (12).jpg"
+      ],
+      "notes": [
+        "来自对象规格 OSM way 322631274 OCT Harbour。city.json 欢乐海岸购物中心约 113.9846,22.5283 可交叉。"
+      ]
+    },
+    {
+      "id": "window-world",
+      "order": 26,
+      "name": "世界之窗",
+      "aliases": [
+        "Window of the World"
+      ],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.969756,
+          22.537514
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Window_of_the_World"
+      },
+      "whyKnown": "华侨城旅游地标；缩微景观不能当真实外国城市",
+      "sourceIds": [
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:Windowoftheworldview.jpg",
+        "File:Window of the World1.jpg",
+        "File:Shenzhen window of the world.JPG",
+        "File:WINDOWS OF THE WORLD SHENZHEN (1).jpg",
+        "File:WINDOWS OF THE WORLD SHENZHEN (118).jpg",
+        "File:WINDOWS OF THE WORLD SHENZHEN (189).jpg"
+      ],
+      "notes": [
+        "English Wikipedia 22.53751389,113.96975556。Wikidata Q2302764 22.5375,113.97 为同一点取整。世界之窗地铁站 22.53694,113.97444 不是园区中心，未采用。"
+      ]
+    },
+    {
+      "id": "futian-station",
+      "order": 27,
+      "name": "福田站",
+      "aliases": [
+        "福田高铁站"
+      ],
+      "kind": "building_complex",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.056667,
+          22.538333
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Futian_station"
+      },
+      "whyKnown": "中心区地下高铁枢纽，地面广场与出入口是建模范围",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:Exit 12A of Futian Railway Station Shenzhen China.jpg",
+        "File:福田站8号出口.jpg",
+        "File:Futian station sinking square2018.jpg",
+        "File:Futian station Hall of Shekou Line 20130912 049-03.JPG",
+        "File:SZ Shenzhen Futian Checkpoint Station escalators visitor May 2024 R12S 01.jpg",
+        "File:SZ Shenzhen Futian Checkpoint Station escalators visitor May 2024 R12S 02.jpg"
+      ],
+      "notes": [
+        "高铁/城际福田站 English Wikipedia。Wikidata 约偏 560m，记冲突，取 Wikipedia。地铁福田站 Q5510524 是另一套站厅，未采用。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "guanshanyue",
+      "order": 28,
+      "name": "关山月美术馆",
+      "aliases": [],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.058889,
+          22.551944
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q16926285"
+      },
+      "whyKnown": "中轴线北段文化馆",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:SZ 深圳 Shenzhen 福田 Futian 紅荔路 Hongli Road 關山月美術館 Guan Shanyue Art Museum front facade Jan-2018 IX1.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 紅荔路 Hongli Road 關山月美術館 Guan Shanyue Art Museum facade April 2024 R12S 01.jpg",
+        "File:GUANSHANYUE ART MUSEUM, SHENZHEN.jpg",
+        "File:GUANSHANYUE ART MUSEUM, SHENZHEN (2).jpg",
+        "File:关山月美术馆 - panoramio.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 紅荔路 Hongli Road 關山月美術館 Guan Shanyue Art Museum July 2024 R12S 241.jpg"
+      ],
+      "notes": [
+        "无 English Wikipedia 条目。Wikidata / 中文维基 關山月美術館 22°33′7″N 114°3′32″E 一致。"
+      ]
+    },
+    {
+      "id": "grand-theater",
+      "order": 29,
+      "name": "深圳大剧院",
+      "aliases": [],
+      "kind": "building",
+      "group": "civic",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.10047,
+          22.545244
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Grand_Theater"
+      },
+      "whyKnown": "罗湖早期文化地标",
+      "sourceIds": [
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_ready",
+      "commonsFiles": [
+        "File:深圳大剧院.jpg",
+        "File:深圳大剧院 - panoramio.jpg",
+        "File:Exit C of Grand Theater Station, Shenzhen Metro.jpg",
+        "File:Exit D of Grand Theater Station, Shenzhen Metro.jpg",
+        "File:Exit E of Grand Theater Station, Shenzhen Metro.jpg",
+        "File:Exit F of Grand Theater Station, Shenzhen Metro.jpg"
+      ],
+      "notes": [
+        "English Wikipedia / Wikidata Q11153023 一致。罗湖大剧院，不是南山保利或其他新馆。"
+      ]
+    },
+    {
+      "id": "shanghai-hotel",
+      "order": 30,
+      "name": "上海宾馆",
+      "aliases": [],
+      "kind": "building",
+      "group": "skyline",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.076822,
+          22.543744
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q55697223"
+      },
+      "whyKnown": "市政府文中的早期地标之一",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:Shenzhen Shanghai Hotel2021.jpg",
+        "File:上海宾馆.jpg"
+      ],
+      "notes": [
+        "无 English Wikipedia 条目。Wikidata Q55697223 华强北街道 22°32′37.48″N 114°4′36.56″E。中文维基上海宾馆页无坐标。不是香港上海大酒店集团。",
+        "Commons 自动检索命中佛山华美达、宝安 JW 万豪、美国农业 PDF，已全部丢弃，不当上海宾馆立面。"
+      ]
+    },
+    {
+      "id": "tech-park",
+      "order": 31,
+      "name": "科技园",
+      "aliases": [
+        "深圳高新区南区"
+      ],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.9475,
+          22.5425
+        ],
+        "status": "from_priority_places_research_bbox"
+      },
+      "whyKnown": "科创封面片区，不是一栋楼",
+      "sourceIds": [
+        "priority-places"
+      ],
+      "owner": "unassigned",
+      "nextStage": "split_blocks",
+      "commonsFiles": [],
+      "notes": [
+        "先锚腾讯 / 万象天地周边街段"
+      ]
+    },
+    {
+      "id": "huaqiangbei",
+      "order": 32,
+      "name": "华强北",
+      "aliases": [],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.087,
+          22.54565
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huaqiangbei"
+      },
+      "whyKnown": "电子市场与赛格所在街道",
+      "sourceIds": [
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "split_blocks",
+      "commonsFiles": [],
+      "notes": [
+        "片区代表点，不是单栋。English Wikipedia / Wikidata Q983005 一致。精修前仍须拆街段。"
+      ]
+    },
+    {
+      "id": "dongmen",
+      "order": 33,
+      "name": "东门老街",
+      "aliases": [
+        "东门"
+      ],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.11884,
+          22.547502
+        ],
+        "status": "osm_named_building_centroid"
+      },
+      "whyKnown": "罗湖步行商业老城",
+      "sourceIds": [
+        "city-json-osm-named"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [],
+      "notes": [
+        "city.json 建筑 东门广场 足印反算。片区不是一栋楼。"
+      ]
+    },
+    {
+      "id": "futian-axis",
+      "order": 34,
+      "name": "福田中心区中轴线",
+      "aliases": [
+        "市民中心中轴线",
+        "福田 CBD"
+      ],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.054634,
+          22.539908
+        ],
+        "status": "estimated_from_confirmed_buildings"
+      },
+      "whyKnown": "串联莲花山到会展的市政文化轴",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "sz-reading-spirit",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [],
+      "notes": [
+        "片区；精修建筑拆成独立 id",
+        "市民中心与福田会展 Wikipedia/city 点的中点，不是测绘轴心。建筑保持独立 id。"
+      ]
+    },
+    {
+      "id": "houhai",
+      "order": 35,
+      "name": "后海 / 深圳湾超级总部基地",
+      "aliases": [
+        "后海",
+        "深超总"
+      ],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.941,
+          22.513352
+        ],
+        "status": "estimated_from_confirmed_buildings"
+      },
+      "whyKnown": "春笋、湾一号、人才公园所在滨海商务区",
+      "sourceIds": [
+        "city-json"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [],
+      "notes": [
+        "春笋 / 人才公园 / 湾一号 T7 三点平均，只作片区锚，不是质心。后海民心社区公园未采用。"
+      ]
+    },
+    {
+      "id": "caiwuwei",
+      "order": 36,
+      "name": "蔡屋围",
+      "aliases": [
+        "罗湖金融中心"
+      ],
+      "kind": "district",
+      "group": "district",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.102637,
+          22.5436
+        ],
+        "status": "osm_named_building_centroid"
+      },
+      "whyKnown": "京基100 与地王所在街区",
+      "sourceIds": [
+        "sz-kk100-park",
+        "city-json",
+        "city-json-osm-named"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [],
+      "notes": [
+        "蔡屋围丽晶大厦与蔡屋围大酒店足印中点。片区，精修仍拆京基/地王。"
+      ]
+    },
+    {
+      "id": "lianhua",
+      "order": 37,
+      "name": "莲花山公园",
+      "aliases": [
+        "莲花山"
+      ],
+      "kind": "terrain",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "lianhua",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.05324,
+          22.55663
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "中轴北端市政山体公园；邓小平铜像广场",
+      "sourceIds": [
+        "cgj-lianhua",
+        "city-json",
+        "priority-places"
+      ],
+      "owner": "terrain",
+      "nextStage": "reuse_terrain_workflow",
+      "commonsFiles": [
+        "File:Entrance of Lianhuashan Park Shenzen China 1310736.jpg",
+        "File:莲花山公园（深圳）.jpg",
+        "File:Statue of Deng Xiaoping at Lianhuashan, Shenzhen.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 彩田路 Caitian Road 深業上城 UpperHills 蓮花一村公車總站 LianhuaCun Bus Terminal November 2023 R12S 02.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 彩田路 Caitian Road 深業上城 UpperHills 蓮花一村公車總站 LianhuaCun Bus Terminus rules November 2023 R12S 01.jpg",
+        "File:SZ 深圳 Shenzhen 龍華區 Longhua 布龍路 Bulong Road Dec-2017 IX1 Yangtai Mountain map sign locations.jpg"
+      ]
+    },
+    {
+      "id": "baypark",
+      "order": 38,
+      "name": "深圳湾公园",
+      "aliases": [],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "baypark",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.988,
+          22.5241
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "约 13 公里滨海休闲带",
+      "sourceIds": [
+        "cgj-baypark",
+        "city-json"
+      ],
+      "owner": "unassigned",
+      "nextStage": "landscape_not_tower",
+      "commonsFiles": [
+        "File:Shenzhen Bay Park.jpg",
+        "File:福田 深圳湾公园上远望南山区.jpg",
+        "File:深圳灣公園 - panoramio.jpg",
+        "File:Shenzhen Bay Park - 2019-12-09 - 1.jpg",
+        "File:Double Rainbow Shenzhen Bay Park Sunrise Theatre 20210904.jpg",
+        "File:Rainbow Shenzhen Bay Park Sunrise Theatre 20210904.jpg"
+      ]
+    },
+    {
+      "id": "talent",
+      "order": 39,
+      "name": "深圳人才公园",
+      "aliases": [
+        "人才公园"
+      ],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "talent",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.94417,
+          22.51366
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "后海内湖市政公园，春笋街面一侧",
+      "sourceIds": [
+        "cgj-talent",
+        "city-json"
+      ],
+      "owner": "unassigned",
+      "nextStage": "landscape_not_tower",
+      "commonsFiles": [
+        "File:SHENZHEN TALENTS PARK.jpg",
+        "File:Shenzhen Talents Park 2.jpg",
+        "File:SHENZHEN TALENTS PARK (18).jpg",
+        "File:Exit C of Talent Park Station, Shenzhen Metro (Aug 18, 2023).jpg",
+        "File:Fang Binxing portrait in Shenzhen Talent Park.jpg",
+        "File:SZ Shenzhen Nanshan Metro Talent Park Station platform n male toilet March 2025 R12S.jpg"
+      ]
+    },
+    {
+      "id": "xiangmi",
+      "order": 40,
+      "name": "香蜜湖 / 香蜜公园",
+      "aliases": [
+        "香蜜湖",
+        "香蜜公园"
+      ],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": "xiangmi",
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.02683,
+          22.55057
+        ],
+        "status": "from_city_json"
+      },
+      "whyKnown": "福田城市湖泊与相邻市政公园",
+      "sourceIds": [
+        "cgj-xiangmi",
+        "city-json"
+      ],
+      "owner": "unassigned",
+      "nextStage": "split_lake_and_park",
+      "commonsFiles": [
+        "File:Xiangmi Lake during the dry season1.jpg",
+        "File:香蜜湖 Xiang Mi Hu - panoramio.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 僑香路 QiaoXiang Road 文化創意園 1979 Cultural and Creative Park view 香蜜湖 Xiangmi Hu Lake August 2023 Px3 01.jpg",
+        "File:Commercial area of futian to east2020.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 僑香路 QiaoXiang Road 文化創意園 1979 Cultural and Creative Park view 香蜜湖 Xiangmi Hu Lake August 2023 Px3 02.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 僑香路 QiaoXiang Road 文化創意園 1979 Cultural and Creative Park view 香蜜湖 Xiangmi Hu Lake August 2023 Px3 03.jpg"
+      ],
+      "notes": [
+        "city.json 是湖；城管页是香蜜公园。精修前先拆范围"
+      ]
+    },
+    {
+      "id": "lizhi",
+      "order": 41,
+      "name": "荔枝公园",
+      "aliases": [],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.097778,
+          22.546667
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q17499503"
+      },
+      "whyKnown": "红岭中路闹市绿洲，1982 年市政公园",
+      "sourceIds": [
+        "cgj-lizhi",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "locate_then_photos",
+      "commonsFiles": [
+        "File:SHENZHEN LYCHEE PARK (263).jpg",
+        "File:Lizhi Park, Shenzhen.jpg",
+        "File:Lizhi Park 20160307.JPG",
+        "File:Lizhi Park Stele.jpg",
+        "File:SHENZHEN LYCHEE PARK (157).jpg",
+        "File:SHENZHEN LYCHEE PARK (167).jpg"
+      ],
+      "notes": [
+        "无 English Wikipedia 条目。Wikidata Q17499503 22°32′48″N 114°5′52″E。中文维基 22.5475,114.0975 约差 95m。城管页只有红岭中路 1001 号地址，无 WGS84。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "central-park",
+      "order": 42,
+      "name": "深圳中心公园",
+      "aliases": [
+        "中心公园"
+      ],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.071565,
+          22.545262
+        ],
+        "status": "osm_named_green_centroid"
+      },
+      "whyKnown": "皇岗路至华富路南北绿化带改建公园",
+      "sourceIds": [
+        "cgj-central-park",
+        "city-json-osm-named"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [
+        "File:中心公园全景 (2013-03-29) - panoramio.jpg",
+        "File:深圳中心公园 (2013-03-29) - panoramio.jpg",
+        "File:SHENZHEN CENTRAL PARK (49).jpg",
+        "File:SHENZHEN CENTRAL PARK (53).jpg",
+        "File:SHENZHEN CENTRAL PARK (62).jpg",
+        "File:SHENZHEN CENTRAL PARK (65).jpg"
+      ],
+      "notes": [
+        "6 块名为深圳中心公园的 green 顶点平均。城管页：南滨河、北笋岗、东华富、西皇岗。"
+      ]
+    },
+    {
+      "id": "bijia",
+      "order": 43,
+      "name": "笔架山公园",
+      "aliases": [],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.075257,
+          22.565224
+        ],
+        "status": "osm_named_green_centroid"
+      },
+      "whyKnown": "福田北侧山体公园，常与莲花山并提",
+      "sourceIds": [
+        "city-json-osm-named"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [
+        "File:SZ 深圳 Shenzhen 福田 Futian 筆架山公園 Bijiashan Park Sunday November 2023 R12S 50.jpg",
+        "File:SZ 深圳 Shenzhen 福田 Futian 筆架山 Bijiashan Park Sunday November 2023 R12S 09.jpg",
+        "File:A CAT IN BI JIA HILL PARK, SHENZHEN.jpg",
+        "File:Bi Jia Hill Park, Shenzhen (125).jpg",
+        "File:Bi Jia Hill Park, Shenzhen (72).jpg",
+        "File:Bi Jia Hill Park, Shenzhen (74).jpg"
+      ],
+      "notes": [
+        "分派前补城管或 OSM 边界来源",
+        "city.json green name 笔架山公园；反算 WGS84。主峰海拔报道约 178m 不是此点高程。"
+      ]
+    },
+    {
+      "id": "mangrove",
+      "order": 44,
+      "name": "福田红树林 / 深圳湾红树林",
+      "aliases": [
+        "红树林海滨生态公园"
+      ],
+      "kind": "park",
+      "group": "park",
+      "coverage": "in_bbox",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.009537,
+          22.525701
+        ],
+        "status": "osm_named_green_centroid"
+      },
+      "whyKnown": "深圳湾公园东段生态岸线",
+      "sourceIds": [
+        "cgj-baypark",
+        "city-json-osm-named"
+      ],
+      "owner": "unassigned",
+      "nextStage": "candidate_or_split",
+      "commonsFiles": [
+        "File:Mangrove Tree Park Shenzhen China (32897491363).jpg",
+        "File:远看福田 - panoramio.jpg",
+        "File:2001 深圳 红树林 - panoramio.jpg",
+        "File:2001年 红树林 - panoramio (3).jpg",
+        "File:2001年 红树林 - panoramio (4).jpg",
+        "File:SZ 深圳 Shenzhen 僑城東站 Metro QiaoCheng East Station C exit sign July 2023 Px3 02.jpg"
+      ],
+      "notes": [
+        "保护地，不编造码头或填海建筑",
+        "city.json green 福田红树林自然保护区。红树林海滨生态公园是另一块更西的图斑，未混用。不编码头。"
+      ]
+    },
+    {
+      "id": "sea-world",
+      "order": 45,
+      "name": "海上世界明华轮",
+      "aliases": [
+        "明华轮"
+      ],
+      "kind": "building_complex",
+      "group": "expansion",
+      "coverage": "outside",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.911667,
+          22.486389
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Minghua_(ship)"
+      },
+      "whyKnown": "蛇口滨海地标船体",
+      "sourceIds": [
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "expansion_check",
+      "commonsFiles": [
+        "File:Minghua ship at Shekou Seaworld 2018-10-12 1.jpg",
+        "File:Sea World in Shekou Shenzhen2021.jpg",
+        "File:Minghua Ship of Shekou Marine World at dusk.JPG",
+        "File:Minghua Ship of Shekou Sea World.jpg",
+        "File:Minghua Ship of Shekou Sea World 1.jpg",
+        "File:Minghua Ship of Shekou Sea World 2.jpg"
+      ],
+      "notes": [
+        "先核南侧裁切，不能塞进深圳湾公园",
+        "明华轮 English Wikipedia 22°29′11″N 113°54′42″E。Wikidata Q2845729 22.4863,113.9118 为同一点。海上世界片区 Q10389768 22.48611,113.91194 是园区不是船体。南侧裁切外，不塞进深圳湾公园，不编游戏坐标。"
+      ]
+    },
+    {
+      "id": "design-society",
+      "order": 46,
+      "name": "海上世界文化艺术中心",
+      "aliases": [
+        "设计互联"
+      ],
+      "kind": "building",
+      "group": "expansion",
+      "coverage": "outside",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.912,
+          22.483
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Sea_World_Culture_and_Arts_Center"
+      },
+      "whyKnown": "蛇口滨海文化建筑",
+      "sourceIds": [
+        "sz-quality-buildings",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "expansion_check",
+      "commonsFiles": [
+        "File:Seaworld CAC1.jpg",
+        "File:海上世界文化艺术中心 1.jpg",
+        "File:海上世界文化艺术中心 2.jpg",
+        "File:SZ Shenzhen Nanshan Shekou 1187 Wanghai Road Sea World Culture and Arts Center roof April 2025 R12S 01.jpg",
+        "File:SZ Shenzhen Nanshan Shekou 1187 Wanghai Road Sea World Culture and Arts Center roof April 2025 R12S 02.jpg",
+        "File:SZ Shenzhen Nanshan Shekou 1187 Wanghai Road Sea World Culture and Arts Center roof April 2025 R12S 06.jpg"
+      ],
+      "notes": [
+        "不与明华轮合成一个盒子",
+        "English Wikipedia / Wikidata Q53762460，精度约 0.001°。与明华轮分开。地图外，不编游戏坐标。"
+      ]
+    },
+    {
+      "id": "airport-t3",
+      "order": 47,
+      "name": "深圳宝安国际机场 T3",
+      "aliases": [
+        "宝安机场卫星厅 / T3"
+      ],
+      "kind": "building_complex",
+      "group": "expansion",
+      "coverage": "outside",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.810833,
+          22.639444
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Bao%27an_International_Airport"
+      },
+      "whyKnown": "广为人知的交通地标",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "expansion_check",
+      "commonsFiles": [
+        "File:Shenzhen Bao'an International Airport New Terminal Entrance 20141203.JPG",
+        "File:深圳机场T3航站楼 Terminal 3 - panoramio.jpg",
+        "File:深圳宝安机场新航站楼外 - panoramio.jpg",
+        "File:SZ 深圳 Shenzhen 寶安 BaoAn Metro tour view from 碧海灣站 BiHaiWan Station to 機場站 Airport T3 Station July 2024 R12S 02.jpg",
+        "File:SZ 深圳 Shenzhen 寶安 BaoAn Metro tour view from 碧海灣站 BiHaiWan Station to 機場站 Airport T3 Station July 2024 R12S 03.jpg",
+        "File:SZ 深圳 Shenzhen 寶安 BaoAn Metro tour view from 碧海灣站 BiHaiWan Station to 機場站 Airport T3 Station July 2024 R12S 06.jpg"
+      ],
+      "notes": [
+        "机场 ARP，不是单独测绘的 T3/卫星厅质心。地图外，不编游戏坐标。"
+      ]
+    },
+    {
+      "id": "universiade",
+      "order": 48,
+      "name": "深圳大运中心",
+      "aliases": [],
+      "kind": "building_complex",
+      "group": "expansion",
+      "coverage": "outside",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.212194,
+          22.697139
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_Universiade_Sports_Centre"
+      },
+      "whyKnown": "龙岗场馆群，轮廓不同于办公塔",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "expansion_check",
+      "commonsFiles": [
+        "File:ShenZhen Universiade Sports Centre.jpg",
+        "File:Shenzhen Universiade Sports Centre 20170730.jpg",
+        "File:26 Universiade memorial in Shenzhen Universiade Center.jpg",
+        "File:SZ 深圳 Shenzhen 龍崗 Longgang 大運中心 Universiade Center 大運天地 商場 MixC Mall August 2024 R12S 103.jpg",
+        "File:SZ 深圳 Shenzhen 龍崗 Longgang 大運中心 Universiade Center 大運天地 商場 MixC Mall August 2024 R12S 108.jpg",
+        "File:SZ 深圳 Shenzhen 龍崗 Longgang 大運中心 Universiade Center 大運天地 商場 MixC Mall August 2024 R12S 110.jpg"
+      ],
+      "notes": [
+        "龙岗场馆群 English Wikipedia / Wikidata Q3278276。地图外，不编游戏坐标。"
+      ]
+    },
+    {
+      "id": "happy-harbor",
+      "order": 49,
+      "name": "欢乐港湾 / 湾区之光",
+      "aliases": [
+        "深圳滨海艺术中心"
+      ],
+      "kind": "building_complex",
+      "group": "expansion",
+      "coverage": "outside",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          113.883,
+          22.5441
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Bay_Glory"
+      },
+      "whyKnown": "宝安摩天轮与滨海文化组合",
+      "sourceIds": [
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "expansion_check",
+      "commonsFiles": [
+        "File:Bay Glory 2022.jpg",
+        "File:Bay Glory Shenzhen (root) 2022-01-09.jpg",
+        "File:Bay Glory Shenzhen (side) 2022-01-09.jpg",
+        "File:Bay Glory Shenzhen 2021-02-07.jpg",
+        "File:Entrance of Bay Glory Shenzhen 2022-01-09.jpg"
+      ],
+      "notes": [
+        "摩天轮与艺术中心先拆对象",
+        "English Wikipedia Bay Glory 摩天轮 22.5441,113.8830。中文维基湾区之光 22.541373,113.887673 记冲突。这是轮，不是整片欢乐港湾/艺术中心。Happy Harbor 重定向到 DC 宇宙，已丢弃。地图外，不编游戏坐标。",
+        "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
+      ]
+    },
+    {
+      "id": "shenzhen-north",
+      "order": 50,
+      "name": "深圳北站",
+      "aliases": [],
+      "kind": "building_complex",
+      "group": "expansion",
+      "coverage": "outside",
+      "cityLandmarkId": null,
+      "location": {
+        "crs": "EPSG:4326",
+        "center": [
+          114.023889,
+          22.611944
+        ],
+        "status": "wikipedia_reported",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shenzhen_North_railway_station"
+      },
+      "whyKnown": "特大型铁路枢纽，人气地标候选常见",
+      "sourceIds": [
+        "southcn-landmark-poll",
+        "wikipedia-wgs84"
+      ],
+      "owner": "unassigned",
+      "nextStage": "expansion_check",
+      "commonsFiles": [
+        "File:View in front of east entrance of Shenzhen North Station.jpg",
+        "File:View in front of west entrance of Shenzhen North Station.jpg",
+        "File:深圳北站正门 main entrance - panoramio.jpg",
+        "File:Shenzhen North Railway Station (back) - panoramio.jpg",
+        "File:20240518 ShenzhenNorthStn.jpg",
+        "File:SHENZHEN NORTH RAILWAY STATION.jpg"
+      ],
+      "notes": [
+        "English Wikipedia / Wikidata Q3272538。纬度 22.6119 超出当前裁切北界 22.575。不编游戏坐标。"
+      ]
+    }
+  ]
+}

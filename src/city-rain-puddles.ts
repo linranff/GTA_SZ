@@ -167,13 +167,22 @@ export function createRainPuddles(scene:Scene,_data:CityData,_heightAt:(x:number
  const normal=RawTexture.CreateRGBTexture(pixels,n,n,scene,true,false,Texture.TRILINEAR_SAMPLINGMODE);normal.name='rain-pool-micro-normal';normal.gammaSpace=false;normal.wrapU=Texture.WRAP_ADDRESSMODE;normal.wrapV=Texture.WRAP_ADDRESSMODE;normal.anisotropicFilteringLevel=4;normal.level=.17;
  const film=new PBRMaterial('rain-damp-apron',scene);film.albedoColor=new Color3(.033,.038,.042);film.metallic=0;film.roughness=.55;film.specularIntensity=.28;film.maxSimultaneousLights=2;film.transparencyMode=Material.MATERIAL_ALPHABLEND;film.zOffset=-1;film.backFaceCulling=false;
  const water=new PBRMaterial('rain-standing-water',scene);water.albedoColor=new Color3(.025,.036,.045);water.metallic=0;water.roughness=.075;water.specularIntensity=.85;water.environmentIntensity=1.35;water.reflectionTexture=mirror;water.bumpTexture=normal;water.invertNormalMapX=!scene.useRightHandedSystem;water.invertNormalMapY=scene.useRightHandedSystem;water.enableSpecularAntiAliasing=true;water.maxSimultaneousLights=2;water.transparencyMode=Material.MATERIAL_ALPHABLEND;water.zOffset=-1;water.backFaceCulling=false;
- let lightMode:CinematicLightingMode='sunset';
+ let lightMode:CinematicLightingMode='sunset',raining=false;
  function setMode(next:CinematicLightingMode){
   lightMode=next;const day=next==='day';
   // Keep the same rain layout and reflected scene, but reveal more asphalt
   // through sunlit shallow water. Avoid white, opaque-looking mirror patches.
-  water.environmentIntensity=day?.85:1.35;water.specularIntensity=day?.65:.85;
-  water.roughness=day?.13:.075;water.alpha=day?.74:1;film.alpha=day?.70:1;
+  water.environmentIntensity=day?(raining?1.05:.85):1.35;water.specularIntensity=day?(raining?.78:.65):.85;
+  water.roughness=day?.13:.075;water.alpha=day?(raining?.88:.74):1;film.alpha=day?(raining?.84:.70):1;
+ }
+ function setWeather(wet:boolean){raining=wet;setMode(lightMode);}
+ function nearby(x:number,z:number,radius=35,limit=64){
+  const found:RainPool[]=[],radius2=radius*radius;
+  for(let xx=Math.floor((x-radius)/CELL);xx<=Math.floor((x+radius)/CELL);xx++)
+   for(let zz=Math.floor((z-radius)/CELL);zz<=Math.floor((z+radius)/CELL);zz++)
+    for(const p of buckets.get(xx+','+zz)??[])if((p.x-x)**2+(p.z-z)**2<radius2)found.push(p);
+  found.sort((a,b)=>(a.x-x)**2+(a.z-z)**2-(b.x-x)**2-(b.z-z)**2);
+  return found.slice(0,limit);
  }
  const make=(name:string,mat:PBRMaterial,order:number)=>{const m=new Mesh(name,scene);m.material=mat;m.isPickable=false;m.hasVertexAlpha=true;m.useVertexColors=true;m.alphaIndex=order;m.receiveShadows=false;m.freezeWorldMatrix();m.setEnabled(false);return m;};
  const apron=make('rain-road-damp-patches',film,1),puddles=make('rain-road-local-puddles',water,2);
@@ -188,7 +197,7 @@ export function createRainPuddles(scene:Scene,_data:CityData,_heightAt:(x:number
   for(let xx=Math.floor((x-radius)/CELL);xx<=Math.floor((x+radius)/CELL);xx++)for(let zz=Math.floor((z-radius)/CELL);zz<=Math.floor((z+radius)/CELL);zz++)for(const p of buckets.get(xx+','+zz)??[])if((p.x-x)**2+(p.z-z)**2<radius*radius)selected.push(p);
   selected.sort((a,b)=>(a.x-x)**2+(a.z-z)**2-(b.x-x)**2-(b.z-z)**2);selected.length=Math.min(limit,selected.length);shown=selected.length;visiblePuddleArea=selected.reduce((sum,p)=>sum+area(rainPoolOutline(p,1)),0);
   for(const [mesh,isApron] of [[apron,true],[puddles,false]] as const){const enabled=selected.length>0&&(isApron||index<2);mesh.setEnabled(enabled);if(!enabled)continue;const geometry=poolGeometry(selected,isApron,x,z,index);const v=new VertexData();v.positions=geometry.positions;v.normals=geometry.normals;v.uvs=geometry.uvs;v.colors=geometry.colors;v.indices=geometry.indices;v.applyToMesh(mesh,true);mesh.refreshBoundingInfo();}
-  water.disableBumpMap=index>0;water.alpha=index===1?.75:1;film.alpha=index===2?.74:1;lastRebuildMs=performance.now()-t;rebuilds++;
+  water.disableBumpMap=index>0;water.alpha=index===1?.75:lightMode==='day'?(raining?.88:.74):1;film.alpha=index===2?.74:lightMode==='day'?(raining?.84:.70):1;lastRebuildMs=performance.now()-t;rebuilds++;
  }
  function install(next:RainLayout){if(disposed)return;layout=next;buckets.clear();lastMode=-1;for(const p of layout.pools){const k=key(p.x,p.z),b=buckets.get(k)??[];b.push(p);buckets.set(k,b);}status='ready';initMs=performance.now()-start;if(hasRequested)update(requested.x,requested.z,requested.height);}
  // The expensive full-city safety/coverage proof belongs to asset generation.
@@ -213,8 +222,8 @@ export function createRainPuddles(scene:Scene,_data:CityData,_heightAt:(x:number
  const readyPromise=prepared?Promise.resolve(install(prepared)):retry();
  return{
   meshes:[apron,puddles] as const,
-  update,readyPromise,retry,setMode,
-  get stats(){return{...layout.stats,status,failure,mode,lightMode,response:{alpha:water.alpha,roughness:water.roughness,specular:water.specularIntensity,environment:water.environmentIntensity},shown,initMs,lastRebuildMs,rebuilds,visiblePuddleArea,coverageEvidence,drawCalls:puddles.isEnabled()?(apron.isEnabled()?2:1):apron.isEnabled()?1:0,activeTriangles:(apron.isEnabled()?apron.getTotalIndices()/3:0)+(puddles.isEnabled()?puddles.getTotalIndices()/3:0),extraRenderTargets:0,extraLights:0,normalTextureBytesWithMipmaps:Math.round(n*n*3*4/3),reflection:'reuse-existing-road-mirror',placement:'20-minutes-after-rain; five seeded shorelines with irregular road positions',profileVariants:RAIN_PROFILE_COUNT,estimatedWetFraction:layout.stats.estimatedWetArea/Math.max(1,layout.stats.sampledSurfaceArea),estimatedPuddleFraction:layout.stats.estimatedPuddleArea/Math.max(1,layout.stats.sampledSurfaceArea),disposed};},
+  update,readyPromise,retry,setMode,setWeather,nearby,
+  get stats(){return{...layout.stats,status,failure,mode,lightMode,raining,response:{alpha:water.alpha,roughness:water.roughness,specular:water.specularIntensity,environment:water.environmentIntensity},shown,initMs,lastRebuildMs,rebuilds,visiblePuddleArea,coverageEvidence,drawCalls:puddles.isEnabled()?(apron.isEnabled()?2:1):apron.isEnabled()?1:0,activeTriangles:(apron.isEnabled()?apron.getTotalIndices()/3:0)+(puddles.isEnabled()?puddles.getTotalIndices()/3:0),extraRenderTargets:0,extraLights:0,normalTextureBytesWithMipmaps:Math.round(n*n*3*4/3),reflection:'reuse-existing-road-mirror',placement:'20-minutes-after-rain; five seeded shorelines with irregular road positions',profileVariants:RAIN_PROFILE_COUNT,estimatedWetFraction:layout.stats.estimatedWetArea/Math.max(1,layout.stats.sampledSurfaceArea),estimatedPuddleFraction:layout.stats.estimatedPuddleArea/Math.max(1,layout.stats.sampledSurfaceArea),disposed};},
   dispose(){if(disposed)return;disposed=true;if(retryTimer)clearTimeout(retryTimer);apron.dispose(false,false);puddles.dispose(false,false);film.dispose(false,false);water.dispose(false,false);normal.dispose();},
  };
 }

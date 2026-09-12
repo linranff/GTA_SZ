@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "baypark",
+  "name": "深圳湾公园",
+  "kind": "park",
+  "status": "first_pass_shoreline_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a tower or indoor mall",
+  "anchor": {
+    "lon": 113.988,
+    "lat": 22.5241,
+    "source": "public/city/city.json landmark baypark",
+    "basis": "reported",
+    "role": "current game landmark marker; not a surveyed centroid"
+  },
+  "wikipedia_point": {
+    "lon": 113.9881,
+    "lat": 22.5245,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Bay_Park",
+    "basis": "reported"
+  },
+  "identity_features": [
+    "东起福田红树林、西接望海路的滨海岸线",
+    "步道夹在北侧绿地与南侧水面之间",
+    "不当楼、不编主题园建筑"
+  ],
+  "reported": {
+    "shoreline_km": 13,
+    "total_area_ha": 128.74,
+    "leisure_belt_ha": 108.07,
+    "mangrove_eco_park_ha": 20.67,
+    "theme_gardens": 14,
+    "source": "深圳市城市管理和综合执法局 深圳湾公园页；休闲带 108.07 ha 与 Wikipedia 一致，总面积含东段红树林海滨生态园"
+  },
+  "first_pass": {
+    "basis": "estimated",
+    "uncertainty": "13 km 岸线不整段建模；只在 city.json 点附近做一段可辨识岸线/步道/水面，误差约 ±40%。",
+    "along_m": 1400,
+    "land_depth_m": 180,
+    "water_width_m": 420,
+    "promenade_width_m": 12,
+    "yaw_deg": -12
+  },
+  "sources": [
+    {
+      "id": "city-json",
+      "url": "public/city/city.json",
+      "supports": ["game marker 113.988, 22.5241"]
+    },
+    {
+      "id": "enwiki-baypark",
+      "url": "https://en.wikipedia.org/wiki/Shenzhen_Bay_Park",
+      "supports": ["22.5245, 113.9881", "leisure belt 108.07 ha"]
+    },
+    {
+      "id": "cgj-baypark",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/twf/bhxx/content/post_10841320.html",
+      "supports": ["total ~128.74 ha", "shoreline ~13 km", "14 theme gardens", "east starts at Futian mangrove reserve"]
+    }
+  ]
+}

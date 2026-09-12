@@ -16,6 +16,11 @@ const ROAD_LOOK={
   sunset:{albedo:[.72,.76,.79],specular:.22,environment:.55,roughness:[.83,.12]},
   night:{albedo:[.72,.76,.79],specular:.22,environment:.55,roughness:[.83,.12]},
 } as const;
+const RAIN_ROAD_LOOK={
+  day:{albedo:[.88,.91,.94],specular:.72,environment:1.18,roughness:[.31,.23]},
+  sunset:{albedo:[.70,.75,.79],specular:.68,environment:1.10,roughness:[.28,.24]},
+  night:{albedo:[.70,.75,.79],specular:.68,environment:1.10,roughness:[.28,.24]},
+} as const;
 class AsphaltDryFilm extends MaterialPluginBase {
   range:readonly number[]=ROAD_LOOK.sunset.roughness;
   constructor(material:PBRMaterial){super(material,'AsphaltDryFilm',210,{},true,true,true);}
@@ -33,7 +38,8 @@ type MapState = 'loading'|'ready'|'failed';
 /** Apply after applyLandscapeSurfaces: its albedo texture is retained and its reflectance is calibrated.
  * Only asphalt materials are touched. Both maps are shared, mipmapped linear
  * data. Rough asphalt uses the shared HDR environment; only separately placed
- * puddles use the planar mirror. No added render target or animation loop.
+ * puddles use the planar mirror in dry weather. Rain reuses that same mirror
+ * across asphalt; it adds no render target or animation loop.
  * Source/licence and the deterministic map recipe: data/materials/road-cinematic.json.
  */
 export function applyCinematicRoad(scene:Scene, roadMirror:BaseTexture|null) {
@@ -68,13 +74,15 @@ export function applyCinematicRoad(scene:Scene, roadMirror:BaseTexture|null) {
   let disposed = false;
   let applied = false;
   let mode:CinematicLightingMode='sunset';
+  let raining = false;
   const films:AsphaltDryFilm[]=[];
   function setMode(next:CinematicLightingMode){
     mode=next;if(!applied||disposed)return;
-    const look=ROAD_LOOK[next];
-    for(const material of materials){material.albedoColor=new Color3(...look.albedo);material.specularIntensity=look.specular;material.environmentIntensity=look.environment;}
+    const look=raining?RAIN_ROAD_LOOK[next]:ROAD_LOOK[next];
+    for(const material of materials){material.albedoColor=new Color3(...look.albedo);material.specularIntensity=look.specular;material.environmentIntensity=look.environment;material.reflectionTexture=raining?roadMirror:null;}
     for(const film of films)film.range=look.roughness;
   }
+  function setWeather(wet:boolean){if(raining===wet)return;raining=wet;setMode(mode);}
 
   function attachWhenReady() {
     if (disposed || scene.isDisposed || applied || !normal || !orm || states.normal !== 'ready' || states.orm !== 'ready') return;
@@ -96,7 +104,7 @@ export function applyCinematicRoad(scene:Scene, roadMirror:BaseTexture|null) {
       material.enableSpecularAntiAliasing = true;
       material.specularIntensity = .22;
       material.environmentIntensity = .55;
-      material.reflectionTexture = null; // Standing-water meshes alone use the planar mirror.
+      material.reflectionTexture = null;
       films.push(new AsphaltDryFilm(material));
     }
     applied = true;
@@ -141,12 +149,13 @@ export function applyCinematicRoad(scene:Scene, roadMirror:BaseTexture|null) {
   }
 
   return {
-    setMode,
+    setMode,setWeather,
     get stats() {
       return {
         applied,
         mode,
-        response:ROAD_LOOK[mode],
+        response:raining?RAIN_ROAD_LOOK[mode]:ROAD_LOOK[mode],
+        raining,
         ready: applied || materials.length === 0,
         materialCount: materials.length,
         materialNames: materials.map(material => material.name),
@@ -156,7 +165,7 @@ export function applyCinematicRoad(scene:Scene, roadMirror:BaseTexture|null) {
         normalGameMetres: SCAN_GAME_METRES,
         roughnessGameMetres: SCAN_GAME_METRES * ORM_SCAN_REPEATS,
         albedoPolicy: 'preserve-landscape-texture-calibrate-reflectance',
-        reflectionPolicy: 'rough-environment-IBL; planar-mirror-only-on-local-puddles',
+        reflectionPolicy: raining?'existing-planar-mirror-on-wet-asphalt-and-puddles':'rough-environment-IBL; planar-mirror-only-on-local-puddles',
         additionalRenderTargets: 0,
         estimatedTextureMiBWithMipmapsRGBA8: materials.length ? 26.67 : 0,
         disposed,

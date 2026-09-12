@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "bijia",
+  "name": "笔架山",
+  "kind": "terrain",
+  "status": "first_pass_three_ridge_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a single ellipsoid or one smooth dome",
+  "anchor": {
+    "lon": 114.07646506475707,
+    "lat": 22.5651644,
+    "source": "https://www.openstreetmap.org/way/98999987",
+    "basis": "estimated",
+    "role": "OSM 笔架山公园 polygon point-on-surface; not a surveyed peak"
+  },
+  "identity_features": [
+    "东西三座主峰，形似笔架",
+    "主峰与次峰高差按官方海拔差示意",
+    "不要一个椭球代表整座山"
+  ],
+  "reported": {
+    "park_area_km2": 1.49,
+    "main_peak_amsl_m": 178,
+    "second_peak_amsl_m": 163,
+    "source": "http://www.sz.gov.cn/en_szgov/news/infocus/park/csgy/content/post_10989364.html"
+  },
+  "wikipedia_form": {
+    "source": "https://zh.wikipedia.org/wiki/笔架山_(深圳)",
+    "note": "十余座小峰，三座主峰东西排列，形似笔架；主峰海拔 178 m"
+  },
+  "peaks": [
+    {
+      "id": "west",
+      "east_m": -280,
+      "north_m": 40,
+      "relative_height_m": 68,
+      "elevation_amsl_m": 163,
+      "rx_m": 210,
+      "ry_m": 140,
+      "height_basis": "estimated",
+      "elevation_basis": "reported"
+    },
+    {
+      "id": "main",
+      "east_m": 470,
+      "north_m": 210,
+      "relative_height_m": 82,
+      "elevation_amsl_m": 178,
+      "rx_m": 240,
+      "ry_m": 160,
+      "height_basis": "estimated",
+      "elevation_basis": "reported",
+      "note": "平面偏移对照现有 30 m DSM 游戏峰点约 114.081, 22.567；相对高度按该峰约 81 m 起伏，不是 178 m 海拔直接入模"
+    },
+    {
+      "id": "east",
+      "east_m": 720,
+      "north_m": -20,
+      "relative_height_m": 48,
+      "elevation_amsl_m": null,
+      "rx_m": 170,
+      "ry_m": 120,
+      "height_basis": "estimated",
+      "elevation_basis": "unknown"
+    }
+  ],
+  "datum_note": "178 / 163 是海拔。游戏地面已扁平化，本轮相对高度来自现有 DSM 起伏量级，不是实测 DTM。",
+  "sources": [
+    {
+      "id": "szgov-bijia",
+      "url": "http://www.sz.gov.cn/en_szgov/news/infocus/park/csgy/content/post_10989364.html",
+      "supports": ["1.49 km²", "main 178 m AMSL", "second 163 m AMSL"]
+    },
+    {
+      "id": "zhwiki-bijia",
+      "url": "https://zh.wikipedia.org/wiki/笔架山_(深圳)",
+      "supports": ["three main peaks east-west", "pen-rest silhouette", "178 m"]
+    },
+    {
+      "id": "osm-bijia-park",
+      "url": "https://www.openstreetmap.org/way/98999987",
+      "supports": ["park POS 114.076465, 22.565164"]
+    }
+  ]
+}

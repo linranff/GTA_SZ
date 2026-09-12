@@ -2,7 +2,9 @@
 
 本流程把可重复的资料整理和建模拆成逐对象任务。当前工具是 `scripts/landmark_tasks.py`；它输出 JSON 与提示词、检查文件和状态，不自动控制 Grok bot、Cursor、ChatGPT 或其他 Codex 实例。
 
-2026-09-05 主集成人员已在本机核对 `ChatGPT.app`、`Cursor.app` 和 `Grok Bot.app` 存在；尚未验证 Composer 或 Grok 的无界面 Agent 调用入口。Cursor 的编辑器启动器不等于已验证的 Composer API。本轮先使用当前 Codex 会话内的子 Agent 完成证据、建模、流程三项工作，其他应用接收相同任务包时仍执行同一文件与验收契约。
+2026-09-12 补充：节省 Pro 用量的任务拆分、Cursor/Grok启动提示词和两项首轮工作包，见 [外部Agent执行手册](/Users/fenglinran/Documents/ChatGPT/深城纪/docs/landmarks/external-agent-handbook.md)。该手册沿用本文状态契约，明确区分资料、冻结规格、候选模型和最终实机验收；当前独立单对象预览工具已有初版、正在复核。用户已授权 Computer Use 派发 Cursor Grok 4.6 / Extra High 任务；最新队列和 GTA V 视觉标准见 [深圳地标制作队列](shenzhen-landmark-roadmap.md)。
+
+2026-09-05 主集成人员已在本机核对 `ChatGPT.app`、`Cursor.app` 和 `Grok Bot.app` 存在；尚未验证 Composer 或 Grok 的无界面 Agent 调用入口。Cursor 的编辑器启动器不等于已验证的 Composer API。当日采用 Codex 子 Agent 的安排为历史记录；2026-09-12 本轮执行方式以上述 Cursor Grok 4.6 派工说明为准，沿用同一文件与验收契约。
 
 ## 可执行入口
 
@@ -92,7 +94,7 @@
 
 每个任务只写自身 `scripts/landmarks/<id>.py`、任务目录、`artifacts/landmarks/<id>/`。其他必要改动写入任务目录的 `integration-notes.md`，由主集成人员串行接入。主集成人员拥有总清单、运行时源码、地形准备、共享资产和构建脚本。同一个 id 同时只能有一个写入者；不同应用不能对同一文件并发建模。
 
-当前三个可并行方向是不同对象的证据调查、已定参数的对象建模、已完成对象的独立评审；同一对象的证据到建模是依赖关系，不盲目并行。Cursor Composer 可处理证据齐全的参数录入、B API 模块、重复视角检查；模糊地名、冲突尺寸、地形基准和最终集成由能审查来源与代码的执行者处理。模型标签不替代质量门槛。
+当前三个可并行方向是不同对象的证据调查、已定参数的对象建模、已完成对象的独立评审；同一对象的证据到建模是依赖关系，不盲目并行。Cursor Grok 4.6 / Extra High 可处理证据齐全的参数录入、B API 模块、重复视角检查；模糊地名、冲突尺寸、地形基准和最终集成由能审查来源与代码的执行者处理。模型标签不替代质量门槛。
 
 ## 构建、哈希与验收
 

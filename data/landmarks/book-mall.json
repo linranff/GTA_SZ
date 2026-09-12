@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "book-mall",
+  "name": "深圳书城中心城",
+  "status": "topology_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Shenzhen Book City (Central) / 深圳书城中心城",
+    "not": ["塔楼", "深圳书城罗湖城", "其他书城分店"],
+    "address": "深圳市福田区福中一路2014号",
+    "designer": "黑川纪章 / Kisho Kurokawa"
+  },
+  "anchor": {
+    "lon": 114.0544,
+    "lat": 22.5478,
+    "source": "https://zh.wikipedia.org/wiki/深圳书城中心城",
+    "basis": "estimated",
+    "note": "中英文维基均无 WGS84。由西侧图书馆 22.54857N 114.05202E、东侧少年宫 22.55026N 114.05673E 与南侧市民中心轴 114.05452E 推算中轴偏南。拒绝高德/Wikidata 22.5466N 114.0596E，疑似 GCJ 或偏东入口，不能当 WGS84。"
+  },
+  "site": {
+    "area_ha": 8.7,
+    "basis": "reported",
+    "source": "https://zh.wikipedia.org/wiki/深圳书城中心城",
+    "uncertainty": "2022 运营访谈另写占地 4.3 万平方米，与 8.7 公顷冲突。"
+  },
+  "gfa": {
+    "area_m2": 82000,
+    "basis": "reported",
+    "source": "https://zh.wikipedia.org/wiki/深圳书城中心城"
+  },
+  "length_m": {
+    "value": 358,
+    "axis": "south-north",
+    "basis": "reported",
+    "source": "https://finance.sina.com.cn/roll/20050613/1229122982.shtml",
+    "alt_m": 370,
+    "uncertainty": "2005 筹建报道总长 358m；2022 南都访谈写南北长 370m。"
+  },
+  "width_m": {
+    "value": 110,
+    "axis": "east-west",
+    "basis": "reported",
+    "source": "https://ipaper.oeeee.com/ipaper/H/html/2022-06/23/content_12384.htm",
+    "uncertainty": "2005 报道宽 103–118m；2022 写 110m。"
+  },
+  "eave_height_m": {
+    "value": 12,
+    "basis": "estimated",
+    "uncertainty": "维基：地下一层+夹层+地上一层；南都：地下一层+地面两层。按低层覆土屋面估计檐口，禁止建成塔。"
+  },
+  "walk_axis_m": {
+    "value": 25,
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Book_City_(Central)"
+  },
+  "courts": {
+    "south": "square",
+    "north": "round",
+    "size_m": 28,
+    "basis": "estimated",
+    "uncertainty": "一方一圆天井按维基叙述布置，直径/边长不是测绘。"
+  },
+  "sink_m": {
+    "value": 6,
+    "basis": "estimated",
+    "uncertainty": "下沉主层深度按一层半推算，不是测绘。"
+  },
+  "notes": [
+    "Sunken mall plus roof lawn. Do not extrude a tower from the 82,000 m² GFA."
+  ]
+}

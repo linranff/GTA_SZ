@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "lizhi",
+  "name": "荔枝公园",
+  "kind": "park",
+  "status": "wikipedia_wgs84_oasis_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a tower",
+  "anchor": {
+    "lon": 114.0975,
+    "lat": 22.5475,
+    "source": "https://zh.wikipedia.org/wiki/荔枝公园",
+    "basis": "reported",
+    "role": "Wikipedia WGS84; 城管页只有红岭中路1001号地址，没有公布坐标"
+  },
+  "osm_check": {
+    "lon": 114.09743212111891,
+    "lat": 22.54772895,
+    "source": "https://www.openstreetmap.org/way/178426795",
+    "basis": "estimated",
+    "note": "OSM point-on-surface 与百科点相差约 30 m"
+  },
+  "identity_features": [
+    "红岭–深南–同心–红荔围合的闹市绿洲",
+    "园中荔湖，不是塔楼",
+    "首轮只做绿地+湖，不建荔香阁"
+  ],
+  "reported": {
+    "wikipedia_area_ha": 28,
+    "cgj_area_m2": 300000,
+    "cgj_water_m2": 100000,
+    "opened": 1982,
+    "address": "深圳市福田区华强北街道红岭中路1001号",
+    "note": "百科 28 ha 与城管 30 万㎡并存，湖面城管写 10 万㎡"
+  },
+  "oasis": {
+    "width_m": 480,
+    "depth_m": 560,
+    "basis": "estimated",
+    "uncertainty": "按百科 28 ha 与城管 30 ha 折中的矩形示意；OSM 绿地外包约 593×888 m。"
+  },
+  "lake": {
+    "east_m": 10,
+    "north_m": -40,
+    "rx_m": 150,
+    "ry_m": 200,
+    "basis": "estimated",
+    "uncertainty": "城管水体 10 ha；city.json「荔湖」约 5.95 ha。本轮按约 9 ha 椭圆，不裁定。"
+  },
+  "sources": [
+    {
+      "id": "zhwiki-lizhi",
+      "url": "https://zh.wikipedia.org/wiki/荔枝公园",
+      "supports": ["WGS84 22.54750, 114.09750", "28 ha", "bounded by 红岭/深南/同心/红荔"]
+    },
+    {
+      "id": "cgj-lizhi",
+      "url": "http://cgj.sz.gov.cn/xsmh/gysz/csgy/content/post_10775287.html",
+      "supports": ["address 红岭中路1001号", "300000 m² / 100000 m² water", "no published WGS84"]
+    }
+  ]
+}

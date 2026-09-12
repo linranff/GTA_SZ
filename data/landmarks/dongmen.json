@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "dongmen",
+  "name": "东门老街",
+  "kind": "district",
+  "status": "plaza_block_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a single tower",
+  "anchor": {
+    "lon": 114.11884,
+    "lat": 22.547502,
+    "source": "artifacts/landmark-research/unknown-centers-followup.json",
+    "basis": "estimated",
+    "role": "city.json 建筑「东门广场」足印反算，不是测绘片区质心"
+  },
+  "plaza": {"width_m": 70, "depth_m": 55, "basis": "estimated"},
+  "blocks": [
+    {"id": "north", "east_m": 0, "north_m": 48, "width_m": 88, "depth_m": 22, "height_m": 16, "material": "stone"},
+    {"id": "south", "east_m": 8, "north_m": -46, "width_m": 72, "depth_m": 20, "height_m": 14, "material": "stone"},
+    {"id": "east", "east_m": 58, "north_m": 4, "width_m": 24, "depth_m": 70, "height_m": 18, "material": "concrete"},
+    {"id": "west", "east_m": -58, "north_m": 18, "width_m": 20, "depth_m": 36, "height_m": 15, "material": "concrete"}
+  ],
+  "blocks_basis": "estimated",
+  "notes": [
+    "步行商业老城示意：广场加四侧低层，不是一栋楼。"
+  ]
+}

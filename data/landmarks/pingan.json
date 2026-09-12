@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "pingan",
+  "name": "平安金融中心",
+  "status": "photo_and_reported_massing_v1",
+  "units": "real_world_metres",
+  "coordinate_frame": "local east,north,up; square taper, no extra yaw",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 114.050355,
+    "lat": 22.53664,
+    "source": "city-json",
+    "role": "current game landmark marker"
+  },
+  "height": {"value": 599.1, "basis": "reported", "source": "CTBUH / Wikipedia list of tallest buildings in Shenzhen"},
+  "occupied_top": {"value": 555, "basis": "estimated", "uncertainty": "观察层报道约 562m，冠部以下按照片短冠估计"},
+  "profile": {
+    "basis": "estimated",
+    "uncertainty": "正方形缓收分，半宽由照片比例推，不是测绘。",
+    "power": 0.55,
+    "rings": [
+      {"z": 0, "radius": 27.5},
+      {"z": 22, "radius": 27.5},
+      {"z": 120, "radius": 25.8},
+      {"z": 280, "radius": 23.2},
+      {"z": 450, "radius": 20.4},
+      {"z": 540, "radius": 17.8},
+      {"z": 562, "radius": 15.2},
+      {"z": 578, "radius": 7.2},
+      {"z": 584, "radius": 2.8}
+    ],
+    "mast_top_m": 599.1
+  },
+  "ribs": {"count": 8, "basis": "estimated", "note": "照片斜向高光肋，不是逐窗"},
+  "lobby": {"height_m": 22, "basis": "estimated"}
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "coco-park",
+  "name": "COCO Park",
+  "kind": "mixed_use_district",
+  "status": "photo_guided_entrance_v2",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a tower; this is Futian open-street mall, not Longgang/Longhua sister sites",
+  "anchor": {
+    "lon": 114.0488652,
+    "lat": 22.5363888,
+    "source": "https://www.openstreetmap.org/way/546582690",
+    "basis": "estimated",
+    "role": "OSM shop=mall Futian COCO Park WGS84"
+  },
+  "identity_features": [
+    "开放街区低层，四面临街",
+    "中央下沉广场",
+    "约五层，不是塔"
+  ],
+  "reported": {
+    "floors": 5,
+    "gfa_m2": 85000,
+    "sunken_plaza_m2": 6000,
+    "opened": "2006-09-30",
+    "address": "福华三路，邻近购物公园站与会展中心",
+    "source": "https://zh.wikipedia.org/wiki/福田COCO_Park"
+  },
+  "courtyard": {
+    "width_m": 80,
+    "depth_m": 75,
+    "basis": "estimated",
+    "uncertainty": "百科下沉广场 6000 m²；按近方形折 80×75。"
+  },
+  "wings": [
+    {"id": "north", "east_m": 0, "north_m": 52, "width_m": 96, "depth_m": 26, "height_m": 20},
+    {"id": "south", "east_m": 0, "north_m": -52, "width_m": 96, "depth_m": 26, "height_m": 20},
+    {"id": "east", "east_m": 56, "north_m": 0, "width_m": 26, "depth_m": 78, "height_m": 18},
+    {"id": "west", "east_m": -56, "north_m": 0, "width_m": 26, "depth_m": 78, "height_m": 18}
+  ],
+  "wings_basis": "estimated",
+  "height_note": "五层×约 4 m，取 18–20 m；不是塔高。OSM mall 外包约 207×195 m。",
+  "rejected_coordinates": [
+    {
+      "lon": 114.054083,
+      "lat": 22.532539,
+      "reason": "高德展示坐标，按项目约定视为 GCJ-02，不得当 WGS84"
+    }
+  ],
+  "sources": [
+    {
+      "id": "zhwiki-coco",
+      "url": "https://zh.wikipedia.org/wiki/福田COCO_Park",
+      "supports": ["5 floors", "85000 m²", "6000 m² sunken plaza", "Fuhua 3rd Road"]
+    },
+    {
+      "id": "enwiki-coco",
+      "url": "https://en.wikipedia.org/wiki/COCO_Park",
+      "supports": ["Futian primary complex; no WGS84 on the English page"]
+    },
+    {
+      "id": "osm-coco",
+      "url": "https://www.openstreetmap.org/way/546582690",
+      "supports": ["WGS84 22.5363888, 114.0488652"]
+    }
+  ]
+}

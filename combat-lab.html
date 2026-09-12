@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#141210" />
+    <meta name="description" content="深城纪独立战斗手感试验场。虚构训练手枪与移动靶，不接入主城。" />
+    <title>深城纪 · 战斗手感试验场</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/combat-lab.css" />
+  </head>
+  <body>
+    <canvas id="range" aria-label="战斗手感试验场三维场景"></canvas>
+    <div id="lab-ui">
+      <header>
+        <div class="wordmark">深城纪<span>独立靶场 · 非主城内容</span></div>
+        <div id="scorecard">
+          <div><small>命中</small><strong id="hits">0</strong></div>
+          <div><small>出弹</small><strong id="shots">0</strong></div>
+          <div><small>命中率</small><strong id="accuracy">—</strong></div>
+        </div>
+      </header>
+      <div id="crosshair" hidden></div>
+      <div id="hit-mark" hidden></div>
+      <aside id="weapon-plate">
+        <small>训练械</small>
+        <strong>螺旋训械 IX</strong>
+        <p id="status-line">等待开始</p>
+        <div class="mag">
+          <span id="ammo">10</span>
+          <em>/ 10</em>
+          <small id="reserve">备弹 30</small>
+        </div>
+      </aside>
+      <div class="actions">
+        <button type="button" id="reset" hidden>重置靶场</button>
+      </div>
+      <div id="relock" hidden>点击画面继续瞄准 · Esc 释放鼠标</div>
+      <div id="gate">
+        <article class="card">
+          <p class="eyebrow">Combat Lab · First Playable</p>
+          <h1>战斗手感试验场</h1>
+          <p>一种原创虚构训练手枪，一个可重置的移动训练靶。用于验证瞄准、射击间隔、换弹和后坐力回正，<strong>不是</strong> GTA 成品枪战，也不接入主城任务。</p>
+          <ul>
+            <li>鼠标瞄准，按下射击，<kbd>R</kbd> 换弹</li>
+            <li>首次点击开始后才锁定指针并开声音</li>
+            <li>Esc 暂停；点「继续训练」才重新锁定鼠标</li>
+          </ul>
+          <button type="button" id="start">开始训练</button>
+        </article>
+      </div>
+      <div id="paused" hidden>
+        <article class="card compact">
+          <h2>已暂停</h2>
+          <p>Esc、失焦或页面隐藏会停住靶和计时。请点「继续训练」恢复鼠标锁定；松开鼠标后再继续，不会自动射击。</p>
+          <p id="lock-hint" hidden></p>
+          <button type="button" id="resume">继续训练</button>
+        </article>
+      </div>
+      <footer>
+        <span>虚构训练靶 · 本地合成音效 · 无付费武器资产</span>
+        <span id="perf"></span>
+      </footer>
+    </div>
+    <script type="module" src="/src/combat-lab.ts"></script>
+  </body>
+</html>

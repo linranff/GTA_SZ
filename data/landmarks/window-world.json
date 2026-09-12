@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "window-world",
+  "name": "世界之窗",
+  "kind": "district",
+  "status": "first_pass_eiffel_marker_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a reconstruction of Paris or 130 world monuments",
+  "anchor": {
+    "lon": 113.96975556,
+    "lat": 22.53751389,
+    "source": "https://en.wikipedia.org/wiki/Window_of_the_World",
+    "basis": "reported",
+    "role": "English Wikipedia WGS84"
+  },
+  "other_points": {
+    "zhwiki": {"lon": 113.96861111, "lat": 22.535, "basis": "reported", "source": "https://zh.wikipedia.org/wiki/世界之窗_(深圳)"},
+    "osm": {"lon": 113.96861145764687, "lat": 22.53750575, "basis": "estimated", "source": "https://www.openstreetmap.org/way/236402460"}
+  },
+  "identity_features": [
+    "缩微园区里的埃菲尔尺度标志物",
+    "108 m 高、约三分之一原塔",
+    "不要建成真巴黎或整园 130 景"
+  ],
+  "reported": {
+    "park_ha": 48,
+    "eiffel_height_m": 108,
+    "opened": 1993,
+    "source": "https://en.wikipedia.org/wiki/Window_of_the_World"
+  },
+  "eiffel": {
+    "height_m": 108,
+    "height_basis": "reported",
+    "base_half_m": 20,
+    "base_basis": "estimated",
+    "uncertainty": "真埃菲尔底座约 125 m，1/3 约 42 m 全宽；本轮半宽 20 m 只为尺度示意。"
+  },
+  "pad": {
+    "width_m": 220,
+    "depth_m": 160,
+    "basis": "estimated",
+    "note": "百科全园 48 ha，本轮只做标志物脚下的草坪垫，不铺满园区"
+  },
+  "sources": [
+    {
+      "id": "enwiki-wow",
+      "url": "https://en.wikipedia.org/wiki/Window_of_the_World",
+      "supports": ["22.5375139, 113.9697556", "48 ha", "108 m Eiffel replica"]
+    },
+    {
+      "id": "zhwiki-wow",
+      "url": "https://zh.wikipedia.org/wiki/世界之窗_(深圳)",
+      "supports": ["48 万 m²", "miniature park in OCT"]
+    }
+  ]
+}

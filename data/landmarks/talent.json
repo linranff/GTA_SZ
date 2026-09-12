@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "talent",
+  "name": "深圳人才公园",
+  "kind": "park",
+  "status": "first_pass_lake_and_trees_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a tower; 求贤阁/群英荟 are not in this pass",
+  "anchor": {
+    "lon": 113.94417,
+    "lat": 22.51366,
+    "source": "public/city/city.json landmark talent",
+    "basis": "reported",
+    "role": "current game landmark marker; not a surveyed centroid"
+  },
+  "wikipedia_point": {
+    "lon": 113.94675363692906,
+    "lat": 22.51128675310173,
+    "source": "https://zh.wikipedia.org/wiki/深圳人才公园",
+    "basis": "reported",
+    "note": "百科点比 city.json 标记偏东南约 300 m，同园不同点"
+  },
+  "identity_features": [
+    "后海内湖，绿地环水",
+    "树阵示意，不种实测乔木",
+    "春笋街面一侧，不当楼"
+  ],
+  "reported": {
+    "area_m2": 770000,
+    "water_m2": 300000,
+    "opened": "2017-11-01",
+    "source": "https://zh.wikipedia.org/wiki/深圳人才公园"
+  },
+  "lake": {
+    "east_m": 20,
+    "north_m": -40,
+    "rx_m": 345,
+    "ry_m": 276,
+    "basis": "estimated",
+    "uncertainty": "面积按百科 30 ha；长短轴比对照 city.json 水面「深圳湾内湖」约 895×715 m，不是测绘。"
+  },
+  "trees": {
+    "rows": 4,
+    "cols": 5,
+    "spacing_m": 28,
+    "east_m": -220,
+    "north_m": 160,
+    "basis": "estimated",
+    "note": "树阵示意，不是每棵实测树"
+  },
+  "sources": [
+    {
+      "id": "city-json",
+      "url": "public/city/city.json",
+      "supports": ["game marker 113.94417, 22.51366"]
+    },
+    {
+      "id": "zhwiki-talent",
+      "url": "https://zh.wikipedia.org/wiki/深圳人才公园",
+      "supports": ["77 ha / 30 ha water", "WGS84 22.51129, 113.94675", "inner-lake landscape"]
+    },
+    {
+      "id": "cgj-talent",
+      "url": "http://cgj.sz.gov.cn/xsmh/gysz/csgy/content/post_10774672.html",
+      "supports": ["municipal identity; page body is image-led, area taken from Wikipedia"]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "bay-sports",
+  "name": "深圳湾体育中心「春茧」",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "anchor": {
+    "lon": 113.94583,
+    "lat": 22.52083,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Bay_Sports_Center",
+    "basis": "reported"
+  },
+  "lobes": {
+    "basis": "estimated",
+    "uncertainty": "花生双团与开孔按 Commons 南向照片，不是测绘。绿色广告不当屋盖。",
+    "height_m": 46,
+    "west": {"cx": -48, "rx": 58, "ry": 42},
+    "east": {"cx": 52, "rx": 72, "ry": 50}
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "qijie-gongguan",
+  "name": "七街公馆 / 哈尔滨大厦",
+  "status": "osm_h_plan_estimated_height_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "青海大厦；不是企业公馆",
+  "anchor": {
+    "lon": 114.02751878,
+    "lat": 22.56047975,
+    "source": "data/landmarks/priority-places.json",
+    "basis": "open_vector_unverified",
+    "role": "OSM way/364716846 哈尔滨大厦足印中心"
+  },
+  "osm": {
+    "way": "way/364716846",
+    "url": "https://www.openstreetmap.org/way/364716846",
+    "file": "data/processed/xiangmihu/buildings.geojson"
+  },
+  "height_m": {
+    "value": 102,
+    "basis": "estimated",
+    "uncertainty": "楼盘资料 33 层线索，无竣工测绘总高。priority-places 已记 102m 为建模估计。"
+  },
+  "plan_ring_m": [
+    [16.17, 26.63],
+    [19.48, 11.47],
+    [7.90, 9.27],
+    [10.94, -2.60],
+    [22.24, -0.66],
+    [26.11, -17.76],
+    [-16.10, -26.31],
+    [-19.96, -9.77],
+    [-10.04, -7.55],
+    [-12.51, 4.30],
+    [-21.89, 2.64],
+    [-25.76, 18.36],
+    [16.17, 26.63]
+  ],
+  "plan_basis": "OSM 顶点相对锚点：east=(lon-114.02751878)*102850，north=(lat-22.56047975)*111320。未测绘。",
+  "identity_features": [
+    "H 形连续楼体，凹槽拉通全高",
+    "银灰围护与密集横竖分格",
+    "东侧棕色青海大厦不是本对象"
+  ]
+}

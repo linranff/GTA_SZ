@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "design-society",
+  "name": "海上世界文化艺术中心",
+  "status": "street_photo_massing_v2",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "coverage": "outside",
+  "not": "明华轮；不要合成一个盒子",
+  "anchor": {
+    "lon": 113.912,
+    "lat": 22.483,
+    "source": "https://en.wikipedia.org/wiki/Sea_World_Culture_and_Arts_Center",
+    "basis": "reported",
+    "uncertainty": "Wikipedia 约 0.001°。当前裁切南侧之外，不编游戏坐标。"
+  },
+  "reported": {
+    "floors_above": 4,
+    "floors_below": 2,
+    "footprint_m2": 26000,
+    "gfa_m2": 71000,
+    "source": "https://www.e-architect.com/hong-kong/sea-world-culture-and-arts-center-shenzhen"
+  },
+  "podium": {
+    "width_m": 160,
+    "depth_m": 90,
+    "height_m": 16,
+    "basis": "estimated",
+    "uncertainty": "四层裙楼按 4 m 层高折 16 m；足印按 26000 m² 折成长条，不是测绘。"
+  },
+  "volumes": [
+    {"id": "city", "east_m": -42, "north_m": 12, "width_m": 52, "depth_m": 36, "height_m": 28},
+    {"id": "center", "east_m": 6, "north_m": -4, "width_m": 48, "depth_m": 40, "height_m": 24},
+    {"id": "water", "east_m": 54, "north_m": -18, "width_m": 44, "depth_m": 34, "height_m": 22}
+  ],
+  "volumes_basis": "estimated three cantilevered Maki boxes on a plinth"
+}

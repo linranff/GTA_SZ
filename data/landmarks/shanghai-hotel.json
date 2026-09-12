@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "shanghai-hotel",
+  "name": "上海宾馆",
+  "status": "photo_guided_drum_v2",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "格兰云天 / Grand Skylight 高塔",
+  "anchor": {
+    "lon": 114.076822,
+    "lat": 22.543744,
+    "source": "https://www.wikidata.org/wiki/Q55697223",
+    "basis": "reported"
+  },
+  "drum": {
+    "rx_m": 22,
+    "ry_m": 20,
+    "height_m": 42,
+    "basis": "estimated",
+    "note": "Shenzhen Shanghai Hotel2021.jpg 前景圆筒玻璃楼，门楣写上海宾馆"
+  },
+  "dome": {"height_m": 8, "basis": "estimated"},
+  "wing": {
+    "east_m": 28,
+    "north_m": -4,
+    "width_m": 36,
+    "depth_m": 28,
+    "height_m": 18,
+    "basis": "estimated"
+  }
+}

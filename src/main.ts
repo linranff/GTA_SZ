@@ -5,6 +5,7 @@ import './city-audio.css';
 import './city-experience.css';
 import {createCityLoading} from './city-loading.ts';
 import {createCityQuickTips} from './city-quicktips.ts';
+import {createCityGraphicsPanel} from './city-graphics-panel.ts';
 import {createFlightHud} from './city-flight-hud.ts';
 import {initializeCityMap,type CityMapController} from './city-map.ts';
 import {initializeCinematicHud,updateCinematicHud,drawCinematicMinimap} from './city-hud.ts';
@@ -12,6 +13,8 @@ import {DrivingWorld} from './city-world.ts';
 import {createObserverBeacons} from './city-observer-beacons.ts';
 import {createObserverDestinationResolver} from './city-observer-destination.ts';
 import {createCareerExperience} from './city-career-experience.ts';
+import {createStoryExperience} from './city-story-experience.ts';
+import {CITY_STORY_CONTENT} from './city-story-content.ts';
 import {newLife,readLife,settleRide,type Ride,type ActiveRide} from './city-life.ts';
 import {RoadGraph} from './navigation.ts';
 import type {Landmark,V2} from './city-types.ts';
@@ -20,8 +23,10 @@ const loading=createCityLoading(document.body);
 const canvas=document.querySelector<HTMLCanvasElement>('#game')!;
 let cityMap:CityMapController|null=null;let world:DrivingWorld,graph:RoadGraph,selected:Landmark|null=null,route:V2[]=[],mapOpen=false,toastTime=0,hudTick=0,visited=new Set<string>(),lastRevealedPlaceId:string|null=null;
 let career:Awaited<ReturnType<typeof createCareerExperience>>|null=null;
+let story:ReturnType<typeof createStoryExperience>|null=null,storyModal=false,storyPreviousPause=false;
 let observerBeacons:ReturnType<typeof createObserverBeacons>|null=null;
 let quickTips:ReturnType<typeof createCityQuickTips>|null=null;
+let graphicsPanel:ReturnType<typeof createCityGraphicsPanel>|null=null;
 let flightHud:ReturnType<typeof createFlightHud>|null=null;
 let life=newLife(),activeRide:ActiveRide|null=null,rides:Ride[]=[],journalOpen=false;try{life=readLife(JSON.parse(localStorage.getItem('shenchengji-city-life-v1')??'null'));}catch{}
 const $=(s:string)=>document.querySelector<HTMLElement>(s)!;
@@ -32,6 +37,7 @@ function revealPlace(place:Landmark){
 }
 function mapDraw(canvas:HTMLCanvasElement,_large=false){const o=world.observer;drawCinematicMinimap(canvas,world.data,{x:o.active?o.focus.x:world.actor.x,z:o.active?o.focus.z:world.actor.z,yaw:o.active?o.yaw:world.actor.yaw,speed:world.actor.speed,observer:o.active,route});}
 function openMap(open:boolean){
+ if(open&&storyModal)return;
  const mapFocus:V2|null=world.observer.active?[world.observer.focus.x,world.observer.focus.z]:null;
  if(open&&journalOpen){journalOpen=false;$('#life-journal').hidden=true;}
  if(open&&world.observer.active)world.exitPhoto();
@@ -39,6 +45,40 @@ function openMap(open:boolean){
  cityMap?.updateState({...world.state,visited,selected,route,mapFocus});if(open)cityMap?.open();else cityMap?.close();
 }
 function selectDestination(destination:Landmark,preview:V2[]){if(selected?.id!==destination.id||Math.hypot((selected?.arrival[0]??Infinity)-destination.arrival[0],(selected?.arrival[1]??Infinity)-destination.arrival[1])>.1)world.cancelAutoDrive('destination-changed');selected=destination;route=preview;}
+function mountCityStory(){
+ if(!career)return;
+ story=createStoryExperience(CITY_STORY_CONTENT,{
+  places:career.game.places,
+  frame:()=>({x:world.actor.x,z:world.actor.z,speed:world.actor.speed,
+   inVehicle:!world.walk?.active,paused:world.paused,
+   blocked:mapOpen||journalOpen||!!career?.game.active||!!activeRide||world.observer.active||!!world.flight?.active||!!world.tank?.active,
+   debugEpoch:world.debugEpoch}),
+  navigate:(point,title)=>{
+   if(career?.game.active||activeRide)return;
+   const near=world.collision.nearest(...point);
+   const destination:Landmark={id:'story:bay-last-delivery',name:title,area:'城市故事',
+    x:point[0],z:point[1],arrival:point,height:0,excludeRadius:0,yaw:near?.yaw??0};
+   selectDestination(destination,graph.route([world.actor.x,world.actor.z],point));
+  },
+  clearRoute:()=>{if(selected?.id==='story:bay-last-delivery'){
+   selected=null;route=[];world.cancelAutoDrive('story-objective-complete');
+  }},
+  toast,
+  setModalOpen:(open)=>{
+   if(open===storyModal)return;
+   if(open){storyPreviousPause=world.paused;world.cancelAutoDrive('story-dialogue');}
+   storyModal=open;world.paused=open||storyPreviousPause||mapOpen||journalOpen;
+   world.keys.clear();if(!open)canvas.focus();
+  },
+  credit:(id,amount)=>{
+   if(!career)return false;
+   if(career.game.save.legacyCompleted.includes(id))return true;
+   career.creditLegacy(id,amount);
+   return career.game.save.legacyCompleted.includes(id);
+  },
+ });
+ world.scene.onDisposeObservable.addOnce(()=>story?.dispose());
+}
 function initLife(){
  const onRoad=(x:number,z:number):[number,number]=>{const n=world.collision.nearest(x,z);return n?[n.x,n.z]:[x,z];};const sp=world.data.spawn,along=(d:number)=>onRoad(sp.x+Math.sin(sp.yaw)*d,sp.z+Math.cos(sp.yaw)*d);
  const place=(id:string)=>world.data.landmarks.find(m=>m.id===id)!.arrival;
@@ -46,10 +86,10 @@ function initLife(){
  {id:'office-evening',title:'不回工作群的十分钟',person:'阿琳 · 年轻职场人',description:'会又拖了半小时。去香蜜湖，给今晚留十分钟自己的时间。',pickupLine:'“消息还在响。先不看了，我想看看今天的天。”',arrivalLine:'“原来今天也可以不只有公司和出租屋。”',reward:160,from:place('civic'),to:place('xiangmi')},
  {id:'day-pay',title:'一天也算数',person:'阿辉 · 日结打工者',description:'临时搬运刚结了工钱。送他去后海赴一个约，他说今天值得吃顿好的。',pickupLine:'“到账了。这回我请，别又给我抢着付。”',arrivalLine:'“今天累是累，但有钱到账，还有人等吃饭。挺好。”',reward:220,from:place('tencent'),to:place('talent')}];
  $('#journal-button').onclick=()=>showJournal(!journalOpen);
- window.addEventListener('keydown',e=>{if(e.code!=='Escape'&&e.target instanceof HTMLElement&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(e.repeat)return;if(e.code==='KeyJ')showJournal(!journalOpen);if(e.code==='KeyE')interactRide();});
+ window.addEventListener('keydown',e=>{if(storyModal||e.defaultPrevented)return;if(e.code!=='Escape'&&e.target instanceof HTMLElement&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(e.repeat)return;if(e.code==='KeyJ')showJournal(!journalOpen);if(e.code==='KeyE')interactRide();});
  renderJournal();
 }
-function showJournal(open:boolean){if(open&&world.aerial)world.exitPhoto();if(open&&mapOpen)openMap(false);journalOpen=open;$('#life-journal').hidden=!open;world.paused=open;world.keys.clear();if(open)renderJournal();}
+function showJournal(open:boolean){if(open&&storyModal)return;if(open&&world.aerial)world.exitPhoto();if(open&&mapOpen)openMap(false);journalOpen=open;$('#life-journal').hidden=!open;world.paused=open;world.keys.clear();if(open)renderJournal();}
 function renderJournal(){
  if(career){life.cash=career.game.save.cash;life.completed=career.game.save.legacyCompleted;career.render();return;}
  $('#wallet').textContent='¥ '+num(life.cash);$('#life-savings').textContent='自己的房间基金 · ¥ '+num(life.cash)+' / 1,800';($('#life-progress') as HTMLProgressElement).value=Math.min(1800,life.cash);
@@ -57,7 +97,7 @@ function renderJournal(){
  document.querySelectorAll<HTMLButtonElement>('[data-ride]').forEach(b=>b.onclick=()=>{const r=rides.find(r=>r.id===b.dataset.ride)!;if(activeRide?.id!==r.id||activeRide.debugged)activeRide={id:r.id,phase:'pickup',startOdometer:world.state.distance,debugged:false};showJournal(false);rideNavigation(r);toast('顺路单 · '+r.title);document.querySelector('.intro')?.classList.add('gone');});
 }
 function rideNavigation(r:Ride){world.cancelAutoDrive('ride-destination-changed');const p=activeRide?.phase==='riding'?r.to:r.from;selected={id:r.id,name:(activeRide?.phase==='riding'?'送达 · ':'接上 · ')+r.person,x:p[0],z:p[1],height:0,excludeRadius:0,area:'城市生活',arrival:p,yaw:0};route=graph.route([world.state.x,world.state.z],p);}
-function interactRide(){if(world.paused||(world.tank?.active&&!world.walk?.active))return;if(world.bambooCafe?.interact(world))return;if(career?.interact())return;if(!activeRide){if(career&&Math.hypot(world.actor.x-career.game.places.hub[0],world.actor.z-career.game.places.hub[1])<40)showJournal(true);return;}const r=rides.find(r=>r.id===activeRide!.id)!,p=activeRide.phase==='pickup'?r.from:r.to;const at=Math.hypot(world.state.x-p[0],world.state.z-p[1])<28;if(!at||Math.abs(world.state.speed)>1)return;
+function interactRide(){if(world.paused||(world.tank?.active&&!world.walk?.active))return;if(story?.interact())return;if(world.bambooCafe?.interact(world))return;if(career?.interact())return;if(!activeRide){if(career&&Math.hypot(world.actor.x-career.game.places.hub[0],world.actor.z-career.game.places.hub[1])<40)showJournal(true);return;}const r=rides.find(r=>r.id===activeRide!.id)!,p=activeRide.phase==='pickup'?r.from:r.to;const at=Math.hypot(world.state.x-p[0],world.state.z-p[1])<28;if(!at||Math.abs(world.state.speed)>1)return;
  if(activeRide.phase==='pickup'){activeRide.phase='riding';activeRide.startOdometer=world.state.distance;activeRide.debugged=false;toast(r.pickupLine);toastTime=9;rideNavigation(r);return;}
  if(settleRide(life,activeRide,r,world.state.distance,true,world.state.speed)){career?.creditLegacy(r.id,r.reward);try{localStorage.setItem('shenchengji-city-life-v1',JSON.stringify(life));}catch{toast('浏览器未允许保存进度');}toast(r.arrivalLine+'  ·  收入 +¥ '+r.reward);toastTime=12;activeRide=null;selected=null;route=[];$('#route-hud').hidden=true;renderJournal();}
  else toast(activeRide.debugged?'这趟使用了调试跳转。手账中重新接单可正常体验。':'再实际行驶一段，抵达后停车完成这一程。');
@@ -102,6 +142,8 @@ function initUI(){
  <section id="map-panel" hidden></section>
  <div id="pause" hidden><h2>歇一会儿。</h2><button id="resume">继续驾驶</button></div>`;
  initializeCinematicHud(world.data);
+ graphicsPanel=createCityGraphicsPanel(ui,{getQuality:()=>world.graphicsQuality,onChange:quality=>{const saved=world.setGraphicsQuality(quality);toast('画质已切换为'+({low:'低',medium:'中',high:'高'}[quality])+(saved?' · 已保存':' · 本次会话生效'));},onOpenChange:()=>{world.keys.clear();world.drag=false;}});
+ world.scene.onDisposeObservable.addOnce(()=>graphicsPanel?.dispose());
  characterHud=createCharacterHud(ui,world);world.scene.onDisposeObservable.addOnce(()=>characterHud?.dispose());
  flightHud=createFlightHud(ui,world);world.scene.onDisposeObservable.addOnce(()=>flightHud?.dispose());
  quickTips=createCityQuickTips(ui,{onOpenChange:()=>world.keys.clear(),onFlight:()=>{canvas.focus();void world.toggleFlight();}});
@@ -125,10 +167,10 @@ function initUI(){
  });
  $('#map-button').onclick=()=>openMap(true);$('#resume').onclick=()=>{world.paused=false;$('#pause').hidden=true;};
  $('#cancel-autodrive').onclick=()=>world.cancelAutoDrive('manual-takeover');
- window.addEventListener('keydown',e=>{if(e.code!=='Escape'&&e.target instanceof HTMLElement&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(e.repeat)return;if(e.code==='KeyG'){mapOpen=false;journalOpen=false;cityMap?.close();$('#life-journal').hidden=true;$('#pause').hidden=true;world.paused=world.aerial;}if(e.code==='KeyM'||e.code==='Tab')openMap(!mapOpen);if(e.code==='Escape'){if(world.aerial){world.toggleAerial();return;}if(journalOpen){showJournal(false);return;}if(world.photoTarget){world.exitPhoto();return;}if(mapOpen)openMap(false);else{world.paused=!world.paused;$('#pause').hidden=!world.paused;}}if(e.code==='KeyP')$('#fps').hidden=!$('#fps').hidden;});
+ window.addEventListener('keydown',e=>{if(storyModal||e.defaultPrevented)return;if(e.code!=='Escape'&&e.target instanceof HTMLElement&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(e.repeat)return;if(e.code==='KeyG'){mapOpen=false;journalOpen=false;cityMap?.close();$('#life-journal').hidden=true;$('#pause').hidden=true;world.paused=world.aerial;}if(e.code==='KeyM'||e.code==='Tab')openMap(!mapOpen);if(e.code==='Escape'){if(world.aerial){world.toggleAerial();return;}if(journalOpen){showJournal(false);return;}if(world.photoTarget){world.exitPhoto();return;}if(mapOpen)openMap(false);else{world.paused=!world.paused;$('#pause').hidden=!world.paused;}}if(e.code==='KeyP')$('#fps').hidden=!$('#fps').hidden;});
  world.onMessage=toast;world.onTick=dt=>{
   observerBeacons?.update(dt);characterHud?.update(mapOpen||journalOpen);flightHud?.update(mapOpen||journalOpen);
-  career?.tick(dt);
+  career?.tick(dt);story?.tick(dt);
   $('#observer-help').hidden=!world.observer.active||!!world.flight?.active;$('#minimap').classList.toggle('observer-muted',world.observer.active);$('#speedometer').classList.toggle('observer-muted',world.observer.active||!!world.walk?.active);
   hudTick+=dt;toastTime-=dt;if(toastTime<=0)$('#toast').classList.remove('visible');if(hudTick<.12)return;hudTick=0;
  const s={...world.state,...world.actor};
@@ -137,9 +179,10 @@ function initUI(){
   const nearestDistance=Math.hypot(nearest.x-location.x,nearest.z-location.z);
   if(nearestDistance<520&&nearest.id!==lastRevealedPlaceId){lastRevealedPlaceId=nearest.id;revealPlace(nearest);}
   else if(nearestDistance>650)lastRevealedPlaceId=null;
+  graphicsPanel?.update({hidden:mapOpen||journalOpen||!!world.flight?.active||(world.paused&&!world.observer.active)});
   quickTips?.update({hidden:!!world.flight?.active,flightLoading:!!world.flight?.loading,mode:world.observer.active?'observer':world.walk?.active?'walking':world.tank?.active?'tank':'driving',carView:world.photoTarget?.id==='car',menuOpen:mapOpen||journalOpen||(world.paused&&!world.observer.active)});
   updateCinematicHud({flight:!!world.flight?.active,speed:s.speed,distance:s.distance,roadName:world.locationRoadName(),district:nearest.area,night:world.night,lightMode:world.lightMode,walking:!!world.walk?.active,observer:world.observer.active,menuOpen:mapOpen||journalOpen||(world.paused&&!world.observer.active),navigation:!!selected});
-  if(activeRide){const r=rides.find(r=>r.id===activeRide!.id)!,p=activeRide.phase==='pickup'?r.from:r.to,d=Math.hypot(s.x-p[0],s.z-p[1]);$('#ride-prompt').hidden=d>35;$('#ride-prompt').textContent=Math.abs(s.speed)>1?'靠边停车，与 '+r.person.split(' · ')[0]+' 交谈':'按 E · '+(activeRide.phase==='pickup'?'接上':'送达')+r.person.split(' · ')[0];}else {const prompt=world.bambooCafe?.prompt(world)??career?.prompt()??(!career?.game.active&&world.walk?.active&&Math.hypot(world.actor.x-(career?.game.places.hub[0]??1e9),world.actor.z-(career?.game.places.hub[1]??1e9))<40?'按 E · 驿站接活 / 热饭补给':null);$('#ride-prompt').hidden=!prompt||mapOpen||journalOpen;$('#ride-prompt').textContent=prompt??'';}
+  if(activeRide){const r=rides.find(r=>r.id===activeRide!.id)!,p=activeRide.phase==='pickup'?r.from:r.to,d=Math.hypot(s.x-p[0],s.z-p[1]);$('#ride-prompt').hidden=d>35;$('#ride-prompt').textContent=Math.abs(s.speed)>1?'靠边停车，与 '+r.person.split(' · ')[0]+' 交谈':'按 E · '+(activeRide.phase==='pickup'?'接上':'送达')+r.person.split(' · ')[0];}else {const prompt=story?.prompt()??world.bambooCafe?.prompt(world)??career?.prompt()??(!career?.game.active&&world.walk?.active&&Math.hypot(world.actor.x-(career?.game.places.hub[0]??1e9),world.actor.z-(career?.game.places.hub[1]??1e9))<40?'按 E · 驿站接活 / 热饭补给':null);$('#ride-prompt').hidden=!prompt||mapOpen||journalOpen;$('#ride-prompt').textContent=prompt??'';}
   if(s.distance>30)document.querySelector('.intro')?.classList.add('gone');
   mapDraw($('#mini-map') as HTMLCanvasElement,false);
   const auto=world.autopilot?.status;if(auto?.route.length&&auto.destination?.id===selected?.id&&!['idle','cancelled'].includes(auto.phase))route=auto.route.map(p=>[p[0],p[1]]);
@@ -155,5 +198,5 @@ function initUI(){
  };
  mapDraw($('#mini-map') as HTMLCanvasElement,false);
 }
-async function boot(){try{world=new DrivingWorld(canvas);await world.init(s=>loading.update(s));loading.update('navigation');graph=new RoadGraph(world.data.roads,await(await fetch('/city/navigation.json')).json());world.startTraffic(graph);loading.update('life-sites');const communitySites=(await(await fetch('/city/life-sites.json')).json()).sites;for(const site of communitySites)world.data.landmarks.push({id:'life:'+site.id,name:site.name,x:site.x,z:site.z,height:4.34,area:'生活驿站',excludeRadius:0,detailCollision:true,arrival:site.arrival,yaw:site.yaw,photoDistance:22,photoElevation:.25,photoAngle:-site.heading,photoTargetHeight:world.groundHeight(site.x,site.z)+1.8});loading.update('interface');initUI();initLife();await cityMap?.ready;loading.update('experience');career=await createCareerExperience(world,graph,{toast,close:()=>showJournal(false),open:()=>showJournal(true),menuOpen:()=>mapOpen||journalOpen||(world.paused&&!world.observer.active),navigate:selectDestination,clearRoute:()=>{selected=null;route=[];world.cancelAutoDrive('career-objective-complete');},legacy:{rides:()=>rides,active:()=>activeRide,cancel:()=>{activeRide=null;selected=null;route=[];world.cancelAutoDrive('legacy-cancelled');},start:r=>{if(activeRide?.id!==r.id||activeRide.debugged)activeRide={id:r.id,phase:'pickup',startOdometer:world.state.distance,debugged:false};showJournal(false);rideNavigation(r);toast('顺路单 · '+r.title);}}});await career.ready;document.querySelector('.intro')?.classList.add('gone');Object.defineProperty(window,'__SHENCHENGJI_CITY__',{value:{get ready(){return world.ready;},get world(){return world;},get telemetry(){return {state:{...world.state},autopilot:world.autopilot?.status,render:world.diagnostics()};},get state(){return {...world.state,road:world.roadName,height:world.groundHeight(world.state.x,world.state.z),carY:world.car.position.y};},get performance(){return world.performance();},get stats(){return {tank:world.tank?.stats,controlMode:world.controlMode,rider:{loaded:!!world.rider,name:world.rider?.name,loading:world.riderLoading,firstPerson:world.walkFirstPerson},flight:world.flight?.stats,career:career?.game.view,careerSites:career?.sites,lifeHubs:career?.hubs,walking:world.walk?{active:world.walk.active,x:world.walk.x,z:world.walk.z,yaw:world.walk.yaw,distance:world.walk.distance}:null,lightMode:world.lightMode,coastal:world.coastal?.stats,bayWater:world.bayWater?.stats(),publicLighting:world.publicLighting?.stats(),buildingSigns:world.buildingSigns?.stats(),vehicleMaterials:world.vehicleMaterials?.stats,cockpit:world.cockpit?.stats,audio:world.audio.stats,tailLights:world.tailLights?.stats,autopilot:world.autopilot?.status,streetFurniture:world.streetFurniture?.stats,camera:{view:world.view,minZ:world.camera.minZ,position:world.camera.position.asArray(),fov:world.camera.fov},cinematic:world.cinematic?.stats,roadSurface:world.roadSurface?.stats,rainPuddles:world.rainPuddles?.stats,groundRelief:world.groundRelief?.stats,mountains:world.mountains?.stats,vehicleFinish:world.vehicleFinish?.stats,sportDetails:world.sportDetails?.stats,observer:world.observer.status,observerBeacons:observerBeacons?.stats,architecture:world.architecture.stats(),facadeDiversity:world.facadeDiversity.stats(),landscape:world.landscape?.stats,signage:world.signage?.stats(),life:{cash:life.cash,completed:[...life.completed],active:activeRide?{...activeRide}:null,rides:rides.map(r=>({...r}))},lighting:{carPaint:world.carPaintDiagnostics(),environmentReady:!!world.scene.environmentTexture?.sphericalPolynomial,treeInstances:world.landscape?.stats.sourceTreeCount,carMaterial:world.carMeshes[0]?.material?.name,headlightsExcludeWater:world.headlights.every(l=>l.excludedMeshes.some(m=>m.name==='terrain_water'))},counts:world.data.meta.counts,landmarks:world.data.landmarks,graphNodes:graph.nodes.length,pedestrianImpacts:world.pedestrians?.stats,pedestrians:world.pedestrians?.people.map(p=>({x:p.x,z:p.z})),trafficMeshes:world.traffic?.meshes.flat().map(m=>({name:m.name,parent:m.parent?.name,instances:m.thinInstanceCount,enabled:m.isEnabled()})),traffic:world.traffic?.cars.map(c=>({x:c.x,z:c.z})),photo:world.photoTarget?.id};},resetPerformance(){world.samples=[];},tune(overrides:Record<string,unknown>){return world.cinematic?.tune(overrides);},finish(overrides:Record<string,unknown>){return world.cinematic?.finish(overrides);}}});await loading.finish();await loading.reveal();canvas.focus();}catch(e){console.error(e);loading.error(e);}}
+async function boot(){try{world=new DrivingWorld(canvas);await world.init(s=>loading.update(s));loading.update('navigation');graph=new RoadGraph(world.data.roads,await(await fetch('/city/navigation.json')).json());world.startTraffic(graph);loading.update('life-sites');const communitySites=(await(await fetch('/city/life-sites.json')).json()).sites;for(const site of communitySites)world.data.landmarks.push({id:'life:'+site.id,name:site.name,x:site.x,z:site.z,height:4.34,area:'生活驿站',excludeRadius:0,detailCollision:true,arrival:site.arrival,yaw:site.yaw,photoDistance:22,photoElevation:.25,photoAngle:-site.heading,photoTargetHeight:world.groundHeight(site.x,site.z)+1.8});loading.update('interface');initUI();initLife();await cityMap?.ready;loading.update('experience');career=await createCareerExperience(world,graph,{toast,close:()=>showJournal(false),open:()=>showJournal(true),menuOpen:()=>mapOpen||journalOpen||(world.paused&&!world.observer.active),navigate:selectDestination,clearRoute:()=>{selected=null;route=[];world.cancelAutoDrive('career-objective-complete');},legacy:{rides:()=>rides,active:()=>activeRide,cancel:()=>{activeRide=null;selected=null;route=[];world.cancelAutoDrive('legacy-cancelled');},start:r=>{if(activeRide?.id!==r.id||activeRide.debugged)activeRide={id:r.id,phase:'pickup',startOdometer:world.state.distance,debugged:false};showJournal(false);rideNavigation(r);toast('顺路单 · '+r.title);}}});await career.ready;mountCityStory();document.querySelector('.intro')?.classList.add('gone');Object.defineProperty(window,'__SHENCHENGJI_CITY__',{value:{get ready(){return world.ready;},get world(){return world;},get telemetry(){return {state:{...world.state},autopilot:world.autopilot?.status,render:world.diagnostics()};},get state(){return {...world.state,road:world.roadName,height:world.groundHeight(world.state.x,world.state.z),carY:world.car.position.y};},get performance(){return world.performance();},get stats(){return {story:story?.view,tank:world.tank?.stats,controlMode:world.controlMode,rider:{loaded:!!world.rider,name:world.rider?.name,loading:world.riderLoading,firstPerson:world.walkFirstPerson},flight:world.flight?.stats,career:career?.game.view,careerSites:career?.sites,lifeHubs:career?.hubs,walking:world.walk?{active:world.walk.active,x:world.walk.x,z:world.walk.z,yaw:world.walk.yaw,distance:world.walk.distance}:null,lightMode:world.lightMode,coastal:world.coastal?.stats,bayWater:world.bayWater?.stats(),publicLighting:world.publicLighting?.stats(),buildingSigns:world.buildingSigns?.stats(),vehicleMaterials:world.vehicleMaterials?.stats,cockpit:world.cockpit?.stats,audio:world.audio.stats,tailLights:world.tailLights?.stats,autopilot:world.autopilot?.status,streetFurniture:world.streetFurniture?.stats,bambooCorridor:world.bambooCorridor?.stats,camera:{view:world.view,minZ:world.camera.minZ,position:world.camera.position.asArray(),fov:world.camera.fov},cinematic:world.cinematic?.stats,roadSurface:world.roadSurface?.stats,rainPuddles:world.rainPuddles?.stats,rainWeather:world.rainWeather?.stats,raining:world.raining,groundRelief:world.groundRelief?.stats,mountains:world.mountains?.stats,vehicleFinish:world.vehicleFinish?.stats,sportDetails:world.sportDetails?.stats,observer:world.observer.status,observerBeacons:observerBeacons?.stats,architecture:world.architecture.stats(),facadeDiversity:world.facadeDiversity.stats(),landscape:world.landscape?.stats,signage:world.signage?.stats(),life:{cash:life.cash,completed:[...life.completed],active:activeRide?{...activeRide}:null,rides:rides.map(r=>({...r}))},lighting:{carPaint:world.carPaintDiagnostics(),environmentReady:!!world.scene.environmentTexture?.sphericalPolynomial,treeInstances:world.landscape?.stats.sourceTreeCount,carMaterial:world.carMeshes[0]?.material?.name,headlightsExcludeWater:world.headlights.every(l=>l.excludedMeshes.some(m=>m.name==='terrain_water'))},counts:world.data.meta.counts,landmarks:world.data.landmarks,graphNodes:graph.nodes.length,pedestrianImpacts:world.pedestrians?.stats,pedestrians:world.pedestrians?.people.map(p=>({x:p.x,z:p.z})),trafficMeshes:world.traffic?.meshes.flat().map(m=>({name:m.name,parent:m.parent?.name,instances:m.thinInstanceCount,enabled:m.isEnabled()})),traffic:world.traffic?.cars.map(c=>({x:c.x,z:c.z})),photo:world.photoTarget?.id};},resetPerformance(){world.samples=[];},tune(overrides:Record<string,unknown>){return world.cinematic?.tune(overrides);},finish(overrides:Record<string,unknown>){return world.cinematic?.finish(overrides);}}});await loading.finish();await loading.reveal();canvas.focus();}catch(e){console.error(e);loading.error(e);}}
 void boot();

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "mangrove",
+  "name": "福田红树林",
+  "kind": "park",
+  "status": "first_pass_mudflat_belt_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "not": "a pier, boardwalk tower, or filled theme park",
+  "anchor": {
+    "lon": 114.0200576,
+    "lat": 22.5188451,
+    "source": "https://www.openstreetmap.org/way/731536928",
+    "basis": "estimated",
+    "role": "OSM Futian Mangrove Nature Reserve; not a surveyed centroid"
+  },
+  "identity_features": [
+    "东西向滩涂与植被带",
+    "北为陆、南为浅水/泥滩",
+    "不编码头、栈桥或填海建筑"
+  ],
+  "reported": {
+    "area_ha": 367.64,
+    "shoreline_km_low": 6,
+    "shoreline_km_high": 9,
+    "extent": "东起新洲河口，西至深圳湾公园，南达滩涂外海域，北至广深高速",
+    "source": "https://www.sz.gov.cn/cn/xxgk/zfxxgj/gqdt/content/post_10408840.html",
+    "note": "政府稿一处写沿海岸线约 6 km，另一处重要湿地稿写约 9 km，并存"
+  },
+  "related_not_this_object": {
+    "name": "红树林海滨生态公园",
+    "area_ha": 20.67,
+    "note": "城管把它算进深圳湾公园东段填海绿地；本对象是保护区滩涂/植被，不与生态园并成一块"
+  },
+  "belt": {
+    "basis": "estimated",
+    "uncertainty": "官方 367.64 ha 不整片网格化。首轮只做约 1800×400 m 的滩涂+植被带示意，误差大。",
+    "along_m": 1800,
+    "vegetation_depth_m": 180,
+    "mudflat_depth_m": 220,
+    "yaw_deg": -18
+  },
+  "sources": [
+    {
+      "id": "szgov-mangrove",
+      "url": "https://www.sz.gov.cn/cn/xxgk/zfxxgj/gqdt/content/post_10408840.html",
+      "supports": ["367.64 ha", "east Xinzhou / west Shenzhen Bay Park", "~6 km shoreline in this article"]
+    },
+    {
+      "id": "osm-futian-mangrove",
+      "url": "https://www.openstreetmap.org/way/731536928",
+      "supports": ["WGS84 22.5188451, 114.0200576", "bbox 22.5076–22.5299, 113.9970–114.0342"]
+    },
+    {
+      "id": "cgj-baypark",
+      "url": "https://cgj.sz.gov.cn/xsmh/gysz/twf/bhxx/content/post_10841320.html",
+      "supports": ["eco-park 20.67 ha is a different filled municipal garden"]
+    }
+  ]
+}

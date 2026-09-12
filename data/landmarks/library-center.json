@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "library-center",
+  "name": "深圳图书馆中心馆",
+  "status": "wikipedia_anchor_massing_v1",
+  "units": "real_world_metres",
+  "scene_scale": 0.6,
+  "identity": {
+    "resolved_as": "Shenzhen Library Central / 深圳图书馆中心馆",
+    "paired_with": "concert-hall",
+    "not": ["深圳图书馆北馆", "龙华腾龙路30号", "深圳音乐厅"],
+    "address": "深圳市福田区福中一路2001号"
+  },
+  "anchor": {
+    "lon": 114.05202,
+    "lat": 22.54857,
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Library",
+    "basis": "reported",
+    "note": "English Wikipedia 22°32′55″N 114°03′07″E for the Futian main library, not the Longhua North Hall."
+  },
+  "plot": {
+    "area_m2": 29612,
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Library"
+  },
+  "gfa": {
+    "area_m2": 49589,
+    "basis": "reported",
+    "source": "https://en.wikipedia.org/wiki/Shenzhen_Library"
+  },
+  "height": {
+    "value": 38,
+    "basis": "estimated",
+    "uncertainty": "玻璃书页通高按中心馆立面常见层数推算，维基只给面积。"
+  },
+  "west_leaf": {
+    "width_m": 14,
+    "depth_m": 68,
+    "height_m": 38,
+    "east_m": -32,
+    "north_m": 2,
+    "yaw_deg": -48,
+    "basis": "estimated",
+    "uncertainty": "打开的书西页；平面与开角按矶崎新成组照片，不是测绘。"
+  },
+  "east_leaf": {
+    "width_m": 14,
+    "depth_m": 68,
+    "height_m": 38,
+    "east_m": 32,
+    "north_m": 2,
+    "yaw_deg": 48,
+    "basis": "estimated",
+    "uncertainty": "打开的书东页，朝中轴张开；不要做成音乐厅金色盒子。"
+  },
+  "ribs": {
+    "count": 18,
+    "basis": "estimated",
+    "uncertainty": "玻璃竖肋用通高银肋表达，不逐窗。"
+  },
+  "notes": [
+    "Must remain a glass open-book with vertical ribs.",
+    "市政府页把北馆地址单独写出；本对象只做福田中心馆。"
+  ]
+}
