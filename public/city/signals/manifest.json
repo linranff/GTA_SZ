@@ -1,0 +1,61 @@
+{
+ "version": 1,
+ "file": "traffic-signal.glb",
+ "bytes": 32780,
+ "triangles": 750,
+ "meshes": {
+  "signal-pole_signal_pole": 170,
+  "signal-pole_signal_housing": 12,
+  "signal-pole_signal_lens_dark": 132,
+  "signal-arm_signal_pole": 56,
+  "signal-head_signal_housing": 68,
+  "signal-head_signal_lens_dark": 156,
+  "signal-lens-red_signal_red": 52,
+  "signal-lens-amber_signal_amber": 52,
+  "signal-lens-green_signal_green": 52
+ },
+ "layout": {
+  "poleHeight": 6.55,
+  "armZ": 5.85,
+  "headZ": 5.05,
+  "lensOffsets": {
+   "red": [
+    0,
+    0.19,
+    5.47
+   ],
+   "amber": [
+    0,
+    0.19,
+    5.05
+   ],
+   "green": [
+    0,
+    0.19,
+    4.63
+   ]
+  },
+  "poleHead": {
+   "z": 3.1,
+   "lensOffsets": {
+    "red": [
+     0,
+     0.36,
+     3.415
+    ],
+    "amber": [
+     0,
+     0.36,
+     3.1
+    ],
+    "green": [
+     0,
+     0.36,
+     2.785
+    ]
+   }
+  },
+  "frame": "Blender east/north/up: pole at origin, arm along +X scaled by arm length, heads face +Y (toward approaching traffic)"
+ },
+ "source": "Original procedural model of a cantilever three-aspect signal; game adaptation"
+}

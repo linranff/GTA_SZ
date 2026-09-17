@@ -10,7 +10,9 @@ export type AutopilotStatus={active:boolean;phase:AutopilotPhase;destination:Aut
  etaSeconds:number|null;route:readonly V2[];reason:string|null;waitingSeconds:number;maneuvers:number;reroutes:number};
 export type AutopilotResult={input:DrivingInput;status:AutopilotStatus};
 /** Distances/speeds use game world units. Default parking tolerance is 2.5 units. */
-export type AutopilotOptions={cruiseSpeed?:number;maxWaitSeconds?:number;arrivalRadius?:number};
+export type AutopilotOptions={cruiseSpeed?:number;maxWaitSeconds?:number;arrivalRadius?:number;
+ /** Distance to a red stop line ahead of the car, or null when it may proceed (see CityTrafficSignals.holdDistance). */
+ signalHold?:(x:number,z:number,yaw:number)=>number|null};
 type TrafficSample=AutopilotTraffic&{vx:number;vz:number};
 type ManeuverPoint={x:number;z:number;yaw:number;gear:1|-1};
 type SearchNode=ManeuverPoint&{cost:number;score:number;parent:SearchNode|null};
@@ -55,6 +57,7 @@ export class CityAutopilot {
  private maneuverReplans=0;
  private readonly cruise:number;
  private readonly maxWait:number;
+ private readonly signalHold:(x:number,z:number,yaw:number)=>number|null;
  private readonly arrivalRadius:number;
 
  constructor(private readonly graph:RoadGraph,private readonly collision:CityCollision,options:AutopilotOptions={}) {
@@ -62,7 +65,7 @@ export class CityAutopilot {
   // Road classes and preview braking still reduce this free-road ceiling.
   this.cruise=clamp(options.cruiseSpeed??24,6,28);
   for(let i=0;i<graph.nodes.length;i++)if(graph.edges[i].size>2)this.junctions.add(graph.nodes[i].map(v=>Math.round(v*10)).join(','));
-  this.maxWait=clamp(options.maxWaitSeconds??20,3,60);
+  this.maxWait=clamp(options.maxWaitSeconds??20,3,60);this.signalHold=options.signalHold??(()=>null);
   this.arrivalRadius=clamp(options.arrivalRadius??2.5,.8,3);
  }
 
@@ -359,6 +362,13 @@ export class CityAutopilot {
   const stopDistance=this.remaining<10?arrivalDistance:this.remaining;
   speed=Math.min(speed,Math.sqrt(10*Math.max(.08,stopDistance-this.arrivalRadius)),Math.sqrt(12*Math.max(0,choice.clearance-1.2)));
   if(this.remaining<15)speed=Math.min(speed,4);
+  // Red or amber ahead: brake to the stop line and hold there. A signal wait is not congestion, so it
+  // does not count toward the detour/road-blocked timers.
+  const hold=this.signalHold(state.x,state.z,state.yaw);
+  if(hold!==null&&this.remaining>hold+6) {
+   speed=Math.min(speed,Math.sqrt(9*Math.max(0,hold-1.8)));
+   if(speed<.3){this.phase='yielding';this.reason='red-light';this.stalled=0;return this.result(stopped());}
+  }
   if(speed<.3) {
    this.phase='yielding';this.wait+=dt;
    if(this.wait>3&&Math.abs(state.speed)<.2&&this.detourAttempts<3&&state.distance-this.lastDetourDistance>30
