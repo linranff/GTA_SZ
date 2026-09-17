@@ -4,7 +4,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · **日本語**
 
-**[ブラウザーで試遊 · PC 推奨](https://gtasz.vercel.app/)** · [ソース](https://github.com/linranff/GTA_SZ) · [ランドマークの作業フロー](docs/landmarks/agent-workflow.md) · [キャラクターの記録](docs/characters/local-mmd.md)
+**[ブラウザーで試遊 · PC 推奨](https://shenchengji.gtasz.workers.dev/)** · [ソース](https://github.com/linranff/GTA_SZ) · [ランドマークの作業フロー](docs/landmarks/agent-workflow.md) · [キャラクターの記録](docs/characters/local-mmd.md)
 
 ![夕暮れの春笋（中国華潤ビル）：エンジン内で撮影した 6 秒の旋回ショット](docs/media/readme/spring-bamboo-sunset.gif)
 
@@ -147,7 +147,7 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-公開デモは現在 Vercel が配信しています。Cloudflare Workers + R2 による配信（大きな GLB/HDR は R2 から Brotli 事前圧縮・ETag 再検証・Range 対応で提供）は [cloudflare/README.md](cloudflare/README.md) に記載し、`shenchengji.gtasz.workers.dev` で稼働しています。
+公開デモは Cloudflare Workers + R2 上の [shenchengji.gtasz.workers.dev](https://shenchengji.gtasz.workers.dev/) で稼働しています。ページと小さなファイルは Worker の静的アセット、大きな GLB/HDR は R2 から Brotli 事前圧縮・ETag 再検証・Range 対応で配信されます。デプロイ手順は [cloudflare/README.md](cloudflare/README.md) を参照。以前の Vercel 配信 gtasz.vercel.app は当面フォールバックとして残しています。
 
 通常のビルドで `public/` を `dist/` へコピーし、`public/characters/` のキャラクターも含めます。`prebuild` がサイズ、ハッシュ、GLB 形式、歩行パラメーターを確認します。`build:characters` は同じビルドの別名です。CI でも Git LFS の取得が必要です。元の PMX、ローカルの Blender プロジェクト、大規模言語モデルの API キーは不要です。
 

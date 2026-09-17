@@ -33,7 +33,7 @@ scripts/cloudflare/deploy.sh                         # 约 5 分钟；输出 htt
 
 1. 打开 workers.dev 地址，完整跑一遍开车、下车、驿站交互、角色加载。
 2. DevTools Network 里确认 `buildings.glb` 为 `content-encoding: br`、约 13 MiB，二次刷新为 304。
-3. 确认后再把自定义域名指到 Worker，Vercel 项目保留一段时间作为回退。
+3. 2026-09-17 三语 README 的试玩链接已改为 workers.dev 地址；Vercel 项目保留一段时间作为回退。后续如需好看的域名，在 Worker 上添加 Custom Domain 后再改一次链接即可。
 
 ## 本地验证（不联网）
 

@@ -4,7 +4,7 @@
 
 **English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-**[Play in the browser · desktop recommended](https://gtasz.vercel.app/)** · [Source](https://github.com/linranff/GTA_SZ) · [Landmark workflow](docs/landmarks/agent-workflow.md) · [Character notes](docs/characters/local-mmd.md)
+**[Play in the browser · desktop recommended](https://shenchengji.gtasz.workers.dev/)** · [Source](https://github.com/linranff/GTA_SZ) · [Landmark workflow](docs/landmarks/agent-workflow.md) · [Character notes](docs/characters/local-mmd.md)
 
 ![Spring Bamboo (China Resources Tower) at sunset: a 6 s in-engine orbit over Shenzhen Bay](docs/media/readme/spring-bamboo-sunset.gif)
 
@@ -147,7 +147,7 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-The public demo is served by Vercel today; a Cloudflare Workers + R2 deployment (large GLB/HDR files from R2 with Brotli, ETag revalidation and Range support) is documented in [cloudflare/README.md](cloudflare/README.md) and runs at `shenchengji.gtasz.workers.dev`.
+The public demo runs on Cloudflare Workers + R2 at [shenchengji.gtasz.workers.dev](https://shenchengji.gtasz.workers.dev/): the page and small files are Worker static assets, large GLB/HDR files come from R2 with Brotli, ETag revalidation and Range support. Deployment steps are in [cloudflare/README.md](cloudflare/README.md); the earlier Vercel deployment at gtasz.vercel.app stays up as a fallback for now.
 
 The standard build copies `public/` assets into `dist/`, including runtime characters in `public/characters/`. `prebuild` checks their size, hashes, GLB format and gait parameters; `build:characters` remains an alias for the same build. CI must fetch Git LFS files too. Original PMX files, local Blender projects and language-model API keys are not required.
 

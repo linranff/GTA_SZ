@@ -4,7 +4,7 @@
 
 [English](README.md) · **简体中文** · [日本語](README.ja.md)
 
-**[浏览器直接试玩 · 建议桌面端](https://gtasz.vercel.app/)** · [项目源码](https://github.com/linranff/GTA_SZ) · [地标工作流](docs/landmarks/agent-workflow.md) · [角色制作记录](docs/characters/local-mmd.md)
+**[浏览器直接试玩 · 建议桌面端](https://shenchengji.gtasz.workers.dev/)** · [项目源码](https://github.com/linranff/GTA_SZ) · [地标工作流](docs/landmarks/agent-workflow.md) · [角色制作记录](docs/characters/local-mmd.md)
 
 ![黄昏的春笋（中国华润大厦）：引擎内实拍的 6 秒环绕镜头](docs/media/readme/spring-bamboo-sunset.gif)
 
@@ -147,7 +147,7 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-线上试玩目前由 Vercel 提供；Cloudflare Workers + R2 部署（大体积 GLB/HDR 走 R2，支持 Brotli 预压缩、ETag 重验证与 Range）见 [cloudflare/README.md](cloudflare/README.md)，运行在 `shenchengji.gtasz.workers.dev`。
+线上试玩运行在 Cloudflare Workers + R2：[shenchengji.gtasz.workers.dev](https://shenchengji.gtasz.workers.dev/)。网页与小文件是 Worker 静态资源，大体积 GLB/HDR 由 R2 提供，支持 Brotli 预压缩、ETag 重验证与 Range。部署步骤见 [cloudflare/README.md](cloudflare/README.md)；此前的 Vercel 部署 gtasz.vercel.app 暂时保留作回退。
 
 普通构建会把 `public/` 资产复制到 `dist/`，包括 `public/characters/` 中的运行时角色。`prebuild` 校验角色文件大小、哈希、GLB 格式和步态参数；`build:characters` 保留为同一构建的别名。CI 同样需要拉取 Git LFS。不需要本机原始 PMX、Blender 工程或大模型 API Key。
 
