@@ -10,6 +10,8 @@ from a moving car: opaque, low-poly crown clumps (no alpha cards, no overdraw), 
 Species are art-directed studies of common Shenzhen trees, not botanical scans. Placement is
 derived from the OSM study area (parks, open lawns, trunk/primary verges) with shapely clearance
 proofs against roads, buildings, water and landmark footprints; it is not a surveyed inventory.
+Parks plant the full 10–30 m mix; trunk/primary verges plant an uneven, layered 8–20 m mix in
+clusters with view windows (STREET_TIERS) so the boulevards read as rhythm, not as a tunnel.
 Blender axes are east/north/up; the runtime loader flips Z like the rest of the landscape set.
 """
 from pathlib import Path
@@ -28,6 +30,24 @@ SPECIES=[
  {'id':'flame-tree','name':'凤凰木','height':12,'crown':9.0,'park':.16,'lawn':.20,'street':.16},
  {'id':'mango','name':'芒果树','height':11,'crown':6.0,'park':.20,'lawn':.25,'street':.20},
 ]
+INDEX={s['id']:i for i,s in enumerate(SPECIES)}
+# Main-road verges (trunk/primary) are planted from three height tiers instead of the park mix: a uniform
+# 15 m row at 14 m centres read as a tunnel from the driver's seat and hid the skyline. Parks keep full height.
+# tier: (weight, [(species, scale lo, scale hi, extra setback from the kerb in m)]); low crowns sit further back
+# so nothing hangs over the carriageway at windscreen height.
+STREET_TIERS={
+ 'low':(.45,[('mango',.72,.98,2.4),('flame-tree',.72,.98,1.2)]),      # 8–11 m / 9–12 m
+ 'mid':(.40,[('terminalia',.74,.98,0),('camphor',.70,.84,0)]),         # 11–15 m / 13–15 m
+ 'accent':(.15,[('camphor',.88,1.04,0),('kapok',.72,.84,.6)]),         # 16–19 m / 17–20 m, ≥45 m apart
+}
+STREET_CLUSTER=(8.0,12.0)   # trunk spacing inside a cluster of 1–3 trees
+STREET_WINDOW=(22.0,46.0)   # gap between clusters that keeps the buildings behind the verge visible
+STREET_ACCENT_GAP=45.0
+# Everything this close to a trunk/primary carriageway is "the boulevard" to a driver, whether OSM calls the
+# strip a park, a lawn or a median: park and lawn darts in this band use the street tiers, and park darts
+# are thinned so the clustered boulevard rhythm (pass 3) is what reads, not a solid block of 20 m crowns.
+MAIN_ROAD_VERGE=24.0
+VERGE_PARK_KEEP=.6
 
 def prepare():
  import shapely
@@ -56,6 +76,9 @@ def prepare():
  buildings.extend(exclusions)
  carriageways=[LineString(r['points']).buffer(r['width']/2,cap_style=2,join_style=2) for r in c['roads']]
  road_index=STRtree(carriageways); building_index=STRtree(buildings)
+ main_carriageways=[carriageways[i] for i,r in enumerate(c['roads']) if r['kind'] in ('trunk','primary')]
+ main_index=STRtree(main_carriageways)
+ def near_main_road(p,r):return any(main_carriageways[i].distance(p)<r for i in main_index.query(p.buffer(r)))
  for g in [land,green,water]:shapely.prepare(g)
  existing=json.loads((LAND/'planting.json').read_text())['trees']
  grid={}
@@ -88,6 +111,15 @@ def prepare():
    u-=w
    if u<=0:return i
   return len(weights)-1
+ tier_counts={'low':0,'mid':0,'accent':0}
+ def street_pick(allow_accent):
+  u=rng.random()*sum(w for w,_ in STREET_TIERS.values());tier='accent'
+  for name,(w,_) in STREET_TIERS.items():
+   u-=w
+   if u<=0:tier=name;break
+  if tier=='accent' and not allow_accent:tier='mid'
+  sid,lo,hi,back=rng.choice(STREET_TIERS[tier][1])
+  return tier,INDEX[sid],rng.uniform(lo,hi),back
  def add(x,z,kind,scale):
   sp=SPECIES[kind]
   if not clear(x,z,sp,scale):return False
@@ -106,7 +138,10 @@ def prepare():
   while placed<target and tries<target*9:
    tries+=1;x=rng.uniform(minx,maxx);z=rng.uniform(minz,maxz)
    if not g.covers(Point(x,z)):continue
-   kind=pick(weights);scale=rng.uniform(.72,1.28)
+   if near_main_road(Point(x,z),MAIN_ROAD_VERGE):
+    if rng.random()>VERGE_PARK_KEEP:placed+=1;continue  # thinned: the slot is spent, not re-thrown into the interior
+    _,kind,scale,_=street_pick(rng.random()<.5)  # park edge on a main road: layered 8–20 m, never a 30 m banyan
+   else:kind=pick(weights);scale=rng.uniform(.72,1.28)
    if add(x,z,kind,scale):placed+=1
  park_count=len(planted)
  # 2. Open lawns between blocks: everything on land that is not park, road, water or building.
@@ -119,25 +154,33 @@ def prepare():
   if green.covers(p) or not land.covers(p):continue
   # keep lawn trees off plazas that are really building forecourts: require 9 m from any building
   if any(buildings[i].distance(p)<9 for i in building_index.query(p.buffer(9))):continue
-  if add(x,z,pick(lawn_weights),rng.uniform(.72,1.12)):placed+=1
+  if near_main_road(p,MAIN_ROAD_VERGE):
+   _,kind,scale,_=street_pick(False)  # verge or median of a main road: low/mid boulevard tiers only
+   if add(x,z,kind,scale):placed+=1
+  elif add(x,z,pick(lawn_weights),rng.uniform(.72,1.12)):placed+=1
  lawn_count=len(planted)-park_count
- # 3. Boulevard rows along trunk/primary roads: one species per road, both verges, regular spacing.
- street_weights=[s['street'] for s in SPECIES]
+ # 3. Boulevards along trunk/primary roads. Each verge walks independently (no mirrored pairs across the
+ #    road): clusters of 1–3 trees at 8–12 m, then a 22–46 m window that keeps the buildings behind visible.
+ #    Species and height come from STREET_TIERS; accents stay ≥45 m apart so they punctuate rather than wall.
  for road in c['roads']:
   if road['kind'] not in ('trunk','primary'):continue
   line=LineString(road['points'])
   if line.length<60:continue
-  kind=pick(street_weights);sp=SPECIES[kind];spacing=max(14,sp['crown']*1.9)
-  phase=rng.uniform(0,spacing)
   for side in (-1,1):
-   d=phase
+   d=rng.uniform(4,STREET_WINDOW[1]*.7);last_accent=-1e9
    while d<line.length-6:
-    p=line.interpolate(d);q=line.interpolate(min(line.length,d+1));dx,dz=q.x-p.x,q.y-p.y;L=math.hypot(dx,dz)
-    if L>.01:
-     setback=road['width']/2+4.2
-     x,z=p.x-dz/L*setback*side,p.y+dx/L*setback*side
-     add(x,z,kind,rng.uniform(.85,1.05))
-    d+=spacing
+    n=1 if rng.random()<.45 else 2 if rng.random()<.7 else 3
+    for j in range(n):
+     if d>=line.length-6:break
+     tier,kind,scale,back=street_pick(d-last_accent>=STREET_ACCENT_GAP)
+     p=line.interpolate(d);q=line.interpolate(min(line.length,d+1));dx,dz=q.x-p.x,q.y-p.y;L=math.hypot(dx,dz)
+     if L>.01:
+      setback=road['width']/2+4.2+back+rng.uniform(0,1.6)
+      if add(p.x-dz/L*setback*side,p.y+dx/L*setback*side,kind,scale):
+       tier_counts[tier]+=1
+       if tier=='accent':last_accent=d
+     if j<n-1:d+=rng.uniform(*STREET_CLUSTER)
+    d+=rng.uniform(*STREET_WINDOW)
  street_count=len(planted)-park_count-lawn_count
  # Exhaustive second pass on serialized values (rounding can nudge a trunk into a buffer).
  grid.clear()
@@ -150,9 +193,13 @@ def prepare():
  by_species=[sum(1 for t in final if t[2]==i) for i in range(len(SPECIES))]
  data={'version':1,'species':[{k:s[k] for k in ('id','name','height','crown')} for s in SPECIES],'format':'[east,north,species,scale,yaw]; height/crown scale with instance scale','trees':final}
  (LAND/'canopy-trees.json').write_text(json.dumps(data,separators=(',',':'),ensure_ascii=False))
+ # Main-road verge profile: what a driver on a trunk/primary road actually sees within 14 m of the kerb.
+ verge=sorted(SPECIES[k]['height']*s for x,z,k,s,yaw in final if near_main_road(Point(x,z),14))
+ verge_profile={'trees':len(verge),'heightP10':round(verge[len(verge)//10],1),'heightP50':round(verge[len(verge)//2],1),'heightP90':round(verge[len(verge)*9//10],1),'over16m':sum(h>16 for h in verge),'over20m':sum(h>20 for h in verge),'max':round(verge[-1],1)}
  report={'origin':'Original procedural art; positions from the project OSM study area (parks, open lawns, trunk/primary verges), not a vegetation survey',
   'treeCount':len(final),'landmarkExclusions':len(exclusions),'bySpecies':dict(zip([s['id'] for s in SPECIES],by_species)),'zones':{'park':park_count,'lawn':lawn_count,'street':street_count},
-  'rejections':checks,'validation':'Every serialized trunk is on land, ≥3.2 m from every carriageway, ≥2.6 m from existing planting trunks; every crown disc (+1 m) is outside building footprints, landmark collision footprints, landmark excludeRadius circles and community-site plots, and the crown core is outside water. Crowns may overhang roads and interleave (0.62 of summed radii).'}
+  'streetTiers':tier_counts,'mainRoadVerge':verge_profile,
+  'rejections':checks,'validation':'Every serialized trunk is on land, ≥3.2 m from every carriageway, ≥2.6 m from existing planting trunks; every crown disc (+1 m) is outside building footprints, landmark collision footprints, landmark excludeRadius circles and community-site plots, and the crown core is outside water. Crowns may overhang roads and interleave (0.62 of summed radii). Trunk/primary verges: independent per-side walks of 1–3-tree clusters (8–12 m) separated by 22–46 m windows, heights from the low/mid/accent tiers (8–20 m, accents ≥45 m apart); park and lawn darts within 24 m of a main carriageway use the street tiers (park darts thinned to 60%), so no giant banyan trunk stands within 24 m of a main carriageway. Park interiors are unchanged (full 10–30 m mix).'}
  (ART/'placement-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps(report,ensure_ascii=False),flush=True)
 
 if '--prepare' in sys.argv:
