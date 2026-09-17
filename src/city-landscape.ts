@@ -74,7 +74,9 @@ export class CityLandscape {
    result.meshes[0]?.dispose(false,false);this.prototypes.set(model.id,{model,meshes});
   }
   if(!grassBaseline()){
-   this.meadow=new CityMeadow(this.scene,this.heightAt,{excluded:(x,z)=>this.occupied(x,z,.2)});await this.meadow.init();
+   // Ground blades only matter within a few metres of the camera; the tall canopy layer now carries
+   // the lawn's visual weight, so the blade budget is half of its 2026-09 figure (see graphics profile).
+   this.meadow=new CityMeadow(this.scene,this.heightAt,{excluded:(x,z)=>this.occupied(x,z,.2),maxClumps:CITY_GRAPHICS_PROFILES[this.graphicsQuality].meadowClumps});await this.meadow.init();
    // Trees rebuild after 22m. Ground-level grass has its own cheap 3m gate,
    // follows the actual camera, and disables itself at aerial heights.
    this.meadowObserver=this.scene.onBeforeRenderObservable.add(()=>{const camera=this.scene.activeCamera;if(camera)this.meadow?.update(camera.globalPosition.x,camera.globalPosition.z);});

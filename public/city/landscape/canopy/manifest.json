@@ -1,0 +1,247 @@
+{
+ "version": 1,
+ "source": "Original Blender procedural studies of common Shenzhen trees; solid clumped crowns, no alpha cards",
+ "species": [
+  {
+   "id": "giant-banyan",
+   "name": "大叶榕（巨榕）",
+   "height": 30,
+   "crown": 16.5
+  },
+  {
+   "id": "kapok",
+   "name": "木棉",
+   "height": 24,
+   "crown": 8.0
+  },
+  {
+   "id": "camphor",
+   "name": "樟树",
+   "height": 18,
+   "crown": 10.0
+  },
+  {
+   "id": "terminalia",
+   "name": "小叶榄仁",
+   "height": 15,
+   "crown": 6.0
+  },
+  {
+   "id": "flame-tree",
+   "name": "凤凰木",
+   "height": 12,
+   "crown": 9.0
+  },
+  {
+   "id": "mango",
+   "name": "芒果树",
+   "height": 11,
+   "crown": 6.0
+  }
+ ],
+ "models": [
+  {
+   "id": "giant-banyan",
+   "species": "giant-banyan",
+   "lod": 0,
+   "file": "canopy/giant-banyan.glb",
+   "triangles": 3560,
+   "meshes": 3,
+   "bytes": 95584,
+   "height": 30.42,
+   "crownRadius": 17.08
+  },
+  {
+   "id": "giant-banyan-mid",
+   "species": "giant-banyan",
+   "lod": 1,
+   "file": "canopy/giant-banyan-mid.glb",
+   "triangles": 862,
+   "meshes": 3,
+   "bytes": 26692,
+   "height": 30.63,
+   "crownRadius": 18.14
+  },
+  {
+   "id": "giant-banyan-far",
+   "species": "giant-banyan",
+   "lod": 2,
+   "file": "canopy/giant-banyan-far.glb",
+   "triangles": 88,
+   "meshes": 2,
+   "bytes": 4868,
+   "height": 31.0,
+   "crownRadius": 14.74
+  },
+  {
+   "id": "kapok",
+   "species": "kapok",
+   "lod": 0,
+   "file": "canopy/kapok.glb",
+   "triangles": 4004,
+   "meshes": 3,
+   "bytes": 106888,
+   "height": 24.15,
+   "crownRadius": 8.71
+  },
+  {
+   "id": "kapok-mid",
+   "species": "kapok",
+   "lod": 1,
+   "file": "canopy/kapok-mid.glb",
+   "triangles": 1344,
+   "meshes": 3,
+   "bytes": 42420,
+   "height": 24.18,
+   "crownRadius": 8.96
+  },
+  {
+   "id": "kapok-far",
+   "species": "kapok",
+   "lod": 2,
+   "file": "canopy/kapok-far.glb",
+   "triangles": 80,
+   "meshes": 2,
+   "bytes": 4616,
+   "height": 25.11,
+   "crownRadius": 7.47
+  },
+  {
+   "id": "camphor",
+   "species": "camphor",
+   "lod": 0,
+   "file": "canopy/camphor.glb",
+   "triangles": 2580,
+   "meshes": 3,
+   "bytes": 70272,
+   "height": 18.76,
+   "crownRadius": 11.17
+  },
+  {
+   "id": "camphor-mid",
+   "species": "camphor",
+   "lod": 1,
+   "file": "canopy/camphor-mid.glb",
+   "triangles": 628,
+   "meshes": 3,
+   "bytes": 21456,
+   "height": 18.03,
+   "crownRadius": 11.6
+  },
+  {
+   "id": "camphor-far",
+   "species": "camphor",
+   "lod": 2,
+   "file": "canopy/camphor-far.glb",
+   "triangles": 80,
+   "meshes": 2,
+   "bytes": 4612,
+   "height": 19.37,
+   "crownRadius": 9.47
+  },
+  {
+   "id": "terminalia",
+   "species": "terminalia",
+   "lod": 0,
+   "file": "canopy/terminalia.glb",
+   "triangles": 3628,
+   "meshes": 3,
+   "bytes": 102416,
+   "height": 15.03,
+   "crownRadius": 5.74
+  },
+  {
+   "id": "terminalia-mid",
+   "species": "terminalia",
+   "lod": 1,
+   "file": "canopy/terminalia-mid.glb",
+   "triangles": 1650,
+   "meshes": 3,
+   "bytes": 51448,
+   "height": 15.05,
+   "crownRadius": 6.13
+  },
+  {
+   "id": "terminalia-far",
+   "species": "terminalia",
+   "lod": 2,
+   "file": "canopy/terminalia-far.glb",
+   "triangles": 80,
+   "meshes": 2,
+   "bytes": 4664,
+   "height": 15.55,
+   "crownRadius": 5.4
+  },
+  {
+   "id": "flame-tree",
+   "species": "flame-tree",
+   "lod": 0,
+   "file": "canopy/flame-tree.glb",
+   "triangles": 3128,
+   "meshes": 4,
+   "bytes": 86152,
+   "height": 12.17,
+   "crownRadius": 9.88
+  },
+  {
+   "id": "flame-tree-mid",
+   "species": "flame-tree",
+   "lod": 1,
+   "file": "canopy/flame-tree-mid.glb",
+   "triangles": 714,
+   "meshes": 4,
+   "bytes": 25408,
+   "height": 12.31,
+   "crownRadius": 9.95
+  },
+  {
+   "id": "flame-tree-far",
+   "species": "flame-tree",
+   "lod": 2,
+   "file": "canopy/flame-tree-far.glb",
+   "triangles": 80,
+   "meshes": 2,
+   "bytes": 4636,
+   "height": 12.33,
+   "crownRadius": 8.36
+  },
+  {
+   "id": "mango",
+   "species": "mango",
+   "lod": 0,
+   "file": "canopy/mango.glb",
+   "triangles": 1940,
+   "meshes": 3,
+   "bytes": 54244,
+   "height": 11.66,
+   "crownRadius": 6.64
+  },
+  {
+   "id": "mango-mid",
+   "species": "mango",
+   "lod": 1,
+   "file": "canopy/mango-mid.glb",
+   "triangles": 528,
+   "meshes": 3,
+   "bytes": 18568,
+   "height": 11.35,
+   "crownRadius": 6.16
+  },
+  {
+   "id": "mango-far",
+   "species": "mango",
+   "lod": 2,
+   "file": "canopy/mango-far.glb",
+   "triangles": 80,
+   "meshes": 2,
+   "bytes": 4620,
+   "height": 12.06,
+   "crownRadius": 5.56
+  }
+ ],
+ "lods": {
+  "full": "<~180 m street view",
+  "mid": "street to ~700 m, aerial within ~600 m",
+  "far": "everything else to the aerial horizon"
+ }
+}

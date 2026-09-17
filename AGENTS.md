@@ -18,6 +18,7 @@ Blender 东/北/上 → GLB Y-up → 网页加载；保留现有根节点方向�
 `building-exclusions.json` 记录被排除ID及基础资产哈希，`terrain-detail.json` 是莲花山高度场。
 优先使用 `build_landmark_details.py` 增量构建，不为单个地标重跑/覆盖整座城市。
 `build_city_detail_assets.py` 属于道路、车辆、基础地标的另一条构建流程。
+高大林冠层（六树种 10–30 m）由 `scripts/build_canopy_trees.py` 建模并 `--prepare` 布点，运行时在 `src/city-canopy.ts`；与 8 m 原有植被 `planting.json` 并存，不改其哈希。
 不同 Agent 只能并行改独立对象模块；共享渲染源码、数据和总资产由一个集成人员串行修改。
 
 本轮重点为莲花山、腾讯滨海大厦、七街公馆/哈尔滨大厦、财富广场、万象天地的塔楼部分。

@@ -18,6 +18,7 @@ import {CityFacadeStream} from './city-facade-stream.ts';
 import {createArchitectureMaterials} from './city-architecture-materials.ts';
 import {createFacadeDiversity} from './city-facade-diversity.ts';
 import {CityLandscape,applyLandscapeSurfaces} from './city-landscape.ts';
+import {CityCanopy} from './city-canopy.ts';
 import {attachCityBuildingSigns} from './city-building-signs.ts';
 import {loadLandmarkSignage} from './landmark-signage.ts';
 import {createCinematicLook,syncPostChain,applyAntiAliasing} from './city-cinematic.ts';
@@ -88,7 +89,7 @@ export class DrivingWorld{
   if(this.shadows.mapSize!==profile.shadowSize)this.shadows.mapSize=profile.shadowSize;
   const shadowMap=this.shadows.getShadowMap();if(shadowMap){shadowMap.refreshRate=this.overviewEffects?12:1;shadowMap.resetRefreshCounter();}
   for(const mirror of [this.mirror,this.waterMirror]){if(mirror.getSize().width!==profile.mirrorSize)mirror.resize(profile.mirrorSize);mirror.resetRefreshCounter();}
-  this.syncGraphicsPostEffects();this.landscape?.setGraphicsQuality(this.graphicsQuality);
+  this.syncGraphicsPostEffects();this.landscape?.setGraphicsQuality(this.graphicsQuality);this.canopy?.setGraphicsQuality(this.graphicsQuality);
   this.vehicleReflections?.setEnabled(profile.vehicleProbe&&this.reflectionsEnabled&&!this.tank?.active);
   if(this.ready){this.vegetation();this.cull();}
  }
@@ -117,7 +118,7 @@ export class DrivingWorld{
  vehicleFinish:ReturnType<typeof applyCinematicVehicleFinish>|null=null;
  sportDetails:ReturnType<typeof createCitySportDetails>|null=null;
  instrumentation!:SceneInstrumentation; gpuInstrumentation!:EngineInstrumentation; updateMs=0; renderMs=0; ao:SSAO2RenderingPipeline|null=null; debugSimulation=true; debugFacades=true; facadeStream:CityFacadeStream|null=null; aerial=false; observer=new CityObserver(); overviewEffects=false; renderFrames=0;
- architecture!:ReturnType<typeof createArchitectureMaterials>; facadeDiversity!:ReturnType<typeof createFacadeDiversity>; landscape:CityLandscape|null=null; signage:Awaited<ReturnType<typeof loadLandmarkSignage>>|null=null; wheelRadius=.4404; lastLandscapeAerial=false;
+ architecture!:ReturnType<typeof createArchitectureMaterials>; facadeDiversity!:ReturnType<typeof createFacadeDiversity>; landscape:CityLandscape|null=null; canopy:CityCanopy|null=null; signage:Awaited<ReturnType<typeof loadLandmarkSignage>>|null=null; wheelRadius=.4404; lastLandscapeAerial=false;
  engine:Engine;scene:Scene;camera:FreeCamera;car:TransformNode;data!:CityData;collision!:CityCollision;
  state:CarState={x:0,z:0,yaw:0,speed:0,steer:0,distance:0};ready=false;paused=false;night=false;lightMode:'sunset'|'night'|'day'='sunset';walk:CityWalk|null=null;debugEpoch=0;view=0;keys=new Set<string>();
  groundHeight:(x:number,z:number)=>number=()=>0;detailManifest:LandmarkDetailManifest|null=null;candidateManifest:LandmarkCandidateManifest|null=null;carFill:PointLight|null=null;traffic:CityTraffic|null=null;pedestrians:CityPedestrians|null=null;trafficSources:AbstractMesh[]=[];wheelSpin=0;
@@ -245,7 +246,7 @@ export class DrivingWorld{
   progress('正在点亮城市招牌');this.buildingSigns=await attachCityBuildingSigns(this.scene,buildings.meshes,this.data);
   progress('正在启动你的车');const ambient=await this.load('traffic-car');this.trafficSources=ambient.meshes.filter(m=>m.getTotalVertices()>0);ambient.meshes[0].setEnabled(false);const metadata=await fetch('/city/vehicle-manifest.json').then(r=>r.json()) as VehicleManifest;this.wheelRadius=metadata.wheelRadius;this.carHeadlightAnchors=headlightAnchors(metadata.recommendedHeadlightAnchorsGame);this.headlights.forEach((l,i)=>l.position.copyFromFloats(...this.carHeadlightAnchors[i]));const car=await this.load('car');car.meshes[0].parent=this.car;this.carMeshes=car.meshes.filter(m=>m.getTotalVertices()>0);for(const m of car.meshes){m.unfreezeWorldMatrix();const q=m.name.match(/(?:wheel|brake)_([lr][fr])_/);if(q&&m instanceof Mesh){m.setPivotPoint(Vector3.FromArray(metadata.wheelCentresGltf[q[1]]));m.rotationQuaternion=null;}}
   this.vehicleFinish=applyCinematicVehicleFinish(this.scene,this.car,this.carMeshes);this.carMeshes.push(...this.vehicleFinish.meshes);this.cockpit=createCityCockpit(this.scene,this.car,this.carMeshes);this.carMeshes.push(...this.cockpit.meshes);
-  progress('正在种植榕树、棕榈与花境');this.landscape=new CityLandscape(this.scene,this.groundHeight,(x,z,r)=>!!this.bambooCafe?.layout.reserved(x,z,r));await this.landscape.init();this.landscape.configureRoadside(this.data,{collisionFootprints:this.detailManifest?.collisionFootprints,bridgeCrossings:this.coastal?.manifest.crossings,blocked:(x,z)=>this.collision.blocked(x,z)||this.propBlocked(x,z)});progress('正在布置城市座椅');this.streetFurniture=new CityStreetFurniture(this.scene,this.groundHeight);await this.streetFurniture.init();
+  progress('正在种植榕树、棕榈与花境');this.landscape=new CityLandscape(this.scene,this.groundHeight,(x,z,r)=>!!this.bambooCafe?.layout.reserved(x,z,r));await this.landscape.init();progress('正在栽种榕树、木棉与樟树林冠');this.canopy=new CityCanopy(this.scene,this.groundHeight,(x,z,r)=>!!this.bambooCafe?.layout.reserved(x,z,r));await this.canopy.init();this.landscape.configureRoadside(this.data,{collisionFootprints:this.detailManifest?.collisionFootprints,bridgeCrossings:this.coastal?.manifest.crossings,blocked:(x,z)=>this.collision.blocked(x,z)||this.propBlocked(x,z)||!!this.canopy?.trunkNear(x,z)});progress('正在布置城市座椅');this.streetFurniture=new CityStreetFurniture(this.scene,this.groundHeight);await this.streetFurniture.init();
   progress('正在铺设春笋街面');this.bambooCorridor=createBambooCorridor(this.scene,this.data,(x,z)=>{
   const terrain=this.groundHeight(x,z),n=this.collision.nearest(x,z);
   if(!n)return terrain+.08;
@@ -413,7 +414,7 @@ export class DrivingWorld{
   // Extra far geometry does not enter the existing shadow/reflection radii.
   for(const b of this.blocks){const d=Math.hypot(p.x-b.x,p.z-b.z);b.mesh.setEnabled((!b.detail||this.debugFacades)&&(d<(b.detail?700:b.road?2500:3300)||(this.overviewEffects&&!b.detail&&(!b.road||b.mesh.name.endsWith('_asphalt')))));if(d<(this.overviewEffects?1650:520)&&!b.road)casters.push(b.mesh);if(d<1400&&!b.road)reflect.push(b.mesh);}
   for(const m of this.landmarks){const center=m.getBoundingInfo().boundingBox.centerWorld;if(Vector3.Distance(center,new Vector3(p.x,0,p.z))<(this.overviewEffects?1650:700))casters.push(m);}
-  casters.push(...(this.groundRelief?.shadowMeshes(p.x,p.z,this.overviewEffects?1450:650)??[]));casters.push(...(this.landscape?.casters??[]));for(const m of this.facadeStream?.shadowMeshes??[])casters.push(m);
+  casters.push(...(this.groundRelief?.shadowMeshes(p.x,p.z,this.overviewEffects?1450:650)??[]));casters.push(...(this.landscape?.casters??[]));casters.push(...(this.canopy?.casters??[]));for(const m of this.facadeStream?.shadowMeshes??[])casters.push(m);
 
   for(const light of this.windowLights){light.intensity=0;light.setEnabled(false);}
   this.shadows.getShadowMap()!.renderList=casters;if(this.aerial)this.shadows.getShadowMap()!.resetRefreshCounter();
@@ -445,9 +446,9 @@ export class DrivingWorld{
 
  vegetation(){
   const focus=this.sceneFocus();this.lastVegetation.set(focus.x,0,focus.z);this.lastLandscapeAerial=this.overviewEffects;
-  this.landscape?.update(focus.x,focus.z,this.overviewEffects,true);
-  const plants=new Set(this.landscape?.meshes??[]),shadow=this.shadows.getShadowMap()!;
-  shadow.renderList=[...(shadow.renderList??[]).filter(m=>!plants.has(m)),...(this.landscape?.casters??[])];shadow.resetRefreshCounter();
+  this.landscape?.update(focus.x,focus.z,this.overviewEffects,true);this.canopy?.update(focus.x,focus.z,this.overviewEffects,true);
+  const plants=new Set([...(this.landscape?.meshes??[]),...(this.canopy?.meshes??[])]),shadow=this.shadows.getShadowMap()!;
+  shadow.renderList=[...(shadow.renderList??[]).filter(m=>!plants.has(m)),...(this.landscape?.casters??[]),...(this.canopy?.casters??[])];shadow.resetRefreshCounter();
   this.localLighting?.update(0,this.camera.position,true);
  }
  setLightMode(mode:'sunset'|'night'|'day'){
