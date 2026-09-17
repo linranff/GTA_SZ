@@ -3,6 +3,8 @@ export default defineConfig({
   server: {
     host:'127.0.0.1',hmr:false,
     fs:{deny:['**/.env','**/.env.*','**/*.{crt,pem}','**/.git/**','**/local-only/**','**/data/raw/local-mmd/**']},
-    watch:{usePolling:false,ignored:['**/local-only/**','**/artifacts/**','**/data/**','**/output/**','**/.venv/**','**/*.blend','**/*.blend1']},
+    // Large binaries and editor atomic-save temp dirs never take part in HMR; watching them
+    // raised EBUSY inside FSWatcher and killed the whole dev server (GTA_SZ#4).
+    watch:{usePolling:false,ignored:['**/local-only/**','**/artifacts/**','**/data/**','**/output/**','**/.venv/**','**/*.blend','**/*.blend1','**/*.tmpdir','**/*.tmpdir/**','**/*.glb','**/*.bin','**/*.hdr','**/*.ktx2','**/*.basis']},
   },
 });

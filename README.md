@@ -4,19 +4,36 @@
 
 **English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-**This branch’s main client is Unreal Engine 5** (`ue5/Shenchengji`, `scripts/ue5/open-editor.sh`). The Babylon browser page remains as the baseline, not the primary game.
+**[Play in the browser · desktop recommended](https://gtasz.vercel.app/)** · [Source](https://github.com/linranff/GTA_SZ) · [Landmark workflow](docs/landmarks/agent-workflow.md) · [Character notes](docs/characters/local-mmd.md)
 
-**[Babylon baseline demo](https://gtasz.vercel.app/)**
+![Spring Bamboo (China Resources Tower) at sunset: a 6 s in-engine orbit over Shenzhen Bay](docs/media/readme/spring-bamboo-sunset.gif)
 
-[Source](https://github.com/linranff/GTA_SZ) · [Implementation and checks](docs/characters/local-mmd.md)
+*Sunset orbit around Spring Bamboo and Talent Park, captured in-engine from the current assets on 2026-09-17. [1080p clip](docs/media/readme/spring-bamboo-sunset.mp4)*
 
 Drive along Shenzhen Bay, walk through a neighborhood, take a small job, or fly above the skyline. ShenChengJi combines open map data, Blender assets and Babylon.js into a compressed, explorable interpretation of parts of Shenzhen Bay, Nanshan, Futian and Luohu. The prototype includes cars, a tank, walking, drone and aircraft modes, with daylight, sunset and night lighting.
 
+The playable game is the Babylon.js browser build. An Unreal Engine 5 port lives under [`ue5/`](ue5/README.md) as an experiment and is not the primary client.
+
 This README is also a learning guide: which AI models participated, how map data becomes game assets, and how disappearing vehicles, delayed reflections and rendering stalls were investigated. The game UI is primarily Simplified Chinese; the three language editions cover documentation, not in-game localization.
 
-![Shenzhen Bay night drive: historical v0.2 gameplay capture](docs/images/v0.2-night-driving.png)
+## In the city
 
-*This v0.2 capture illustrates the visual direction. Use the demo and corresponding code for the latest implementation.*
+Six-second loops shot with the project's own director pipeline (`trailer.html?reel=readme`), no post-production. Click a still for the 720p clip.
+
+<table>
+  <tr>
+    <td width="33%"><a href="docs/media/readme/futian-axis-day.mp4"><img src="docs/media/readme/futian-axis-day.jpg" alt="Futian civic axis by day: Ping An Finance Centre, Civic Center and Lianhua Hill"></a><br><sub><b>Futian axis · day</b> — Ping An Finance Centre, Civic Center, Lianhua Hill</sub></td>
+    <td width="33%"><a href="docs/media/readme/luohu-night.mp4"><img src="docs/media/readme/luohu-night.jpg" alt="Luohu at night: KK100, Diwang and Guomao"></a><br><sub><b>Luohu · night</b> — KK100, Diwang Building, Guomao</sub></td>
+    <td width="33%"><a href="docs/media/readme/tencent-binhai-day.mp4"><img src="docs/media/readme/tencent-binhai-day.jpg" alt="Nanshan by day: Tencent Seafront Towers with Shenzhen Bay behind"></a><br><sub><b>Nanshan · day</b> — Tencent Seafront Towers, Houhai, the bay</sub></td>
+  </tr>
+  <tr>
+    <td width="33%"><a href="docs/media/readme/lianhua-hill-sunset.mp4"><img src="docs/media/readme/lianhua-hill-sunset.jpg" alt="Lianhua Hill at sunset with the Futian skyline behind"></a><br><sub><b>Lianhua Hill · sunset</b> — Copernicus 30 m terrain under the CBD</sub></td>
+    <td width="33%"><a href="docs/media/readme/binhai-night-drive.mp4"><img src="docs/media/readme/binhai-night-drive.jpg" alt="Night drive along Binhai Boulevard"></a><br><sub><b>Binhai Boulevard · night drive</b> — staged replay on the real road graph</sub></td>
+    <td width="33%"><img src="docs/media/readme/street-walk-sunset.jpg" alt="Third-person walk at sunset after stepping out of the car"><br><sub><b>Street level · sunset</b> — walking mode, live gameplay screenshot</sub></td>
+  </tr>
+</table>
+
+The media above use the current assets: 37 landmark candidates from the Blender modules under [scripts/landmarks](scripts/landmarks) are merged into [`landmark-candidates.glb`](public/city/landmark-candidates.json), including KK100, Diwang, Guomao, SEG Plaza and the Shenzhen Stock Exchange; seven more (Spring Bamboo, Tencent, Civic Center, Lianhua Hill, MixC World, Fortune Plaza, Qijie Mansion) keep their earlier detailed builds, and six fall outside the game bounds. The base OSM blocks under each landmark are cut out of `buildings.glb` and the facade tiles so nothing overlaps. Regenerate with `node scripts/record-trailer.mjs --reel=readme` followed by `scripts/encode-readme-media.sh`.
 
 ## AI models and the development workflow
 
@@ -106,7 +123,7 @@ Parts of the guards in [city-gltf-streaming.ts](src/city-gltf-streaming.ts) and 
 | An arc-shaped break across distant water | Correct sky clipping against the water reflection plane | A correctness fix without adding another expensive reflection pass. [Record](docs/graphics/sea-reflection-continuity-2026-09-07.md) |
 | Repeated missile/explosion allocations | Pre-create and reuse pools, with bounded counts and lifetimes | Currently up to 6 aircraft missiles and 2 missile-impact explosion groups. [Record](docs/graphics/flight-missiles-2026-09-10.md) |
 | Street and aerial views need different budgets | Adjust view distance, shadows and SSAO; detail follows the actual observation focus | Transitions themselves need shader-variant and missing-draw checks. [Code](src/city-world.ts) |
-| Development tooling consumes CPU | Disable Vite polling and HMR; exclude large asset/output directories | Refresh manually after edits. [Config](vite.config.ts) |
+| Development tooling consumes CPU | Disable Vite polling and HMR; exclude large asset/output directories, GLB/HDR binaries and editor temp dirs from the watcher | Refresh manually after edits; dropping a GLB into `public/` no longer kills the dev server. [Config](vite.config.ts) |
 
 A useful investigation order: **reproduce → inspect frame times, compilations and resources in the same scene → test one hypothesis → recheck gameplay and visuals**. Average FPS does not explain every hitch. CPU submission and GPU time overlap, so adding them does not give total frame time. Start with `window.__SHENCHENGJI_CITY__.world.diagnostics()` and the checks under `scripts/`.
 
@@ -133,6 +150,8 @@ npm run preview -- --port 4173
 The standard build copies `public/` assets into `dist/`, including runtime characters in `public/characters/`. `prebuild` checks their size, hashes, GLB format and gait parameters; `build:characters` remains an alias for the same build. CI must fetch Git LFS files too. Original PMX files, local Blender projects and language-model API keys are not required.
 
 ## Controls at a glance
+
+![Night drive along Binhai Boulevard with the Futian skyline ahead](docs/media/readme/binhai-night-drive.gif)
 
 | Mode / input | Action |
 | --- | --- |
@@ -164,7 +183,7 @@ node scripts/check-character-surfaces.mjs
 node scripts/check-character-deployment.mjs
 ```
 
-Latest recorded functional checks (2026-09-10): 218 automated tests passed; character integration had 18 browser checks and 4 surface/camera checks; the standard production build had 5 additional character-deployment checks. These are completed check records, not a fresh performance benchmark conducted for this README. Browser scripts currently include a macOS Chrome path; adapt it for other systems. Outputs under `output/` and `artifacts/` are ignored by Git.
+Latest recorded functional checks (2026-09-17): 257 automated tests passed and `npm run build` succeeded on the current assets. Earlier records (2026-09-10): character integration had 18 browser checks and 4 surface/camera checks; the standard production build had 5 additional character-deployment checks. These are completed check records, not a fresh performance benchmark conducted for this README. Browser scripts currently include a macOS Chrome path; adapt it for other systems. Outputs under `output/` and `artifacts/` are ignored by Git.
 
 A full asset rebuild is different from `npm run build`. Read the [asset workflow](docs/资产重建与交付保护.md) first; `npm run assets -- --plan` lists stages and missing inputs. The complete source-data rebuild has not been verified end to end. Importing [city_mesh.py](scripts/city_mesh.py) initializes a Blender scene, so do not import it for ordinary Python data inspection.
 

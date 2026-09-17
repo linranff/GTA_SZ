@@ -3,11 +3,12 @@ import {DrivingWorld} from './city-world.ts';
 import {RoadGraph} from './navigation.ts';
 import {FILM_SHOTS as TRAILER_SHOTS,FILM_FPS,filmProgress,type FilmPose,type FilmShot,type Point3} from './trailer-shots.ts';
 import {AERIAL_SHOTS} from './aerial-film-shots.ts';
+import {README_SHOTS} from './readme-reel-shots.ts';
 import {createAerialFilmHud} from './aerial-film-hud.ts';
 import type {V2} from './city-types.ts';
 
-const aerialReel=new URLSearchParams(location.search).get('reel')==='aerial';
-const FILM_SHOTS=aerialReel?AERIAL_SHOTS:TRAILER_SHOTS;
+const reel=new URLSearchParams(location.search).get('reel'),aerialReel=reel==='aerial',readmeReel=reel==='readme';
+const FILM_SHOTS=aerialReel?AERIAL_SHOTS:readmeReel?README_SHOTS:TRAILER_SHOTS;
 const canvas=document.querySelector<HTMLCanvasElement>('#render')!,film=document.querySelector<HTMLCanvasElement>('#film')!;
 film.width=1920;film.height=1080;
 const ctx=film.getContext('2d',{alpha:false})!,nightPlate=document.createElement('canvas');nightPlate.width=1920;nightPlate.height=1080;
@@ -70,6 +71,7 @@ function quality(){
 function light(mode:'night'|'day'|'sunset'){
  world.setLightMode(mode);
  world.cinematic?.tune(mode==='night'?{hemi:.14,environment:.70,exposure:.88,contrast:1.07,fogDensity:.000065}:mode==='day'?{exposure:1.04,contrast:1.07,fogDensity:.000060}:{exposure:.88,contrast:1.06,hemi:.17,fogDensity:.000075});
+ if(readmeReel&&mode==='night')world.cinematic?.tune({hemi:.17,environment:.76,exposure:1.0,contrast:1.08,fogDensity:.000045});
  if(aerialReel)world.cinematic?.tune(mode==='night'?{hemi:.16,environment:.74,exposure:.97,contrast:1.08,fogDensity:.000035}:mode==='day'?{exposure:1.12,contrast:1.09,fogDensity:.000043}:{exposure:.95,contrast:1.07,hemi:.19,fogDensity:.000048});
  quality();
 }
@@ -93,6 +95,7 @@ function textLine(text:string,x:number,y:number,font:string,align:CanvasTextAlig
 function compose(t:number,transition=false){
  ctx.globalAlpha=1;ctx.drawImage(canvas,0,0,1920,1080);
  if(aerialReel){aerialHud?.(ctx,shot,poseAt(t));return;}
+ if(readmeReel)return; // caption-free loops
  if(transition){ctx.globalAlpha=1-clamp(t/.30);ctx.drawImage(nightPlate,0,0);ctx.globalAlpha=1;}
  if(shot.location){const a=clamp((t-.35)/.55)*clamp((4.5-t)/.75);if(a>0){ctx.globalAlpha=a;ctx.fillStyle='#accfbe';ctx.fillRect(82,917,38,3);textLine(shot.location,82,960,'500 28px "PingFang SC", sans-serif');textLine('深 城 纪   /   OPEN ROADS',82,993,'400 14px "PingFang SC", sans-serif');ctx.globalAlpha=1;}}
  if(shot.id==='15'){

@@ -6,8 +6,8 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 const exec=promisify(execFile),args=process.argv.slice(2),sample=args.includes('--sample'),stills=args.includes('--stills');
 const wanted=args.find(a=>a.startsWith('--shots='))?.slice(8).split(',');
-const aerial=args.includes('--reel=aerial');
-const root=process.cwd(),out=root+(aerial?'/output/aerial-film':'/output/trailer'),takeDir=out+(sample?'/sample':'/takes');
+const reel=args.find(a=>a.startsWith('--reel='))?.slice(7)??'trailer',aerial=reel==='aerial',readme=reel==='readme';
+const root=process.cwd(),out=root+(aerial?'/output/aerial-film':readme?'/output/readme-reel':'/output/trailer'),takeDir=out+(sample?'/sample':'/takes');
 await fs.mkdir(takeDir,{recursive:true});await fs.mkdir(out+'/review',{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--use-angle=metal','--disable-background-timer-throttling','--disable-renderer-backgrounding','--autoplay-policy=no-user-gesture-required']});
 const page=await browser.newPage({viewport:{width:1920,height:1080},deviceScaleFactor:1}),errors=[],reports=[],resources=[];
@@ -15,7 +15,8 @@ page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()
 page.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());if(r.request().resourceType()==='script')resources.push(r);});
 let failed;
 try{
- await page.goto(aerial?'http://127.0.0.1:4188/trailer.html?reel=aerial':'http://127.0.0.1:4187/trailer.html',{waitUntil:'domcontentloaded'});
+ // The README reel is short enough to shoot straight off the dev server; the two films use their built preview sites.
+ await page.goto(aerial?'http://127.0.0.1:4188/trailer.html?reel=aerial':readme?(process.env.GAME_URL??'http://127.0.0.1:5173')+'/trailer.html?reel=readme':'http://127.0.0.1:4187/trailer.html',{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>window.__TRAILER__?.ready||window.__TRAILER_ERROR__,null,{timeout:240000});
  const info=await page.evaluate(()=>({error:window.__TRAILER_ERROR__,codec:window.__TRAILER__?.codec,shots:window.__TRAILER__?.shots}));
  if(info.error)throw Error(info.error);if(!info.codec?.supported&&!stills)throw Error('1080p60 H.264 encoder not supported');

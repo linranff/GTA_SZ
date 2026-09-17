@@ -4,17 +4,36 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · **日本語**
 
-**[ブラウザーで試遊 · PC 推奨](https://gtasz.vercel.app/)**
+**[ブラウザーで試遊 · PC 推奨](https://gtasz.vercel.app/)** · [ソース](https://github.com/linranff/GTA_SZ) · [ランドマークの作業フロー](docs/landmarks/agent-workflow.md) · [キャラクターの記録](docs/characters/local-mmd.md)
 
-[ソース](https://github.com/linranff/GTA_SZ) · [実装と検証の記録](docs/characters/local-mmd.md)
+![夕暮れの春笋（中国華潤ビル）：エンジン内で撮影した 6 秒の旋回ショット](docs/media/readme/spring-bamboo-sunset.gif)
+
+*春笋と人才公園を巡る夕暮れのショット。2026-09-17 に現在のアセットでエンジン内撮影。[1080p クリップ](docs/media/readme/spring-bamboo-sunset.mp4)*
 
 深圳湾をドライブし、街を歩き、小さな仕事を引き受け、空から街並みを眺める。深城纪（ShenChengJi）は、公開地図データ、Blender のアセット、Babylon.js を組み合わせ、深圳湾・南山・福田・羅湖の一部を凝縮した探索型プロトタイプです。自動車、戦車、徒歩、ドローン、飛行機の各モードと、昼・夕方・夜のライティングがあります。
 
+遊べるゲームは Babylon.js のブラウザー版です。[`ue5/`](ue5/README.md) の Unreal Engine 5 移植は実験であり、主クライアントではありません。
+
 この README は制作入門も兼ねています。使用した AI モデル、地図からゲームアセットをつくる流れ、車両の消失や反射の遅延、描画の停止をどう調べたかを紹介します。ゲーム内 UI は主に簡体字中国語です。3 言語で提供しているのは文書であり、ゲームの多言語化ではありません。
 
-![深圳湾の夜間ドライブ：v0.2 当時の実機画像](docs/images/v0.2-night-driving.png)
+## 街の中へ
 
-*上の画像は表現の方向性を示す v0.2 当時のものです。最新の実装は試遊版と対応するコードをご確認ください。*
+すべてプロジェクト付属のディレクターパイプライン（`trailer.html?reel=readme`）で現在のアセットを撮影した 6 秒のループで、後処理はしていません。静止画をクリックすると 720p クリップが開きます。
+
+<table>
+  <tr>
+    <td width="33%"><a href="docs/media/readme/futian-axis-day.mp4"><img src="docs/media/readme/futian-axis-day.jpg" alt="昼の福田中軸：平安金融センター、市民中心、蓮花山"></a><br><sub><b>福田中軸 · 昼</b> — 平安金融センター、市民中心、蓮花山</sub></td>
+    <td width="33%"><a href="docs/media/readme/luohu-night.mp4"><img src="docs/media/readme/luohu-night.jpg" alt="夜の羅湖：京基100、地王大厦、国貿大厦"></a><br><sub><b>羅湖 · 夜</b> — 京基100、地王大厦、国貿大厦</sub></td>
+    <td width="33%"><a href="docs/media/readme/tencent-binhai-day.mp4"><img src="docs/media/readme/tencent-binhai-day.jpg" alt="昼の南山：テンセント濱海ビルと深圳湾"></a><br><sub><b>南山 · 昼</b> — テンセント濱海ビル、後海、湾</sub></td>
+  </tr>
+  <tr>
+    <td width="33%"><a href="docs/media/readme/lianhua-hill-sunset.mp4"><img src="docs/media/readme/lianhua-hill-sunset.jpg" alt="夕暮れの蓮花山と福田のスカイライン"></a><br><sub><b>蓮花山 · 夕暮れ</b> — CBD の足元にある Copernicus 30 m 地形</sub></td>
+    <td width="33%"><a href="docs/media/readme/binhai-night-drive.mp4"><img src="docs/media/readme/binhai-night-drive.jpg" alt="濱海大道の夜間ドライブ"></a><br><sub><b>濱海大道 · 夜のドライブ</b> — 実際の道路網上で演出した追走ショット</sub></td>
+    <td width="33%"><img src="docs/media/readme/street-walk-sunset.jpg" alt="夕暮れに車を降りて歩く三人称視点"><br><sub><b>路上 · 夕暮れ</b> — 徒歩モード、実機スクリーンショット</sub></td>
+  </tr>
+</table>
+
+上の画像は現在のアセットです。[scripts/landmarks](scripts/landmarks) の Blender モジュールから 37 のランドマーク候補を [`landmark-candidates.glb`](public/city/landmark-candidates.json) に統合しており、京基100、地王、国貿、賽格、深圳証券取引所などを含みます。7 件（春笋、テンセント、市民中心、蓮花山、万象天地、財富広場、七街公館）は以前の精細版を維持し、6 件はゲーム範囲外です。各ランドマークの足元にある OSM の基礎ブロックは `buildings.glb` とファサードタイルから切り取り済みで、重なりはありません。再生成は `node scripts/record-trailer.mjs --reel=readme` の後に `scripts/encode-readme-media.sh` を実行します。
 
 ## AI モデルと開発での分担
 
@@ -104,7 +123,7 @@ flowchart LR
 | 遠い水面に円弧状の境界が出る | 反射用クリップ面が空を誤って切る処理を修正 | 新しい高コストの反射パスを追加せず、描画の正しさを修正。[記録](docs/graphics/sea-reflection-continuity-2026-09-07.md) |
 | ミサイル・爆発の繰り返し生成 | あらかじめ作ったプールを再利用し、数と寿命を制限 | 飛行機のミサイルは最大 6 発、命中爆発は 2 組。[記録](docs/graphics/flight-missiles-2026-09-10.md) |
 | 地上と上空で必要な描画予算が異なる | 視距離、影、SSAO を調整。細部の中心は実際の観察対象に追従 | 切り替え時もシェーダーの再生成と描画漏れを確認する。[コード](src/city-world.ts) |
-| 開発環境の CPU 負荷 | Vite のポーリングと HMR を無効化し、大きなアセット・出力を監視から除外 | 編集後は手動で再読み込み。[設定](vite.config.ts) |
+| 開発環境の CPU 負荷 | Vite のポーリングと HMR を無効化し、大きなアセット・出力、GLB/HDR バイナリ、エディターの一時ディレクトリを監視から除外 | 編集後は手動で再読み込み。`public/` に GLB を置いても開発サーバーは落ちません。[設定](vite.config.ts) |
 
 調査は、**再現 → 同じ場面でフレーム時間・コンパイル・リソース変化を観察 → 仮説を一つずつ検証 → 遊びと見た目を再確認**、の順が役立ちます。平均 FPS だけではすべての停止を説明できません。CPU の描画送信と GPU の処理時間には重なりがあり、単純に合計してもフレーム時間にはなりません。診断の入口は `window.__SHENCHENGJI_CITY__.world.diagnostics()`、検証スクリプトは `scripts/` にあります。
 
@@ -131,6 +150,8 @@ npm run preview -- --port 4173
 通常のビルドで `public/` を `dist/` へコピーし、`public/characters/` のキャラクターも含めます。`prebuild` がサイズ、ハッシュ、GLB 形式、歩行パラメーターを確認します。`build:characters` は同じビルドの別名です。CI でも Git LFS の取得が必要です。元の PMX、ローカルの Blender プロジェクト、大規模言語モデルの API キーは不要です。
 
 ## 操作一覧
+
+![濱海大道の夜間ドライブ、前方に福田のスカイライン](docs/media/readme/binhai-night-drive.gif)
 
 | モード・入力 | 操作 |
 | --- | --- |
@@ -162,7 +183,7 @@ node scripts/check-character-surfaces.mjs
 node scripts/check-character-deployment.mjs
 ```
 
-直近の機能検証記録（2026-09-10）：自動テスト 218 件、キャラクターのブラウザー検証 18 件、地面・カメラ検証 4 件、通常の本番ビルドでのキャラクター配布検証 5 件が通過しています。これは完了した検証の記録であり、README 更新に合わせて性能を再測定したものではありません。ブラウザースクリプトには現在 macOS Chrome のパスが含まれるため、他の環境では調整してください。`output/` と `artifacts/` の出力は Git 管理対象外です。
+直近の機能検証記録（2026-09-17）：自動テスト 257 件が通過し、現在のアセットで `npm run build` が成功しています。それ以前の記録（2026-09-10）：キャラクターのブラウザー検証 18 件、地面・カメラ検証 4 件、通常の本番ビルドでのキャラクター配布検証 5 件が通過しています。これは完了した検証の記録であり、README 更新に合わせて性能を再測定したものではありません。ブラウザースクリプトには現在 macOS Chrome のパスが含まれるため、他の環境では調整してください。`output/` と `artifacts/` の出力は Git 管理対象外です。
 
 全アセットの再構築は `npm run build` とは別です。先に[アセット手順](docs/资产重建与交付保护.md)を読み、`npm run assets -- --plan` で工程と不足入力を確認してください。元データからの全工程は、まだ通しで検証できていません。[city_mesh.py](scripts/city_mesh.py) はインポート時に Blender のシーンを初期化するため、通常の Python データ確認で安易にインポートしないでください。
 

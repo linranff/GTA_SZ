@@ -19,6 +19,11 @@ const positions=m=>m.listPrimitives().flatMap(p=>Array.from(p.getAttribute('POSI
 const bounds=a=>({min:[0,1,2].map(k=>{let v=Infinity;for(let i=k;i<a.length;i+=3)v=Math.min(v,a[i]);return v;}),max:[0,1,2].map(k=>{let v=-Infinity;for(let i=k;i<a.length;i+=3)v=Math.max(v,a[i]);return v;})});
 const length=a=>Math.hypot(...a);const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 checks.hashMatchesManifest=assert(sha256===meta.delivery.sha256,'Current car.glb hash differs from vehicle-manifest delivery.');
+// Part of the vehicle delivery contract: the runtime reads two [x,y,z] game-frame anchors (GTA_SZ#2).
+const anchors=meta.recommendedHeadlightAnchorsGame;
+checks.headlightAnchors=assert(Array.isArray(anchors)&&anchors.length>=2&&anchors.slice(0,2).every(a=>Array.isArray(a)&&a.length===3&&a.every(Number.isFinite)),'vehicle-manifest.json must provide recommendedHeadlightAnchorsGame: at least two finite [x,y,z] game-frame anchors.');
+checks.wheelRadius=assert(Number.isFinite(meta.wheelRadius)&&meta.wheelRadius>0,'vehicle-manifest.json wheelRadius must be a positive number.');
+checks.wheelCentres=assert(['lf','rf','lr','rr'].every(k=>Array.isArray(meta.wheelCentresGltf?.[k])&&meta.wheelCentresGltf[k].length===3),'vehicle-manifest.json wheelCentresGltf must list lf/rf/lr/rr as [x,y,z].');
 checks.identityNodeTransforms=assert(root.listNodes().every(n=>length(n.getTranslation())<1e-7&&length(sub(n.getScale(),[1,1,1]))<1e-7&&length(sub(n.getRotation(),[0,0,0,1]))<1e-7),'Non-identity mesh node transforms would invalidate local-space pivot assumptions.');
 checks.finitePositions=assert(meshes.every(m=>positions(m).every(Number.isFinite)),'Non-finite geometry position.');
 const tyreMeshes=meshes.filter(m=>m.listPrimitives().some(p=>p.getMaterial()?.getName()==='wheel_rubber'));

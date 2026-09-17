@@ -4,19 +4,36 @@
 
 [English](README.md) · **简体中文** · [日本語](README.ja.md)
 
-**本分支主客户端是 Unreal Engine 5**（`ue5/Shenchengji`，`scripts/ue5/open-editor.sh`）。浏览器 Babylon 页仍可对照，但不再是主游戏。
+**[浏览器直接试玩 · 建议桌面端](https://gtasz.vercel.app/)** · [项目源码](https://github.com/linranff/GTA_SZ) · [地标工作流](docs/landmarks/agent-workflow.md) · [角色制作记录](docs/characters/local-mmd.md)
 
-**[线上 Babylon 基线](https://gtasz.vercel.app/)**
+![黄昏的春笋（中国华润大厦）：引擎内实拍的 6 秒环绕镜头](docs/media/readme/spring-bamboo-sunset.gif)
 
-[项目源码](https://github.com/linranff/GTA_SZ) · [制作与验证记录](docs/characters/local-mmd.md)
+*环绕春笋与人才公园的黄昏镜头，2026-09-17 在当前资产上引擎内实拍。[1080p 短片](docs/media/readme/spring-bamboo-sunset.mp4)*
 
 在深圳湾开车，走进街区，做一份小工作，或飞到天际线上方。《深城纪》用开放地图数据、Blender 资产和 Babylon.js，把深圳湾、南山、福田和罗湖的部分区域压缩成可探索的城市。已有汽车、坦克、步行、无人机与飞机模式，以及白天、黄昏、夜晚三种光照。
 
+可玩的游戏是 Babylon.js 浏览器版。[`ue5/`](ue5/README.md) 下的 Unreal Engine 5 移植是一项实验，不是主客户端。
+
 这份 README 同时是一份入门导览：介绍用了哪些 AI 模型，地图如何变成游戏资产，以及车辆消失、反射延迟和卡顿是怎样逐步排查的。游戏 UI 目前主要为简体中文；三个语言版本覆盖文档，不代表游戏已完成多语言适配。
 
-![深圳湾夜间驾驶：v0.2 历史实机截图](docs/images/v0.2-night-driving.png)
+## 走进城市
 
-*上图保留自 v0.2 实机，方便了解场景方向；最新实现请以试玩与对应代码为准。*
+以下均为项目自带导演管线（`trailer.html?reel=readme`）在当前资产上实拍的 6 秒环绕镜头，未经后期。点击静帧可打开 720p 短片。
+
+<table>
+  <tr>
+    <td width="33%"><a href="docs/media/readme/futian-axis-day.mp4"><img src="docs/media/readme/futian-axis-day.jpg" alt="福田中轴白天：平安金融中心、市民中心与莲花山"></a><br><sub><b>福田中轴 · 白天</b> — 平安金融中心、市民中心、莲花山</sub></td>
+    <td width="33%"><a href="docs/media/readme/luohu-night.mp4"><img src="docs/media/readme/luohu-night.jpg" alt="罗湖夜景：京基100、地王大厦与国贸大厦"></a><br><sub><b>罗湖 · 夜</b> — 京基100、地王大厦、国贸大厦</sub></td>
+    <td width="33%"><a href="docs/media/readme/tencent-binhai-day.mp4"><img src="docs/media/readme/tencent-binhai-day.jpg" alt="南山白天：腾讯滨海大厦与深圳湾"></a><br><sub><b>南山 · 白天</b> — 腾讯滨海大厦、后海、海湾</sub></td>
+  </tr>
+  <tr>
+    <td width="33%"><a href="docs/media/readme/lianhua-hill-sunset.mp4"><img src="docs/media/readme/lianhua-hill-sunset.jpg" alt="黄昏的莲花山与福田天际线"></a><br><sub><b>莲花山 · 黄昏</b> — CBD 脚下的 Copernicus 30 m 地形</sub></td>
+    <td width="33%"><a href="docs/media/readme/binhai-night-drive.mp4"><img src="docs/media/readme/binhai-night-drive.jpg" alt="滨海大道夜间驾驶"></a><br><sub><b>滨海大道 · 夜间驾驭</b> — 在真实路网上排演的跟车镜头</sub></td>
+    <td width="33%"><img src="docs/media/readme/street-walk-sunset.jpg" alt="黄昏下车后的第三人称步行"><br><sub><b>街道 · 黄昏</b> — 步行模式，实机截图</sub></td>
+  </tr>
+</table>
+
+以上画面来自当前资产：[scripts/landmarks](scripts/landmarks) 下的 Blender 模块产出 37 个地标候选，合并进 [`landmark-candidates.glb`](public/city/landmark-candidates.json)，包括京基100、地王、国贸、赛格、深交所等；另有 7 个（春笋、腾讯、市民中心、莲花山、万象天地、财富广场、七街公馆）保留此前更精细的版本，6 个超出游戏范围。每个地标脚下的 OSM 基础楼块已从 `buildings.glb` 与立面瓦片中裁掉，不再重叠。重新生成：`node scripts/record-trailer.mjs --reel=readme`，再运行 `scripts/encode-readme-media.sh`。
 
 ## 使用的 AI 模型与分工
 
@@ -106,7 +123,7 @@ flowchart LR
 | 远海出现圆弧断层 | 修正天空材质被海面反射裁剪面误裁的问题 | 这是正确性修复，没有加一层昂贵的新反射。[记录](docs/graphics/sea-reflection-continuity-2026-09-07.md) |
 | 导弹/爆炸反复创建资源 | 预建并复用导弹和爆炸池，限制在途数量与生命周期 | 当前最多 6 枚飞机导弹、2 组导弹命中爆炸。[记录](docs/graphics/flight-missiles-2026-09-10.md) |
 | 高空和街道需要不同预算 | 视距、阴影与 SSAO 按视角调整，细节关注点跟随实际观察对象 | 模式切换本身也需检查变体重编译和漏绘。[源码](src/city-world.ts) |
-| 开发环境额外吃 CPU | 关闭 Vite 文件轮询与热更新，忽略大型资产/输出目录 | 编辑后需要手动刷新。[配置](vite.config.ts) |
+| 开发环境额外吃 CPU | 关闭 Vite 文件轮询与热更新，忽略大型资产/输出目录、GLB/HDR 二进制与编辑器临时目录 | 编辑后需要手动刷新；向 `public/` 放入 GLB 不再导致开发服务退出。[配置](vite.config.ts) |
 
 排查顺序建议：**先复现 → 同一场景观察帧时、编译次数与资源变化 → 每次验证一个假设 → 复查玩法与视觉**。平均 FPS 不能解释所有卡顿；CPU 提交时间与 GPU 时间有重叠，也不能直接相加。游戏诊断入口是 `window.__SHENCHENGJI_CITY__.world.diagnostics()`，详细检查脚本在 `scripts/`。
 
@@ -133,6 +150,8 @@ npm run preview -- --port 4173
 普通构建会把 `public/` 资产复制到 `dist/`，包括 `public/characters/` 中的运行时角色。`prebuild` 校验角色文件大小、哈希、GLB 格式和步态参数；`build:characters` 保留为同一构建的别名。CI 同样需要拉取 Git LFS。不需要本机原始 PMX、Blender 工程或大模型 API Key。
 
 ## 操作速查
+
+![滨海大道夜间驾驶，前方是福田天际线](docs/media/readme/binhai-night-drive.gif)
 
 | 状态 / 按键 | 操作 |
 | --- | --- |
@@ -164,7 +183,7 @@ node scripts/check-character-surfaces.mjs
 node scripts/check-character-deployment.mjs
 ```
 
-最近一次功能验证（2026-09-10）：218 项自动测试通过；角色接入包含 18 项浏览器检查与 4 项表面/镜头检查；普通生产构建另有 5 项角色部署检查。这里记录的是已完成检查，README 更新本身不代表重新测过性能。浏览器脚本目前含 macOS Chrome 路径，其他系统需调整；输出在被忽略的 `output/`、`artifacts/` 中。
+最近一次功能验证（2026-09-17）：257 项自动测试通过，`npm run build` 在当前资产上成功。更早记录（2026-09-10）：角色接入包含 18 项浏览器检查与 4 项表面/镜头检查；普通生产构建另有 5 项角色部署检查。这里记录的是已完成检查，README 更新本身不代表重新测过性能。浏览器脚本目前含 macOS Chrome 路径，其他系统需调整；输出在被忽略的 `output/`、`artifacts/` 中。
 
 全资产重建不同于 `npm run build`。先阅读[资产重建流程](docs/资产重建与交付保护.md)，`npm run assets -- --plan` 可查看计划与缺失输入；完整源数据重建尚未完成全流程验证。[city_mesh.py](scripts/city_mesh.py) 导入时会初始化 Blender 场景，不要在普通 Python 数据检查里随手导入。
 

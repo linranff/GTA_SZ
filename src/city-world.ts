@@ -1,5 +1,6 @@
 import {CITY_GRAPHICS_PROFILES,cityGraphicsRenderRatio,isCityGraphicsQuality,loadCityGraphicsQuality,saveCityGraphicsQuality,type CityGraphicsQuality} from './city-graphics-quality.ts';
 import {createVehicleReflections} from './city-vehicle-reflections.ts';
+import {headlightAnchors,type VehicleManifest} from './city-vehicle-manifest.ts';
 import {Engine,Scene,Vector3,Color3,Color4,FreeCamera,HemisphericLight,DirectionalLight,ShadowGenerator,TransformNode,MeshBuilder,Mesh,StandardMaterial,PBRMaterial,RawCubeTexture,RawTexture,Texture,Effect,ShaderMaterial,Quaternion,PointLight,ImportMeshAsync,DefaultRenderingPipeline,MirrorTexture,Plane,FresnelParameters,SpotLight,MeshoptCompression,SSAO2RenderingPipeline,Constants,SceneInstrumentation,EngineInstrumentation,RenderingGroup,Frustum,Matrix,type SubMesh,type AbstractMesh} from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 import './city-gltf-streaming.ts';
@@ -57,7 +58,9 @@ import {CityCollision,stepCar,manualSteeringInput,clamp,type CarState} from './d
  * at `aoRatio` and multiplied into the full-size scene colour. Aerial views
  * detach the pass: the facade shader's own sky-visibility ramp grounds the
  * towers there. `listMargin` covers the 100 m of travel between culls. */
-export const STREET_AO={radius:2.5,maxZ:130,strength:.65,base:.1,bufferRatio:.5,aoRatio:.5,listMargin:100} as const;
+// aoRatio is the half-size AO estimate; blurRatio also sizes ssaoCombine's output, so it must
+// stay 1 or every later pass samples a half-resolution frame (GTA_SZ#3).
+export const STREET_AO={radius:2.5,maxZ:130,strength:.65,base:.1,bufferRatio:.5,aoRatio:.5,blurRatio:1,listMargin:100} as const;
 /** Hull-front lamp anchors for the 3.48 m wide, 8.3 m long tank (game metres, +Z forward). */
 export const TANK_HEADLIGHT_ANCHORS:[number,number,number][]=[[-1.15,1.35,3.4],[1.15,1.35,3.4]];
 export class DrivingWorld{
@@ -136,7 +139,7 @@ export class DrivingWorld{
   // The scene target must be half-float so HDR survives into bloom and ACES;
   // the default 8-bit pass clipped every highlight when this pipeline owned
   // the scene. MSAA on that target is applied by `syncPostChain`.
-  if(SSAO2RenderingPipeline.IsSupported){const gbuffer=this.scene.enableGeometryBufferRenderer(STREET_AO.bufferRatio);if(gbuffer){gbuffer.renderList=[];const ao=this.ao=new SSAO2RenderingPipeline('contact-shading',this.scene,{ssaoRatio:STREET_AO.aoRatio,blurRatio:STREET_AO.aoRatio},[this.camera],gbuffer,this.engine.getCaps().textureHalfFloatRender?Constants.TEXTURETYPE_HALF_FLOAT:Constants.TEXTURETYPE_UNSIGNED_INT);ao.radius=STREET_AO.radius;ao.totalStrength=STREET_AO.strength;ao.base=STREET_AO.base;ao.samples=8;ao.expensiveBlur=false;ao.maxZ=STREET_AO.maxZ;}}
+  if(SSAO2RenderingPipeline.IsSupported){const gbuffer=this.scene.enableGeometryBufferRenderer(STREET_AO.bufferRatio);if(gbuffer){gbuffer.renderList=[];const ao=this.ao=new SSAO2RenderingPipeline('contact-shading',this.scene,{ssaoRatio:STREET_AO.aoRatio,blurRatio:STREET_AO.blurRatio},[this.camera],gbuffer,this.engine.getCaps().textureHalfFloatRender?Constants.TEXTURETYPE_HALF_FLOAT:Constants.TEXTURETYPE_UNSIGNED_INT);ao.radius=STREET_AO.radius;ao.totalStrength=STREET_AO.strength;ao.base=STREET_AO.base;ao.samples=8;ao.expensiveBlur=false;ao.maxZ=STREET_AO.maxZ;}}
   this.sky();this.environment();this.architecture=createArchitectureMaterials(this.scene);this.facadeDiversity=createFacadeDiversity(this.scene);
   this.car=new TransformNode('player-electric-GT',this.scene);
   this.mirror=new MirrorTexture('wet-road-reflection',512,this.scene,true);this.mirror.mirrorPlane=new Plane(0,-1,0,.105);this.mirror.refreshRate=2;this.mirror.blurKernel=7;this.mirror.level=.65;
@@ -240,7 +243,7 @@ export class DrivingWorld{
   this.groundHeight=(x,z)=>this.bambooCafe!.layout.floorAt(x,z,cafeGround(x,z));
   this.data.landmarks.push(this.bambooCafe.layout.landmark);
   progress('正在点亮城市招牌');this.buildingSigns=await attachCityBuildingSigns(this.scene,buildings.meshes,this.data);
-  progress('正在启动你的车');const ambient=await this.load('traffic-car');this.trafficSources=ambient.meshes.filter(m=>m.getTotalVertices()>0);ambient.meshes[0].setEnabled(false);const metadata=await fetch('/city/vehicle-manifest.json').then(r=>r.json()) as {wheelRadius:number;wheelCentresGltf:Record<string,[number,number,number]>;recommendedHeadlightAnchorsGame:[number,number,number][]};this.wheelRadius=metadata.wheelRadius;this.carHeadlightAnchors=metadata.recommendedHeadlightAnchorsGame.slice(0,2) as [number,number,number][];this.headlights.forEach((l,i)=>l.position.copyFromFloats(...this.carHeadlightAnchors[i]));const car=await this.load('car');car.meshes[0].parent=this.car;this.carMeshes=car.meshes.filter(m=>m.getTotalVertices()>0);for(const m of car.meshes){m.unfreezeWorldMatrix();const q=m.name.match(/(?:wheel|brake)_([lr][fr])_/);if(q&&m instanceof Mesh){m.setPivotPoint(Vector3.FromArray(metadata.wheelCentresGltf[q[1]]));m.rotationQuaternion=null;}}
+  progress('正在启动你的车');const ambient=await this.load('traffic-car');this.trafficSources=ambient.meshes.filter(m=>m.getTotalVertices()>0);ambient.meshes[0].setEnabled(false);const metadata=await fetch('/city/vehicle-manifest.json').then(r=>r.json()) as VehicleManifest;this.wheelRadius=metadata.wheelRadius;this.carHeadlightAnchors=headlightAnchors(metadata.recommendedHeadlightAnchorsGame);this.headlights.forEach((l,i)=>l.position.copyFromFloats(...this.carHeadlightAnchors[i]));const car=await this.load('car');car.meshes[0].parent=this.car;this.carMeshes=car.meshes.filter(m=>m.getTotalVertices()>0);for(const m of car.meshes){m.unfreezeWorldMatrix();const q=m.name.match(/(?:wheel|brake)_([lr][fr])_/);if(q&&m instanceof Mesh){m.setPivotPoint(Vector3.FromArray(metadata.wheelCentresGltf[q[1]]));m.rotationQuaternion=null;}}
   this.vehicleFinish=applyCinematicVehicleFinish(this.scene,this.car,this.carMeshes);this.carMeshes.push(...this.vehicleFinish.meshes);this.cockpit=createCityCockpit(this.scene,this.car,this.carMeshes);this.carMeshes.push(...this.cockpit.meshes);
   progress('正在种植榕树、棕榈与花境');this.landscape=new CityLandscape(this.scene,this.groundHeight,(x,z,r)=>!!this.bambooCafe?.layout.reserved(x,z,r));await this.landscape.init();this.landscape.configureRoadside(this.data,{collisionFootprints:this.detailManifest?.collisionFootprints,bridgeCrossings:this.coastal?.manifest.crossings,blocked:(x,z)=>this.collision.blocked(x,z)||this.propBlocked(x,z)});progress('正在布置城市座椅');this.streetFurniture=new CityStreetFurniture(this.scene,this.groundHeight);await this.streetFurniture.init();
   progress('正在铺设春笋街面');this.bambooCorridor=createBambooCorridor(this.scene,this.data,(x,z)=>{
