@@ -46,7 +46,9 @@ try{
   if(kind==='copy'){const dest=path.join(stage,rest[0]);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(path.join(stage,file),dest);}
   else if(kind==='refresh-exclusions'){
    const manifest=JSON.parse(fs.readFileSync(path.join(stage,'public/city/landmark-detail.json'),'utf8'));
-   fs.writeFileSync(path.join(stage,'public/city/building-exclusions.json'),JSON.stringify({excludedIds:manifest.baseBuildingIds,assets:{},status:'staged-before-finalize'},null,2));
+   const candidatePath=path.join(stage,'public/city/landmark-candidates.json');
+   const candidateIds=fs.existsSync(candidatePath)?JSON.parse(fs.readFileSync(candidatePath,'utf8')).baseBuildingIds??[]:[];
+   fs.writeFileSync(path.join(stage,'public/city/building-exclusions.json'),JSON.stringify({excludedIds:[...new Set([...manifest.baseBuildingIds,...candidateIds])].sort(),assets:{},status:'staged-before-finalize'},null,2));
   }else{
    const command=kind==='python'?python:kind==='blender'?blender:node;
    const commandArgs=kind==='blender'?['--background','--factory-startup','--python','scripts/'+file]:['scripts/'+file,...rest];

@@ -1,9 +1,15 @@
 {
   "excludedIds": [
+    "way/172763030",
+    "way/215917083",
+    "way/271080469",
     "way/364716846",
+    "way/487811130",
+    "way/488271997",
     "way/533679838",
     "way/533679840",
     "way/533679841",
+    "way/64896107",
     "way/668050779",
     "way/668050780",
     "way/694152192",
@@ -11,12 +17,12 @@
   ],
   "assets": {
     "buildings.glb": {
-      "bytes": 49728080,
-      "sha256": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb"
+      "bytes": 49787448,
+      "sha256": "c7ea7037191ab8c9f72953f320716031159b5bb67eb9df3f698939af9bd09e51"
     },
     "facades.glb": {
-      "bytes": 29815904,
-      "sha256": "346b49ffeaf96319d0635ca3e59e790bcb92857129b54e9f5c47a75a47b67f2f"
+      "bytes": 29772996,
+      "sha256": "a574cc745c664444ae82de5933a3bae6ccff441999e5d891dba346a8e57a1aa7"
     }
   }
 }

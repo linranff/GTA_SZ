@@ -1,45 +1,97 @@
-"""Hi-Tech Park street blocks. Not Tencent and not MixC World towers."""
+"""Hi-Tech Park, first street segment: 科技南路 × 深南大道 at 高新园站.
+
+The district is rebuilt segment by segment from the OSM footprints already in
+public/city/city.json (spec.segments[].buildings). No estimated massing blocks and
+no asphalt slab over the real roads: the base blocks under these footprints are cut
+by exclude_base_buildings.mjs (spec.baseBuildingIds) and this module puts a proper
+tower with floor courses, lobby and parapet back on each footprint.
+"""
 from __future__ import annotations
+
+import math
+
+
+def _centroid(ring):
+    pts = ring[:-1] if ring[0] == ring[-1] else ring
+    return sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+
+
+def _longest_edge(ring):
+    pts = ring[:-1] if ring[0] == ring[-1] else ring
+    best = None
+    for i, (x, y) in enumerate(pts):
+        xx, yy = pts[(i + 1) % len(pts)]
+        length = math.hypot(xx - x, yy - y)
+        if best is None or length > best[0]:
+            best = (length, (x, y), (xx, yy))
+    return best
+
+
+def _tower(b, building, scale):
+    ring = [(float(x) * scale, float(y) * scale) for x, y in building["footprint_m"]]
+    if ring[0] != ring[-1]:
+        ring.append(ring[0])
+    h = float(building["height_m"]) * scale
+    mat = building["material"]
+    lobby = min(6.0 * scale, h * 0.14)
+    # Shaft, recessed dark lobby, roof parapet and plant room.
+    b.footprint(mat, ring, lobby, h)
+    b.footprint("darkglass", ring, 0.0, lobby, scale=0.96)
+    b.footprint("silver", ring, lobby - 0.5 * scale, lobby + 0.3 * scale, scale=1.02)
+    b.footprint("concrete", ring, h, h + 1.4 * scale, scale=0.98)
+    b.footprint("concrete", ring, h + 1.4 * scale, h + 4.2 * scale, scale=0.42)
+    # Floor courses every ~3.9 m real; glass towers read them as thin silver lines.
+    floor = 3.9 * scale
+    z = lobby + floor
+    band_mat = "silver" if mat in ("landmarkglass", "darkglass") else "steel"
+    while z < h - floor * 0.5:
+        b.footprint(band_mat, ring, z, z + 0.22 * scale, scale=1.012)
+        z += floor
+    # Entrance canopy on the longest street-facing edge, with the building's name plate.
+    length, (x0, y0), (x1, y1) = _longest_edge(ring)
+    cx, cy = _centroid(ring)
+    mx, my = (x0 + x1) / 2, (y0 + y1) / 2
+    nx, ny = my - cy, cx - mx
+    n = math.hypot(nx, ny) or 1.0
+    nx, ny = nx / n, ny / n
+    if (mx - cx) * nx + (my - cy) * ny < 0:
+        nx, ny = -nx, -ny
+    ex, ey = (x1 - x0) / length, (y1 - y0) / length
+    angle = math.atan2(ey, ex)
+    previous = b.frame
+    bx, by, a = previous
+    ox, oy = b.pt((mx + nx * 2.2 * scale, my + ny * 2.2 * scale, 0))[:2]
+    b.frame = (ox, oy, a + angle)
+    canopy_w = min(length * 0.45, 18 * scale)
+    b.box("steel", (0, 0, 4.4 * scale), (canopy_w, 4.4 * scale, 0.3 * scale))
+    for sx in (-canopy_w * 0.42, canopy_w * 0.42):
+        b.tube("steel", (sx, 1.6 * scale, 0), (sx, 1.6 * scale, 4.3 * scale), 0.14 * scale, 8)
+    b.box("gold", (0, -0.6 * scale, lobby + 1.6 * scale), (min(length * 0.5, 16 * scale), 0.5 * scale, 1.5 * scale))
+    b.box("led", (0, -0.9 * scale, lobby + 1.6 * scale), (min(length * 0.34, 9 * scale), 0.2 * scale, 0.7 * scale))
+    b.frame = previous
+    return h + 4.2 * scale
 
 
 def build(b, lm, spec, scale=0.6):
     if spec.get("id") != "tech-park":
         raise ValueError("tech-park builder requires that specification")
+    segments = spec.get("segments") or []
+    if not segments:
+        raise ValueError("tech-park spec has no segments; blocks_v1 massing is superseded")
     previous = b.frame
     b.frame = (lm["x"], lm["z"], 0)
-    b.box("asphalt", (0, 0, 0.08 * scale), (220 * scale, 14 * scale, 0.14 * scale))
-    b.box("asphalt", (20 * scale, 0, 0.08 * scale), (12 * scale, 90 * scale, 0.14 * scale))
-    b.box("silver", (0, 0, 10.2 * scale), (24 * scale, 170 * scale, 1.2 * scale))
-    b.box("steel", (0, 0, 7 * scale), (1.6 * scale, 160 * scale, 5.6 * scale))
-    for y in (-48 * scale, 0, 48 * scale):
-        b.box("silver", (0, y, 10.4 * scale), (32 * scale, 22 * scale, 1.6 * scale))
-        b.box("gold", (0, y - 16.4 * scale, 7.0 * scale), (18 * scale, 3.6 * scale, 8.6 * scale))
-        b.box("gold", (-7 * scale, y - 16.0 * scale, 9.8 * scale), (5.6 * scale, 2.4 * scale, 2.6 * scale))
-        b.box("gold", (7 * scale, y - 16.0 * scale, 9.8 * scale), (5.6 * scale, 2.4 * scale, 2.6 * scale))
-        b.box("gold", (0, y - 16.4 * scale, 19.2 * scale), (4.2 * scale, 3.6 * scale, 28 * scale))
-        if y < 0:
-            b.box("darkglass", (0, y - 16.4 * scale, 3.2 * scale), (12 * scale, 3.2 * scale, 5.6 * scale))
-            # 科技园 four plates proud of the south gold canopy.
-            for x in (-6.4 * scale, -2.1 * scale, 2.1 * scale, 6.4 * scale):
-                b.box("civicred", (x, y - 18.7 * scale, 5.8 * scale), (3.8 * scale, 1.0 * scale, 2.6 * scale))
-                b.box("led", (x, y - 18.9 * scale, 5.8 * scale), (1.6 * scale, 0.32 * scale, 1.1 * scale))
-    max_h = 0
-    for block in spec["blocks"]:
-        h = float(block["height_m"]) * scale
-        max_h = max(max_h, h)
-        cx, cy = float(block["east_m"]) * scale, float(block["north_m"]) * scale
-        w, d = float(block["width_m"]) * scale, float(block["depth_m"]) * scale
-        b.box(block["material"], (cx, cy, h * 0.5), (w, d, h))
-        if h > 18 * scale:
-            b.box(block["material"], (cx, cy, h + h * 0.08), (w * 0.7, d * 0.7, h * 0.16))
-        b.box("darkglass", (cx, cy, h * 0.5), (max(w * 0.1, 2.4 * scale), d * 1.02, h * 0.9))
-        for i in range(4):
-            z = h * (0.28 + i * 0.16)
-            b.box("steel", (cx, cy, z), (w * 1.04, d * 1.04, 0.45 * scale))
-        # Shop neon on each block south face; light-face doors only. Do not thicken the distant gold.
-        if block["material"] in ("stone", "concrete", "silver"):
-            b.box("darkglass", (cx, cy - d * 0.52, 2.2 * scale), (min(w * 0.18, 6 * scale), 2.4 * scale, 3.0 * scale))
-        b.box("civicred", (cx, cy - d * 0.52, min(5.2 * scale, h * 0.28)), (min(w * 0.36, 9 * scale), 0.7 * scale, 1.8 * scale))
-        b.box("led", (cx, cy - d * 0.54, min(5.2 * scale, h * 0.28)), (min(w * 0.14, 3.4 * scale), 0.28 * scale, 0.75 * scale))
+    max_h = 0.0
+    built = []
+    for segment in segments:
+        for building in segment["buildings"]:
+            max_h = max(max_h, _tower(b, building, scale))
+            built.append(building["osm_id"])
     b.frame = previous
-    return {"id": "tech-park", "scale": scale, "max_height": max_h, "source_spec": "data/landmarks/tech-park.json"}
+    return {
+        "id": "tech-park",
+        "scale": scale,
+        "max_height": max_h,
+        "source_spec": "data/landmarks/tech-park.json",
+        "segments": [s["id"] for s in segments],
+        "osm_footprints": built,
+    }

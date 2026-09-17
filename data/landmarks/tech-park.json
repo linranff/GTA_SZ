@@ -1,25 +1,312 @@
 {
-  "schema_version": 1,
-  "id": "tech-park",
-  "name": "科技园",
-  "kind": "district",
-  "status": "street_block_marker_v1",
-  "units": "real_world_metres",
-  "scene_scale": 0.6,
-  "not": "腾讯滨海或万象天地塔楼的替身",
-  "anchor": {
-    "lon": 113.9475,
-    "lat": 22.5425,
-    "source": "data/landmarks/priority-places.json",
-    "basis": "estimated",
-    "role": "高新区南区研究框中心，须再拆街段"
-  },
-  "blocks": [
-    {"east_m": -80, "north_m": 18, "width_m": 70, "depth_m": 28, "height_m": 36, "material": "landmarkglass"},
-    {"east_m": 10, "north_m": 22, "width_m": 56, "depth_m": 26, "height_m": 28, "material": "silver"},
-    {"east_m": 86, "north_m": 16, "width_m": 48, "depth_m": 24, "height_m": 32, "material": "darkglass"},
-    {"east_m": -40, "north_m": -36, "width_m": 64, "depth_m": 22, "height_m": 18, "material": "stone"},
-    {"east_m": 50, "north_m": -32, "width_m": 58, "depth_m": 20, "height_m": 16, "material": "concrete"}
+ "schema_version": 1,
+ "id": "tech-park",
+ "name": "科技园",
+ "kind": "district",
+ "status": "osm_street_segment_v1",
+ "units": "real_world_metres",
+ "scene_scale": 0.6,
+ "not": "腾讯滨海或万象天地塔楼的替身",
+ "anchor": {
+  "lon": 113.9475,
+  "lat": 22.5425,
+  "source": "data/landmarks/priority-places.json",
+  "basis": "estimated",
+  "role": "高新园站/TCL大厦前，科技南路×深南大道；第一段街段的原点"
+ },
+ "segments": [
+  {
+   "id": "kejinan-shennan",
+   "name": "科技南路 × 深南大道（高新园站）",
+   "roads": [
+    "科技南路",
+    "深南大道",
+    "高新南一道"
+   ],
+   "metro": "高新园站",
+   "buildings": [
+    {
+     "osm_id": "way/172763030",
+     "name": "TCL大厦",
+     "height_m": 69.3,
+     "height_basis": "city.json OSM height/levels, game 0.6 → real",
+     "material": "landmarkglass",
+     "footprint_m": [
+      [
+       -23.1,
+       -6.0
+      ],
+      [
+       -9.1,
+       -5.4
+      ],
+      [
+       -9.2,
+       -3.0
+      ],
+      [
+       110.3,
+       1.7
+      ],
+      [
+       112.3,
+       -49.6
+      ],
+      [
+       -7.2,
+       -54.2
+      ],
+      [
+       -7.3,
+       -51.4
+      ],
+      [
+       -21.3,
+       -51.9
+      ],
+      [
+       -21.2,
+       -54.8
+      ],
+      [
+       -50.4,
+       -55.9
+      ],
+      [
+       -52.4,
+       -4.7
+      ],
+      [
+       -23.2,
+       -3.5
+      ],
+      [
+       -23.1,
+       -6.0
+      ]
+     ],
+     "footprint_basis": "city.json OSM footprint relative to anchor, east/north real metres"
+    },
+    {
+     "osm_id": "way/215917083",
+     "name": "创维大厦",
+     "height_m": 52.8,
+     "height_basis": "city.json OSM height/levels, game 0.6 → real",
+     "material": "silver",
+     "footprint_m": [
+      [
+       -146.3,
+       -25.6
+      ],
+      [
+       -137.8,
+       -25.2
+      ],
+      [
+       -135.0,
+       -22.5
+      ],
+      [
+       -131.8,
+       -21.3
+      ],
+      [
+       -125.0,
+       -22.2
+      ],
+      [
+       -121.9,
+       -24.6
+      ],
+      [
+       -114.9,
+       -24.2
+      ],
+      [
+       -115.4,
+       -12.7
+      ],
+      [
+       -83.7,
+       -11.2
+      ],
+      [
+       -82.0,
+       -50.8
+      ],
+      [
+       -213.7,
+       -56.9
+      ],
+      [
+       -215.4,
+       -17.4
+      ],
+      [
+       -146.8,
+       -14.2
+      ],
+      [
+       -146.3,
+       -25.6
+      ]
+     ],
+     "footprint_basis": "city.json OSM footprint relative to anchor, east/north real metres"
+    },
+    {
+     "osm_id": "way/488271997",
+     "name": "中科大厦",
+     "height_m": 54.0,
+     "height_basis": "city.json OSM height/levels, game 0.6 → real",
+     "material": "darkglass",
+     "footprint_m": [
+      [
+       38.2,
+       -134.1
+      ],
+      [
+       -7.4,
+       -134.5
+      ],
+      [
+       -7.2,
+       -164.0
+      ],
+      [
+       39.8,
+       -163.6
+      ],
+      [
+       39.9,
+       -192.7
+      ],
+      [
+       -17.0,
+       -193.2
+      ],
+      [
+       -17.8,
+       -96.9
+      ],
+      [
+       37.9,
+       -95.1
+      ],
+      [
+       38.2,
+       -134.1
+      ]
+     ],
+     "footprint_basis": "city.json OSM footprint relative to anchor, east/north real metres"
+    },
+    {
+     "osm_id": "way/487811130",
+     "name": "德赛科技大厦",
+     "height_m": 100.0,
+     "height_basis": "city.json OSM height/levels, game 0.6 → real",
+     "material": "landmarkglass",
+     "footprint_m": [
+      [
+       199.9,
+       2.2
+      ],
+      [
+       225.0,
+       3.1
+      ],
+      [
+       248.6,
+       6.0
+      ],
+      [
+       249.0,
+       -35.2
+      ],
+      [
+       237.7,
+       -32.8
+      ],
+      [
+       214.2,
+       -31.4
+      ],
+      [
+       190.0,
+       -34.1
+      ],
+      [
+       180.1,
+       -37.3
+      ],
+      [
+       179.7,
+       3.8
+      ],
+      [
+       199.9,
+       2.2
+      ]
+     ],
+     "footprint_basis": "city.json OSM footprint relative to anchor, east/north real metres"
+    }
+   ],
+   "note": "第一段：只按 city.json 里的 OSM 轮廓和高度重建四栋沿街楼，不再放估计体块，不再铺 220 m 沥青带。"
+  }
+ ],
+ "pending_segments": [
+  "科苑南路（大冲商务中心、华润置地）",
+  "高新南一道—科技南十路（中兴、联想研发中心）",
+  "科技南路南段（泰邦、朗科、超多维）"
+ ],
+ "baseBuildingIds": [
+  "way/172763030",
+  "way/215917083",
+  "way/488271997",
+  "way/487811130"
+ ],
+ "superseded": {
+  "blocks_v1": [
+   {
+    "east_m": -80,
+    "north_m": 18,
+    "width_m": 70,
+    "depth_m": 28,
+    "height_m": 36,
+    "material": "landmarkglass"
+   },
+   {
+    "east_m": 10,
+    "north_m": 22,
+    "width_m": 56,
+    "depth_m": 26,
+    "height_m": 28,
+    "material": "silver"
+   },
+   {
+    "east_m": 86,
+    "north_m": 16,
+    "width_m": 48,
+    "depth_m": 24,
+    "height_m": 32,
+    "material": "darkglass"
+   },
+   {
+    "east_m": -40,
+    "north_m": -36,
+    "width_m": 64,
+    "depth_m": 22,
+    "height_m": 18,
+    "material": "stone"
+   },
+   {
+    "east_m": 50,
+    "north_m": -32,
+    "width_m": 58,
+    "depth_m": 20,
+    "height_m": 16,
+    "material": "concrete"
+   }
   ],
-  "blocks_basis": "estimated Hi-Tech Park south blocks; Tencent and MixC World stay independent"
+  "reason": "估计体块压在 TCL/创维/中科真实轮廓上，2026-09-17 改为按 OSM 轮廓拆街段"
+ }
 }

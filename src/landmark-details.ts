@@ -53,6 +53,7 @@ export async function loadLandmarkDetails(data:CityData):Promise<{
 
 export type LandmarkCandidateManifest={
  schemaVersion:1;asset:string;replacedMeshPrefixes:string[];landmarks:DetailLandmark[];
+ baseBuildingIds?:string[];collisionFootprints?:{id:string;rings:V2[][]}[];
  sources:{id:string;runDir:string;glbSha256:string;triangles:number}[];
 };
 
@@ -71,6 +72,12 @@ export async function loadLandmarkCandidates(data:CityData):Promise<LandmarkCand
   const index=data.landmarks.findIndex(m=>m.id===landmark.id);
   if(index>=0){const base=data.landmarks[index];data.landmarks[index]={...base,height:landmark.height,photoDistance:landmark.photoDistance,photoTargetHeight:landmark.photoTargetHeight,photoElevation:landmark.photoElevation};}
   else data.landmarks.push(landmark);
+ }
+ // Base blocks cut from buildings.glb keep their OSM footprint for driving collision.
+ if(manifest.baseBuildingIds?.length){
+  const replaced=new Set(manifest.baseBuildingIds);
+  data.buildings=data.buildings.filter(b=>!replaced.has((b as typeof b&{id?:string}).id??''));
+  for(const footprint of manifest.collisionFootprints??[])data.buildings.push({...footprint,height:1,style:'landmark-detail'});
  }
  data.meta.counts.landmarks=data.landmarks.length;
  return manifest;

@@ -172,19 +172,25 @@ await io.write(OUT_GLB,target);
 const outBuffer=await fs.readFile(OUT_GLB);
 const meshNames=glbMeshNames(outBuffer);
 const replacedMeshPrefixes=selected.map(s=>s.id).filter(i=>baseIds.has(i)).map(i=>`landmark_${i}_`);
+// OSM base blocks a candidate stands on (spec.baseBuildingIds). Their geometry is cut out
+// of buildings.glb / facades.glb by scripts/exclude_base_buildings.mjs; their footprints
+// stay as driving collision, exactly like landmark-detail's collisionFootprints.
+const baseBuildingIds=[...new Set(selected.flatMap(s=>s.spec?.baseBuildingIds??[]))].sort();
+const cityById=new Map(city.buildings.map(b=>[b.id,b]));
+const collisionFootprints=baseBuildingIds.filter(i=>cityById.has(i)).map(i=>({id:i,rings:cityById.get(i).rings}));
 
 const manifest={
  schemaVersion:1,asset:'/city/landmark-candidates.glb',
  assetStats:{bytes:outBuffer.length,sha256:createHash('sha256').update(outBuffer).digest('hex'),meshes:meshNames.length,
   triangles:sources.reduce((a,b)=>a+b.triangles,0)},
- replacedMeshPrefixes,
+ replacedMeshPrefixes,baseBuildingIds,collisionFootprints,
  landmarks,sources,skipped,
  generator:'scripts/integrate_landmark_candidates.mjs',
  coordinateSystem:{originWGS84:city.meta.originWGS84,horizontalScale:scale,verticalScale:city.meta.verticalScale},
  compression:'EXT_meshopt_compression',
  limitations:[
   '候选几何来自 scripts/landmarks/<id>.py 的体块建模，不是实测立面；spec-anchor 对象的位置是公开来源报告的 WGS84，不是配准质心。',
-  'buildings.glb / facades.glb 未重建：spec-anchor 对象下方的 OSM 基础楼块仍在，可能与候选体块重叠。',
+  'buildings.glb / facades.glb 未整体重建：只有 baseBuildingIds 列出的 OSM 基础楼块被 exclude_base_buildings.mjs 切掉；其余 spec-anchor 对象下方的基础楼块仍在。',
   '本增量不为候选对象新增运行时碰撞，只作为视觉与地图/照片目标。',
   '合并与 meshopt 压缩由本脚本完成；候选预览图不等于游戏内视觉验收。',
  ],

@@ -1,13 +1,13 @@
 {
-  "date": "2026-09-06T10:17:32.085Z",
+  "date": "2026-09-17T02:08:24.068Z",
   "assets": {
     "buildings.glb": {
-      "bytes": 49728080,
-      "sha256": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb"
+      "bytes": 49787448,
+      "sha256": "c7ea7037191ab8c9f72953f320716031159b5bb67eb9df3f698939af9bd09e51"
     },
     "car.glb": {
-      "bytes": 2143520,
-      "sha256": "3afa89657aa2af08cebe471b86c3ffb36f0e397d8d842ff5ba48142679a36826"
+      "bytes": 2521572,
+      "sha256": "28ef0e15175620c7a308c0eab11cad10ad44f6efdbeafaaa9d944c68fc0a692e"
     },
     "coastal-bridges.glb": {
       "bytes": 272616,
@@ -18,8 +18,16 @@
       "sha256": "d8c6f1b0a13b4b7c31761d74d550ba87ff93ef64d7011275c3c4ca5129dfea3c"
     },
     "facades.glb": {
-      "bytes": 29815904,
-      "sha256": "346b49ffeaf96319d0635ca3e59e790bcb92857129b54e9f5c47a75a47b67f2f"
+      "bytes": 29772996,
+      "sha256": "a574cc745c664444ae82de5933a3bae6ccff441999e5d891dba346a8e57a1aa7"
+    },
+    "floatplane.glb": {
+      "bytes": 177916,
+      "sha256": "4e54ddba24260c0be42b409f3a2812c15d3cd8486d838397afefd9d048a5e70f"
+    },
+    "landmark-candidates.glb": {
+      "bytes": 1266912,
+      "sha256": "3d762633f3426bd7efce140baeb702f6159b8a1cbdfec6215c27b28b8c3a0fff"
     },
     "landmark-detail.glb": {
       "bytes": 2163100,
@@ -66,23 +74,59 @@
       "sha256": "676d3ae4c461c8f5d07736ed3b737f0b355f51055f76e756013dfdba7514ba8f"
     }
   },
-  "totalGlbBytes": 106818084,
+  "totalGlbBytes": 108657424,
   "files": {
     "LANDMARK_ATTRIBUTION.md": {
       "bytes": 1779,
       "sha256": "905165edd0860dabe6a9df4d1ab0f59b18b9077d20f0a510ddd4667941ff56b5"
+    },
+    "bamboo-cafe/characters/jk.glb": {
+      "bytes": 3359564,
+      "sha256": "e46b7f13f91529b153dd90eeffb84ae49fd35bdd81b66a3bc1c7f3564d77a959"
+    },
+    "bamboo-cafe/characters/maid.glb": {
+      "bytes": 3597240,
+      "sha256": "92bf7483ee3f61e6b6ae0fef79b0aadff33547dd871d0f0faad8d8b3c9a5fead"
+    },
+    "bamboo-cafe/characters/manifest.json": {
+      "bytes": 4571,
+      "sha256": "3458e30e05e964cc8f889738d3db59b6c0f7b7cd1bb2e1464eaab483f1093cdc"
+    },
+    "bamboo-cafe/exterior.glb": {
+      "bytes": 638908,
+      "sha256": "66264a1f129e6f966c2a76b8ca33538b5568b4d8882d5640d9e61b8bb8096e47"
+    },
+    "bamboo-cafe/interior.glb": {
+      "bytes": 3115156,
+      "sha256": "c580da9ed2ed82cc7d830e3e1b32861f7256f55dc65c8fb0bec899f3b54910ac"
+    },
+    "bamboo-cafe/lettering.png": {
+      "bytes": 125473,
+      "sha256": "8a12191003c4fe5d6e98ddee948c418a570e2d301c8ab7e78472a3de80481821"
+    },
+    "bamboo-cafe/manifest.json": {
+      "bytes": 6993,
+      "sha256": "d47688ebb52f199f39c3ca92e10d7887b1f7971bbf4ce9f593f98a7f8e1d5652"
+    },
+    "bamboo-cafe/marble.jpg": {
+      "bytes": 80813,
+      "sha256": "c67a8a69eae40f4b55c5bd1cfd219bf21bdd1c87fc10446bf47fad8a29e2c965"
+    },
+    "bamboo-cafe/walnut.jpg": {
+      "bytes": 79766,
+      "sha256": "4f27b34213495aeac4f52ac36118a9d91e4f145921f60e12be83241b4b8da6cb"
     },
     "building-signs.json": {
       "bytes": 1910914,
       "sha256": "acb58a684f0e821545fda8e54de4347fb78b097efad43a7f2cdd6c3d61286d67"
     },
     "buildings.glb": {
-      "bytes": 49728080,
-      "sha256": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb"
+      "bytes": 49787448,
+      "sha256": "c7ea7037191ab8c9f72953f320716031159b5bb67eb9df3f698939af9bd09e51"
     },
     "car.glb": {
-      "bytes": 2143520,
-      "sha256": "3afa89657aa2af08cebe471b86c3ffb36f0e397d8d842ff5ba48142679a36826"
+      "bytes": 2521572,
+      "sha256": "28ef0e15175620c7a308c0eab11cad10ad44f6efdbeafaaa9d944c68fc0a692e"
     },
     "city.json": {
       "bytes": 8365073,
@@ -134,15 +178,15 @@
     },
     "facade-tiles.json": {
       "bytes": 20203,
-      "sha256": "809a5947e980cda09773b0fe332724ece1dc123b4c1c52712bea71513829f224"
+      "sha256": "ee37ab909d12829497f519e6b350e0ba5de23fd36963d5144c1167b4a7cb40ab"
     },
     "facade-tiles/-10_-1.glb": {
-      "bytes": 420040,
-      "sha256": "9b8d81d9399b66e90dd4dbfc461f3a1639404b067494cbb9b8feb992874c9773"
+      "bytes": 418532,
+      "sha256": "2dbaf7e89fe8e5fa027d8a5a719716ba70820303a34382b363bc579be4ee0371"
     },
     "facade-tiles/-10_-2.glb": {
-      "bytes": 380496,
-      "sha256": "968846fef3fbef1f646a4900276ea738fd46607fb8728a7cd6d39bc212756473"
+      "bytes": 380780,
+      "sha256": "58b5b492b39d80e662ec7a624992b64ef4f5786438b1f614c1065e86cd3c949c"
     },
     "facade-tiles/-10_-3.glb": {
       "bytes": 704292,
@@ -169,24 +213,24 @@
       "sha256": "ccaa3390f52f6a6929297a8921da428bed572fb128747fdd0ce02be427a13d86"
     },
     "facade-tiles/-10_3.glb": {
-      "bytes": 140836,
-      "sha256": "3bb5c2f1365b5bfa207ad241e71395c3872eb3014004c90ca1584a743d11d022"
+      "bytes": 140504,
+      "sha256": "c4b4f978d3a520c9ac7c410bbd489759b858c6841d40b1557c017ea728afa533"
     },
     "facade-tiles/-10_4.glb": {
       "bytes": 28772,
       "sha256": "e736837b288962bfbe33c14c306191c50b8c5b37aa1a52b15d06249ca99dcba8"
     },
     "facade-tiles/-11_-1.glb": {
-      "bytes": 389376,
-      "sha256": "0814478413d6269b5029656d22a2b53c0f47a1a4720039f33468d53a9b3f651a"
+      "bytes": 388820,
+      "sha256": "993621ee86d5a0ceed52ec35c5e40f0077a191233d5188e7ad271da071314ca6"
     },
     "facade-tiles/-11_-2.glb": {
-      "bytes": 300320,
-      "sha256": "5ed3df372d069caa6d0438f0605259d70291a604bb128626e3ee7128d0508536"
+      "bytes": 299736,
+      "sha256": "5b25626f8343996070fab36c6e76a2b130be41c671052837170f0d979568ed04"
     },
     "facade-tiles/-11_-3.glb": {
-      "bytes": 318880,
-      "sha256": "0a4a3905027bf5e981d579cf8737167bdf533dedb01ef8ec89df66b274e8d8c3"
+      "bytes": 318784,
+      "sha256": "d512487d7e43a22fea429f0b556dd4da67f3eaf69972aaf96a29290d4ba2031f"
     },
     "facade-tiles/-11_-4.glb": {
       "bytes": 330412,
@@ -217,8 +261,8 @@
       "sha256": "0193d425b1780160c5d32ffd940cc299be2a6733fa7bc4ceada8ae8e202d6e89"
     },
     "facade-tiles/-1_-1.glb": {
-      "bytes": 455748,
-      "sha256": "809fcaa6731925112bac06c3099b0d18f39d6e8261ecefafc20ee1b1f0647394"
+      "bytes": 455240,
+      "sha256": "b39052da74e8b70b0f4176f0e7322995ff8630d6f260fbbb002b89f820a3d633"
     },
     "facade-tiles/-1_-2.glb": {
       "bytes": 57596,
@@ -241,8 +285,8 @@
       "sha256": "96665625c1cae1fd3be5b574e4745649dcf054812081659a4591a5ff9905575d"
     },
     "facade-tiles/-2_-1.glb": {
-      "bytes": 107884,
-      "sha256": "a9d8740400480f23ff8ace476185ba0b55167e80f4fcc1919fe48180bb43e675"
+      "bytes": 107140,
+      "sha256": "76c781cfa9025af674aed160ca849d5c702e83c139534fc3eb2afc0105a7adc7"
     },
     "facade-tiles/-2_0.glb": {
       "bytes": 457172,
@@ -273,8 +317,8 @@
       "sha256": "910b877e7dd4630f4aaef59d62fad3da91e6088d87116ffa3f564c72b56e557f"
     },
     "facade-tiles/-3_1.glb": {
-      "bytes": 140464,
-      "sha256": "85967eaf658027c137bbc049062c89cf08979513e5216f0a7677a5573ef947e9"
+      "bytes": 140460,
+      "sha256": "66254834aa6a241940abcf93e6bb423813638373a2314d8aa22b5a613cebdd40"
     },
     "facade-tiles/-3_2.glb": {
       "bytes": 60088,
@@ -289,8 +333,8 @@
       "sha256": "87a34572cfb4a5f92de1c76aaf657c2fa5ee7f9330c85343a921817b13ea4c78"
     },
     "facade-tiles/-4_0.glb": {
-      "bytes": 407132,
-      "sha256": "6015ec60906016a9e559040a34b134649de5b1f4fd332609a0fd79aa3585b4f4"
+      "bytes": 406848,
+      "sha256": "ee1e644a24246b6c1e335d90908e8cb8899e6677845691b225ce01955deca784"
     },
     "facade-tiles/-4_1.glb": {
       "bytes": 97884,
@@ -301,8 +345,8 @@
       "sha256": "9165803d1d5bd17a1c84a7d3780e48087a56841e1ad3b8af5710602d96c73edd"
     },
     "facade-tiles/-4_3.glb": {
-      "bytes": 150752,
-      "sha256": "a9c471e785f63dd36661ddd3aba08545ea4672b854c9c951f2570311afee4455"
+      "bytes": 150396,
+      "sha256": "5cd57f6628ec9cff891b04c10a9cc849f731737de7c1d0610cf8b7e9e195386b"
     },
     "facade-tiles/-5_-1.glb": {
       "bytes": 214932,
@@ -313,16 +357,16 @@
       "sha256": "cc7c33470b0f8c8603bfa7f9727c5f07c1147beefd356b913e687cc4b65afd40"
     },
     "facade-tiles/-5_0.glb": {
-      "bytes": 279800,
-      "sha256": "8d430343c1c5d40a30febb50811578a54b8bf7833e1d88d4bf247550795e8ff7"
+      "bytes": 279504,
+      "sha256": "9858996dcd31f764d140379ed152f3874113465e25adbd28d3956b6dd7273119"
     },
     "facade-tiles/-5_1.glb": {
       "bytes": 160564,
       "sha256": "f771615058ab7e9a3cc3a70c07e5410a10c3d8744dcaa816040bb3361c1097ed"
     },
     "facade-tiles/-5_2.glb": {
-      "bytes": 290984,
-      "sha256": "4089f2332832037f7893ed79ce934c38565c60f3145053d97854e07862d924f6"
+      "bytes": 290364,
+      "sha256": "5db5456d38b6cb0a935b7fae3dbc6e594afdd9ce81c7cce42c27a93710884f23"
     },
     "facade-tiles/-5_3.glb": {
       "bytes": 55988,
@@ -361,8 +405,8 @@
       "sha256": "97c5462a31117aa9c3fa31a03363d38a7578e61aa164efe352c9c131817a6f5b"
     },
     "facade-tiles/-7_0.glb": {
-      "bytes": 167316,
-      "sha256": "da03b73a0a1a278eec336f44ed74f297ae9525f047a0e1d1723355f36deb1ff8"
+      "bytes": 166664,
+      "sha256": "77906346f2e6251560d0687d55c00f617f176c12bee81afa6c485000de3f84b2"
     },
     "facade-tiles/-7_1.glb": {
       "bytes": 157164,
@@ -373,16 +417,16 @@
       "sha256": "c896855b7ab430f960b099974560fecd2095c0c5e30e308c5bcc41e934554bc3"
     },
     "facade-tiles/-7_3.glb": {
-      "bytes": 204680,
-      "sha256": "19dfb55548f805b27b37660a6c4501c1cfdd57c4a8b2747a8ad7dd31bb43b362"
+      "bytes": 204708,
+      "sha256": "c443812d2fc73dc4af597458f6ba9c2a523cced77b85bef97f3e3dc3b0be6658"
     },
     "facade-tiles/-7_4.glb": {
       "bytes": 115276,
       "sha256": "c8a206d838eb6d9f2e642dc4470a6d0811fb115d57184f9586c471f378b1371a"
     },
     "facade-tiles/-8_-1.glb": {
-      "bytes": 352772,
-      "sha256": "cfc9025b14fc2ceb6f80c44a47d0b663d31b361784d124b97aa114c66b2489d4"
+      "bytes": 352680,
+      "sha256": "a29ddf0f56478e5f95ca59d84fac5ab05ac60fba0b176f95f70203b148c50fb9"
     },
     "facade-tiles/-8_-2.glb": {
       "bytes": 95264,
@@ -401,16 +445,16 @@
       "sha256": "68a99a8ae258f0113efa78794b0bb786d0a5284c18c403bc1a7cd617911a27c7"
     },
     "facade-tiles/-8_0.glb": {
-      "bytes": 394572,
-      "sha256": "ea8c6886135f956f4435611eed44011f8c63bae88e83fbd441e4aa546fe12b59"
+      "bytes": 374812,
+      "sha256": "4a5705b5472304111cc0ab83bd3ad4fd853307eff20522c7ba948bcf63dab9d4"
     },
     "facade-tiles/-8_1.glb": {
-      "bytes": 474268,
-      "sha256": "c20e05fcea34d73be388477243259a847978214337fd3c2df45ae0a12066da5f"
+      "bytes": 473852,
+      "sha256": "87d4a293fe6192ed1aeeec8956491af25da3c4b5474e2179aaf4915e108d0421"
     },
     "facade-tiles/-8_2.glb": {
-      "bytes": 367572,
-      "sha256": "d657aa500eafc378c693919dc9ba7f27a99b4433084d061d6ddb9f4aea531328"
+      "bytes": 366932,
+      "sha256": "e1cb32c4f6d2e645713166fb7b772cbd77889f0840a9236cb26b9f5fd5987fc5"
     },
     "facade-tiles/-8_3.glb": {
       "bytes": 177424,
@@ -421,16 +465,16 @@
       "sha256": "fdf03e95a626b203b387568a1fabfb78815d35c8b25095a71b43fe549fad2b6e"
     },
     "facade-tiles/-9_-1.glb": {
-      "bytes": 384384,
-      "sha256": "e9261dadbe33eae71d1872321d06a762aaf9ae4535edfa3ff7eba3f2671d9ddc"
+      "bytes": 382384,
+      "sha256": "fb78941403301432348e253045241650d5fc24ee150ca68774d8582107f50bcc"
     },
     "facade-tiles/-9_-2.glb": {
-      "bytes": 342168,
-      "sha256": "7d287def1a04551f5287cff54c7ecacdc43dad6564c36f20083731df600df574"
+      "bytes": 341452,
+      "sha256": "e6844e4d3786c0dca9d59517e3e298f2ba0bba5f39e56f70dcee267fa7ad6335"
     },
     "facade-tiles/-9_-3.glb": {
-      "bytes": 228036,
-      "sha256": "5027ba32c027cfbd3e2812f51b81ba0415fffe2944fb95fd9a14b7c7bb311ffd"
+      "bytes": 227732,
+      "sha256": "befb7ec8b7c4afa4eb7243f25a4a69d5da521a122583a39831ca6a15682d8fa7"
     },
     "facade-tiles/-9_-4.glb": {
       "bytes": 347216,
@@ -441,8 +485,8 @@
       "sha256": "75005ba6bc412dea86ac3ad6953888ea8b874bc7a360b9e154009ebd8fc2d68f"
     },
     "facade-tiles/-9_0.glb": {
-      "bytes": 353704,
-      "sha256": "9ecf29bde45039a9719a838ca24dea9297952509adc688944097ce61103b3991"
+      "bytes": 353340,
+      "sha256": "da38acae0d3a70044598336bd2dce5546f0c2965e41917b55b7c63e4fa69d376"
     },
     "facade-tiles/-9_1.glb": {
       "bytes": 328776,
@@ -453,8 +497,8 @@
       "sha256": "c51e7a0dfd09fd28115cbc340f23b9725136b326e1bb34b7fee023fc625d9e60"
     },
     "facade-tiles/-9_3.glb": {
-      "bytes": 194812,
-      "sha256": "a583d75af4345bb05b56f0917084e8342c5b072eed1b7f8cd997dae136770147"
+      "bytes": 194052,
+      "sha256": "80d8a7414178855d720fe499927c6e27053b1666e1e906f475a8cf8cb6edb4c1"
     },
     "facade-tiles/-9_4.glb": {
       "bytes": 17764,
@@ -473,12 +517,12 @@
       "sha256": "43a0b938b7e647829554bf8ab8017b07a32d3c7c0dbd76f63e680569334b3707"
     },
     "facade-tiles/0_1.glb": {
-      "bytes": 244516,
-      "sha256": "cee036da3b84306a43aed7feb352b9a3d781c790548c7acf3172301eb39cc25a"
+      "bytes": 244360,
+      "sha256": "60b5140f5a67f3746afcef1520e90ececb2fc8f56cc47232df9e575636ff67ad"
     },
     "facade-tiles/0_2.glb": {
-      "bytes": 385572,
-      "sha256": "4db250b639eb7dfdd743d6a47c16fa3186daf9bcded4c27b8aeddaa46aa09c86"
+      "bytes": 385500,
+      "sha256": "e1be95313001996c5c003ed81223a2ae5fcc011369a0f9073974c8fdb93a0811"
     },
     "facade-tiles/0_3.glb": {
       "bytes": 202396,
@@ -513,16 +557,16 @@
       "sha256": "c40c0987c20ccd83549e9bb974259bb366fec383d8aa322fc76ed105bf0b432d"
     },
     "facade-tiles/1_-2.glb": {
-      "bytes": 435760,
-      "sha256": "80a2d64c95fe43834433b362879388038de1a61409b0aae4dccfe40757dbe10a"
+      "bytes": 435816,
+      "sha256": "a3f7fa2a045a25c24a72ee3ac35faca2ec46863405d0af7535676f10c817a4d4"
     },
     "facade-tiles/1_0.glb": {
       "bytes": 145640,
       "sha256": "17fc2476fd2f8c0bd25722177bc4c2de5bb1446c0598b8a98e90b8847761b6b8"
     },
     "facade-tiles/1_1.glb": {
-      "bytes": 216356,
-      "sha256": "292086f293bb257e0f15620df1ad1ceb0240be8e243784508384f14f216941b4"
+      "bytes": 215748,
+      "sha256": "1467a4ac1cb686ef0f0ef58404ef0d7f36fa763a47ad45fe32c77ce3433f5496"
     },
     "facade-tiles/1_2.glb": {
       "bytes": 314964,
@@ -530,7 +574,7 @@
     },
     "facade-tiles/1_3.glb": {
       "bytes": 420952,
-      "sha256": "1ee48300d6580ab99cffed03bf546c6ac3707dfb07babceb9323cc33b0febca2"
+      "sha256": "35d8ac396ba3fe0017c7d2f45e23bf4d631629de756d87262629e1c5c8c77ea9"
     },
     "facade-tiles/1_4.glb": {
       "bytes": 26952,
@@ -545,36 +589,36 @@
       "sha256": "ac375f6ed54729b8e474dd4fb8ca169a85ff426dc7d46b918dd29bfdae85c292"
     },
     "facade-tiles/2_0.glb": {
-      "bytes": 189068,
-      "sha256": "b10d0e64d5a04344e7381c3cffe8f6b2864a404d75273421a5455e15bcca9612"
+      "bytes": 188828,
+      "sha256": "130905a3b7099928f3f8948543fa7b6c8eb6fd3a6f226cb76b1cd5bb928f38ab"
     },
     "facade-tiles/2_1.glb": {
       "bytes": 147900,
       "sha256": "5dab386cd11415584003ded1029626add87d7fca149e2a93d7b9dcbac5796d88"
     },
     "facade-tiles/2_2.glb": {
-      "bytes": 193808,
-      "sha256": "259432f8c7c761ae1201f4705f8181115e3847f3312cae1436dbd727c839859a"
+      "bytes": 193828,
+      "sha256": "f7c57386779c35186365db4f30af3e9ceee92c62986999244cd14469ae79586a"
     },
     "facade-tiles/2_3.glb": {
-      "bytes": 447180,
-      "sha256": "eb0faedeb3d235193021405d3a4f61a9c8666c5a052428ad61800b328fb3fbf8"
+      "bytes": 447008,
+      "sha256": "9be6a96410c1c30ce7132b5cc329bb0160f971ed5a8f1e86b651a0959447f8fc"
     },
     "facade-tiles/2_4.glb": {
       "bytes": 37356,
       "sha256": "29c8ecaa8ead5f7a4cfa7bcc2ee2b5408463422c18eb923c74b6ded1b4336e6d"
     },
     "facade-tiles/3_-1.glb": {
-      "bytes": 292636,
-      "sha256": "b7f36bf0087bf80d19992fe0855d534adbe269b61e512e689e357cd913da1436"
+      "bytes": 292148,
+      "sha256": "0539c2945ab6cfa2c07936dc426185ff9903b541e1ea6a9a5108429419eff4d7"
     },
     "facade-tiles/3_-2.glb": {
-      "bytes": 270704,
-      "sha256": "bf4b69c45440ea7b10525d2c56cf45b57859158907ef8393b76d3aea9b3e30ec"
+      "bytes": 270420,
+      "sha256": "5b9831a05c9199299ae9a898873c9e4227a923134406c8ecc4b5527b57beab9b"
     },
     "facade-tiles/3_0.glb": {
-      "bytes": 586456,
-      "sha256": "d3999f49741e630a42b1b9e5f2fedaa104a4e86524a359edd3566f91ff049b3a"
+      "bytes": 583608,
+      "sha256": "591432bdee89375786f05e3021572fee4bca475f48468dae68e32a6d8c1bff39"
     },
     "facade-tiles/3_1.glb": {
       "bytes": 293124,
@@ -601,8 +645,8 @@
       "sha256": "6faac0dd7d649f860e82cba146ef9134ce3845f22e799460f9e381151de7fca2"
     },
     "facade-tiles/4_0.glb": {
-      "bytes": 380792,
-      "sha256": "4abdb210a9767caae88e578a860917ee991b5ff8756fd89c5e44246f3f11aadd"
+      "bytes": 381124,
+      "sha256": "43d967c7499d75a0fe56b1381aede78860d7adfd6dbefa58921e4774a17b5359"
     },
     "facade-tiles/4_1.glb": {
       "bytes": 169776,
@@ -629,8 +673,8 @@
       "sha256": "220593ca65300e48338ee9cf9f3d72235b20541931ca129911d301e2073c55bb"
     },
     "facade-tiles/5_0.glb": {
-      "bytes": 464196,
-      "sha256": "df6d4174758b6f2c0b1481f872ac111c61cf0e119ec0962e8aec8babca6e6729"
+      "bytes": 456760,
+      "sha256": "ddf3af51edcfc296e143ae09a33cc03918c6ab12397d7432d10d91f03dac91bd"
     },
     "facade-tiles/5_1.glb": {
       "bytes": 648156,
@@ -653,20 +697,20 @@
       "sha256": "413bf1f8359b15482178785c160efa986687872fc10d020fe3ab059559e20aad"
     },
     "facade-tiles/6_0.glb": {
-      "bytes": 366468,
-      "sha256": "bd37f8618d38be8dc69aae18f65e37eb4a7d0bcd8d8b71b56b93a2ec5180f5e6"
+      "bytes": 366172,
+      "sha256": "bc61a02f54b9795568d3303aefe4ce18ea008c0cf29084bd9e1eabc1c6079694"
     },
     "facade-tiles/6_1.glb": {
-      "bytes": 580752,
-      "sha256": "0cf9084a808ae6c7458acdc4987325bce73b48c5cdcb5393cc95d3c083f81b3d"
+      "bytes": 580392,
+      "sha256": "0135e8082190810c36b301ca714f2c04990655acfa7286c72f13ec21e76667d9"
     },
     "facade-tiles/6_2.glb": {
       "bytes": 425476,
       "sha256": "f559dfae067069ce6e6812764043807d6c8e9df0bdc9b82d241ff82e3ac15539"
     },
     "facade-tiles/6_3.glb": {
-      "bytes": 337988,
-      "sha256": "7861d264e9a344d24c6fceca53044d7ea9c67909098400a2d184790e15c07aac"
+      "bytes": 337396,
+      "sha256": "edd855c55c8d47da29557035dc42c5be580a14d01ea26ef2375fbc1132b089d2"
     },
     "facade-tiles/7_-1.glb": {
       "bytes": 32608,
@@ -677,24 +721,24 @@
       "sha256": "e60c5658d2349571f14a2e63d1906b44dbd91ad3d73c214cf03a566c44e51601"
     },
     "facade-tiles/7_1.glb": {
-      "bytes": 314808,
-      "sha256": "71850478d3df2c85ebf7cd56520e018d85e73893db420dc6e91f1e177dcfec70"
+      "bytes": 314436,
+      "sha256": "1c37b7fa1053c502b9166c494d9ad40c79ff8f41323a39919cc0ae12f35c59d9"
     },
     "facade-tiles/7_2.glb": {
-      "bytes": 316612,
-      "sha256": "bdc498ff8c3fd0e534324a0bcb1fb7b612cb5c51efff82c5e953008037579c5c"
+      "bytes": 316468,
+      "sha256": "1dccacd56151fb3a93c5f141151cb2c03f10b986e123274187aaab08a13464cd"
     },
     "facade-tiles/7_3.glb": {
       "bytes": 257224,
-      "sha256": "349e899f35b960a65f162a72dc997e44595780acf78f538cb3b396401367b543"
+      "sha256": "344262762b9608a124edb1289410a97216815ee0940a0ef58a7f31caf501e34b"
     },
     "facade-tiles/8_-1.glb": {
       "bytes": 144360,
       "sha256": "48d2a627b959c3b31efeb1a54eee8a92643597a8d29dc1bfa2193c590f8c3903"
     },
     "facade-tiles/8_0.glb": {
-      "bytes": 516368,
-      "sha256": "2b0c499df564058f51bf0492a37c34a77bf5e64adb3d03f4ada7ce739205eded"
+      "bytes": 512460,
+      "sha256": "0a01d6e5c49e6fc65519520cd6f543536938d0820a1e43310ba7f7d9846bea03"
     },
     "facade-tiles/8_1.glb": {
       "bytes": 557856,
@@ -721,24 +765,32 @@
       "sha256": "a0be71882dbd13be92555295297dd8a80260f173784f08a33f1762631f4a05e0"
     },
     "facade-tiles/9_1.glb": {
-      "bytes": 261880,
-      "sha256": "1967adc34210470f2fbddf495abc9495eebd88e23388ca244483f21d6842010b"
+      "bytes": 261832,
+      "sha256": "6c78f2dcd82dc02265177c68090678e3db3f31183a545073727c1dbb28ee4040"
     },
     "facade-tiles/9_2.glb": {
-      "bytes": 242492,
-      "sha256": "0136049f4488d9f6dd7c482951ae258bbd6c733b20d6dbc437d82b48812d0cc4"
+      "bytes": 242344,
+      "sha256": "d0109604bdace3944c77f8b716bc878f974e154b8c4210076fe7d4b563d62bd5"
     },
     "facade-tiles/9_3.glb": {
       "bytes": 155664,
       "sha256": "2913d164c9e4709c94f5e237a836c088a0d946bac7e8db05deea496954f5c3f5"
     },
     "facade-tiles/9_4.glb": {
-      "bytes": 22824,
-      "sha256": "d5b9db113dafa52a738198611e878537b87c6382e625b90c4756cb350cd6a3d7"
+      "bytes": 22652,
+      "sha256": "e0c122483a77dea103aa116567bb3a206277fd5e5b310cb56bea9de6538b5d5c"
     },
     "facades.glb": {
-      "bytes": 29815904,
-      "sha256": "346b49ffeaf96319d0635ca3e59e790bcb92857129b54e9f5c47a75a47b67f2f"
+      "bytes": 29772996,
+      "sha256": "a574cc745c664444ae82de5933a3bae6ccff441999e5d891dba346a8e57a1aa7"
+    },
+    "floatplane-manifest.json": {
+      "bytes": 3036,
+      "sha256": "c7db391ebd0f09612da1584b274c6d6eaf6ad7087bbc3fe42800413fb33c5b43"
+    },
+    "floatplane.glb": {
+      "bytes": 177916,
+      "sha256": "4e54ddba24260c0be42b409f3a2812c15d3cd8486d838397afefd9d048a5e70f"
     },
     "grassland-v2/lawn-color.jpg": {
       "bytes": 532321,
@@ -13440,6 +13492,14 @@
       "bytes": 699993,
       "sha256": "2601c3181b91b6115803b1276658c625ef3f4881a404a88fa376e8e99becddf3"
     },
+    "landmark-candidates.glb": {
+      "bytes": 1266912,
+      "sha256": "3d762633f3426bd7efce140baeb702f6159b8a1cbdfec6215c27b28b8c3a0fff"
+    },
+    "landmark-candidates.json": {
+      "bytes": 52536,
+      "sha256": "546098d0d01907b1141af0996818de17f0aff266479291dd14487c3a57c1f38f"
+    },
     "landmark-detail.glb": {
       "bytes": 2163100,
       "sha256": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22"
@@ -13552,6 +13612,18 @@
       "bytes": 2163,
       "sha256": "15a2decb0c49596fc6299baff8b2e5ba6936cdd19a573400cbe5242ebae293f6"
     },
+    "loading/bamboo-clay-loop.mp4": {
+      "bytes": 6773529,
+      "sha256": "843bff0d03cc3e10140f4db272602be294a4584247fb640f2976cc87efa688dc"
+    },
+    "loading/bamboo-clay-poster.jpg": {
+      "bytes": 210405,
+      "sha256": "df8d9e280de684e39c79a1e69fc0b8b688da33b44e1e486cc51ce368eef91eff"
+    },
+    "loading/bamboo-clay-source.json": {
+      "bytes": 35559,
+      "sha256": "70bc220454c99964a4e72c21483b5132324e73ab31158f61008a71cb942a48ce"
+    },
     "meshopt_decoder.js": {
       "bytes": 29400,
       "sha256": "fedf06f101ff2ba59d66335578230b7e8f5fac5057dee084be64c67444ac6c12"
@@ -13559,6 +13631,22 @@
     "metadata.json": {
       "bytes": 792,
       "sha256": "d5289338c1f40907d0043f68d89dc7d9e0533dc959d676f4887963712783bf9d"
+    },
+    "mountain-relief/heights.bin": {
+      "bytes": 491184,
+      "sha256": "6a9d6bbeb262365c20f5e592f7e4a54706068511d93a5243d351485ce2a09aa6"
+    },
+    "mountain-relief/manifest.json": {
+      "bytes": 7690,
+      "sha256": "4e29de3eb38dc208f7b8f708796b2fc95d29baa25efb063691ddb587ea753ec0"
+    },
+    "mountain-relief/near-heights.bin": {
+      "bytes": 1993060,
+      "sha256": "adadb170b03011f4495a3eaa6ac60f0c5d4b37eebf49e515f3822415512c2fa6"
+    },
+    "mountain-relief/near-manifest.json": {
+      "bytes": 10706,
+      "sha256": "d415df44f55dfbc22396a3e50fae0a83b367b27dfe8aedf94b96b359d077d380"
     },
     "navigation.json": {
       "bytes": 1321115,
@@ -13608,6 +13696,14 @@
       "bytes": 4379027,
       "sha256": "93009277ffeb0dc562893fc26b5ddcb2c2e865dd176adecbacd0e4d934e822c6"
     },
+    "rider/manifest.json": {
+      "bytes": 2108,
+      "sha256": "e49ebf407ee42076a1cf5ff0256cf9cc8e45557abfad9aae7cb427f52479b6f0"
+    },
+    "rider/rider.glb": {
+      "bytes": 2967904,
+      "sha256": "7e1f3d5b4f23e3b2f235e3a7807a383ba1105d5bed7c9ce4703320ba7208c72c"
+    },
     "roads.glb": {
       "bytes": 16827100,
       "sha256": "1e8a53838c1b4b682fdcbf28c26db69c12ead7fa0807ba216061b42e3e832de7"
@@ -13631,6 +13727,14 @@
     "surfaces.json": {
       "bytes": 1541721,
       "sha256": "6839a7d3757c51cd18cb77c0140404399c6405a79e06fbc8446388652a5ca5d6"
+    },
+    "tank/manifest.json": {
+      "bytes": 3134,
+      "sha256": "a0761a929ca34e380d85cdf37d22e347fccd1142c5e27f316841914e7ab2deaa"
+    },
+    "tank/tank.glb": {
+      "bytes": 3132044,
+      "sha256": "09e6672cb603e93957a6f0c5e4d0477c2226de39a44eb9dfce173211ea20747b"
     },
     "terrain-detail.json": {
       "bytes": 381323,
@@ -13781,14 +13885,14 @@
       "sha256": "6160a3285f5773ca5e5b44bd26d3dc3acdb5f67a534257ebe3f0c85092a99491"
     },
     "vehicle-manifest.json": {
-      "bytes": 7572,
-      "sha256": "4f704aeb8baae349e4e99f4f57be309a06b7687e38b2efd50f3a43d71199dd2d"
+      "bytes": 9549,
+      "sha256": "4f19d560bbb68b354af68569758fdb42468d0304c95f93de4c02f26d3a57cd62"
     }
   },
-  "totalRuntimeFileBytes": 311315770,
+  "totalRuntimeFileBytes": 339799250,
   "streamingFacades": {
     "totalTiles": 150,
-    "totalBytes": 32166308,
+    "totalBytes": 32117092,
     "sourceAssetLoadedAtRuntime": false
   },
   "notes": "Exact delivered hashes and bytes. files includes nested landscape, atlas, vehicle metadata and source city data; the three generated manifests are excluded to avoid circular hashes. Presence in this inventory does not imply runtime loading or visual/performance approval."

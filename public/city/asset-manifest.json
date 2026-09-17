@@ -3,21 +3,21 @@
   "assets": [
     {
       "file": "buildings.glb",
-      "triangles": 3310538,
+      "triangles": 3309839,
       "meshes": 882,
       "primitives": 882,
       "facadeMetadataPrimitives": 291,
-      "bytes": 49728080,
-      "sha256": "0149084d505364615f3a4c8b6fbae1dc3eda3adaadd053a91fdceaffbc2fc9fb"
+      "bytes": 49787448,
+      "sha256": "c7ea7037191ab8c9f72953f320716031159b5bb67eb9df3f698939af9bd09e51"
     },
     {
       "file": "car.glb",
-      "triangles": 78825,
+      "triangles": 99197,
       "meshes": 26,
       "primitives": 26,
       "facadeMetadataPrimitives": 0,
-      "bytes": 2143520,
-      "sha256": "3afa89657aa2af08cebe471b86c3ffb36f0e397d8d842ff5ba48142679a36826"
+      "bytes": 2521572,
+      "sha256": "28ef0e15175620c7a308c0eab11cad10ad44f6efdbeafaaa9d944c68fc0a692e"
     },
     {
       "file": "coastal-bridges.glb",
@@ -39,12 +39,30 @@
     },
     {
       "file": "facades.glb",
-      "triangles": 3651432,
+      "triangles": 3648000,
       "meshes": 443,
       "primitives": 443,
       "facadeMetadataPrimitives": 0,
-      "bytes": 29815904,
-      "sha256": "346b49ffeaf96319d0635ca3e59e790bcb92857129b54e9f5c47a75a47b67f2f"
+      "bytes": 29772996,
+      "sha256": "a574cc745c664444ae82de5933a3bae6ccff441999e5d891dba346a8e57a1aa7"
+    },
+    {
+      "file": "floatplane.glb",
+      "triangles": 39312,
+      "meshes": 11,
+      "primitives": 13,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 177916,
+      "sha256": "4e54ddba24260c0be42b409f3a2812c15d3cd8486d838397afefd9d048a5e70f"
+    },
+    {
+      "file": "landmark-candidates.glb",
+      "triangles": 33686,
+      "meshes": 313,
+      "primitives": 313,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 1266912,
+      "sha256": "3d762633f3426bd7efce140baeb702f6159b8a1cbdfec6215c27b28b8c3a0fff"
     },
     {
       "file": "landmark-detail.glb",
@@ -147,6 +165,42 @@
     }
   ],
   "nestedAssets": [
+    {
+      "file": "bamboo-cafe/characters/jk.glb",
+      "triangles": 110000,
+      "meshes": 1,
+      "primitives": 1,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 3359564,
+      "sha256": "e46b7f13f91529b153dd90eeffb84ae49fd35bdd81b66a3bc1c7f3564d77a959"
+    },
+    {
+      "file": "bamboo-cafe/characters/maid.glb",
+      "triangles": 110000,
+      "meshes": 1,
+      "primitives": 1,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 3597240,
+      "sha256": "92bf7483ee3f61e6b6ae0fef79b0aadff33547dd871d0f0faad8d8b3c9a5fead"
+    },
+    {
+      "file": "bamboo-cafe/exterior.glb",
+      "triangles": 32014,
+      "meshes": 15,
+      "primitives": 15,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 638908,
+      "sha256": "66264a1f129e6f966c2a76b8ca33538b5568b4d8882d5640d9e61b8bb8096e47"
+    },
+    {
+      "file": "bamboo-cafe/interior.glb",
+      "triangles": 293068,
+      "meshes": 48,
+      "primitives": 48,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 3115156,
+      "sha256": "c580da9ed2ed82cc7d830e3e1b32861f7256f55dc65c8fb0bec899f3b54910ac"
+    },
     {
       "file": "landscape/banyan-lod.glb",
       "triangles": 224,
@@ -283,6 +337,15 @@
       "sha256": "5eb7453709da34325c845e99918072097d63ef4d1f902801588fe37c7b05df8d"
     },
     {
+      "file": "rider/rider.glb",
+      "triangles": 60000,
+      "meshes": 1,
+      "primitives": 1,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 2967904,
+      "sha256": "7e1f3d5b4f23e3b2f235e3a7807a383ba1105d5bed7c9ce4703320ba7208c72c"
+    },
+    {
       "file": "street/urban-bench.glb",
       "triangles": 6150,
       "meshes": 3,
@@ -290,10 +353,19 @@
       "facadeMetadataPrimitives": 0,
       "bytes": 5643192,
       "sha256": "fa28646b4a58f59fccd52c27bc4fac7468028e84168e18c66c23b74420674e6a"
+    },
+    {
+      "file": "tank/tank.glb",
+      "triangles": 123723,
+      "meshes": 8,
+      "primitives": 8,
+      "facadeMetadataPrimitives": 0,
+      "bytes": 3132044,
+      "sha256": "09e6672cb603e93957a6f0c5e4d0477c2226de39a44eb9dfce173211ea20747b"
     }
   ],
   "treeInstances": 7933,
   "chunkSize": 640,
-  "totalBytes": 106818084,
+  "totalBytes": 108657424,
   "geometrySource": "Actual GLB JSON accessors; not stale authoring reports"
 }

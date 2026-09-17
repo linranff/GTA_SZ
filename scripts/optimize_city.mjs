@@ -8,6 +8,11 @@ const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'
 const report=[];await fs.mkdir('artifacts/city/uncompressed',{recursive:true});
 for(const name of (process.argv.slice(2).length?process.argv.slice(2):['buildings','roads','terrain','landmarks'])){
  const path='public/city/'+name+'.glb';const before=(await fs.stat(path)).size;await fs.copyFile(path,'artifacts/city/uncompressed/'+name+'.glb');
- const doc=await io.read(path);await doc.transform(dedup(),weld(),prune(),meshopt({encoder:MeshoptEncoder,level:'high',quantizePosition:16,quantizeNormal:10,quantizeTexcoord:14,quantizationVolume:'mesh'}));await io.write(path,doc);const after=(await fs.stat(path)).size;report.push({name,before,after});console.log(name,Math.round(before/1e6)+'MB → '+(after/1e6).toFixed(2)+'MB');
+ const doc=await io.read(path);
+ // buildings.glb after prepare_facade_diversity carries TEXCOORD_1 facade metadata that
+ // weld()/dedup() here would drop (2026-09-17: 291 wall primitives lost UV2). This stage
+ // belongs before facade diversity in rebuild_city_assets.mjs; refuse to run on a final asset.
+ if(doc.getRoot().listMeshes().some(m=>m.listPrimitives().some(p=>p.getAttribute('TEXCOORD_1'))))throw Error(name+'.glb already carries TEXCOORD_1 facade metadata; do not re-optimize a finalized asset');
+ await doc.transform(dedup(),weld(),prune(),meshopt({encoder:MeshoptEncoder,level:'high',quantizePosition:16,quantizeNormal:10,quantizeTexcoord:14,quantizationVolume:'mesh'}));await io.write(path,doc);const after=(await fs.stat(path)).size;report.push({name,before,after});console.log(name,Math.round(before/1e6)+'MB → '+(after/1e6).toFixed(2)+'MB');
 }
 await fs.copyFile('node_modules/meshoptimizer/meshopt_decoder.cjs','public/city/meshopt_decoder.js');await fs.copyFile('node_modules/meshoptimizer/LICENSE.md','public/licenses/meshoptimizer-MIT.md');await fs.writeFile('artifacts/city/compression.json',JSON.stringify(report,null,2));
