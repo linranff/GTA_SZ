@@ -1,0 +1,818 @@
+{
+  "version": 1,
+  "bucket": "shenchengji-city",
+  "generatedAt": "2026-09-17T02:44:59.074Z",
+  "minSize": 262144,
+  "skipped": [
+    "city/street-surfaces.json",
+    "city/facades.glb"
+  ],
+  "objects": {
+    "assets/room-upgrade.glb": {
+      "size": 1482556,
+      "sha256": "a8d8f95677c7c0a91d4809e7845f82163a72ef23210c74cefcc962fc0fe5ce67",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 1275106
+    },
+    "assets/room.glb": {
+      "size": 3371628,
+      "sha256": "753c0819de9366774c083683c70f45cce9d10ba5d5b575f18069be1be9fd091d",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 2866262
+    },
+    "assets/street.glb": {
+      "size": 18297312,
+      "sha256": "ad9acc654cf0cfe2713bd1dfb9a7b23a9256af80e5656ff99e7a93b2682bc363",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 6676878
+    },
+    "assets/textures/polyhaven/plastered_wall_05_diff.jpg": {
+      "size": 557082,
+      "sha256": "b10e2fc12c6f6bb8a355fe7c5d6eab19222337414ce055df0701e75f5f603764",
+      "contentType": "image/jpeg",
+      "br": false
+    },
+    "assets/textures/polyhaven/plastered_wall_05_nor_gl.jpg": {
+      "size": 1051165,
+      "sha256": "560ca5b81f8c37a1bf9d44f9d20adc983d1cad3a7c6aa23835a1e1c1b63da98f",
+      "contentType": "image/jpeg",
+      "br": false
+    },
+    "characters/kuki.glb": {
+      "size": 12378524,
+      "sha256": "370c548273a7ca7ea8bfb5fec17283421657b2b1bb1c9f4ab8ee83b8230b8963",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 5428753
+    },
+    "characters/yelan.glb": {
+      "size": 12670020,
+      "sha256": "2a6f58e382ca658890fd612db7c7c1e16f55dfceace76bc834f209e6195553ea",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 6362833
+    },
+    "city/bamboo-cafe/characters/jk.glb": {
+      "size": 3359564,
+      "sha256": "e46b7f13f91529b153dd90eeffb84ae49fd35bdd81b66a3bc1c7f3564d77a959",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 2951113
+    },
+    "city/bamboo-cafe/characters/maid.glb": {
+      "size": 3597240,
+      "sha256": "92bf7483ee3f61e6b6ae0fef79b0aadff33547dd871d0f0faad8d8b3c9a5fead",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 3190678
+    },
+    "city/bamboo-cafe/exterior.glb": {
+      "size": 638908,
+      "sha256": "66264a1f129e6f966c2a76b8ca33538b5568b4d8882d5640d9e61b8bb8096e47",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 374628
+    },
+    "city/bamboo-cafe/interior.glb": {
+      "size": 3115156,
+      "sha256": "c580da9ed2ed82cc7d830e3e1b32861f7256f55dc65c8fb0bec899f3b54910ac",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 843106
+    },
+    "city/building-signs.json": {
+      "size": 1910914,
+      "sha256": "acb58a684f0e821545fda8e54de4347fb78b097efad43a7f2cdd6c3d61286d67",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 252359
+    },
+    "city/buildings.glb": {
+      "size": 49787448,
+      "sha256": "c7ea7037191ab8c9f72953f320716031159b5bb67eb9df3f698939af9bd09e51",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 13451251
+    },
+    "city/car.glb": {
+      "size": 2521572,
+      "sha256": "28ef0e15175620c7a308c0eab11cad10ad44f6efdbeafaaa9d944c68fc0a692e",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 1531623
+    },
+    "city/city.json": {
+      "size": 8365073,
+      "sha256": "f0fe3f715887e4c8e2d642ddc32006d267398e80187df99cbb797793394152bc",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 1589728
+    },
+    "city/coastal-bridges.glb": {
+      "size": 272616,
+      "sha256": "b515577b23f214cf56754af6f436621cd5fb2ade9dc15386ec26a0567413018c",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 54841
+    },
+    "city/coastal-shoreline.glb": {
+      "size": 374704,
+      "sha256": "d8c6f1b0a13b4b7c31761d74d550ba87ff93ef64d7011275c3c4ca5129dfea3c",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 99425
+    },
+    "city/coastal/far-shore.json": {
+      "size": 1383120,
+      "sha256": "95372b07826e1fc1b8a8cb45247203f07819739f94037233c4592b88ee6babed",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 215047
+    },
+    "city/delivery-manifest.json": {
+      "size": 535814,
+      "sha256": "44475d4a1ced4fc6b1dfc0cefca5d28bb2240a29ec9af42a8f808ca65a2f7553",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 124763
+    },
+    "city/environment/belfast-sunset-4k.hdr": {
+      "size": 17420114,
+      "sha256": "cafc52b99ce15d84bd039826a0333f5ab0259d8c1f4feb2f7faf5fafa039108a",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 8154924
+    },
+    "city/environment/kloofendal-clouds-4k.hdr": {
+      "size": 20674857,
+      "sha256": "3061c00a16ecae748e84fd6c44c04804f539c118bb66325db858bad87b11bf88",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 10583012
+    },
+    "city/environment/rooftop-night-2k.hdr": {
+      "size": 6509158,
+      "sha256": "8ace3b81da7659381998ea4423fb4c7ffc1310ac27c4baa7a32088bd093de82e",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 4270759
+    },
+    "city/environment/rustig-blue-sky-4k.hdr": {
+      "size": 15257521,
+      "sha256": "0a7431d4831e71d8690ab1be0a9baaec181962918166395cf14cbe1add6a84a9",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 7037243
+    },
+    "city/facade-tiles/-1_-1.glb": {
+      "size": 455240,
+      "sha256": "b39052da74e8b70b0f4176f0e7322995ff8630d6f260fbbb002b89f820a3d633",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 107052
+    },
+    "city/facade-tiles/-1_0.glb": {
+      "size": 324008,
+      "sha256": "11f1ab026ad5f4242ab21bfdaa7cac65a32887b10e18101008826e1c43ecf7e0",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 62075
+    },
+    "city/facade-tiles/-10_-1.glb": {
+      "size": 418532,
+      "sha256": "2dbaf7e89fe8e5fa027d8a5a719716ba70820303a34382b363bc579be4ee0371",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 91743
+    },
+    "city/facade-tiles/-10_-2.glb": {
+      "size": 380780,
+      "sha256": "58b5b492b39d80e662ec7a624992b64ef4f5786438b1f614c1065e86cd3c949c",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 83835
+    },
+    "city/facade-tiles/-10_-3.glb": {
+      "size": 704292,
+      "sha256": "704a1200579df66ef2d0fe0a7480bdc080b28ef19bcb756fcc64fdc54819b9fa",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 132658
+    },
+    "city/facade-tiles/-10_-4.glb": {
+      "size": 615208,
+      "sha256": "8d1b62fb8f5d88fb5e28c49e56af57eef336a3dea0e571dadfd1e18cde820c56",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 121986
+    },
+    "city/facade-tiles/-10_0.glb": {
+      "size": 273432,
+      "sha256": "3940794490c28607dd491d0b0f662109efdc7c3d029313f7c2d704fe058cde0c",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 53360
+    },
+    "city/facade-tiles/-10_1.glb": {
+      "size": 367500,
+      "sha256": "56b97660df63966e492d508a321f751113c3eec7fb30b5959ce773affff88891",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 66683
+    },
+    "city/facade-tiles/-11_-1.glb": {
+      "size": 388820,
+      "sha256": "993621ee86d5a0ceed52ec35c5e40f0077a191233d5188e7ad271da071314ca6",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 80957
+    },
+    "city/facade-tiles/-11_-2.glb": {
+      "size": 299736,
+      "sha256": "5b25626f8343996070fab36c6e76a2b130be41c671052837170f0d979568ed04",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 65586
+    },
+    "city/facade-tiles/-11_-3.glb": {
+      "size": 318784,
+      "sha256": "d512487d7e43a22fea429f0b556dd4da67f3eaf69972aaf96a29290d4ba2031f",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 61189
+    },
+    "city/facade-tiles/-11_-4.glb": {
+      "size": 330412,
+      "sha256": "e5a674e113c326503a6567889b2fc9586b0ddeecbc7355d1f3ab43a9b6f4fae7",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 69934
+    },
+    "city/facade-tiles/-2_0.glb": {
+      "size": 457172,
+      "sha256": "92971e3433171bcd21d247223cfe09ecc22a4ccd72a76c0c608eba9a6b754954",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 90644
+    },
+    "city/facade-tiles/-2_1.glb": {
+      "size": 449760,
+      "sha256": "3e1412520e8a4558847f7ca548bccb0416035f4a6a23c8f539a10999d6ada8f9",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 96956
+    },
+    "city/facade-tiles/-4_0.glb": {
+      "size": 406848,
+      "sha256": "ee1e644a24246b6c1e335d90908e8cb8899e6677845691b225ce01955deca784",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 84244
+    },
+    "city/facade-tiles/-5_0.glb": {
+      "size": 279504,
+      "sha256": "9858996dcd31f764d140379ed152f3874113465e25adbd28d3956b6dd7273119",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 61200
+    },
+    "city/facade-tiles/-5_2.glb": {
+      "size": 290364,
+      "sha256": "5db5456d38b6cb0a935b7fae3dbc6e594afdd9ce81c7cce42c27a93710884f23",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 61511
+    },
+    "city/facade-tiles/-6_1.glb": {
+      "size": 381684,
+      "sha256": "1a78ffc202b10a07136048053d2df6ce7d6f2d5fe444921b009137bf00dc33d4",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 83739
+    },
+    "city/facade-tiles/-8_-1.glb": {
+      "size": 352680,
+      "sha256": "a29ddf0f56478e5f95ca59d84fac5ab05ac60fba0b176f95f70203b148c50fb9",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 65707
+    },
+    "city/facade-tiles/-8_0.glb": {
+      "size": 374812,
+      "sha256": "4a5705b5472304111cc0ab83bd3ad4fd853307eff20522c7ba948bcf63dab9d4",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 66696
+    },
+    "city/facade-tiles/-8_1.glb": {
+      "size": 473852,
+      "sha256": "87d4a293fe6192ed1aeeec8956491af25da3c4b5474e2179aaf4915e108d0421",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 96133
+    },
+    "city/facade-tiles/-8_2.glb": {
+      "size": 366932,
+      "sha256": "e1cb32c4f6d2e645713166fb7b772cbd77889f0840a9236cb26b9f5fd5987fc5",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 60503
+    },
+    "city/facade-tiles/-9_-1.glb": {
+      "size": 382384,
+      "sha256": "fb78941403301432348e253045241650d5fc24ee150ca68774d8582107f50bcc",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 70929
+    },
+    "city/facade-tiles/-9_-2.glb": {
+      "size": 341452,
+      "sha256": "e6844e4d3786c0dca9d59517e3e298f2ba0bba5f39e56f70dcee267fa7ad6335",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 66680
+    },
+    "city/facade-tiles/-9_-4.glb": {
+      "size": 347216,
+      "sha256": "3f150ca2248e84c2102f48351881c1d7a36880a2340978e42d6cfd3be39194ff",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 76174
+    },
+    "city/facade-tiles/-9_0.glb": {
+      "size": 353340,
+      "sha256": "da38acae0d3a70044598336bd2dce5546f0c2965e41917b55b7c63e4fa69d376",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 67192
+    },
+    "city/facade-tiles/-9_1.glb": {
+      "size": 328776,
+      "sha256": "7a24bef0610a1c6edbfb2debcb4c034f8030e8cac9c42b677d340c3d45de2ccb",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 54275
+    },
+    "city/facade-tiles/-9_2.glb": {
+      "size": 401624,
+      "sha256": "c51e7a0dfd09fd28115cbc340f23b9725136b326e1bb34b7fee023fc625d9e60",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 59027
+    },
+    "city/facade-tiles/0_2.glb": {
+      "size": 385500,
+      "sha256": "e1be95313001996c5c003ed81223a2ae5fcc011369a0f9073974c8fdb93a0811",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 80467
+    },
+    "city/facade-tiles/1_-1.glb": {
+      "size": 270188,
+      "sha256": "c40c0987c20ccd83549e9bb974259bb366fec383d8aa322fc76ed105bf0b432d",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 56643
+    },
+    "city/facade-tiles/1_-2.glb": {
+      "size": 435816,
+      "sha256": "a3f7fa2a045a25c24a72ee3ac35faca2ec46863405d0af7535676f10c817a4d4",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 96123
+    },
+    "city/facade-tiles/1_2.glb": {
+      "size": 314964,
+      "sha256": "ad8cc60d1bcb107333f42d1775601e11e3eafa5d279031c0295d46e51ec6907d",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 60664
+    },
+    "city/facade-tiles/1_3.glb": {
+      "size": 420952,
+      "sha256": "35d8ac396ba3fe0017c7d2f45e23bf4d631629de756d87262629e1c5c8c77ea9",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 84454
+    },
+    "city/facade-tiles/2_-1.glb": {
+      "size": 358724,
+      "sha256": "4da686c50c49cd85e6eb6b9e5c3c9fb11067a3059765d79a1e4a42a463b6be6a",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 75191
+    },
+    "city/facade-tiles/2_-2.glb": {
+      "size": 319548,
+      "sha256": "ac375f6ed54729b8e474dd4fb8ca169a85ff426dc7d46b918dd29bfdae85c292",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 69477
+    },
+    "city/facade-tiles/2_3.glb": {
+      "size": 447008,
+      "sha256": "9be6a96410c1c30ce7132b5cc329bb0160f971ed5a8f1e86b651a0959447f8fc",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 79890
+    },
+    "city/facade-tiles/3_-1.glb": {
+      "size": 292148,
+      "sha256": "0539c2945ab6cfa2c07936dc426185ff9903b541e1ea6a9a5108429419eff4d7",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 58442
+    },
+    "city/facade-tiles/3_-2.glb": {
+      "size": 270420,
+      "sha256": "5b9831a05c9199299ae9a898873c9e4227a923134406c8ecc4b5527b57beab9b",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 60450
+    },
+    "city/facade-tiles/3_0.glb": {
+      "size": 583608,
+      "sha256": "591432bdee89375786f05e3021572fee4bca475f48468dae68e32a6d8c1bff39",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 116177
+    },
+    "city/facade-tiles/3_1.glb": {
+      "size": 293124,
+      "sha256": "e60e1d65020f96f299d0c527cd9b577d8258000211754fe4ba7e2f3938afd009",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 58398
+    },
+    "city/facade-tiles/3_3.glb": {
+      "size": 305864,
+      "sha256": "d1dfdaa120002147a27c58a44abcc9acdc3eb942aeba3564ad61f6a69863e3b0",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 54857
+    },
+    "city/facade-tiles/4_-1.glb": {
+      "size": 386400,
+      "sha256": "bffabf526d20e5eed2609b500443233173e444dc1ff713a08cd7e9e4d76c2be1",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 77279
+    },
+    "city/facade-tiles/4_0.glb": {
+      "size": 381124,
+      "sha256": "43d967c7499d75a0fe56b1381aede78860d7adfd6dbefa58921e4774a17b5359",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 78434
+    },
+    "city/facade-tiles/5_0.glb": {
+      "size": 456760,
+      "sha256": "ddf3af51edcfc296e143ae09a33cc03918c6ab12397d7432d10d91f03dac91bd",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 80345
+    },
+    "city/facade-tiles/5_1.glb": {
+      "size": 648156,
+      "sha256": "0e05cc72fd07de0c0f9a6582d5fc806aec351992a758b94a3f5d83948c99b6fd",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 107172
+    },
+    "city/facade-tiles/6_0.glb": {
+      "size": 366172,
+      "sha256": "bc61a02f54b9795568d3303aefe4ce18ea008c0cf29084bd9e1eabc1c6079694",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 73654
+    },
+    "city/facade-tiles/6_1.glb": {
+      "size": 580392,
+      "sha256": "0135e8082190810c36b301ca714f2c04990655acfa7286c72f13ec21e76667d9",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 98980
+    },
+    "city/facade-tiles/6_2.glb": {
+      "size": 425476,
+      "sha256": "f559dfae067069ce6e6812764043807d6c8e9df0bdc9b82d241ff82e3ac15539",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 74154
+    },
+    "city/facade-tiles/6_3.glb": {
+      "size": 337396,
+      "sha256": "edd855c55c8d47da29557035dc42c5be580a14d01ea26ef2375fbc1132b089d2",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 68076
+    },
+    "city/facade-tiles/7_0.glb": {
+      "size": 307716,
+      "sha256": "e60c5658d2349571f14a2e63d1906b44dbd91ad3d73c214cf03a566c44e51601",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 62806
+    },
+    "city/facade-tiles/7_1.glb": {
+      "size": 314436,
+      "sha256": "1c37b7fa1053c502b9166c494d9ad40c79ff8f41323a39919cc0ae12f35c59d9",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 65803
+    },
+    "city/facade-tiles/7_2.glb": {
+      "size": 316468,
+      "sha256": "1dccacd56151fb3a93c5f141151cb2c03f10b986e123274187aaab08a13464cd",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 60162
+    },
+    "city/facade-tiles/8_0.glb": {
+      "size": 512460,
+      "sha256": "0a01d6e5c49e6fc65519520cd6f543536938d0820a1e43310ba7f7d9846bea03",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 103493
+    },
+    "city/facade-tiles/8_1.glb": {
+      "size": 557856,
+      "sha256": "fd7d46139f77b882bcdb18325cae260f0ea1b62c36cd401d3610ed25feaa98cc",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 113111
+    },
+    "city/facade-tiles/9_0.glb": {
+      "size": 363724,
+      "sha256": "a0be71882dbd13be92555295297dd8a80260f173784f08a33f1762631f4a05e0",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 77164
+    },
+    "city/grassland-v2/lawn-color.jpg": {
+      "size": 532321,
+      "sha256": "14182c64817b45b0690997588c940a3e58f4bcc03ae2e8a89b3953e91cb83bc8",
+      "contentType": "image/jpeg",
+      "br": false
+    },
+    "city/grassland-v2/lawn-normal-roughness.png": {
+      "size": 2533058,
+      "sha256": "0d2d6b21d38659b2da52138dc4d5233de45184e7be6a42b3ac5ef478657e0696",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/grassland-v2/litter-normal-roughness.png": {
+      "size": 570549,
+      "sha256": "fc75b3c08330e08437558a9547c8f4480a48f423af565e836d6bebc8b5f7efd9",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/grassland-v2/meadow.json": {
+      "size": 514452,
+      "sha256": "93149a375c99f948970a897b9aa2b65a0cb1b3519ec25d4996626a987fc18e78",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 126249
+    },
+    "city/grassland-v2/soil-normal-roughness.png": {
+      "size": 559407,
+      "sha256": "2b165038e22a3a0ae5ab61ed117a4dca13d2a33079130fe6cc0947a491ac5c6f",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/ground-relief/ground-cover.png": {
+      "size": 2520605,
+      "sha256": "1e69eab68ab77de38fc1b5482527a3d99b7cc3a0e13d15093178920343f40ddb",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/ground-relief/relief-mesh.bin": {
+      "size": 1663980,
+      "sha256": "6bf9e5033e59e889038d8df6dc74323412eb605186cba08fda8f3f13ffe44768",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 795675
+    },
+    "city/ground-surfaces.json": {
+      "size": 2266369,
+      "sha256": "cb4ff20cd2cd23518d65369e029f6e97a18eb697a8e95cd89d920c0b1c06221d",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 378654
+    },
+    "city/lamps.json": {
+      "size": 699993,
+      "sha256": "2601c3181b91b6115803b1276658c625ef3f4881a404a88fa376e8e99becddf3",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 170164
+    },
+    "city/landmark-candidates.glb": {
+      "size": 1266912,
+      "sha256": "3d762633f3426bd7efce140baeb702f6159b8a1cbdfec6215c27b28b8c3a0fff",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 589333
+    },
+    "city/landmark-detail.glb": {
+      "size": 2163100,
+      "sha256": "c5778c4b4ec9c24917d75d32e3a55999a400676e2076f3860c485dbbc6c6db22",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 797799
+    },
+    "city/landmarks.glb": {
+      "size": 2266028,
+      "sha256": "d3b577efe46500fbfd82b5564fbc545b0ed90f11267843e0fa6d2338da7ed7d9",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 591150
+    },
+    "city/landscape/planting.json": {
+      "size": 2748439,
+      "sha256": "95eeec54e78df2190a2e60f9a57a797e5790304439a423530ffa35963548dae5",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 887475
+    },
+    "city/life-hub.glb": {
+      "size": 1947576,
+      "sha256": "b42f1ffbe8a1370f4045376ba834d1f67bf4ba7861ee3035f4cc1a2582da04e8",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 530336
+    },
+    "city/life-hub/signs.png": {
+      "size": 274194,
+      "sha256": "8ff20e22c7165a7cd1e9d3d3e015a75b4839257d0a0275d1f73bae2294ed3065",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/loading/bamboo-clay-loop.mp4": {
+      "size": 6773529,
+      "sha256": "843bff0d03cc3e10140f4db272602be294a4584247fb640f2976cc87efa688dc",
+      "contentType": "video/mp4",
+      "br": false
+    },
+    "city/mountain-relief/heights.bin": {
+      "size": 491184,
+      "sha256": "6a9d6bbeb262365c20f5e592f7e4a54706068511d93a5243d351485ce2a09aa6",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 212198
+    },
+    "city/mountain-relief/near-heights.bin": {
+      "size": 1993060,
+      "sha256": "adadb170b03011f4495a3eaa6ac60f0c5d4b37eebf49e515f3822415512c2fa6",
+      "contentType": "application/octet-stream",
+      "br": true,
+      "brSize": 40633
+    },
+    "city/navigation.json": {
+      "size": 1321115,
+      "sha256": "df45c79d4ef96e30fcba37301597f15d72ac4aebfc4c1490e86da4dddc13ae7d",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 330498
+    },
+    "city/open-vegetation/island-tree-lod.glb": {
+      "size": 5556680,
+      "sha256": "b4e2ea3a635a1a9fdc61807febade1170b2ad1275db51cad02ead3832a7832d3",
+      "contentType": "model/gltf-binary",
+      "br": false
+    },
+    "city/open-vegetation/island-tree.glb": {
+      "size": 6090044,
+      "sha256": "5837222503cf321fc63691fa695bff745fbca2929c2e32a63380bfefbf778d21",
+      "contentType": "model/gltf-binary",
+      "br": false
+    },
+    "city/open-vegetation/palm-lod.glb": {
+      "size": 2347612,
+      "sha256": "a509c58fd731f1bb4a5e0ab7219c160e3ecd9c106ef15898ef22e87ba372b5aa",
+      "contentType": "model/gltf-binary",
+      "br": false
+    },
+    "city/open-vegetation/palm.glb": {
+      "size": 2360488,
+      "sha256": "5eb7453709da34325c845e99918072097d63ef4d1f902801588fe37c7b05df8d",
+      "contentType": "model/gltf-binary",
+      "br": false
+    },
+    "city/pedestrian-paths.json": {
+      "size": 1270477,
+      "sha256": "5ebc936e1ebfac842042067571d322bc8b04ef04fd1849fb601e1e217271a6b6",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 446180
+    },
+    "city/rain/puddles-layout.json": {
+      "size": 4379027,
+      "sha256": "93009277ffeb0dc562893fc26b5ddcb2c2e865dd176adecbacd0e4d934e822c6",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 1374599
+    },
+    "city/rider/rider.glb": {
+      "size": 2967904,
+      "sha256": "7e1f3d5b4f23e3b2f235e3a7807a383ba1105d5bed7c9ce4703320ba7208c72c",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 2605885
+    },
+    "city/roads.glb": {
+      "size": 16827100,
+      "sha256": "1e8a53838c1b4b682fdcbf28c26db69c12ead7fa0807ba216061b42e3e832de7",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 5970524
+    },
+    "city/street/urban-bench.glb": {
+      "size": 5643192,
+      "sha256": "fa28646b4a58f59fccd52c27bc4fac7468028e84168e18c66c23b74420674e6a",
+      "contentType": "model/gltf-binary",
+      "br": false
+    },
+    "city/surfaces.json": {
+      "size": 1541721,
+      "sha256": "6839a7d3757c51cd18cb77c0140404399c6405a79e06fbc8446388652a5ca5d6",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 287535
+    },
+    "city/tank/tank.glb": {
+      "size": 3132044,
+      "sha256": "09e6672cb603e93957a6f0c5e4d0477c2226de39a44eb9dfce173211ea20747b",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 2722820
+    },
+    "city/terrain-detail.json": {
+      "size": 381323,
+      "sha256": "41feabf8ed35fde255a14e94bd15b08324cca4088f42a2d2caccf58a8156b4c0",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 124632
+    },
+    "city/terrain.glb": {
+      "size": 602628,
+      "sha256": "92825c1dad9afa8fb1da59be9d7dc3a653f3d1aafcb68ff8e47220e8899d6473",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 454766
+    },
+    "city/textures/architecture/curtain-glass.png": {
+      "size": 296391,
+      "sha256": "2471a3cc6557e21f0a922f56ea4f0bbdbd6ec68c89214f68d9ccab2879789f81",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/textures/architecture/light-stone.png": {
+      "size": 371228,
+      "sha256": "6f441b80b8ab615ddf0149d685331be7cd46be40525aaf8278798e9da39042bb",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/textures/architecture/warm-residential.png": {
+      "size": 467022,
+      "sha256": "40ebedb6489c8ac9b999b86dbdb24a326a0475738645c02c387f5ce954228fce",
+      "contentType": "image/png",
+      "br": false
+    },
+    "city/textures/road-cinematic/asphalt-normal-gl.webp": {
+      "size": 2210328,
+      "sha256": "553c7e1f76b7fc87ad225fd322236db339a7761656fb0bb7917b71f987b77180",
+      "contentType": "image/webp",
+      "br": false
+    },
+    "city/textures/road-cinematic/asphalt-orm.webp": {
+      "size": 1660544,
+      "sha256": "d7312c36d81dc8ca282d4b4d502c40ee2f829ab3f0ee56f44defbf6d5cd2631b",
+      "contentType": "image/webp",
+      "br": false
+    },
+    "city/textures/road.jpg": {
+      "size": 285177,
+      "sha256": "ee242cf2b31c3ac161a8069fe0431535da4b05c7d9ed2ed3c55c0f681057df36",
+      "contentType": "image/jpeg",
+      "br": false
+    },
+    "city/tree.glb": {
+      "size": 269320,
+      "sha256": "676d3ae4c461c8f5d07736ed3b737f0b355f51055f76e756013dfdba7514ba8f",
+      "contentType": "model/gltf-binary",
+      "br": true,
+      "brSize": 132463
+    },
+    "city/trees.json": {
+      "size": 277453,
+      "sha256": "6160a3285f5773ca5e5b44bd26d3dc3acdb5f67a534257ebe3f0c85092a99491",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 90282
+    }
+  }
+}

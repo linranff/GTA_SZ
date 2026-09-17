@@ -1,0 +1,19 @@
+// 深城纪 Cloudflare 部署：Worker 静态资源托管网页，R2 存放大文件。
+// 部署：scripts/cloudflare/deploy.sh；大文件同步：node scripts/cloudflare/sync-r2.mjs
+{
+  "name": "shenchengji",
+  "main": "worker.ts",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+  "assets": {
+    // scripts/cloudflare/deploy.sh 会先 npm run build，再把 r2-manifest.json 里的大文件写进 dist/.assetsignore。
+    "directory": "../dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // 只有这些前缀先进 Worker；Worker 只把 r2-manifest.json 里列出的键转到 R2，其余回落到静态资源。
+    "run_worker_first": ["/city/*", "/characters/*", "/assets/*.glb"]
+  },
+  "r2_buckets": [
+    { "binding": "CITY", "bucket_name": "shenchengji-city" }
+  ]
+}
