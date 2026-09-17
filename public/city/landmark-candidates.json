@@ -1,0 +1,1680 @@
+{
+ "schemaVersion": 1,
+ "asset": "/city/landmark-candidates.glb",
+ "assetStats": {
+  "bytes": 1245412,
+  "sha256": "517b6e36a8a9a3744391a522dd738860dd9078178749b9f5156827e5bce797bc",
+  "meshes": 315,
+  "triangles": 31882
+ },
+ "replacedMeshPrefixes": [
+  "landmark_pingan_",
+  "landmark_kk100_",
+  "landmark_diwang_"
+ ],
+ "landmarks": [
+  {
+   "id": "pingan",
+   "name": "平安金融中心",
+   "x": 1564.66,
+   "z": 42.75,
+   "lon": 114.050355,
+   "lat": 22.53664,
+   "height": 359.4599914550781,
+   "area": "福田 · CBD",
+   "excludeRadius": 46.8,
+   "arrival": [
+    1623.94,
+    -393.36
+   ],
+   "yaw": 6.2690554556274485,
+   "arrivalRoad": "益田路",
+   "detailCollision": true,
+   "photoDistance": 720,
+   "photoTargetHeight": 162,
+   "photoElevation": 0.16,
+   "sourceStatus": "candidate run-20260914T113232Z; spec pingan.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "kk100",
+   "name": "京基100",
+   "x": 4725.81,
+   "z": 650.15,
+   "lon": 114.101581,
+   "lat": 22.545734,
+   "height": 265.0799865722656,
+   "area": "罗湖 · 蔡屋围",
+   "excludeRadius": 39,
+   "arrival": [
+    4785.63,
+    267.6
+   ],
+   "yaw": 6.261154429984309,
+   "arrivalRoad": "金塘街",
+   "detailCollision": true,
+   "photoDistance": 518,
+   "photoTargetHeight": 119,
+   "photoElevation": 0.16,
+   "sourceStatus": "candidate run-20260916T170143Z; spec kk100.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "diwang",
+   "name": "地王大厦",
+   "x": 4969.07,
+   "z": 623.97,
+   "lon": 114.105523,
+   "lat": 22.545342,
+   "height": 230.39999389648438,
+   "area": "罗湖 · 蔡屋围",
+   "excludeRadius": 42,
+   "arrival": [
+    5216.78,
+    621.55
+   ],
+   "yaw": -1.7448938963036644,
+   "arrivalRoad": "深南东路",
+   "detailCollision": true,
+   "photoDistance": 454,
+   "photoTargetHeight": 104,
+   "photoElevation": 0.16,
+   "sourceStatus": "candidate run-20260916T170240Z; spec diwang.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "guomao",
+   "name": "深圳国贸大厦",
+   "x": 5533.782539999263,
+   "z": 482.7725759998525,
+   "lon": 114.114674,
+   "lat": 22.543228,
+   "height": 102.4800033569336,
+   "area": "深圳 · 天际线",
+   "excludeRadius": 0,
+   "arrival": [
+    5470.4,
+    483.4
+   ],
+   "yaw": -3.1039535343904197,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 260,
+   "photoTargetHeight": 46,
+   "photoElevation": 0.22,
+   "sourceStatus": "candidate run-20260916T170441Z; spec guomao.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "seg",
+   "name": "赛格广场",
+   "x": 3539.0067899992523,
+   "z": 544.1544239998304,
+   "lon": 114.082349,
+   "lat": 22.544147,
+   "height": 186.9600067138672,
+   "area": "深圳 · 天际线",
+   "excludeRadius": 0,
+   "arrival": [
+    3506.7,
+    463.5
+   ],
+   "yaw": 0.9779511460892842,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 439,
+   "photoTargetHeight": 84,
+   "photoElevation": 0.16,
+   "sourceStatus": "candidate run-20260916T170339Z; spec seg.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "stock-exchange",
+   "name": "深圳证券交易所营运中心",
+   "x": 1470.5492999993571,
+   "z": 551.7019199999955,
+   "lon": 114.04883,
+   "lat": 22.54426,
+   "height": 147.47999572753906,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1404.8,
+    619.7
+   ],
+   "yaw": 3.123386362477637,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 372,
+   "photoTargetHeight": 66,
+   "photoElevation": 0.22,
+   "sourceStatus": "candidate run-20260914T132717Z; spec stock-exchange.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "concert-hall",
+   "name": "深圳音乐厅",
+   "x": 1662.4673999997647,
+   "z": 935.0879999999563,
+   "lon": 114.05194,
+   "lat": 22.55,
+   "height": 20.4768009185791,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1603.9,
+    945.1
+   ],
+   "yaw": -0.36352687697444097,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 136,
+   "photoTargetHeight": 9,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T140356Z; spec concert-hall.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "library-center",
+   "name": "深圳图书馆（中心馆）",
+   "x": 1667.404199999578,
+   "z": 839.5754400000128,
+   "lon": 114.05202,
+   "lat": 22.54857,
+   "height": 24.624000549316406,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1709.8,
+    890.4
+   ],
+   "yaw": -1.589821515167874,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 157,
+   "photoTargetHeight": 11,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T133038Z; spec library-center.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "mocata",
+   "name": "深圳市当代艺术与城市规划馆",
+   "x": 1954.3556999994573,
+   "z": 842.2471199999117,
+   "lon": 114.05667,
+   "lat": 22.54861,
+   "height": 24,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1971.4,
+    759.2
+   ],
+   "yaw": 1.5534820398715106,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 193,
+   "photoTargetHeight": 11,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T134701Z; spec mocata.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "convention-futian",
+   "name": "深圳会展中心（福田）",
+   "x": 1835.7490799998695,
+   "z": -170.653560000065,
+   "lon": 114.054748,
+   "lat": 22.533445,
+   "height": 68.87999725341797,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1845.6,
+    -51.9
+   ],
+   "yaw": -1.5744459456273427,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 650,
+   "photoTargetHeight": 31,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T124500Z; spec convention-futian.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "book-mall",
+   "name": "深圳书城中心城",
+   "x": 1814.2739999997177,
+   "z": 788.1455999998242,
+   "lon": 114.0544,
+   "lat": 22.5478,
+   "height": 8.640000343322754,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1766.3,
+    653.9
+   ],
+   "yaw": -0.012852762659266211,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 345,
+   "photoTargetHeight": 4,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T142532Z; spec book-mall.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "youth-palace",
+   "name": "深圳市少年宫",
+   "x": 1958.0953259993112,
+   "z": 952.7144087999701,
+   "lon": 114.0567306,
+   "lat": 22.5502639,
+   "height": 21.600000381469727,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1995.5,
+    1017.8
+   ],
+   "yaw": 1.8292512630029092,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 147,
+   "photoTargetHeight": 10,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T141242Z; spec youth-palace.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "bay-sports",
+   "name": "深圳湾体育中心「春茧」",
+   "x": -4885.580700000299,
+   "z": -1013.2346400000827,
+   "lon": 113.94583,
+   "lat": 22.52083,
+   "height": 25.392000198364258,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    -4901.6,
+    -941.1
+   ],
+   "yaw": -0.9002747688142719,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 241,
+   "photoTargetHeight": 11,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T132502Z; spec bay-sports.json",
+   "candidateKind": "building_complex"
+  },
+  {
+   "id": "bay-one",
+   "name": "深圳湾一号",
+   "x": -5416.903800000573,
+   "z": -1829.4328800000312,
+   "lon": 113.93722,
+   "lat": 22.50861,
+   "height": 208.44000244140625,
+   "area": "深圳 · 天际线",
+   "excludeRadius": 0,
+   "arrival": [
+    -5471.3,
+    -1824.7
+   ],
+   "yaw": 2.772258995916132,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 465,
+   "photoTargetHeight": 94,
+   "photoElevation": 0.16,
+   "sourceStatus": "candidate run-20260914T134010Z; spec bay-one.json",
+   "candidateKind": "building_complex"
+  },
+  {
+   "id": "hanking",
+   "name": "汉京中心",
+   "x": -5761.245600000254,
+   "z": 499.60415999983223,
+   "lon": 113.93164,
+   "lat": 22.54348,
+   "height": 215.33999633789062,
+   "area": "深圳 · 天际线",
+   "excludeRadius": 0,
+   "arrival": [
+    -5810.9,
+    540.1
+   ],
+   "yaw": 1.5984970479860692,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 479,
+   "photoTargetHeight": 97,
+   "photoElevation": 0.16,
+   "sourceStatus": "candidate run-20260914T122751Z; spec hanking.json",
+   "candidateKind": "building_complex"
+  },
+  {
+   "id": "coco-park",
+   "name": "COCO Park",
+   "x": 1472.72149199931,
+   "z": 25.968729599975546,
+   "lon": 114.0488652,
+   "lat": 22.5363888,
+   "height": 13.920000076293945,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    1460.8,
+    87.3
+   ],
+   "yaw": 1.5540914369060852,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 165,
+   "photoTargetHeight": 6,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T142225Z; spec coco-park.json",
+   "candidateKind": "mixed_use_district"
+  },
+  {
+   "id": "mixc-luohu",
+   "name": "万象城（罗湖）",
+   "x": 4977.281759999414,
+   "z": 423.9288239998733,
+   "lon": 114.105656,
+   "lat": 22.542347,
+   "height": 70.80000305175781,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    5026.8,
+    500.5
+   ],
+   "yaw": 3.0260917054569654,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 266,
+   "photoTargetHeight": 32,
+   "photoElevation": 0.22,
+   "sourceStatus": "candidate run-20260914T133424Z; spec mixc-luohu.json",
+   "candidateKind": "mixed_use_district"
+  },
+  {
+   "id": "coastal-city",
+   "name": "海岸城",
+   "x": -5375.804939999981,
+   "z": -1204.1929680001383,
+   "lon": 113.937886,
+   "lat": 22.517971,
+   "height": 58.79999923706055,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    -5376.4,
+    -1138.5
+   ],
+   "yaw": 2.110141713622496,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 286,
+   "photoTargetHeight": 26,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T133518Z; spec coastal-city.json",
+   "candidateKind": "mixed_use_district"
+  },
+  {
+   "id": "oct-harbour",
+   "name": "欢乐海岸",
+   "x": -2591.6040150006434,
+   "z": -671.0458656000905,
+   "lon": 113.9830035,
+   "lat": 22.5259532,
+   "height": 16.70400047302246,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    -2662.2,
+    -585.5
+   ],
+   "yaw": 3.1227269675681275,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 391,
+   "photoTargetHeight": 8,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T142150Z; spec oct-harbour.json",
+   "candidateKind": "mixed_use_district"
+  },
+  {
+   "id": "window-world",
+   "name": "世界之窗",
+   "x": -3409.1343924006064,
+   "z": 101.11574087988254,
+   "lon": 113.96975556,
+   "lat": 22.53751389,
+   "height": 69.5999984741211,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    -3328.1,
+    197.7
+   ],
+   "yaw": -1.1917290564422471,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 353,
+   "photoTargetHeight": 31,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T141410Z; spec window-world.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "futian-station",
+   "name": "福田站",
+   "x": 1954.3556999994573,
+   "z": 155.62535999980338,
+   "lon": 114.05667,
+   "lat": 22.53833,
+   "height": 9.65999984741211,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    1971.4,
+    106.4
+   ],
+   "yaw": -0.030293759918793482,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 150,
+   "photoTargetHeight": 4,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T135900Z; spec futian-station.json",
+   "candidateKind": "building_complex"
+  },
+  {
+   "id": "guanshanyue",
+   "name": "关山月美术馆",
+   "x": 2091.351899999971,
+   "z": 1064.6644799997966,
+   "lon": 114.05889,
+   "lat": 22.55194,
+   "height": 11.13599967956543,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    2064.1,
+    1107.2
+   ],
+   "yaw": -1.5707963267948966,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 120,
+   "photoTargetHeight": 5,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T134957Z; spec guanshanyue.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "grand-theater",
+   "name": "深圳大剧院",
+   "x": 4657.253699999735,
+   "z": 617.4252479999278,
+   "lon": 114.10047,
+   "lat": 22.545244,
+   "height": 18.43199920654297,
+   "area": "深圳",
+   "excludeRadius": 0,
+   "arrival": [
+    4597.1,
+    616.6
+   ],
+   "yaw": 3.11039920880356,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 120,
+   "photoTargetHeight": 8,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T132612Z; spec grand-theater.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "shanghai-hotel",
+   "name": "上海宾馆",
+   "x": 3197.9356200000843,
+   "z": 517.237247999924,
+   "lon": 114.076822,
+   "lat": 22.543744,
+   "height": 29.90399932861328,
+   "area": "深圳 · 天际线",
+   "excludeRadius": 0,
+   "arrival": [
+    3163.8,
+    503.6
+   ],
+   "yaw": 2.9406383899017134,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 122,
+   "photoTargetHeight": 13,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T140518Z; spec shanghai-hotel.json",
+   "candidateKind": "building"
+  },
+  {
+   "id": "tech-park",
+   "name": "科技园",
+   "x": -4782.525000000035,
+   "z": 434.1479999999373,
+   "lon": 113.9475,
+   "lat": 22.5425,
+   "height": 25.055999755859375,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    -4687.3,
+    394.2
+   ],
+   "yaw": -0.014353081273814893,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 250,
+   "photoTargetHeight": 11,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T142111Z; spec tech-park.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "huaqiangbei",
+   "name": "华强北",
+   "x": 3826.019999999852,
+   "z": 644.5427999998029,
+   "lon": 114.087,
+   "lat": 22.54565,
+   "height": 29.23200035095215,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    3941.9,
+    748.5
+   ],
+   "yaw": -0.016665123713938225,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 287,
+   "photoTargetHeight": 13,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T141732Z; spec huaqiangbei.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "dongmen",
+   "name": "东门老街",
+   "x": 5790.866400000008,
+   "z": 768.2415840000082,
+   "lon": 114.11884,
+   "lat": 22.547502,
+   "height": 12.527999877929688,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    5816.7,
+    861.1
+   ],
+   "yaw": -2.273510505642865,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 164,
+   "photoTargetHeight": 6,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T141654Z; spec dongmen.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "futian-axis",
+   "name": "福田中心区中轴线",
+   "x": 1828.7141399992151,
+   "z": 261.0231359999422,
+   "lon": 114.054634,
+   "lat": 22.539908,
+   "height": 10.800000190734863,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    1909.6,
+    238.8
+   ],
+   "yaw": 3.141592653589793,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 791,
+   "photoTargetHeight": 5,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T105139Z; spec futian-axis.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "houhai",
+   "name": "后海 / 深圳湾超级总部基地",
+   "x": -5183.640000000196,
+   "z": -1512.7052160000148,
+   "lon": 113.941,
+   "lat": 22.513352,
+   "height": 70.80000305175781,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    -5281.5,
+    -1547.4
+   ],
+   "yaw": 1.5255783018860374,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 325,
+   "photoTargetHeight": 32,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T142651Z; spec houhai.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "caiwuwei",
+   "name": "蔡屋围",
+   "x": 4790.979269999737,
+   "z": 507.6192000000034,
+   "lon": 114.102637,
+   "lat": 22.5436,
+   "height": 29.23200035095215,
+   "area": "深圳 · 片区",
+   "excludeRadius": 0,
+   "arrival": [
+    4712.7,
+    520.4
+   ],
+   "yaw": -1.0303768265242121,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 215,
+   "photoTargetHeight": 13,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T141816Z; spec caiwuwei.json",
+   "candidateKind": "district"
+  },
+  {
+   "id": "baypark",
+   "name": "深圳湾公园",
+   "x": -2283.27,
+   "z": -794.82,
+   "lon": 113.988,
+   "lat": 22.5241,
+   "height": 0,
+   "area": "南山 · 深圳湾",
+   "excludeRadius": 0,
+   "arrival": [
+    -2272.3,
+    -713.03
+   ],
+   "yaw": 2.9929484729427385,
+   "arrivalRoad": "海园二路",
+   "detailCollision": true,
+   "photoDistance": 1368,
+   "photoTargetHeight": 6,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T105413Z; spec baypark.json",
+   "candidateKind": "park"
+  },
+  {
+   "id": "talent",
+   "name": "深圳人才公园",
+   "x": -4988.02,
+   "z": -1492.13,
+   "lon": 113.94417,
+   "lat": 22.51366,
+   "height": 0,
+   "area": "南山 · 后海",
+   "excludeRadius": 0,
+   "arrival": [
+    -5166.58,
+    -1377.01
+   ],
+   "yaw": 3.4076783521416933,
+   "arrivalRoad": "登良路隧道",
+   "detailCollision": true,
+   "photoDistance": 791,
+   "photoTargetHeight": 6,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T103855Z; spec talent.json",
+   "candidateKind": "park"
+  },
+  {
+   "id": "xiangmi",
+   "name": "香蜜湖 / 香蜜公园",
+   "x": 112.93,
+   "z": 973.16,
+   "lon": 114.02683,
+   "lat": 22.55057,
+   "height": 0,
+   "area": "福田 · 香蜜湖",
+   "excludeRadius": 0,
+   "arrival": [
+    -264.58,
+    803.47
+   ],
+   "yaw": 2.566082409010779,
+   "arrivalRoad": "香蜜湖路",
+   "detailCollision": true,
+   "photoDistance": 859,
+   "photoTargetHeight": 6,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T105311Z; spec xiangmi.json",
+   "candidateKind": "park"
+  },
+  {
+   "id": "lizhi",
+   "name": "荔枝公园",
+   "x": 4473.974999999439,
+   "z": 768.1079999998708,
+   "lon": 114.0975,
+   "lat": 22.5475,
+   "height": 16.799999237060547,
+   "area": "深圳 · 公园",
+   "excludeRadius": 0,
+   "arrival": [
+    4299.8,
+    763.3
+   ],
+   "yaw": 2.0218092290944867,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 757,
+   "photoTargetHeight": 8,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T135954Z; spec lizhi.json",
+   "candidateKind": "park"
+  },
+  {
+   "id": "central-park",
+   "name": "深圳中心公园",
+   "x": 2776.949999999228,
+   "z": 400.7520000000152,
+   "lon": 114.07,
+   "lat": 22.542,
+   "height": 12,
+   "area": "深圳 · 公园",
+   "excludeRadius": 0,
+   "arrival": [
+    2606.1,
+    406
+   ],
+   "yaw": 2.433254399887339,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 1832,
+   "photoTargetHeight": 5,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T140045Z; spec central-park.json",
+   "candidateKind": "park"
+  },
+  {
+   "id": "bijia",
+   "name": "笔架山公园",
+   "x": 3175.90914615864,
+   "z": 1947.9486047999392,
+   "lon": 114.07646506475707,
+   "lat": 22.5651644,
+   "height": 49.20000076293945,
+   "area": "深圳 · 公园",
+   "excludeRadius": 0,
+   "arrival": [
+    3177.4,
+    1861.2
+   ],
+   "yaw": -0.022095850883850035,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 1268,
+   "photoTargetHeight": 22,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T140439Z; spec bijia.json",
+   "candidateKind": "park"
+  },
+  {
+   "id": "mangrove",
+   "name": "福田红树林 / 深圳湾红树林",
+   "x": -304.9955040002749,
+   "z": -1145.810080800087,
+   "lon": 114.0200576,
+   "lat": 22.5188451,
+   "height": 6.71999979019165,
+   "area": "深圳 · 公园",
+   "excludeRadius": 0,
+   "arrival": [
+    -133.2,
+    -796.5
+   ],
+   "yaw": 0.4636476090006924,
+   "arrivalRoad": "周边连通道路",
+   "detailCollision": true,
+   "photoDistance": 1730,
+   "photoTargetHeight": 3,
+   "photoElevation": 0.5,
+   "sourceStatus": "candidate run-20260914T105342Z; spec mangrove.json",
+   "candidateKind": "park"
+  }
+ ],
+ "sources": [
+  {
+   "id": "pingan",
+   "runDir": "artifacts/landmark-candidates/pingan-visual-v1/run-20260914T113232Z",
+   "glbSha256": "ce4a94b30f485d420bbc2b6e25fc87e21dc08efdb42059042f3f29b59ee2dde0",
+   "bytes": 107544,
+   "triangles": 1508,
+   "meshes": 8,
+   "moduleSha256": "1fb29d42aa1a68d31073125fe3442fc5e7d4cb582bfab39f4d1a4db4de9611b1",
+   "specSha256": "fb78d475b73102bc8596f017e2a6d3645630dc0b1d2d6a468085c85e340ed4fe",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1539.797607421875,
+    "maxX": 1589.7510986328125,
+    "minZ": 4.342144012451172,
+    "maxZ": 64.85350036621094,
+    "maxY": 359.4599914550781
+   }
+  },
+  {
+   "id": "kk100",
+   "runDir": "artifacts/landmark-candidates/kk100-visual-v1/run-20260916T170143Z",
+   "glbSha256": "de276147479bf8c829cd16bcc37b99750dafb0683405d124e993a0741294731d",
+   "bytes": 102884,
+   "triangles": 1592,
+   "meshes": 8,
+   "moduleSha256": "7e523a1f0f39763c2700fc878c84f9915437098fce386900104321677bf845cf",
+   "specSha256": "17a647f8c1558fb4f2d96215696a6cb703ce4cc7275b88f7fed62a30f6c36155",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4708.60791015625,
+    "maxX": 4743.01220703125,
+    "minZ": 633.6725463867188,
+    "maxZ": 665.030029296875,
+    "maxY": 265.0799865722656
+   }
+  },
+  {
+   "id": "diwang",
+   "runDir": "artifacts/landmark-candidates/diwang-visual-v1/run-20260916T170240Z",
+   "glbSha256": "a8aa8919005057f3d6ae3afbfb2922cf15632a34ebce5b7be641b7808dfd18b9",
+   "bytes": 113040,
+   "triangles": 1800,
+   "meshes": 8,
+   "moduleSha256": "478b571eb6487e245fd1c3a4747320d05f2a780a9c9820530565e473074d24b2",
+   "specSha256": "172cd2fa3f4268be71d1c4fb4233d29bd1c71522d4b964fdb967c6a7d52e7dd8",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4952.6767578125,
+    "maxX": 4985.46337890625,
+    "minZ": 609.2706909179688,
+    "maxZ": 635.6124267578125,
+    "maxY": 230.39999389648438
+   }
+  },
+  {
+   "id": "guomao",
+   "runDir": "artifacts/landmark-candidates/guomao-visual-v1/run-20260916T170441Z",
+   "glbSha256": "72ba4ec1ff89465e7a61bbf4bf377a403aa156a0230d7ddc1da4e0a081662662",
+   "bytes": 136236,
+   "triangles": 772,
+   "meshes": 9,
+   "moduleSha256": "7a744aac5bf79db3df7d6bba5b85dd3452d84cf1329bb5d50e05839297a475e9",
+   "specSha256": "2c3d923a8cec94d32ea362e275120c00768bbadb5d022f28916fb346b5908298",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (OSM footprint centroid from city.json)",
+   "extentGame": {
+    "minX": 5504.5263671875,
+    "maxX": 5563.03857421875,
+    "minZ": 444.8765869140625,
+    "maxZ": 507.5765686035156,
+    "maxY": 102.4800033569336
+   }
+  },
+  {
+   "id": "seg",
+   "runDir": "artifacts/landmark-candidates/seg-visual-v1/run-20260916T170339Z",
+   "glbSha256": "7b7758fde1b89ed748d8af887a99ef578817bf2bea0322b8d18d958c7bb50d78",
+   "bytes": 270528,
+   "triangles": 668,
+   "meshes": 9,
+   "moduleSha256": "09065a7dff8005506d9752499b211decaad258105d8d7053b6bd07920cc189ca",
+   "specSha256": "dc1063fe267296e3fe023e676b76c3b53871421b399d344d4dd254b13ef7a769",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (OSM footprint centroid from city.json)",
+   "extentGame": {
+    "minX": 3501.998779296875,
+    "maxX": 3578.53466796875,
+    "minZ": 485.576416015625,
+    "maxZ": 570.9864501953125,
+    "maxY": 186.9600067138672
+   }
+  },
+  {
+   "id": "stock-exchange",
+   "runDir": "artifacts/landmark-candidates/stock-exchange-visual-v1/run-20260914T132717Z",
+   "glbSha256": "2a79252ba36ad2d2275a557e158945a510b399ee7ac33875d011701d250e33b6",
+   "bytes": 280976,
+   "triangles": 816,
+   "meshes": 8,
+   "moduleSha256": "46f37e2f17841589469b76e414b281bc292bc6864e974233afd073f8970495f0",
+   "specSha256": "93c4512929702d1636dc6d2d1ec79d1d43e91e46cef1e31d0ba8d8c98afefe4f",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1426.1492919921875,
+    "maxX": 1514.9493408203125,
+    "minZ": 495.36712646484375,
+    "maxZ": 577.5018920898438,
+    "maxY": 147.47999572753906
+   }
+  },
+  {
+   "id": "concert-hall",
+   "runDir": "artifacts/landmark-candidates/concert-hall-visual-v1/run-20260914T140356Z",
+   "glbSha256": "0b9579737a5310fa19e2809e1d8b43e6d53dfe9aa2b6b269e5260ff976aa41a3",
+   "bytes": 43172,
+   "triangles": 512,
+   "meshes": 8,
+   "moduleSha256": "9a4f28d2efa2187f7238e58dac5f3289c92e32f5fc2a1cb2d3ebd457e03ae435",
+   "specSha256": "3860df0f0468b815b7a822df865aebf8c3206c0df9def15f6c0f7a0bbf9356ae",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1629.4674072265625,
+    "maxX": 1695.4674072265625,
+    "minZ": 895.3920288085938,
+    "maxZ": 955.2479858398438,
+    "maxY": 20.4768009185791
+   }
+  },
+  {
+   "id": "library-center",
+   "runDir": "artifacts/landmark-candidates/library-center-visual-v1/run-20260914T133038Z",
+   "glbSha256": "7151eda70a6e676ca660653116806a9205d6e3f96788c1d7373dd270a25c887b",
+   "bytes": 325144,
+   "triangles": 1420,
+   "meshes": 8,
+   "moduleSha256": "16228c99e5f15b13c93ba35ef254f80df36ce6e090f706bcb4b93b0a192cc7fe",
+   "specSha256": "7a2a2b60a1298b8b25216544ef5f8362d2fb26f54185f3409fb36c758c4bc709",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1629.818115234375,
+    "maxX": 1704.9903564453125,
+    "minZ": 817.9754638671875,
+    "maxZ": 861.1754150390625,
+    "maxY": 24.624000549316406
+   }
+  },
+  {
+   "id": "mocata",
+   "runDir": "artifacts/landmark-candidates/mocata-visual-v1/run-20260914T134701Z",
+   "glbSha256": "03a02fa584d1f364eed12cf80ad8406d98c531e2d34626476efa11f5098c1783",
+   "bytes": 257880,
+   "triangles": 468,
+   "meshes": 9,
+   "moduleSha256": "bf60226b1b29253292c2f1ed5e94a40da9fb6980642ed76d391afad36bbd4046",
+   "specSha256": "2e44226060c3628e0856a18b8ee5b9d19da83d40da7407ccfa73e1fcf7cb37a2",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1904.4356689453125,
+    "maxX": 2004.2757568359375,
+    "minZ": 798.567138671875,
+    "maxZ": 885.9271240234375,
+    "maxY": 24
+   }
+  },
+  {
+   "id": "convention-futian",
+   "runDir": "artifacts/landmark-candidates/convention-futian-visual-v1/run-20260914T124500Z",
+   "glbSha256": "4a15107257941d1eab17fc17670a1040b835e4ee50e37281967eaf9c9c6f3db7",
+   "bytes": 84176,
+   "triangles": 1108,
+   "meshes": 7,
+   "moduleSha256": "e277ceefb832aa6d2a3b3eb963c22718eb4251d1e09bae89416d1b28ff5d7671",
+   "specSha256": "bd166262ecf7c8e3b5ebcaaf67fe54ba8a7bb3220bbdfa8833d37fb222f03cee",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1660.549072265625,
+    "maxX": 2010.9490966796875,
+    "minZ": -282.81756591796875,
+    "maxZ": -86.05355834960938,
+    "maxY": 68.87999725341797
+   }
+  },
+  {
+   "id": "book-mall",
+   "runDir": "artifacts/landmark-candidates/book-mall-visual-v1/run-20260914T142532Z",
+   "glbSha256": "cab5509982d82e3193b1f3d6dcff9e8fc9183097daa3ac630be7cd612f8da3d5",
+   "bytes": 360292,
+   "triangles": 856,
+   "meshes": 9,
+   "moduleSha256": "c516bf1194001d46a02fba9e77fb7ffd0ba469a7bdc34ab0f667b94cefca3410",
+   "specSha256": "754c4317bd682650825d9d4def7f0a4331065f54b8f43c12962d66e92f7c91ef",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1766.7540283203125,
+    "maxX": 1861.7939453125,
+    "minZ": 678.3455810546875,
+    "maxZ": 897.9456176757812,
+    "maxY": 8.640000343322754
+   }
+  },
+  {
+   "id": "youth-palace",
+   "runDir": "artifacts/landmark-candidates/youth-palace-visual-v1/run-20260914T141242Z",
+   "glbSha256": "f1dff22830be30eb8a4648144e9f51bf7724c78799f26dfcd5aaeb220de3bea7",
+   "bytes": 58304,
+   "triangles": 728,
+   "meshes": 8,
+   "moduleSha256": "8c24a9bce9ecf52506bd7df3852fa960e1b11516939ff1d868b76109766f6487",
+   "specSha256": "814d612842d52c2dc5ee71a5b3815bb2871e624a2a4fe87c7c97eaabbfa7d97c",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1922.0953369140625,
+    "maxX": 1994.0953369140625,
+    "minZ": 920.9144287109375,
+    "maxZ": 978.346435546875,
+    "maxY": 21.600000381469727
+   }
+  },
+  {
+   "id": "bay-sports",
+   "runDir": "artifacts/landmark-candidates/bay-sports-visual-v1/run-20260914T132502Z",
+   "glbSha256": "18c9d4fd60bd3d342d088fb3ac996d83d9936578ffc1a7d5edb297a4a1d25973",
+   "bytes": 67260,
+   "triangles": 936,
+   "meshes": 7,
+   "moduleSha256": "0f0649114f6b52df272a03f7dcc4074875bde2a9fbed8df2bfcec6b24819e768",
+   "specSha256": "4ece600b9317fded470e508203dea3ec52d93ad2972319681c4ddba2ff664686",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -4949.1806640625,
+    "maxX": -4818.95654296875,
+    "minZ": -1050.194580078125,
+    "maxZ": -988.03466796875,
+    "maxY": 25.392000198364258
+   }
+  },
+  {
+   "id": "bay-one",
+   "runDir": "artifacts/landmark-candidates/bay-one-visual-v1/run-20260914T134010Z",
+   "glbSha256": "8c8f2d74a063156aeca4cb150cd279f2ce8f7b74ed0175c6e1b9ddb477702f16",
+   "bytes": 321352,
+   "triangles": 1508,
+   "meshes": 9,
+   "moduleSha256": "409693e986b497c4d5aee581936be91d195f84f93cd61a17cbf3402b47442559",
+   "specSha256": "095871b638e94626933bbed6bebb43cca1ed8e7b661329b7fa521935b93cc06d",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -5450.62158203125,
+    "maxX": -5376.10400390625,
+    "minZ": -1864.262939453125,
+    "maxZ": -1798.2257080078125,
+    "maxY": 208.44000244140625
+   }
+  },
+  {
+   "id": "hanking",
+   "runDir": "artifacts/landmark-candidates/hanking-visual-v1/run-20260914T122751Z",
+   "glbSha256": "124c8b603758794900cc0d4b09e8f8b245daddd9325dec5a23d87f217ee69228",
+   "bytes": 26740,
+   "triangles": 292,
+   "meshes": 7,
+   "moduleSha256": "75e0de5626f6dd9da71cdcf7ecfff7d12d93829a23efdbbbd2ce0f4f5bbe901e",
+   "specSha256": "3476940c1187861439162bc8e497e02367b460fbbd90be0d5ebcc9db6900cc26",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -5799.3095703125,
+    "maxX": -5723.181640625,
+    "minZ": 463.3876647949219,
+    "maxZ": 512.4160766601562,
+    "maxY": 215.33999633789062
+   }
+  },
+  {
+   "id": "coco-park",
+   "runDir": "artifacts/landmark-candidates/coco-park-visual-v1/run-20260914T142225Z",
+   "glbSha256": "647d9b657a1e61b0c6bd79c5285efd18879c6a417bc4fca6144663bd49388ff4",
+   "bytes": 569444,
+   "triangles": 836,
+   "meshes": 9,
+   "moduleSha256": "300abc6c2b39e586014c756db13004bc4fd9a07d5d8d7ebd7680b11ece57036b",
+   "specSha256": "005be2abcdbad0682c345aa34fde05e31c861f2352d472d01a90a88a63d2cba1",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1430.553466796875,
+    "maxX": 1514.8895263671875,
+    "minZ": -28.181270599365234,
+    "maxZ": 65.28073120117188,
+    "maxY": 13.920000076293945
+   }
+  },
+  {
+   "id": "mixc-luohu",
+   "runDir": "artifacts/landmark-candidates/mixc-luohu-visual-v1/run-20260914T133424Z",
+   "glbSha256": "707a1682e8f774a124223c323a6c4299d1a6e1933f41b552db6fd0b1434cbdfe",
+   "bytes": 260856,
+   "triangles": 512,
+   "meshes": 8,
+   "moduleSha256": "6c3751fcee5df16e662ae38221b5f06b5c26833f000241ae36e11129265b7fd6",
+   "specSha256": "1f9e35e2881322cdf7ebc5c9cd104900ccbc303792c3aa5d3c021063d19b136e",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4918.421875,
+    "maxX": 5033.98193359375,
+    "minZ": 363.0888366699219,
+    "maxZ": 461.72882080078125,
+    "maxY": 70.80000305175781
+   }
+  },
+  {
+   "id": "coastal-city",
+   "runDir": "artifacts/landmark-candidates/coastal-city-visual-v1/run-20260914T133518Z",
+   "glbSha256": "66e7e2d9de16f78ff2452faa8cab3bc663af47da46148edda5805f2ce78ffe68",
+   "bytes": 271912,
+   "triangles": 660,
+   "meshes": 8,
+   "moduleSha256": "8f5010cc2e837810b806bca51fa55953c1ab9cf66e8cb9ef0442b7f106aa3744",
+   "specSha256": "22d15483db7ac7f2cc622c620d8635d0e19907b85e6c079b8865d82337297c09",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -5433.40478515625,
+    "maxX": -5313.40478515625,
+    "minZ": -1262.512939453125,
+    "maxZ": -1160.3929443359375,
+    "maxY": 58.79999923706055
+   }
+  },
+  {
+   "id": "oct-harbour",
+   "runDir": "artifacts/landmark-candidates/oct-harbour-visual-v1/run-20260914T142150Z",
+   "glbSha256": "33699754f035b16fd5709a0ec2cc1189670ed428c408a4d8b1226a821afc705c",
+   "bytes": 357888,
+   "triangles": 776,
+   "meshes": 11,
+   "moduleSha256": "a05650c633ce4991856b3136145ac21c0471595edea2c81d6ce365a43b91b412",
+   "specSha256": "3b70b7e5a88b70902ba6f22d01eb1e29b0923fba88776b82d7ac33391b66b7f0",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -2732.60400390625,
+    "maxX": -2492.052001953125,
+    "minZ": -838.4698486328125,
+    "maxZ": -605.3818359375,
+    "maxY": 16.70400047302246
+   }
+  },
+  {
+   "id": "window-world",
+   "runDir": "artifacts/landmark-candidates/window-world-visual-v1/run-20260914T141410Z",
+   "glbSha256": "28875a660764f93ae0374a7c5e7f01289791d047716b3eb846415361143473f4",
+   "bytes": 344992,
+   "triangles": 644,
+   "meshes": 9,
+   "moduleSha256": "b48100d5418b8b382ea46abeafe916f37fc387cad72a228db9a219daf1df9343",
+   "specSha256": "9b88092aea3a2f45180e0c5e1c8b98f73a1117a11c90ebba5300a1ef740372a5",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -3475.13427734375,
+    "maxX": -3343.13427734375,
+    "minZ": -2.8042590618133545,
+    "maxZ": 149.11573791503906,
+    "maxY": 69.5999984741211
+   }
+  },
+  {
+   "id": "futian-station",
+   "runDir": "artifacts/landmark-candidates/futian-station-visual-v1/run-20260914T135900Z",
+   "glbSha256": "c93b368c4865b90b4a48a002fa0ae5a99acf18436462cd39e9be79f4c8c1bee5",
+   "bytes": 557388,
+   "triangles": 644,
+   "meshes": 10,
+   "moduleSha256": "5aef594f27e906d3ac14a4d56132a15cb4a853ca5b43f29a3854c214bb021d77",
+   "specSha256": "68014ccd328321a2b9880d6bbce33dd5b66890b70775cfff4d051068b03a2cc5",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1910.2557373046875,
+    "maxX": 1998.4556884765625,
+    "minZ": 132.40536499023438,
+    "maxZ": 181.00535583496094,
+    "maxY": 9.65999984741211
+   }
+  },
+  {
+   "id": "guanshanyue",
+   "runDir": "artifacts/landmark-candidates/guanshanyue-visual-v1/run-20260914T134957Z",
+   "glbSha256": "634e357a5b32b4b6eb67bdb02da5a6e4fd604e301ae0263633ad49928e380082",
+   "bytes": 334116,
+   "triangles": 468,
+   "meshes": 10,
+   "moduleSha256": "7680a8b1f9a72dca331da6b123730ebb95d0a285aff8456af8fda27fb62365d0",
+   "specSha256": "d42859db0a06ba1fa881e8e2212fae1ac4d914604bac1fc14eeecd2d70a9bdae",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 2066.15185546875,
+    "maxX": 2117.703857421875,
+    "minZ": 1030.2064208984375,
+    "maxZ": 1083.2645263671875,
+    "maxY": 11.13599967956543
+   }
+  },
+  {
+   "id": "grand-theater",
+   "runDir": "artifacts/landmark-candidates/grand-theater-visual-v1/run-20260914T132612Z",
+   "glbSha256": "3da66983475113f2ce39ed553ead1786b4a95d6b7c794e794690086b0975766e",
+   "bytes": 43404,
+   "triangles": 470,
+   "meshes": 8,
+   "moduleSha256": "2b6b397e86519261502ecd7102a97a8aabc36e12cd6958ae5cfd8f1e345a64f0",
+   "specSha256": "1f99e8e346801483d41b383dfd86e9779bdd0e9395009ba6436aef7e83cb6c9e",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4633.49365234375,
+    "maxX": 4681.013671875,
+    "minZ": 580.7532348632812,
+    "maxZ": 637.4352416992188,
+    "maxY": 18.43199920654297
+   }
+  },
+  {
+   "id": "shanghai-hotel",
+   "runDir": "artifacts/landmark-candidates/shanghai-hotel-visual-v1/run-20260914T140518Z",
+   "glbSha256": "316a01c85b905facb008b551429a040402821da8ca13f365c0e6289d96640db3",
+   "bytes": 68460,
+   "triangles": 948,
+   "meshes": 8,
+   "moduleSha256": "1dd5aaf05bdbbf4658810268d611ad3620f099eb1326851961ff93e9aa2aaa41",
+   "specSha256": "98e3b339fb52b4006974641501789e30813a8190d79a72687c1eb2b8a5e20065",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 3181.96728515625,
+    "maxX": 3225.967529296875,
+    "minZ": 486.5172424316406,
+    "maxZ": 531.8472290039062,
+    "maxY": 29.90399932861328
+   }
+  },
+  {
+   "id": "tech-park",
+   "runDir": "artifacts/landmark-candidates/tech-park-visual-v1/run-20260914T142111Z",
+   "glbSha256": "961ad1da72a0bdaa7039f9a63c7609006f656783792a78431f8f6a83681ded97",
+   "bytes": 574732,
+   "triangles": 888,
+   "meshes": 10,
+   "moduleSha256": "4c34a61e635a082c2b4cf9534b0a4d900562e8d868f7259ff9e981bd02bfb761",
+   "specSha256": "53553bcdb600565fefcf68f8bc91771dafb8bb7a9bded4eb9ada448b79bbe71b",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -4852.365234375,
+    "maxX": -4715.94921875,
+    "minZ": 383.14801025390625,
+    "maxZ": 485.14801025390625,
+    "maxY": 25.055999755859375
+   }
+  },
+  {
+   "id": "huaqiangbei",
+   "runDir": "artifacts/landmark-candidates/huaqiangbei-visual-v1/run-20260914T141732Z",
+   "glbSha256": "8730f2b481ac275e522af3e88db68a6726e1d43bf9c2641e03d262c3d438816e",
+   "bytes": 599588,
+   "triangles": 1248,
+   "meshes": 10,
+   "moduleSha256": "c3b197e298b2359cff6488f8a27270141a4d3d0e7f63c6bce8fb908e349b36fd",
+   "specSha256": "d374103ce7749ec787b644a22f68dfa167829d155b0bc90b9ca22e22442802b8",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 3788.243896484375,
+    "maxX": 3866.196044921875,
+    "minZ": 566.5427856445312,
+    "maxZ": 722.5427856445312,
+    "maxY": 29.23200035095215
+   }
+  },
+  {
+   "id": "dongmen",
+   "runDir": "artifacts/landmark-candidates/dongmen-visual-v1/run-20260914T141654Z",
+   "glbSha256": "cccf63b1668e74ee5a3d8a5256a7e987e95227fc7a18142d7ce19a1086e0edc5",
+   "bytes": 615016,
+   "triangles": 816,
+   "meshes": 9,
+   "moduleSha256": "184d59547db94519cde1869ff562952a5e8227ea97bba4804d2a9d6ca484557e",
+   "specSha256": "09214e9cf129248b8fb652fd5aa14cf506a305a3615629f86f0b641cb05fec59",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 5749.826171875,
+    "maxX": 5833.154296875,
+    "minZ": 709.861572265625,
+    "maxZ": 803.9055786132812,
+    "maxY": 12.527999877929688
+   }
+  },
+  {
+   "id": "futian-axis",
+   "runDir": "artifacts/landmark-candidates/futian-axis-visual-v1/run-20260914T105139Z",
+   "glbSha256": "9f3933acb4969ebe6e9dbd9d85d97390c7d1130f883934ce9666d28e8a9d7ab7",
+   "bytes": 408388,
+   "triangles": 936,
+   "meshes": 9,
+   "moduleSha256": "2010b57b8159ca64ada2fc8a8937c054df617b5ae47bc6486ec0caf21b307490",
+   "specSha256": "1f13416951cfdad4c0636a34cb7a327be16918b5c6cd2103a43930f3cee3c938",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 1802.9141845703125,
+    "maxX": 1854.51416015625,
+    "minZ": -37.41340255737305,
+    "maxZ": 477.02313232421875,
+    "maxY": 10.800000190734863
+   }
+  },
+  {
+   "id": "houhai",
+   "runDir": "artifacts/landmark-candidates/houhai-visual-v1/run-20260914T142651Z",
+   "glbSha256": "c1c1a5c847fd99f1e35743c0910420fd4067cf2c19c39f05cbb442a2bdd48a30",
+   "bytes": 659696,
+   "triangles": 1080,
+   "meshes": 12,
+   "moduleSha256": "ade210648f2f42bef10fbc8525e7cd8ae1431a21d4bb1810334e014438c59e1a",
+   "specSha256": "a9c4fe4aa7c3fdad188bb8c463854f1244d9fd23016c94c0e1fcef82ab149075",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -5249.64013671875,
+    "maxX": -5117.64013671875,
+    "minZ": -1581.7052001953125,
+    "maxZ": -1488.5611572265625,
+    "maxY": 70.80000305175781
+   }
+  },
+  {
+   "id": "caiwuwei",
+   "runDir": "artifacts/landmark-candidates/caiwuwei-visual-v1/run-20260914T141816Z",
+   "glbSha256": "db149a73a404821ac2d7682da79e33c690503f0b891a9f7c71a42e2e89f0c12b",
+   "bytes": 570792,
+   "triangles": 840,
+   "meshes": 10,
+   "moduleSha256": "aff7c60d0c1fcd38968fae9f5e2f277dfc94b6a1c475e627d225f934d20a7f68",
+   "specSha256": "57a802029efddfca0405136a7368b9f14da0c5ff79964427bef21b22c685214f",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4736.9794921875,
+    "maxX": 4844.9794921875,
+    "minZ": 481.41119384765625,
+    "maxZ": 536.17919921875,
+    "maxY": 29.23200035095215
+   }
+  },
+  {
+   "id": "baypark",
+   "runDir": "artifacts/landmark-candidates/baypark-visual-v1/run-20260914T105413Z",
+   "glbSha256": "4eb8d84336e2e2e5d30d46f6c220db7437c66d3548b7ae4c257eca3bc626e543",
+   "bytes": 349660,
+   "triangles": 740,
+   "meshes": 8,
+   "moduleSha256": "60c4db15a3f851be3ec57e050bcd0edd6c087a5aa2e452b0c293a062f2af6cbe",
+   "specSha256": "c4c5e19fe2027144f8aecf91cfe66e97b4462bf753adf8c3d6bbcd1164c6b7d7",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -2747.015380859375,
+    "maxX": -1852.042724609375,
+    "minZ": -1039.0396728515625,
+    "maxZ": -692.166259765625,
+    "maxY": 14.399999618530273
+   }
+  },
+  {
+   "id": "talent",
+   "runDir": "artifacts/landmark-candidates/talent-visual-v1/run-20260914T103855Z",
+   "glbSha256": "4980613711fd3362136659b52402fcb1ee05f7b06d3976e698379d8cf52daa71",
+   "bytes": 158708,
+   "triangles": 1144,
+   "meshes": 8,
+   "moduleSha256": "9c789ef650dbe4ca38a8791411937c19212f7d8814af97cef69cb172b3f558fd",
+   "specSha256": "7b4eaa2c395a260cf117edf952d7e5546ce5813d7271da32d9a7c5bf1c0f6e1d",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -5225.740234375,
+    "maxX": -4726.2998046875,
+    "minZ": -1829.0823974609375,
+    "maxZ": -1317.798583984375,
+    "maxY": 13.199999809265137
+   }
+  },
+  {
+   "id": "xiangmi",
+   "runDir": "artifacts/landmark-candidates/xiangmi-visual-v1/run-20260914T105311Z",
+   "glbSha256": "f8995444be8a6b12425048ab9c9de3840cb2f4d9c113b3c25c729ed47ab14f9a",
+   "bytes": 112152,
+   "triangles": 460,
+   "meshes": 7,
+   "moduleSha256": "4d743c3558b40b21b8547d1af3cf303217db70bdedf6a452e9ff195d4094a6e8",
+   "specSha256": "c7b54ff675b272c41c298c25ecb021b67bb0edb68bea5584d4c91f8584f0d454",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4.929999828338623,
+    "maxX": 328.92999267578125,
+    "minZ": 630.9642333984375,
+    "maxZ": 1187.47998046875,
+    "maxY": 13.199999809265137
+   }
+  },
+  {
+   "id": "lizhi",
+   "runDir": "artifacts/landmark-candidates/lizhi-visual-v1/run-20260914T135954Z",
+   "glbSha256": "04a673ae1cac09396c45cbab804c956764342c29b72214ae73a9ab5fbcfc8681",
+   "bytes": 137036,
+   "triangles": 820,
+   "meshes": 9,
+   "moduleSha256": "1db81405ac611f63316aeddbee2b2f4ec79dd6eadebe2d19d579071182ed0142",
+   "specSha256": "58b668b173676a45c6ba98b55b0bc4040d8c49e2ffad85e917448de1ed4b271e",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 4328.77490234375,
+    "maxX": 4625.1748046875,
+    "minZ": 451.71337890625,
+    "maxZ": 936.1079711914062,
+    "maxY": 16.799999237060547
+   }
+  },
+  {
+   "id": "central-park",
+   "runDir": "artifacts/landmark-candidates/central-park-visual-v1/run-20260914T140045Z",
+   "glbSha256": "aff6a336f6e96226c850bfc5a3b79f96c521de2b516119219eb0c8ed2db51467",
+   "bytes": 629684,
+   "triangles": 648,
+   "meshes": 9,
+   "moduleSha256": "85a34a5cb41aa6b3c04e8cbfc61f571006a470f8a43c3b9ae4def80f4b1d8d32",
+   "specSha256": "e042cdcb33040323f054cbf021ca7907c5b5d7d74c01eacd6667b5489a4bf06b",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 2630.322021484375,
+    "maxX": 2923.577880859375,
+    "minZ": -234.8828582763672,
+    "maxZ": 972.3726196289062,
+    "maxY": 12
+   }
+  },
+  {
+   "id": "bijia",
+   "runDir": "artifacts/landmark-candidates/bijia-visual-v1/run-20260914T140439Z",
+   "glbSha256": "a865cd57b0fed578fdd2db5c0af3c816d49a79af8ce3d7b44838fafc3a84df61",
+   "bytes": 333472,
+   "triangles": 556,
+   "meshes": 5,
+   "moduleSha256": "0266abd750184ad7a96ff757a06d6a852a5b817c2b3fcfbcbb2f2d17570c45bc",
+   "specSha256": "632853c70c3c5beaccdd4287463a6471329d7e849454d5cc7f853853d98d2e13",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": 2905.9091796875,
+    "maxX": 3691.9091796875,
+    "minZ": 1887.9290771484375,
+    "maxZ": 2133.266845703125,
+    "maxY": 49.20000076293945
+   }
+  },
+  {
+   "id": "mangrove",
+   "runDir": "artifacts/landmark-candidates/mangrove-visual-v1/run-20260914T105342Z",
+   "glbSha256": "163a537760222f8acb3d2f1f7333d95c6082335bf9b50dfaefb67419411134a5",
+   "bytes": 130716,
+   "triangles": 764,
+   "meshes": 6,
+   "moduleSha256": "69c2cd9a84e0a93ad9c221a5e36757beffb2be5c82dff5918951975f51f20610",
+   "specSha256": "769c56043421d1f3fbe9e5d8f6873c65d1e702a3660b3bb5d679b22b7cf32622",
+   "moduleFresh": true,
+   "specFresh": true,
+   "anchor": "spec anchor (reported WGS84)",
+   "extentGame": {
+    "minX": -891.9967041015625,
+    "maxX": 253.360107421875,
+    "minZ": -1391.208251953125,
+    "maxZ": -992.4485473632812,
+    "maxY": 6.71999979019165
+   }
+  }
+ ],
+ "skipped": [
+  {
+   "id": "tencent",
+   "reason": "already replaced by landmark-detail"
+  },
+  {
+   "id": "bamboo",
+   "reason": "legacy landmarks.glb model preferred after in-game review"
+  },
+  {
+   "id": "civic",
+   "reason": "already replaced by landmark-detail"
+  },
+  {
+   "id": "mixc-world",
+   "reason": "already replaced by landmark-detail"
+  },
+  {
+   "id": "fortune-plaza",
+   "reason": "already replaced by landmark-detail"
+  },
+  {
+   "id": "qijie-gongguan",
+   "reason": "already replaced by landmark-detail"
+  },
+  {
+   "id": "lianhua",
+   "reason": "already replaced by landmark-detail"
+  },
+  {
+   "id": "sea-world",
+   "reason": "outside game bbox"
+  },
+  {
+   "id": "design-society",
+   "reason": "outside game bbox"
+  },
+  {
+   "id": "airport-t3",
+   "reason": "outside game bbox"
+  },
+  {
+   "id": "universiade",
+   "reason": "outside game bbox"
+  },
+  {
+   "id": "happy-harbor",
+   "reason": "outside game bbox"
+  },
+  {
+   "id": "shenzhen-north",
+   "reason": "outside game bbox"
+  }
+ ],
+ "generator": "scripts/integrate_landmark_candidates.mjs",
+ "coordinateSystem": {
+  "originWGS84": [
+   114.025,
+   22.536
+  ],
+  "horizontalScale": 0.6,
+  "verticalScale": 0.6
+ },
+ "compression": "EXT_meshopt_compression",
+ "limitations": [
+  "候选几何来自 scripts/landmarks/<id>.py 的体块建模，不是实测立面；spec-anchor 对象的位置是公开来源报告的 WGS84，不是配准质心。",
+  "buildings.glb / facades.glb 未重建：spec-anchor 对象下方的 OSM 基础楼块仍在，可能与候选体块重叠。",
+  "本增量不为候选对象新增运行时碰撞，只作为视觉与地图/照片目标。",
+  "合并与 meshopt 压缩由本脚本完成；候选预览图不等于游戏内视觉验收。"
+ ]
+}

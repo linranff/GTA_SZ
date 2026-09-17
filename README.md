@@ -4,7 +4,9 @@
 
 **English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
 
-**[Play the demo — desktop browser](https://gtasz.vercel.app/)**
+**This branch’s main client is Unreal Engine 5** (`ue5/Shenchengji`, `scripts/ue5/open-editor.sh`). The Babylon browser page remains as the baseline, not the primary game.
+
+**[Babylon baseline demo](https://gtasz.vercel.app/)**
 
 [Source](https://github.com/linranff/GTA_SZ) · [Implementation and checks](docs/characters/local-mmd.md)
 

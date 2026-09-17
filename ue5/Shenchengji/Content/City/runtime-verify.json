@@ -1,0 +1,170 @@
+{
+  "map": "/Game/Maps/ShenzhenCity",
+  "hub": {
+    "id": "hub",
+    "name": "海湾生活驿站",
+    "x": -2721.06,
+    "z": -876.3642857142858,
+    "yaw": -1.8240222928226917,
+    "heading": -0.25322596602779507,
+    "buildingX": -2724.943189348148,
+    "buildingZ": -861.3585921119749,
+    "source": "life-sites.hub.arrival"
+  },
+  "loadedMeshes": 1731,
+  "layoutMeshes": 1731,
+  "missingSample": [],
+  "samples": [
+    {
+      "path": "/Game/Imported/Landmarks/landmark_bamboo_lampwarm.landmark_bamboo_lampwarm",
+      "layout": {
+        "name": "landmark_bamboo_lampwarm",
+        "t": [
+          -5146,
+          104.988,
+          1216.62
+        ],
+        "s": 102.988
+      },
+      "bounds": {
+        "origin": [
+          -514600.0,
+          121662.0,
+          10498.7998046875
+        ],
+        "extent": [
+          3600.03125,
+          3000.03125,
+          10298.7998046875
+        ],
+        "radius": 10909.880953429687
+      }
+    },
+    {
+      "path": "/Game/Imported/Landmarks/landmark_bamboo_landmarkglass.landmark_bamboo_landmarkglass",
+      "layout": {
+        "name": "landmark_bamboo_landmarkglass",
+        "t": [
+          -5146,
+          117.6,
+          1216.62
+        ],
+        "s": 117.6
+      },
+      "bounds": {
+        "origin": [
+          -514600.0,
+          121662.0,
+          11760.0
+        ],
+        "extent": [
+          2418.96875,
+          2418.96875,
+          11760.0
+        ],
+        "radius": 11964.042936249942
+      }
+    },
+    {
+      "path": "/Game/Imported/Landmarks/landmark_bamboo_silver.landmark_bamboo_silver",
+      "layout": {
+        "name": "landmark_bamboo_silver",
+        "t": [
+          -5146,
+          117.608,
+          1216.62
+        ],
+        "s": 117.62868
+      },
+      "bounds": {
+        "origin": [
+          -514600.0,
+          121662.0,
+          11760.798461914062
+        ],
+        "extent": [
+          2429.25,
+          2431.046875,
+          11762.867553710938
+        ],
+        "radius": 11969.019046725669
+      }
+    },
+    {
+      "path": "/Game/Imported/Landmarks/landmark_bamboo_steel.landmark_bamboo_steel",
+      "layout": {
+        "name": "landmark_bamboo_steel",
+        "t": [
+          -5146,
+          109.56,
+          1216.62
+        ],
+        "s": 106.56
+      },
+      "bounds": {
+        "origin": [
+          -514600.0,
+          121662.0,
+          10956.0
+        ],
+        "extent": [
+          2428.96875,
+          2428.9609375,
+          10656.0
+        ],
+        "radius": 10893.843764300942
+      }
+    },
+    {
+      "path": "/Game/Imported/Landmarks/landmark_bamboo_stone.landmark_bamboo_stone",
+      "layout": {
+        "name": "landmark_bamboo_stone",
+        "t": [
+          -5146,
+          4.5,
+          1216.62
+        ],
+        "s": 42
+      },
+      "bounds": {
+        "origin": [
+          -514600.0,
+          121662.0,
+          449.99999713897705
+        ],
+        "extent": [
+          4200.0,
+          3500.0234375,
+          450.0320463180542
+        ],
+        "radius": 4224.041766213162
+      }
+    },
+    {
+      "path": "/Game/Imported/Landmarks/landmark_civic_civicred.landmark_civic_civicred",
+      "layout": {
+        "name": "landmark_civic_civicred",
+        "t": [
+          1821.68,
+          12,
+          -692.63
+        ],
+        "s": 49.13226
+      },
+      "bounds": {
+        "origin": [
+          182167.9921875,
+          -69263.0,
+          1200.0000168532133
+        ],
+        "extent": [
+          4913.2265625,
+          914.5078125,
+          1200.0046218186617
+        ],
+        "radius": 5057.650576784787
+      }
+    }
+  ],
+  "screenshot": "/Users/fenglinran/Documents/ChatGPT/深城纪/ue5/Shenchengji/Saved/Screenshots/hub-verify.png"
+}

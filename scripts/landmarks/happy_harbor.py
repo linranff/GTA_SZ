@@ -12,13 +12,13 @@ def build(b, lm, spec, scale=0.6):
     wheel = spec["wheel"]
     height = float(wheel["height_m"]) * scale
     radius = float(wheel["diameter_m"]) * 0.5 * scale
-    hub_z = height - radius * 0.08
+    hub_z = height * 0.72
     pad = spec["pad"]
     b.box("concrete", (0, 0, 0.6 * scale), (float(pad["width_m"]) * scale, float(pad["depth_m"]) * scale, 1.2 * scale))
-    b.box("water", (0, -float(pad["depth_m"]) * 0.9 * scale, 0.55 * scale), (140 * scale, 36 * scale, 1.1 * scale))
+    b.box("water", (0, -float(pad["depth_m"]) * 1.64 * scale, 0.55 * scale), (140 * scale, 36 * scale, 1.1 * scale))
     b.box("landmarkglass", (-28 * scale, 18 * scale, 6 * scale), (36 * scale, 16 * scale, 12 * scale))
-    b.tube("silver", (-22 * scale, 8 * scale, 1 * scale), (0, 0, hub_z), 1.8 * scale, 8)
-    b.tube("silver", (22 * scale, 8 * scale, 1 * scale), (0, 0, hub_z), 1.8 * scale, 8)
+    b.tube("silver", (-22 * scale, -18 * scale, 1 * scale), (0, 0, hub_z), 5.2 * scale, 8)
+    b.tube("silver", (22 * scale, -18 * scale, 1 * scale), (0, 0, hub_z), 5.2 * scale, 8)
     b.loft(
         "silver",
         [(0, 0, hub_z - 3.2 * scale, 4.5 * scale, 4.5 * scale), (0, 0, hub_z + 3.2 * scale, 4.5 * scale, 4.5 * scale)],
@@ -34,8 +34,8 @@ def build(b, lm, spec, scale=0.6):
         b.loft(
             "landmarkglass",
             [
-                (x, 0, z - 2.6 * scale, 5.4 * scale, 2.5 * scale),
-                (x, 0, z + 2.6 * scale, 5.4 * scale, 2.5 * scale),
+                (x, 0, z - 3.8 * scale, 7.8 * scale, 3.6 * scale),
+                (x, 0, z + 3.8 * scale, 7.8 * scale, 3.6 * scale),
             ],
             n=8,
             power=1,

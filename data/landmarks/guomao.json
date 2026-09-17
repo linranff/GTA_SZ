@@ -6,14 +6,23 @@
   "units": "real_world_metres",
   "scene_scale": 0.6,
   "anchor": {
-    "lon": 114.114662,
-    "lat": 22.543038,
-    "source": "https://en.wikipedia.org/wiki/Guomao_Building",
-    "basis": "reported",
-    "role": "Wikipedia WGS84; not a surveyed centroid"
+    "lon": 114.114674,
+    "lat": 22.543228,
+    "source": "public/city/city.json building way/271080469 (国贸大厦) footprint centroid; previous https://en.wikipedia.org/wiki/Guomao_Building",
+    "basis": "osm-footprint-centroid",
+    "role": "OSM footprint centroid from city.json, replaces reported point that fell 13 m away"
   },
-  "height": {"value": 160, "basis": "reported", "source": "Wikipedia Guomao Building"},
-  "plan": {"width_m": 34, "depth_m": 34, "basis": "estimated", "uncertainty": "方形塔楼半宽按 2021 航拍，不是测绘"},
+  "height": {
+    "value": 160,
+    "basis": "reported",
+    "source": "Wikipedia Guomao Building"
+  },
+  "plan": {
+    "width_m": 34,
+    "depth_m": 34,
+    "basis": "estimated",
+    "uncertainty": "方形塔楼半宽按 2021 航拍，不是测绘"
+  },
   "podium": {
     "width_m": 92,
     "depth_m": 78,
@@ -27,5 +36,11 @@
     "basis": "estimated",
     "note": "圆冠在塔顶，不是腰间金带"
   },
-  "ribs": {"count": 14, "basis": "estimated"}
+  "ribs": {
+    "count": 14,
+    "basis": "estimated"
+  },
+  "baseBuildingIds": [
+    "way/271080469"
+  ]
 }

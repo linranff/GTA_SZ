@@ -23,15 +23,16 @@ def build(b, lm, spec, scale=0.6):
     b.loft(
         "park",
         [
-            (-48 * s, -32 * s, 0.3 * s, 36 * s, 18 * s),
-            (-28 * s, -8 * s, 16 * s, 22 * s, 12 * s),
+            (-48 * s, -48 * s, 0.3 * s, 36 * s, 18 * s),
+            (-28 * s, -18 * s, 16 * s, 22 * s, 12 * s),
         ],
         n=6,
         power=1,
     )
-    b.box("silver", (36 * s, -16 * s, 22 * s), (40 * s, 30 * s, 12 * s))
-    b.box("landmarkglass", (36 * s, -28 * s, 22 * s), (36 * s, 8 * s, 10 * s))
-    b.box("darkglass", (8 * s, -24 * s, 6 * s), (22 * s, 6 * s, 10 * s))
+    b.box("silver", (36 * s, -42 * s, 22 * s), (44 * s, 46 * s, 12 * s))
+    b.box("landmarkglass", (36 * s, -72 * s, 22 * s), (44 * s, 22 * s, 11 * s))
+    b.box("silver", (36 * s, -64 * s, 28 * s), (38 * s, 12 * s, 4.4 * s))
+    b.box("darkglass", (8 * s, -28 * s, 6 * s), (22 * s, 6 * s, 10 * s))
     b.box("concrete", (0, 0, 0.5 * s), (120 * s, 80 * s, 1.0 * s))
     b.box("water", (0, -52 * s, 0.55 * s), (130 * s, 22 * s, 1.1 * s))
     b.frame = previous

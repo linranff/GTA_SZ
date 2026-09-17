@@ -4,7 +4,9 @@
 
 [English](README.md) · **简体中文** · [日本語](README.ja.md)
 
-**[立即试玩 · 建议使用电脑浏览器](https://gtasz.vercel.app/)**
+**本分支主客户端是 Unreal Engine 5**（`ue5/Shenchengji`，`scripts/ue5/open-editor.sh`）。浏览器 Babylon 页仍可对照，但不再是主游戏。
+
+**[线上 Babylon 基线](https://gtasz.vercel.app/)**
 
 [项目源码](https://github.com/linranff/GTA_SZ) · [制作与验证记录](docs/characters/local-mmd.md)
 

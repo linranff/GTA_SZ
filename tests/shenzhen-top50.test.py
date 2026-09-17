@@ -9,7 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts" / "landmarks"))
+sys.path.insert(0, str(ROOT / "scripts"))
 import fetch_reference_photos as fetch  # noqa: E402
+import landmark_candidate as lc  # noqa: E402
 
 CATALOG = ROOT / "data/landmarks/shenzhen-top50.json"
 REQUIRED = ("id", "order", "name", "kind", "group", "coverage", "owner", "nextStage")
@@ -45,6 +47,18 @@ class Top50CatalogTests(unittest.TestCase):
         named = {"tencent", "bamboo", "pingan", "civic", "kk100", "diwang", "baypark", "talent", "lianhua", "xiangmi"}
         found = {place["cityLandmarkId"] for place in self.places if place.get("cityLandmarkId")}
         self.assertTrue(named <= found)
+
+    def test_campaign_skips_map_outside_places(self):
+        policy = self.catalog["campaignPolicy"]
+        self.assertEqual(policy["districts"], ["南山", "福田", "罗湖"])
+        self.assertTrue(policy["requireInBbox"])
+        skip = set(policy["skipPlaceIds"])
+        outside = {place["id"] for place in self.places if place["coverage"] == "outside"}
+        self.assertEqual(skip, outside)
+        for place in self.places:
+            if place["id"] in skip:
+                self.assertEqual(place["nextStage"], "skip_outside_map")
+        self.assertEqual(set(lc.CAMPAIGN_SKIP), skip)
 
     def test_license_allow_list(self):
         self.assertTrue(fetch.license_allowed("CC BY-SA 4.0"))

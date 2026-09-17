@@ -18,7 +18,7 @@ def build(b, lm, spec, scale=0.6):
     shaft = [item for item in rings if item[0] <= 562]
     crown = [item for item in rings if item[0] >= 540]
     aspect = 0.82
-    b.loft("silver", [(0, 0, z * scale, r * 1.0 * scale, r * aspect * scale) for z, r in shaft], n=8, power=power)
+    b.loft("darkglass", [(0, 0, z * scale, r * 1.0 * scale, r * aspect * scale) for z, r in shaft], n=8, power=power)
     b.loft("landmarkglass", [(0, 0, z * scale, r * 0.92 * scale, r * aspect * 0.88 * scale) for z, r in shaft], n=8, power=power)
     b.loft("silver", [(0, 0, z * scale, r * 1.0 * scale, r * aspect * scale) for z, r in crown], n=8, power=power)
 
@@ -26,6 +26,11 @@ def build(b, lm, spec, scale=0.6):
     lobby = [(0, 0, z * scale, r * scale * 0.9, r * scale * 0.9) for z, r in rings if z <= lobby_h + 0.01]
     if len(lobby) >= 2:
         b.loft("darkglass", lobby, n=16, power=power)
+    # 平安 gold fascia plus three plates; no extra shaft south slab.
+    b.box("gold", (0, -25.6 * scale, 11.2 * scale), (28 * scale, 1.6 * scale, 4.8 * scale))
+    for x in (-8.4 * scale, 0, 8.4 * scale):
+        b.box("civicred", (x, -26.6 * scale, 11.2 * scale), (6.4 * scale, 0.8 * scale, 2.6 * scale))
+        b.box("led", (x, -26.8 * scale, 11.2 * scale), (2.6 * scale, 0.3 * scale, 1.1 * scale))
 
     # Face-center ribs so the south camera sees them, plus octagon corners.
     samples = [(z, r) for z, r in rings if 10 <= z <= 562]
@@ -51,12 +56,22 @@ def build(b, lm, spec, scale=0.6):
                 return ra + (rc - ra) * t
         return samples[-1][1]
 
+    for sx in (-1, 1):
+        for i in range(5):
+            z0 = 30 + i * 100
+            r0 = r_at(z0)
+            b.box(
+                "silver",
+                (sx * r0 * 0.78 * scale, -r0 * aspect * 0.98 * scale, (z0 + 50) * scale),
+                (3.6 * scale, 2.8 * scale, 96 * scale),
+            )
+
     for i in range(5):
         z0 = 40 + i * 100
         z1 = min(540, z0 + 115)
         r0, r1 = r_at(z0), r_at(z1)
-        b.tube("steel", p(-r0 * 1.22, -r0 * 1.2, z0), p(r1 * 1.22, -r1 * 1.2, z1), 3.2 * scale, 5)
-        b.tube("steel", p(r0 * 1.22, -r0 * 1.2, z0), p(-r1 * 1.22, -r1 * 1.2, z1), 3.2 * scale, 5)
+        b.tube("steel", p(-r0 * 1.22, -r0 * 1.98, z0), p(r1 * 1.22, -r1 * 1.98, z1), 10.2 * scale, 5)
+        b.tube("steel", p(r0 * 1.22, -r0 * 1.98, z0), p(-r1 * 1.22, -r1 * 1.98, z1), 10.2 * scale, 5)
 
     mast = float(spec["profile"]["mast_top_m"])
     b.tube("steel", p(0, 0, rings[-1][0]), p(0, 0, mast), 0.45 * scale, 8, 0.12 * scale)

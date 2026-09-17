@@ -36,7 +36,7 @@ def build(b, lm, spec, scale=0.6):
         fascia.append((x, -d * 0.48, z, 10 * scale, 3.2 * scale))
     b.loft("silver", fascia, n=6, power=1)
     for x in (-w * 0.38, -w * 0.12, w * 0.12, w * 0.38):
-        b.box("steel", (x, -d * 0.48, h * 0.4), (3.2 * scale, 3.2 * scale, h * 0.78))
+        b.box("steel", (x, -d * 0.62, h * 0.46), (26.4 * scale, 26.4 * scale, h * 0.9))
     b.box("asphalt", (0, -d * 0.72, 0.08 * scale), (w * 1.1, 16 * scale, 0.14 * scale))
     b.frame = previous
     return {

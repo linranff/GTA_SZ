@@ -35,6 +35,24 @@ def build(b, lm, spec, scale=0.6):
     if len(lobby) >= 2:
         b.loft("darkglass", lobby, n=16, power=1)
 
+    def _r_at(z_m):
+        for (z0, r0), (z1, r1) in zip(rings, rings[1:]):
+            if z0 <= z_m <= z1:
+                t = 0 if z1 == z0 else (z_m - z0) / (z1 - z0)
+                return r0 + (r1 - r0) * t
+        return rings[-1][1]
+
+    # Thin floor rings on the shoot; skip lobby gold and the needle.
+    for z_m in (48, 80, 120, 160, 200, 240, 280, 318):
+        r = _r_at(z_m) * scale
+        z = z_m * scale
+        b.loft(
+            "steel",
+            [(0, 0, z, r * 1.03, r * 1.03), (0, 0, z + 0.55 * scale, r * 1.03, r * 1.03)],
+            n=24,
+            power=1,
+        )
+
     count = int(spec["mullions"]["count"])
     body = [(z, r) for z, r in rings if z <= 382]
     for i in range(count):
@@ -51,7 +69,13 @@ def build(b, lm, spec, scale=0.6):
                 0.15 * scale,
             )
         # Open, slightly splayed lobby columns — photos show the shoot standing on legs, not a puck.
-        b.tube("silver", p(32.5 * c, 32.5 * s, 0), p((body[1][1] + 0.3) * c, (body[1][1] + 0.3) * s, lobby_h), 0.72 * scale, 6)
+        b.tube("silver", p(32.5 * c, 32.5 * s, 0), p((body[1][1] + 0.3) * c, (body[1][1] + 0.3) * s, lobby_h), 1.4 * scale, 6)
+    b.box("darkglass", (0, -42 * scale, lobby_h * 0.46 * scale), (26 * scale, 7.6 * scale, lobby_h * 0.82 * scale))
+    # 春笋 gold fascia plus three plates; no extra shaft flags.
+    b.box("gold", (0, -44.8 * scale, lobby_h * 0.42 * scale), (26 * scale, 1.6 * scale, 4.8 * scale))
+    for x in (-8 * scale, 0, 8 * scale):
+        b.box("civicred", (x, -46.3 * scale, lobby_h * 0.42 * scale), (6.4 * scale, 0.8 * scale, 2.6 * scale))
+        b.box("led", (x, -46.5 * scale, lobby_h * 0.42 * scale), (2.6 * scale, 0.3 * scale, 1.1 * scale))
 
     tip_z, tip_r = rings[-2]
     peak_z, peak_r = rings[-1]

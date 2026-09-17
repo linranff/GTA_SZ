@@ -50,3 +50,28 @@ export async function loadLandmarkDetails(data:CityData):Promise<{
  data.meta.counts.landmarks=data.landmarks.length;
  return {manifest,terrain,heightAt:(x,z)=>terrainHeight(grid,x,z)};
 }
+
+export type LandmarkCandidateManifest={
+ schemaVersion:1;asset:string;replacedMeshPrefixes:string[];landmarks:DetailLandmark[];
+ sources:{id:string;runDir:string;glbSha256:string;triangles:number}[];
+};
+
+/** Optional second increment produced by scripts/integrate_landmark_candidates.mjs:
+ * merged single-object candidates from artifacts/landmark-candidates. Records for
+ * ids already in city.json keep the city's placement and collision behaviour;
+ * new ids are added as map/photo destinations only. Missing file means no layer.
+ */
+export async function loadLandmarkCandidates(data:CityData):Promise<LandmarkCandidateManifest|null>{
+ const response=await fetch('/city/landmark-candidates.json');
+ if(response.status===404||(response.ok&&response.headers.get('content-type')?.includes('text/html')))return null;
+ if(!response.ok)throw new Error('候选地标清单加载失败');
+ const manifest=await response.json() as LandmarkCandidateManifest;
+ if(manifest.schemaVersion!==1||!manifest.asset||!Array.isArray(manifest.landmarks)||!Array.isArray(manifest.replacedMeshPrefixes))throw new Error('候选地标清单格式不受支持');
+ for(const landmark of manifest.landmarks){
+  const index=data.landmarks.findIndex(m=>m.id===landmark.id);
+  if(index>=0){const base=data.landmarks[index];data.landmarks[index]={...base,height:landmark.height,photoDistance:landmark.photoDistance,photoTargetHeight:landmark.photoTargetHeight,photoElevation:landmark.photoElevation};}
+  else data.landmarks.push(landmark);
+ }
+ data.meta.counts.landmarks=data.landmarks.length;
+ return manifest;
+}

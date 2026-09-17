@@ -144,6 +144,18 @@ export class CityLandscape {
   * group for the integrator's larger, throttled shadow map; grass never casts. */
  get casters():AbstractMesh[]{return [...TREE_NAMES,...OPEN_TREE_NAMES].flatMap(name=>this.prototypes.get(name+(this.lastAerial?'-lod':''))?.meshes.filter(m=>m.isEnabled())??[]);}
  get meshes():AbstractMesh[]{return [...this.prototypes.values()].flatMap(p=>p.meshes).concat(this.meadow?.meshes as Mesh[]??[]);}
+ /** Independent clones so corridor thin-instances do not overwrite the city planting buffers. */
+ borrowPrototype(id:string):Mesh[]{
+  const proto=this.prototypes.get(id);
+  if(!proto)return [];
+  return proto.meshes.map(src=>{
+   const mesh=src.clone('corridor-'+id+'-'+src.name,null,true);
+   if(!(mesh instanceof Mesh))return src;
+   mesh.parent=null;mesh.makeGeometryUnique();mesh.unfreezeWorldMatrix();
+   mesh.setEnabled(false);mesh.isPickable=false;mesh.receiveShadows=true;mesh.alwaysSelectAsActiveMesh=true;
+   return mesh;
+  }).filter((m):m is Mesh=>m instanceof Mesh&&m.name.startsWith('corridor-'));
+ }
  get stats(){const quality=CITY_GRAPHICS_PROFILES[this.graphicsQuality];return {...this.current,graphicsQuality:this.graphicsQuality,roadside:this.roadside?{...this.roadside.stats,visible:{...this.roadsideVisible}}:{generated:0,visible:{near:0,far:0}},meadow:this.meadow?.stats??{mode:'baseline'},openAssets:{qualified:this.openEligible,visible:this.openVisible,nearBroadleaf:this.openNear,nearBroadleafLimit:24,qualificationMatched:this.qualificationMatched,license:'CC0-1.0'},sourceTreeCount:this.planting.trees.length,sourceDetailCount:this.planting.details.length,aerial:this.lastAerial,treeRadius:this.lastAerial?quality.aerialTreeRadius:quality.treeRadius,treeBudget:this.lastAerial?quality.aerialTrees:quality.nearTrees+quality.farTrees,ready:this.ready};}
  setTerrainHeight(heightAt:(x:number,z:number)=>number){this.heightAt=heightAt;this.meadow?.setTerrainHeight(heightAt);if(this.ready&&this.roadsideRequest)this.configureRoadside(this.roadsideRequest.data,this.roadsideRequest.options);this.lastX=Infinity;this.lastZ=Infinity;}
  dispose(){if(this.meadowObserver)this.scene.onBeforeRenderObservable.remove(this.meadowObserver);this.meadow?.dispose();for(const p of this.prototypes.values())for(const m of p.meshes)m.dispose(false,false);for(const m of this.materials.values())m.dispose(false,false);this.atlas?.dispose();this.prototypes.clear();this.materials.clear();this.spatial.clear();this.roadside=null;this.roadsideRequest=null;this.ready=false;}

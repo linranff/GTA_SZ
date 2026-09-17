@@ -1,0 +1,41 @@
+{
+  "places": {
+    "hub": {
+      "name": "海湾生活驿站",
+      "x": -2721.06,
+      "z": -876.3642857142858
+    },
+    "office": {
+      "name": "科苑下班驿站",
+      "x": -5464.209047619048,
+      "z": -669.867619047619
+    },
+    "park": {
+      "name": "公园城市养护站",
+      "x": -2269.79,
+      "z": -729.82
+    },
+    "workshop": {
+      "name": "公园城市养护站",
+      "x": -2269.79,
+      "z": -729.82
+    },
+    "bay": {
+      "name": "滨海路边交接点",
+      "x": -3761.57,
+      "z": -902.09
+    }
+  },
+  "counts": {
+    "sourceRoads": 12202,
+    "exportedRoads": 2093,
+    "sourceBuildings": 16076,
+    "exportedBuildings": 256,
+    "landmarks": 10
+  },
+  "story": {
+    "id": "bay-last-delivery",
+    "reward": 180,
+    "steps": 8
+  }
+}

@@ -23,25 +23,39 @@ def build(b, lm, spec, scale=0.6):
     for i in range(hall_n):
         x = (-length * 0.5 + (i + 0.5) * bay) * s
         material = "landmarkglass" if i in (0, hall_n - 1) else "concrete"
-        b.box(material, (x, 0, hall_h * 0.5 * s), ((bay - 6) * s, (width - 24) * s, hall_h * s))
-        b.tube("steel", (x, (-width * 0.42) * s, 2 * s), (x, (-width * 0.42) * s, (height - thick) * s), 0.7 * s, 6)
-        b.tube("steel", (x, (width * 0.42) * s, 2 * s), (x, (width * 0.42) * s, (height - thick) * s), 0.7 * s, 6)
+        hw, hd, hh = (bay - 6) * s, (width - 24) * s, hall_h * s
+        b.box(material, (x, 0, hall_h * 0.5 * s), (hw, hd, hh))
+        if hh > 16 * s:
+            b.box(material, (x, 0, hh + hh * 0.08), (hw * 0.7, hd * 0.7, hh * 0.16))
+        for j in range(3):
+            z = hh * (0.28 + j * 0.22)
+            b.box("steel", (x, 0, z), (hw * 1.04, hd * 1.04, 0.4 * s))
+        col_h = (height - thick) * s
+        b.box("steel", (x, (-width * 0.42) * s, col_h * 0.5), (3.4 * s, 3.4 * s, col_h))
+        b.box("steel", (x, (width * 0.42) * s, col_h * 0.5), (3.4 * s, 3.4 * s, col_h))
+        b.box("steel", (x, (-width * 0.62) * s, col_h * 0.5), (22.4 * s, 22.4 * s, col_h))
     roof_rings = []
     for i in range(9):
         t = i / 8
         x = (-0.5 + t) * (length + hang * 2) * s
-        z = (height + math.sin(t * math.pi) * 34 - thick * 0.35) * s
-        roof_rings.append((x, 0, z, 7 * s, (width + hang * 2) * 0.5 * s))
+        z = (height + math.sin(t * math.pi) * 56 - thick * 0.35) * s
+        roof_rings.append((x, 0, z, 8 * s, (width + hang * 2) * 0.5 * s))
     b.loft("silver", roof_rings, n=6, power=1)
     fascia = []
     for i in range(9):
         t = i / 8
         x = (-0.5 + t) * (length + hang * 2) * s
-        z = (height + math.sin(t * math.pi) * 34 - thick * 0.15) * s
-        fascia.append((x, (-width * 0.52 - hang) * s, z, 9 * s, 4 * s))
+        z = (height + math.sin(t * math.pi) * 56 - thick * 0.15) * s
+        fascia.append((x, (-width * 0.56 - hang) * s, z, 14 * s, 7.2 * s))
     b.loft("silver", fascia, n=6, power=1)
     b.box("steel", (0, 0, (height - thick - 1.2) * s), ((length + 4) * s, 3.2 * s, 2.0 * s))
     b.box("darkglass", (0, (width * 0.46) * s, 8 * s), ((length - 20) * s, 8 * s, 16 * s))
+    # 会展中心 four plates on the south column faces, not behind them.
+    col_south = (-width * 0.62) * s - 11.3 * s
+    for i in (2, 3, 4, 5):
+        x = (-length * 0.5 + (i + 0.5) * bay) * s
+        b.box("civicred", (x, col_south, hall_h * 0.55 * s), (16 * s, 1.6 * s, 7.2 * s))
+        b.box("led", (x, col_south - 0.3 * s, hall_h * 0.55 * s), (6.4 * s, 0.55 * s, 3.0 * s))
     b.frame = previous
     return {
         "id": "convention-futian",

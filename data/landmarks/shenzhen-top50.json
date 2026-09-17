@@ -185,6 +185,19 @@
     "盐田港",
     "蛇口 / 赤湾作业港区"
   ],
+  "campaignPolicy": {
+    "districts": ["南山", "福田", "罗湖"],
+    "requireInBbox": true,
+    "skipPlaceIds": [
+      "sea-world",
+      "design-society",
+      "airport-t3",
+      "universiade",
+      "happy-harbor",
+      "shenzhen-north"
+    ],
+    "note": "只调优当前游戏裁切内、且落在南山/福田/罗湖的对象。地图外条目保留选题记录，不再导出或改模型。"
+  },
   "places": [
     {
       "id": "tencent",
@@ -1817,7 +1830,7 @@
         "wikipedia-wgs84"
       ],
       "owner": "unassigned",
-      "nextStage": "expansion_check",
+      "nextStage": "skip_outside_map",
       "commonsFiles": [
         "File:Minghua ship at Shekou Seaworld 2018-10-12 1.jpg",
         "File:Sea World in Shekou Shenzhen2021.jpg",
@@ -1827,6 +1840,7 @@
         "File:Minghua Ship of Shekou Sea World 2.jpg"
       ],
       "notes": [
+        "本轮跳过：地图外，不再导出",
         "先核南侧裁切，不能塞进深圳湾公园",
         "明华轮 English Wikipedia 22°29′11″N 113°54′42″E。Wikidata Q2845729 22.4863,113.9118 为同一点。海上世界片区 Q10389768 22.48611,113.91194 是园区不是船体。南侧裁切外，不塞进深圳湾公园，不编游戏坐标。"
       ]
@@ -1857,7 +1871,7 @@
         "wikipedia-wgs84"
       ],
       "owner": "unassigned",
-      "nextStage": "expansion_check",
+      "nextStage": "skip_outside_map",
       "commonsFiles": [
         "File:Seaworld CAC1.jpg",
         "File:海上世界文化艺术中心 1.jpg",
@@ -1867,6 +1881,7 @@
         "File:SZ Shenzhen Nanshan Shekou 1187 Wanghai Road Sea World Culture and Arts Center roof April 2025 R12S 06.jpg"
       ],
       "notes": [
+        "本轮跳过：地图外，不再导出",
         "不与明华轮合成一个盒子",
         "English Wikipedia / Wikidata Q53762460，精度约 0.001°。与明华轮分开。地图外，不编游戏坐标。"
       ]
@@ -1896,7 +1911,7 @@
         "wikipedia-wgs84"
       ],
       "owner": "unassigned",
-      "nextStage": "expansion_check",
+      "nextStage": "skip_outside_map",
       "commonsFiles": [
         "File:Shenzhen Bao'an International Airport New Terminal Entrance 20141203.JPG",
         "File:深圳机场T3航站楼 Terminal 3 - panoramio.jpg",
@@ -1906,6 +1921,7 @@
         "File:SZ 深圳 Shenzhen 寶安 BaoAn Metro tour view from 碧海灣站 BiHaiWan Station to 機場站 Airport T3 Station July 2024 R12S 06.jpg"
       ],
       "notes": [
+        "本轮跳过：地图外且在宝安，不再导出",
         "机场 ARP，不是单独测绘的 T3/卫星厅质心。地图外，不编游戏坐标。"
       ]
     },
@@ -1932,7 +1948,7 @@
         "wikipedia-wgs84"
       ],
       "owner": "unassigned",
-      "nextStage": "expansion_check",
+      "nextStage": "skip_outside_map",
       "commonsFiles": [
         "File:ShenZhen Universiade Sports Centre.jpg",
         "File:Shenzhen Universiade Sports Centre 20170730.jpg",
@@ -1942,6 +1958,7 @@
         "File:SZ 深圳 Shenzhen 龍崗 Longgang 大運中心 Universiade Center 大運天地 商場 MixC Mall August 2024 R12S 110.jpg"
       ],
       "notes": [
+        "本轮跳过：地图外且在龙岗，不再导出",
         "龙岗场馆群 English Wikipedia / Wikidata Q3278276。地图外，不编游戏坐标。"
       ]
     },
@@ -1970,7 +1987,7 @@
         "wikipedia-wgs84"
       ],
       "owner": "unassigned",
-      "nextStage": "expansion_check",
+      "nextStage": "skip_outside_map",
       "commonsFiles": [
         "File:Bay Glory 2022.jpg",
         "File:Bay Glory Shenzhen (root) 2022-01-09.jpg",
@@ -1979,6 +1996,7 @@
         "File:Entrance of Bay Glory Shenzhen 2022-01-09.jpg"
       ],
       "notes": [
+        "本轮跳过：地图外且在宝安前海，不再导出",
         "摩天轮与艺术中心先拆对象",
         "English Wikipedia Bay Glory 摩天轮 22.5441,113.8830。中文维基湾区之光 22.541373,113.887673 记冲突。这是轮，不是整片欢乐港湾/艺术中心。Happy Harbor 重定向到 DC 宇宙，已丢弃。地图外，不编游戏坐标。",
         "coordinate conflicts recorded in artifacts/landmark-research/wikipedia-coords.json"
@@ -2008,7 +2026,7 @@
         "wikipedia-wgs84"
       ],
       "owner": "unassigned",
-      "nextStage": "expansion_check",
+      "nextStage": "skip_outside_map",
       "commonsFiles": [
         "File:View in front of east entrance of Shenzhen North Station.jpg",
         "File:View in front of west entrance of Shenzhen North Station.jpg",
@@ -2018,6 +2036,7 @@
         "File:SHENZHEN NORTH RAILWAY STATION.jpg"
       ],
       "notes": [
+        "本轮跳过：地图外且在龙华，不再导出",
         "English Wikipedia / Wikidata Q3272538。纬度 22.6119 超出当前裁切北界 22.575。不编游戏坐标。"
       ]
     }

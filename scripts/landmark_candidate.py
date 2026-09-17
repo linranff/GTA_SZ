@@ -388,6 +388,16 @@ SUPPORTED = {
     },
 }
 
+# Map-outside / non-Nanshan-Futian-Luohu. Keep modules, do not campaign-export.
+CAMPAIGN_SKIP = frozenset({
+    "sea-world",
+    "design-society",
+    "airport-t3",
+    "universiade",
+    "happy-harbor",
+    "shenzhen-north",
+})
+
 FORBIDDEN_OUTPUT_NAMES = ("public", "src", "data", "scripts", "tests")
 PREVIEW_VIEWS = ("front", "back", "left", "right", "top", "street_three_quarter")
 PREVIEW_RESOLUTION = (1280, 960)

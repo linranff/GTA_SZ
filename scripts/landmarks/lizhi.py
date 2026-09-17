@@ -40,7 +40,23 @@ def build(b, lm, spec, scale=0.6):
             [(x, y, 9.0 * scale, 12.0 * scale, 12.0 * scale), (x, y, 24.0 * scale, 1.6 * scale, 1.6 * scale)],
             n=6,
         )
+    b.box("water", (lx, -d * 0.62, 0.55 * scale), (rx * 1.7, 20 * scale, 1.1 * scale))
+    for tx in (-90, 0, 90):
+        x, y = tx * scale, -d * 0.78
+        b.tube("bark", (x, y, 0), (x, y, 15.0 * scale), 0.6 * scale, 5)
+        b.loft("leaf", [(x, y, 10.0 * scale, 13.0 * scale, 13.0 * scale), (x, y, 26.0 * scale, 1.8 * scale, 1.8 * scale)], n=6)
+    for tx in (-140, -45, 45, 140):
+        x, y = tx * scale, -d * 0.92
+        b.tube("bark", (x, y, 0), (x, y, 16.0 * scale), 0.65 * scale, 5)
+        b.loft("leaf", [(x, y, 11.0 * scale, 14.0 * scale, 14.0 * scale), (x, y, 28.0 * scale, 1.9 * scale, 1.9 * scale)], n=6)
     b.box("concrete", (0, d * 0.42, 0.16 * scale), (w * 0.35, 5 * scale, 0.24 * scale))
+    # Path gate under the gold fascia; do not thicken water.
+    b.box("darkglass", (0, -d * 0.52, 1.5 * scale), (w * 0.08, 2.4 * scale, 2.8 * scale))
+    # 荔枝公园 four plates on a south path fascia; do not thicken water.
+    b.box("gold", (0, -d * 0.52, 3.2 * scale), (w * 0.16, 2.2 * scale, 5.2 * scale))
+    for x in (-w * 0.055, -w * 0.018, w * 0.018, w * 0.055):
+        b.box("civicred", (x, -d * 0.52 - 1.2 * scale, 3.4 * scale), (7.2 * scale, 0.8 * scale, 2.6 * scale))
+        b.box("led", (x, -d * 0.52 - 1.4 * scale, 3.4 * scale), (2.8 * scale, 0.3 * scale, 1.1 * scale))
     b.frame = previous
     return {
         "id": "lizhi",

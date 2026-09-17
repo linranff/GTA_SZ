@@ -66,7 +66,39 @@ def build(b, lm, spec, scale=0.6):
         power=1.5,
     )
     wall_cx, wall_cy = rot(0, -(mud * 0.95 + veg * 0.15))
-    b.box("water", (wall_cx, wall_cy, 3.6 * scale), (along * 0.88, 18 * scale, 7.2 * scale))
+    b.box("water", (wall_cx, wall_cy, 0.55 * scale), (along * 0.52, 28 * scale, 1.1 * scale))
+    # 红树林 four plates on the south canopy fascia; not a pier.
+    fascia_y = -veg * 0.06
+    gx, gy = rot(0, fascia_y)
+    b.box("gold", (gx, gy, 3.2 * scale), (36 * scale, 2.2 * scale, 5.2 * scale))
+    for along_off in (-14.0, -4.6, 4.6, 14.0):
+        sx, sy = rot(along_off * scale, fascia_y - 1.2 * scale)
+        b.box("civicred", (sx, sy, 3.4 * scale), (7.2 * scale, 0.8 * scale, 2.6 * scale))
+        b.box("led", (*rot(along_off * scale, fascia_y - 1.4 * scale), 3.4 * scale), (2.8 * scale, 0.3 * scale, 1.1 * scale))
+    for t in (-0.24, 0.0, 0.24):
+        vx, vy = rot(along * t, -(mud * 0.22 + veg * 0.2))
+        b.loft(
+            "leaf",
+            [
+                (vx, vy, 0.8 * scale, along * 0.1, veg * 0.16),
+                (vx, vy, 6.2 * scale, along * 0.08, veg * 0.12),
+                (vx, vy, 10.0 * scale, along * 0.03, veg * 0.04),
+            ],
+            n=8,
+            power=1.4,
+        )
+    for t in (-0.36, -0.12, 0.12, 0.36):
+        vx, vy = rot(along * t, -(mud * 0.55 + veg * 0.4))
+        b.loft(
+            "leaf",
+            [
+                (vx, vy, 0.9 * scale, along * 0.09, veg * 0.14),
+                (vx, vy, 6.8 * scale, along * 0.07, veg * 0.1),
+                (vx, vy, 11.2 * scale, along * 0.03, veg * 0.04),
+            ],
+            n=8,
+            power=1.4,
+        )
     b.frame = previous
     return {
         "id": "mangrove",

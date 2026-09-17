@@ -59,7 +59,7 @@ function assetKind(assetName:string):AssetKind|null{
  const path=assetName.split(/[?#]/,1)[0].replace(/\\/g,'/').replace(/\.glb$/i,'');
  const name=path.slice(path.lastIndexOf('/')+1);
  if(name==='buildings'||name==='facades'||/(?:^|\/)facade-tiles\//.test(path))return 'ordinary';
- if(name==='landmarks')return 'landmark';
+ if(name==='landmarks'||name==='landmark-candidates')return 'landmark';
  if(name==='landmark-detail')return 'detail';
  return null;
 }

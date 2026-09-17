@@ -50,7 +50,7 @@ def build(b, lm, spec, scale=0.6):
         power=1.4,
     )
     wall_cx, wall_cy = rot(0, -(water_w * 0.82 + path_w))
-    b.box("water", (wall_cx, wall_cy, 3.6 * scale), (along * 0.92, 18 * scale, 7.2 * scale))
+    b.box("water", (wall_cx, wall_cy, 0.55 * scale), (along * 0.55, 28 * scale, 1.1 * scale))
     for t in (-0.4, -0.2, 0.0, 0.2, 0.4):
         x = along * t
         y = math.sin((t + 0.5) * math.pi) * 22 * scale
@@ -60,6 +60,20 @@ def build(b, lm, spec, scale=0.6):
     for t in (-0.32, 0.28):
         sx, sy = rot(along * t, path_w * 0.9)
         b.box("stone", (sx, sy, 0.35 * scale), (18 * scale, 4.5 * scale, 0.7 * scale))
+    # 湾公园 four plates on the two existing stones. Do not thicken water.
+    for t, offs in ((-0.32, (-0.35, 0.35)), (0.28, (-0.35, 0.35))):
+        for u in offs:
+            sx, sy = rot(along * t + 6 * u * scale, path_w * 0.9 - 1.2 * scale)
+            b.box("civicred", (sx, sy, 2.4 * scale), (6.4 * scale, 0.8 * scale, 2.2 * scale))
+            b.box("led", (*rot(along * t + 6 * u * scale, path_w * 0.9 - 1.4 * scale), 2.4 * scale), (2.6 * scale, 0.3 * scale, 0.95 * scale))
+    for t in (-0.28, 0.0, 0.28):
+        px, py = rot(along * t, -(water_w * 0.35 + path_w * 1.6))
+        b.tube("bark", (px, py, 0), (px, py, 14 * scale), 0.55 * scale, 5)
+        b.loft("leaf", [(px, py, 9 * scale, 11 * scale, 11 * scale), (px, py, 22 * scale, 1.5 * scale, 1.5 * scale)], n=6)
+    for t in (-0.4, -0.14, 0.14, 0.4):
+        px, py = rot(along * t, -(water_w * 0.52 + path_w * 1.9))
+        b.tube("bark", (px, py, 0), (px, py, 15 * scale), 0.6 * scale, 5)
+        b.loft("leaf", [(px, py, 10 * scale, 12 * scale, 12 * scale), (px, py, 24 * scale, 1.6 * scale, 1.6 * scale)], n=6)
     b.frame = previous
     return {
         "id": "baypark",
