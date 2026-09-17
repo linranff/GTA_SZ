@@ -1,7 +1,7 @@
 {
   "version": 1,
   "bucket": "shenchengji-city",
-  "generatedAt": "2026-09-17T04:17:41.181Z",
+  "generatedAt": "2026-09-17T07:54:45.937Z",
   "minSize": 262144,
   "skipped": [
     "city/street-surfaces.json",
@@ -138,6 +138,13 @@
       "contentType": "application/json",
       "br": true,
       "brSize": 124763
+    },
+    "city/ebikes/parked.json": {
+      "size": 724497,
+      "sha256": "a3f11459fafa4cc0fccd797ab00e75b90f3f94ae62b36de2f9d5d74e931656c9",
+      "contentType": "application/json",
+      "br": true,
+      "brSize": 200494
     },
     "city/environment/belfast-sunset-4k.hdr": {
       "size": 17420114,
