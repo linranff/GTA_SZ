@@ -1,7 +1,7 @@
 {
   "version": 1,
   "bucket": "shenchengji-city",
-  "generatedAt": "2026-09-17T07:54:45.937Z",
+  "generatedAt": "2026-09-17T08:41:22.893Z",
   "minSize": 262144,
   "skipped": [
     "city/street-surfaces.json",
@@ -639,11 +639,11 @@
       "brSize": 591150
     },
     "city/landscape/canopy-trees.json": {
-      "size": 1451241,
-      "sha256": "1205e89a85698f77bd298b7b3b855873cc6682643b10ad1e20abbf100d529c5d",
+      "size": 1301843,
+      "sha256": "a05ca25a872efbd79043a6c52533aacbcf1b0c7c6c1ea589b3e52fa31f018097",
       "contentType": "application/json",
       "br": true,
-      "brSize": 516011
+      "brSize": 466550
     },
     "city/landscape/planting.json": {
       "size": 2748439,
