@@ -147,6 +147,8 @@ npm run build
 npm run preview -- --port 4173
 ```
 
+The public demo is served by Vercel today; a Cloudflare Workers + R2 deployment (large GLB/HDR files from R2 with Brotli, ETag revalidation and Range support) is documented in [cloudflare/README.md](cloudflare/README.md) and runs at `shenchengji.gtasz.workers.dev`.
+
 The standard build copies `public/` assets into `dist/`, including runtime characters in `public/characters/`. `prebuild` checks their size, hashes, GLB format and gait parameters; `build:characters` remains an alias for the same build. CI must fetch Git LFS files too. Original PMX files, local Blender projects and language-model API keys are not required.
 
 ## Controls at a glance
@@ -189,6 +191,8 @@ A full asset rebuild is different from `npm run build`. Read the [asset workflow
 
 ## Data, models and licensing
 
+**Code is MIT-licensed** ([LICENSE](LICENSE)): everything under `src/`, `scripts/`, `tests/`, `cloudflare/`, `ue5/Shenchengji/Source/` and the build configuration. Pull requests are welcome; by contributing code you agree it is released under the same MIT terms. **The license covers code only.** Game assets under `public/`, source data under `data/`, media under `docs/media/` and the character models keep their own terms listed below; do not add an asset to a PR without a matching notice in [public/licenses](public/licenses) or [data/ATTRIBUTION.md](data/ATTRIBUTION.md).
+
 This is currently a noncommercial game prototype. **Publicly readable files do not automatically share one open-source license.** Code, geographic data and third-party assets have separate terms; a project notice cannot replace another rights holder's license.
 
 - Roads and footprints: © OpenStreetMap contributors, ODbL; see [data attribution](data/ATTRIBUTION.md).
@@ -198,4 +202,4 @@ This is currently a noncommercial game prototype. **Publicly readable files do n
 - Kuki Shinobu / Yelan: **models provided by miHoYo; MMD adaptation by 观海 (Guanhai).** [Distribution page](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [Original Kuki archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [Original Yelan archive](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip). Project changes include format conversion, skeleton compatibility, scaling, animation baking and material adaptation. Original terms prohibit commercial use, redistribution, extracting parts for other models and listed inappropriate uses. Attribution and noncommercial use grant no additional permission. The project does not claim permission beyond those terms and is not affiliated with or endorsed by miHoYo / HoYoverse. [Provenance and hashes](public/characters/manifest.json).
 - Other assets and dependencies: retain the notices in [public/licenses](public/licenses). User-supplied or AI-processed assets are not automatically licensed for open redistribution.
 
-The city is compressed, with artistic changes to building heights, facades and terrain. It is not a survey-accurate digital twin of all Shenzhen. A full release still requires a separate decision on the code license and each asset category's distribution scope.
+The city is compressed, with artistic changes to building heights, facades and terrain. It is not a survey-accurate digital twin of all Shenzhen. The code license is settled (MIT); a full release still requires a separate decision on each asset category's distribution scope.

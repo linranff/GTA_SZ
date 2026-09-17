@@ -147,6 +147,8 @@ npm run build
 npm run preview -- --port 4173
 ```
 
+公開デモは現在 Vercel が配信しています。Cloudflare Workers + R2 による配信（大きな GLB/HDR は R2 から Brotli 事前圧縮・ETag 再検証・Range 対応で提供）は [cloudflare/README.md](cloudflare/README.md) に記載し、`shenchengji.gtasz.workers.dev` で稼働しています。
+
 通常のビルドで `public/` を `dist/` へコピーし、`public/characters/` のキャラクターも含めます。`prebuild` がサイズ、ハッシュ、GLB 形式、歩行パラメーターを確認します。`build:characters` は同じビルドの別名です。CI でも Git LFS の取得が必要です。元の PMX、ローカルの Blender プロジェクト、大規模言語モデルの API キーは不要です。
 
 ## 操作一覧
@@ -189,6 +191,8 @@ node scripts/check-character-deployment.mjs
 
 ## データ・モデル・ライセンス
 
+**コードは MIT ライセンス**（[LICENSE](LICENSE)）です。`src/`、`scripts/`、`tests/`、`cloudflare/`、`ue5/Shenchengji/Source/` とビルド設定が対象です。Pull Request を歓迎します。コードを提供した時点で、同じ MIT 条件での公開に同意したものとみなします。**このライセンスはコードのみを対象とします。** `public/` のゲームアセット、`data/` の元データ、`docs/media/` のメディア、キャラクターモデルは以下の各条件に従います。PR にアセットを追加する場合は、[public/licenses](public/licenses) または [data/ATTRIBUTION.md](data/ATTRIBUTION.md) に対応する表記を必ず添えてください。
+
 本作は現在、非商用ゲームのプロトタイプです。**公開して読めることと、全ファイルに共通のオープンソースライセンスがあることは同じではありません。** コード、地理データ、第三者アセットは別々の条件に従い、プロジェクトの宣言で他者の条件を置き換えることはできません。
 
 - 道路・建物の輪郭：© OpenStreetMap contributors、ODbL。[データ帰属](data/ATTRIBUTION.md)。
@@ -198,4 +202,4 @@ node scripts/check-character-deployment.mjs
 - 久岐忍 / 夜蘭：**モデル提供 miHoYo、MMD モデル改造 观海（Guanhai）**。[配布ページ](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [久岐忍の原本](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [夜蘭の原本](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip)。本作では形式変換、骨格互換処理、縮尺調整、動作のベイク、マテリアル調整を行っています。原本の条件は商用利用、再配布、他モデルへの部品流用、列挙された不適切な用途を禁止しています。クレジットや非商用であることは追加の許可を意味しません。本作は原条件を超える許可を取得したとは主張せず、miHoYo / HoYoverse との提携・公式関係もありません。[出所とハッシュ](public/characters/manifest.json)。
 - その他のアセット・依存関係：[public/licenses](public/licenses) の表記を維持してください。ユーザー提供や AI 加工というだけで、自由な再配布が許可されるわけではありません。
 
-街は凝縮され、建物の高さ・外観・地形にはゲーム用の改変があります。深圳全域の測量精度のデジタルツインではありません。本格的な公開・配布には、コードのライセンスと各アセットの配布範囲を別途定める必要があります。
+街は凝縮され、建物の高さ・外観・地形にはゲーム用の改変があります。深圳全域の測量精度のデジタルツインではありません。コードのライセンスは MIT に決まりました。本格的な公開・配布には、各アセットの配布範囲を別途定める必要があります。

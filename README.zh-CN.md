@@ -147,6 +147,8 @@ npm run build
 npm run preview -- --port 4173
 ```
 
+线上试玩目前由 Vercel 提供；Cloudflare Workers + R2 部署（大体积 GLB/HDR 走 R2，支持 Brotli 预压缩、ETag 重验证与 Range）见 [cloudflare/README.md](cloudflare/README.md)，运行在 `shenchengji.gtasz.workers.dev`。
+
 普通构建会把 `public/` 资产复制到 `dist/`，包括 `public/characters/` 中的运行时角色。`prebuild` 校验角色文件大小、哈希、GLB 格式和步态参数；`build:characters` 保留为同一构建的别名。CI 同样需要拉取 Git LFS。不需要本机原始 PMX、Blender 工程或大模型 API Key。
 
 ## 操作速查
@@ -189,6 +191,8 @@ node scripts/check-character-deployment.mjs
 
 ## 数据、模型与许可
 
+**代码采用 MIT 许可**（[LICENSE](LICENSE)）：`src/`、`scripts/`、`tests/`、`cloudflare/`、`ue5/Shenchengji/Source/` 及构建配置均在其内。欢迎 Pull Request；提交代码即表示同意以相同的 MIT 条款发布。**该许可只覆盖代码。** `public/` 下的游戏资产、`data/` 下的源数据、`docs/media/` 下的媒体以及角色模型各自遵循下列条款；向 PR 加入资产时必须同时在 [public/licenses](public/licenses) 或 [data/ATTRIBUTION.md](data/ATTRIBUTION.md) 补上对应声明。
+
 本项目目前是非商业游戏原型。**公开可读不等于所有文件拥有统一开源许可**；代码、地理数据与第三方资产分别处理，不能用一个项目声明覆盖其他权利人的条款。
 
 - 道路、建筑轮廓：© OpenStreetMap contributors，ODbL；见[数据来源](data/ATTRIBUTION.md)。
@@ -198,4 +202,4 @@ node scripts/check-character-deployment.mjs
 - 久岐忍 / 夜兰：**模型提供 miHoYo，MMD 模型改造 观海**。[配布页](https://www.bilibili.com/blackboard/activity-FEYTyCHYZo.html) · [久岐忍原包](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/sWn1QvNF82.zip) · [夜兰原包](https://activity.hdslb.com/blackboard/static/20220525/c84ef0977c17fb1198f6887261fea35f/PEhFH0is3N.zip)。项目做了格式转换、骨架兼容、尺寸调整、动作烘焙和材质适配；原包禁止商业用途、二次配布、拆取部件改造其他模型及列出的不当用途。署名和非商业用途不授予额外许可，项目未取得或宣称取得超出原条款的授权，与 miHoYo / HoYoverse 无隶属或官方合作关系。[角色来源与哈希](public/characters/manifest.json)。
 - 其他资产和依赖：保留 [public/licenses](public/licenses) 中的各项声明；用户提供或经过 AI 处理不自动意味着开放再分发许可。
 
-城市布局经过压缩，建筑高度、外观和坡地含游戏改编；它不是深圳全域的测绘级数字孪生。完整发行前仍需独立处理代码许可证与每类资产的发布范围。
+城市布局经过压缩，建筑高度、外观和坡地含游戏改编；它不是深圳全域的测绘级数字孪生。代码许可已定为 MIT；完整发行前仍需独立决定每类资产的发布范围。
