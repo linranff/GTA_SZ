@@ -2,8 +2,22 @@ import type {CityData,Landmark,V2} from './city-types.ts';
 
 export type DetailLandmark=Landmark & {
  photoDistance?:number;photoTargetHeight?:number;photoElevation?:number;photoAngle?:number;
- detailCollision?:boolean;sourceStatus?:string;
+ detailCollision?:boolean;sourceStatus?:string;candidateKind?:string;
 };
+
+/** Candidate block models draw parks as flat `_park` / `_water` slabs 0–0.8 m above the ground
+ * (深圳湾公园 874×235 m, 人才公园 414×351 m, 红树林 1123×126 m …). They ignore terrain, bypass the
+ * bay water shader and read as glossy blue sheets with trees poking through in aerial view, so the
+ * runtime drops them: every candidate `_water` slab, plus `_park` slabs of park-kind candidates that
+ * are flat (a 49 m 笔架山 block is terrain, not a slab). Building candidates are untouched.
+ */
+export function isCandidateGroundSlab(meshName:string,heightSpan:number,manifest:Pick<LandmarkCandidateManifest,'landmarks'>){
+ const match=meshName.match(/^landmark_(.+)_(water|park)$/);
+ if(!match)return false;
+ if(match[2]==='water')return true;
+ const landmark=manifest.landmarks.find(l=>l.id.replace(/-/g,'_')===match[1]);
+ return landmark?.candidateKind==='park'&&heightSpan<1.5;
+}
 export type TerrainGrid={x0:number;z0:number;dx:number;dz:number;columns:number;rows:number;heights:number[]};
 export type TerrainDetail={schemaVersion:1;id:string;grid:TerrainGrid};
 export type LandmarkDetailManifest={

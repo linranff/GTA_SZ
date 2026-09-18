@@ -6,9 +6,9 @@
 
 **[ブラウザーで試遊 · PC 推奨](https://shenchengji.gtasz.workers.dev/)** · [ソース](https://github.com/linranff/GTA_SZ) · [ランドマークの作業フロー](docs/landmarks/agent-workflow.md) · [キャラクターの記録](docs/characters/local-mmd.md)
 
-![夕暮れの春笋（中国華潤ビル）：エンジン内で撮影した 6 秒の旋回ショット](docs/media/readme/spring-bamboo-sunset.gif)
+![トレーラー冒頭：夜景に立つ平安金融センター、続いて夕暮れの空撮と夜間の高速ドライブ](docs/media/readme/trailer-hero.gif)
 
-*春笋と人才公園を巡る夕暮れのショット。2026-09-17 に現在のアセットでエンジン内撮影。[1080p クリップ](docs/media/readme/spring-bamboo-sunset.mp4)*
+*30 秒のエンジン内トレーラー冒頭：スカイライン、空撮、ドライブ、飛行、カフェ、路上。[トレーラー全編を見る（1080p · 30 秒 · 音声あり）](docs/media/readme/trailer-30s.mp4)*
 
 深圳湾をドライブし、街を歩き、小さな仕事を引き受け、空から街並みを眺める。深城纪（ShenChengJi）は、公開地図データ、Blender のアセット、Babylon.js を組み合わせ、深圳湾・南山・福田・羅湖の一部を凝縮した探索型プロトタイプです。自動車、戦車、徒歩、ドローン、飛行機の各モードと、昼・夕方・夜のライティングがあります。
 
@@ -155,7 +155,7 @@ npm run preview -- --port 4173
 
 ## 操作一覧
 
-![濱海大道の夜間ドライブ、前方に福田のスカイライン](docs/media/readme/binhai-night-drive.gif)
+![トレーラーのドライブ場面：夜の高速で CBD へ、続いて速度計付きの夕暮れの街路](docs/media/readme/trailer-drive.gif)
 
 | モード・入力 | 操作 |
 | --- | --- |

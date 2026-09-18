@@ -6,9 +6,9 @@
 
 **[浏览器直接试玩 · 建议桌面端](https://shenchengji.gtasz.workers.dev/)** · [项目源码](https://github.com/linranff/GTA_SZ) · [地标工作流](docs/landmarks/agent-workflow.md) · [角色制作记录](docs/characters/local-mmd.md)
 
-![黄昏的春笋（中国华润大厦）：引擎内实拍的 6 秒环绕镜头](docs/media/readme/spring-bamboo-sunset.gif)
+![宣传片开场：夜色中的平安金融中心，随后是黄昏航拍与夜间高速驾驶](docs/media/readme/trailer-hero.gif)
 
-*环绕春笋与人才公园的黄昏镜头，2026-09-17 在当前资产上引擎内实拍。[1080p 短片](docs/media/readme/spring-bamboo-sunset.mp4)*
+*30 秒引擎内宣传片开场：天际线、航拍、驾驶、飞行、咖啡馆与街头步行。[观看完整宣传片（1080p · 30 秒 · 有声）](docs/media/readme/trailer-30s.mp4)*
 
 在深圳湾开车，走进街区，做一份小工作，或飞到天际线上方。《深城纪》用开放地图数据、Blender 资产和 Babylon.js，把深圳湾、南山、福田和罗湖的部分区域压缩成可探索的城市。已有汽车、坦克、步行、无人机与飞机模式，以及白天、黄昏、夜晚三种光照。
 
@@ -155,7 +155,7 @@ npm run preview -- --port 4173
 
 ## 操作速查
 
-![滨海大道夜间驾驶，前方是福田天际线](docs/media/readme/binhai-night-drive.gif)
+![宣传片中的驾驭片段：夜间高速驶向 CBD，随后是带速度表的黄昏街道](docs/media/readme/trailer-drive.gif)
 
 | 状态 / 按键 | 操作 |
 | --- | --- |

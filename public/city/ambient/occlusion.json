@@ -1,0 +1,19 @@
+{
+ "version": 1,
+ "file": "occlusion.png",
+ "cell": 4,
+ "minX": -6797,
+ "minZ": -2613,
+ "width": 3399,
+ "height": 1307,
+ "channels": "sky visibility 0–255 at heights[i] metres above the ground plane; 255 = open sky",
+ "heights": [
+  0,
+  12,
+  40
+ ],
+ "fadeTop": 150,
+ "directions": 24,
+ "reachMetres": 200,
+ "source": "Horizon-scan sky visibility over OSM building footprints and heights (public/city/city.json); Lambertian cos² per direction; not a light simulation"
+}

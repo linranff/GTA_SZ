@@ -1,0 +1,146 @@
+{
+ "version": 1,
+ "source": "Original Blender rooftop prop prototypes; artistic typology, not surveyed equipment",
+ "file": "props.glb",
+ "bytes": 266416,
+ "triangles": 3634,
+ "kinds": [
+  {
+   "id": "helipad",
+   "meshes": 4,
+   "triangles": 546,
+   "materials": [
+    "padgrey",
+    "padwhite",
+    "padyellow",
+    "lamp"
+   ]
+  },
+  {
+   "id": "helipad-raised",
+   "meshes": 5,
+   "triangles": 1086,
+   "materials": [
+    "steel",
+    "padgrey",
+    "padwhite",
+    "padyellow",
+    "lamp"
+   ]
+  },
+  {
+   "id": "penthouse-render",
+   "meshes": 2,
+   "triangles": 24,
+   "materials": [
+    "render",
+    "roof"
+   ]
+  },
+  {
+   "id": "penthouse-glass",
+   "meshes": 2,
+   "triangles": 36,
+   "materials": [
+    "darkglass",
+    "silver"
+   ]
+  },
+  {
+   "id": "penthouse-metal",
+   "meshes": 2,
+   "triangles": 216,
+   "materials": [
+    "louvre",
+    "steel"
+   ]
+  },
+  {
+   "id": "stair-bulkhead",
+   "meshes": 4,
+   "triangles": 48,
+   "materials": [
+    "render",
+    "roof",
+    "darkglass",
+    "steel"
+   ]
+  },
+  {
+   "id": "cooling-tower",
+   "meshes": 4,
+   "triangles": 260,
+   "materials": [
+    "louvre",
+    "steel",
+    "roof",
+    "silver"
+   ]
+  },
+  {
+   "id": "ac-unit",
+   "meshes": 2,
+   "triangles": 96,
+   "materials": [
+    "render",
+    "steel"
+   ]
+  },
+  {
+   "id": "water-tank",
+   "meshes": 3,
+   "triangles": 224,
+   "materials": [
+    "steel",
+    "tankwhite",
+    "silver"
+   ]
+  },
+  {
+   "id": "antenna",
+   "meshes": 3,
+   "triangles": 318,
+   "materials": [
+    "steel",
+    "silver",
+    "redled"
+   ]
+  },
+  {
+   "id": "solar-array",
+   "meshes": 3,
+   "triangles": 360,
+   "materials": [
+    "panel",
+    "silver",
+    "steel"
+   ]
+  },
+  {
+   "id": "skylight",
+   "meshes": 2,
+   "triangles": 48,
+   "materials": [
+    "silver",
+    "landmarkglass"
+   ]
+  },
+  {
+   "id": "vent-pipe",
+   "meshes": 1,
+   "triangles": 84,
+   "materials": [
+    "steel"
+   ]
+  },
+  {
+   "id": "crown-screen",
+   "meshes": 2,
+   "triangles": 288,
+   "materials": [
+    "louvre",
+    "steel"
+   ]
+  }
+ ]
+}

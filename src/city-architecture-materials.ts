@@ -107,7 +107,7 @@ function cloneWithoutTextures(source:PBRMaterial,name:string):PBRMaterial{
  * in setupReflections. Unload meshes with dispose(false,false): these materials
  * and textures belong to this scene-wide cache, not to an individual tile.
  */
-export function createArchitectureMaterials(scene:Scene){
+export function createArchitectureMaterials(scene:Scene,onMaterial?:(id:ProfileId,material:PBRMaterial)=>void){
  const materials=new Map<string,{material:PBRMaterial;profile:Profile;id:ProfileId}>();
  const tencentLights=new Map<PBRMaterial,TencentWindowLighting>();
  const materialProfiles=new WeakMap<PBRMaterial,Profile>();
@@ -253,6 +253,8 @@ export function createArchitectureMaterials(scene:Scene){
   }
   applyNight(material,profile);
   managed.add(material);materials.set(key,{material,profile,id});
+  // Lets the roof-surface plugin attach to the shared ordinary roof material without owning this cache.
+  onMaterial?.(id,material);
   return material;
  }
 

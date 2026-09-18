@@ -42,7 +42,7 @@ test('shipped wall UVs encode height as (1-v)*24 in the runtime Y-up frame',asyn
 
 test('facade relief is analytic per-pixel work on the existing wall draw',()=>{
  const engine=new NullEngine(),scene=new Scene(engine),material=new PBRMaterial('office',scene);
- const shared={albedo:null as never,windows:null as never,ready:true,night:false,failures:[]};
+ const shared={albedo:null as never,windows:null as never,relief:null as never,ready:true,reliefReady:true,night:false,failures:[]};
  const plugin=new CityFacadeDiversityPlugin(material,shared),fragment=plugin.getCustomCode('fragment')!;
  const definitions=fragment.CUSTOM_FRAGMENT_DEFINITIONS;
  // Height convention and the four layering terms.
@@ -59,8 +59,12 @@ test('facade relief is analytic per-pixel work on the existing wall draw',()=>{
  const composition=fragment.CUSTOM_FRAGMENT_BEFORE_FINALCOLORCOMPOSITION;
  assert.match(composition,/finalIrradiance\*=cityFacadeSky;finalRadianceScaled\*=cityFacadeSky/);
  assert.doesNotMatch(composition,/finalDiffuse\*=cityFacadeSky/);
- // No new sampler or attribute; the only new uniform is the per-mode sky floor.
- const samplers:string[]=[];plugin.getSamplers(samplers);assert.deepEqual(samplers,['cityFacadeAtlas','cityFacadeWindows']);
+ // One extra sampler (the authored relief atlas, optional via CITY_FACADE_RELIEF); no new attribute.
+ const samplers:string[]=[];plugin.getSamplers(samplers);assert.deepEqual(samplers,['cityFacadeAtlas','cityFacadeWindows','cityFacadeReliefAtlas']);
+ assert.match(definitions,/#ifdef CITY_FACADE_RELIEF\nuniform sampler2D cityFacadeReliefAtlas;/);
+ // Texture slopes join the analytic recess through the same surface-gradient normal.
+ assert.match(definitions,/dhx=dFdx\(h\)\+cityFacadeSlopeScreen\.x,dhy=dFdy\(h\)\+cityFacadeSlopeScreen\.y/);
+ assert.match(definitions,/cityFacadeSlopeScreen=vec2\(dot\(slope,dFdx\(pattern\)\*period\),dot\(slope,dFdy\(pattern\)\*period\)\)/);
  assert.deepEqual(plugin.getUniforms().ubo!.map(u=>u.name),['cityFacadeNight','cityFacadeGlow','cityFacadeSkyFloor']);
  for(const key of ['groundFloor','skyFloor','skyFloorDay','plantWall','plantRate'] as const)assert.ok(FACADE_RELIEF[key]>0&&FACADE_RELIEF[key]<1,key);
  // Daylight bounce lifts the canyon floor but never removes the layering.

@@ -6,9 +6,9 @@
 
 **[Play in the browser · desktop recommended](https://shenchengji.gtasz.workers.dev/)** · [Source](https://github.com/linranff/GTA_SZ) · [Landmark workflow](docs/landmarks/agent-workflow.md) · [Character notes](docs/characters/local-mmd.md)
 
-![Spring Bamboo (China Resources Tower) at sunset: a 6 s in-engine orbit over Shenzhen Bay](docs/media/readme/spring-bamboo-sunset.gif)
+![Trailer opening: Ping An Finance Centre over the night skyline, then sunset aerials and a night highway drive](docs/media/readme/trailer-hero.gif)
 
-*Sunset orbit around Spring Bamboo and Talent Park, captured in-engine from the current assets on 2026-09-17. [1080p clip](docs/media/readme/spring-bamboo-sunset.mp4)*
+*Opening of the 30 s in-engine trailer: skyline, aerials, driving, flight, the café and street level. [Watch the full trailer (1080p, 30 s, with sound)](docs/media/readme/trailer-30s.mp4)*
 
 Drive along Shenzhen Bay, walk through a neighborhood, take a small job, or fly above the skyline. ShenChengJi combines open map data, Blender assets and Babylon.js into a compressed, explorable interpretation of parts of Shenzhen Bay, Nanshan, Futian and Luohu. The prototype includes cars, a tank, walking, drone and aircraft modes, with daylight, sunset and night lighting.
 
@@ -155,7 +155,7 @@ The standard build copies `public/` assets into `dist/`, including runtime chara
 
 ## Controls at a glance
 
-![Night drive along Binhai Boulevard with the Futian skyline ahead](docs/media/readme/binhai-night-drive.gif)
+![Driving in the trailer: night highway toward the CBD, then a golden-hour street run with the speed HUD](docs/media/readme/trailer-drive.gif)
 
 | Mode / input | Action |
 | --- | --- |

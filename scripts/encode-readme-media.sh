@@ -3,14 +3,15 @@
 # 1. dev server on 5173        npm run dev
 # 2. shoot 1080p60 takes        node scripts/record-trailer.mjs --reel=readme   (→ output/readme-reel/takes)
 # 3. this script                scripts/encode-readme-media.sh                 (→ docs/media/readme)
-# GIFs are only made for the two inline loops; dense aerial shots do not fit a GIF budget, so the
-# grid uses JPG stills that link to compact 720p30 H.264 clips. All outputs are Git LFS.
+# The grid uses JPG stills that link to compact 720p30 H.264 clips. The two inline GIF loops now come
+# from the hand-cut trailer instead (scripts/encode-readme-trailer.sh), so no GIFs are made here.
+# All outputs are Git LFS.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 takes=output/readme-reel/takes out=docs/media/readme
 mkdir -p "$out"
 names=(r1:spring-bamboo-sunset r2:futian-axis-day r3:luohu-night r4:tencent-binhai-day r5:binhai-night-drive r6:lianhua-hill-sunset)
-gifs=(r1 r5)
+gifs=()
 for pair in "${names[@]}"; do
   id=${pair%%:*} name=${pair#*:}
   ffmpeg -hide_banner -loglevel error -y -i "$takes/$id.mp4" -c:v libx264 -preset slow -crf 22 -pix_fmt yuv420p -vf scale=1280:-2 -r 30 -movflags +faststart -an "$out/$name.mp4"
